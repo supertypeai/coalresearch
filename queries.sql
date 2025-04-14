@@ -8,15 +8,15 @@ SELECT
 FROM
     company c
 LEFT JOIN 
-    company_ownership co ON co.child_company_id = c.id
+    company_ownership co ON co.company_id = c.id
 LEFT JOIN
 	company parent ON parent.id = co.parent_company_id 
 LEFT JOIN
-	company_ownership co2 ON co2.child_company_id = co.parent_company_id
+	company_ownership co2 ON co2.company_id= co.parent_company_id
 LEFT JOIN
 	company parent2 ON parent2.id = co2.parent_company_id
 LEFT JOIN
-	company_ownership co3 ON co3.child_company_id = co2.parent_company_id
+	company_ownership co3 ON co3.company_id = co2.parent_company_id
 LEFT JOIN
 	company parent3 ON parent3.id = co3.parent_company_id
 	
@@ -41,11 +41,3 @@ FROM
 LEFT JOIN
     coal_company_performance p ON c.id = p.company_id
 	
---INSERT INTO company (name, name_short, idx_ticker, operation_location, representative_address, company_type, key_operation)
---VALUES
---    ('Alam Tri Abadi', 'ATA', NULL, NULL, NULL, 'Trader', 'Trading')
---    
---    
---INSERT INTO company_ownership (parent_company_id, child_company_id, percentage_ownership)
---VALUES
---    (1, 3, NULL)
