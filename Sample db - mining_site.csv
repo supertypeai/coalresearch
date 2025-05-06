@@ -1,0 +1,43 @@
+id,mine_id,name,year_measured,calorific_value,production_volume,overburden_removal_volume,strip_ratio,resources_inferred,resources_indicated,resources_measured,reserves_proved,reserves_probable,province,city
+1,1,Tabang,2022,,,,,,,,,,Kalimantan Timur,Kutai Kartanegara
+2,2,North Pakar,,,,,,,,,,,Kalimantan Timur,Kutai Kartanegara
+3,3,South Pakar,,,,,,,,,,,Kalimantan Timur,Kutai Kartanegara
+4,4,Teguh Sinar Abadi/Firman Ketaun Perkasa,2022,,,,,,,,,,Kalimantan Timur,Kutai Barat
+5,5,Perkasa Inakakerta,2022,,,,,,,,,,Kalimantan Timur,Kutai Timur
+6,6,Wahana Baratama,2022,,,,,,,,,,Kalimantan Selatan,Satui
+7,7,BAS,2022,,,,,,,,,,Kalimantan Timur,Kutai Kartanegara
+8,8,Lampunut,2021,,,,,0,1.2,93,84.6,1.5,Kalimantan Tengah,
+9,9,Haju,2021,,,,,0.1,0.4,3,1.5,0,Kalimantan Tengah,
+10,10,Luon,2021,,,,,6.9,19.3,24.7,0,17.7,Kalimantan Tengah,
+11,11,Bumbun,2021,,,,,56.4,57.8,60.4,0,55.5,Kalimantan Tengah,
+12,12,Dahlia Arwana,2021,,,,,2,6.5,6.5,0,5.6,Kalimantan Tengah,
+13,13,Juloi Northwest,2021,,,,,360.3,269.6,-,-,-,Kalimantan Tengah,
+14,14,Bara,2021,,,,,0.3,4,10.6,7.6,3.2,Kalimantan Tengah,
+15,15,Lati,2022,,7.7,,,68,65,128,36.9,5.3,Kalimantan Timur,Berau
+16,16,Binungan,2022,,12.4,,,412,650,1047,229.8,70.1,Kalimantan Timur,Berau
+17,17,Sambarata,2022,,4,,,85,112,178,16.2,4.2,Kalimantan Timur,Berau
+18,18,Gurimbang,2022,,3.3,,,110,204,231,52.5,18.8,Kalimantan Timur,Berau
+19,19,Parapatan,,,,,,,,,,,,
+20,20,Sangatta,2023,,44.3,466,10.5,,,,,,Kalimantan Timur,Kutai Timur
+21,21,Bengalon,2023,,9.3,117.2,12,,,,,,Kalimantan Timur,Kutai Timur
+22,22,Senakin,2023,,0.5,22.3,0.9,,,,,,Kalimantan Selatan,Kotabaru
+23,23,Satui,2023,,2.9,41.7,2.9,,,,,,Kalimantan Selatan,Tanah Bumbu
+24,24,Mulia/Jumbang,2023,,6.4,21.5,6.3,,,,,,Kalimantan Selatan,Tanah Bumbu
+25,25,Sarongga,2023,,3.3,14.2,3.3,,,,,,Kalimantan Selatan,Tanah Bumbu
+26,26,Asam-asam,2023,,3,18.1,3,,,,,,Kalimantan Selatan,Tanah Laut
+27,27,Kintap,2023,,8.4,64.1,8.4,,,,,,Kalimantan Selatan,Tanah Laut
+28,28,Batulicin,,,,,,,,,,,Kalimantan Selatan,Tanah Bumbu
+29,29,Balangan Coal,2023,,,,,,,,,,Kalimantan Selatan,
+30,30,MIP,2024,,,,,2.3,29.1,329.6,57.6,94.7,Sumatera Selatan,
+31,31,Tutupan Utara,2024,,,,,63.2,201,843.7,258.3,74.8,Kalimantan Selatan,
+32,32,Tutupan Selatan,2024,,,,,33.7,124.8,532.2,59.4,2.2,Kalimantan Selatan,
+33,33,Paringin Utara,2024,,,,,10.2,24,176.7,,,Kalimantan Selatan,
+34,34,Wara I,2024,,,,,89.9,234.6,736.7,78.9,168.4,Kalimantan Selatan,
+35,35,Wara II,2024,,,,,2.7,13,310.8,,,Kalimantan Selatan,
+36,36,Mutara,2021,,,,,54.7,78.1,131.7,65.78,23.8,Sumatera Selatan,"Musi Rawas, Musi Banyuasin"
+37,37,Kukar,2021,,,,,4.51,9.15,21.54,4.88,3.64,Kalimantan Timur,Berau
+38,38,Kubar,2021,,,,,6.2,15.41,20.3,9.79,3.41,Kalimantan Timur,West Kutai
+39,39,Oku,2021,,,,,75.8,119,220,149.3,49.3,Sumatera Selatan,"Martapura, Balfour"
+40,40,Berau,2021,,,,,,,,,,Kalimantan Timur,Berau
+41,41,AGM,,,,,,500,251.2,109.5,42.2,17.4,Kalimantan Selatan,
+42,42,BSSR,,,,,,65.3,104.7,147,20.4,34.2,Kalimantan Timur,

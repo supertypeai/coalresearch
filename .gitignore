@@ -1,2 +1,6 @@
 resources/
 .ipynb_checkpoints*
+.python-version
+updates/
+.venv/
+__pycache__/
