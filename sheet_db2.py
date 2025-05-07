@@ -179,7 +179,7 @@ if checkCompanyEdits() and \
 
 ccp_sheet = client.open_by_key(spreadsheet_id).worksheet('coal_company_performance')
 
-ccp_data = ccp_sheet.get('A1:Y134')
+ccp_data = ccp_sheet.get('A1:Y135')
 ccp_df = pd.DataFrame(ccp_data[1:], columns=ccp_data[0])
 ccp_df = ccp_df.rename(columns={"total_reserve": "reserve", "total_resource":"resource"})
 
