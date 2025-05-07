@@ -1,0 +1,46 @@
+name: Daily Minerba Commodities Scraper
+
+on:
+  schedule:
+    # Run every day at 01:00 UTC
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  update-minerba:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r minerba_commodities_scraper_requirements.txt
+
+      - name: Execute scraper
+        run: |
+          python minerba_commodities_scraper.py
+
+      - name: Pull remote changes
+        run: git pull origin main
+
+      - name: Commit updated database
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add coal-db.sqlite
+          git diff-index --quiet HEAD \
+            || git commit -m "chore: daily update of coal-db.sqlite" --allow-empty
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main

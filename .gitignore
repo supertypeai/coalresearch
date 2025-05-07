@@ -4,3 +4,4 @@ resources/
 updates/
 .venv/
 __pycache__/
+keys/*
