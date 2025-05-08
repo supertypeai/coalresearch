@@ -5,3 +5,4 @@ updates/
 .venv/
 __pycache__/
 keys/*
+.env
