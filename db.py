@@ -6,7 +6,8 @@ from peewee import (
     IntegerField,
     ForeignKeyField,
     FloatField,
-    Check
+    Check,
+    CompositeKey
 )
 operation_province_constraints = (
     "Aceh",
@@ -109,6 +110,21 @@ class Company(Model):
         database = db
         table_name = 'company'
 
+class CompanyOwnership(Model):
+    parent = ForeignKeyField(
+        Company,
+        column_name='parent_company_id'
+    )
+    company = ForeignKeyField(
+        Company,
+        column_name='company_id'
+    )
+    percentage_ownership = FloatField(null=True)
+
+    class Meta:
+        database = db
+        table_name = 'company_ownership'
+        primary_key = CompositeKey('parent', 'company')
 
 class CoalCompanyPerformance(Model):
     id = IntegerField(primary_key=True)

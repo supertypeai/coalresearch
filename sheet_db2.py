@@ -5,7 +5,7 @@ from peewee import (
     SqliteDatabase, IntegrityError, fn
     )
 from google.oauth2.service_account import Credentials
-from db import Company, CoalCompanyPerformance, MiningSite
+from db import Company, CoalCompanyPerformance, MiningSite, CompanyOwnership
 import re
 from tabulate import tabulate
 
@@ -185,54 +185,54 @@ ccp_df = ccp_df.rename(columns={"total_reserve": "reserve", "total_resource":"re
 
 # %%
 
-def syncCompanyNameAndID(execute=False):
+def syncCompanyNameAndID(df, sheet, company_id_col='company_id', company_name_col='*company_name', execute=False):
     unsync_exist = False
-    for row_id, row in ccp_df.iterrows():
+    for row_id, row in df.iterrows():
 
-        if (row['company_id'] is None) or (row['company_id'] == ''):
-            c_q = Company.get_or_none(Company.name == row['*company_name'])
+        if (row[company_id_col] is None) or (row[company_id_col] == ''):
+            c_q = Company.get_or_none(Company.name == row[company_name_col])
             
             if c_q:
-                if c_q.id != row['company_id']:
+                if c_q.id != row[company_id_col]:
                     unsync_exist = True
 
                     if execute:
-                        c_id_col_idx = ccp_df.columns.get_loc('company_id')
-                        ccp_sheet.update_cell(2 + row_id, c_id_col_idx + 1, c_q.id)
+                        c_id_col_idx = df.columns.get_loc(company_id_col)
+                        sheet.update_cell(2 + row_id, c_id_col_idx + 1, c_q.id)
 
-                        print(f"Company id has been filled for {row['*company_name']} with ID: {c_q.id}")
+                        print(f"Company id has been filled for {row[company_name_col]} with ID: {c_q.id}")
 
                     else:
-                        print(f"Company id to be added on Sheet for {row['*company_name']}, ID: {c_q.id}")
-            else:
-                print("Unlisted company:", row['*company_name'])
+                        print(f"Company id to be added on Sheet for {row[company_name_col]}, ID: {c_q.id}")
 
         else:
-            c_q = Company.get_or_none(Company.id == row['company_id'])
+            c_q = Company.get_or_none(Company.id == row[company_id_col])
 
             if c_q:
-                if c_q.name != row['*company_name']:
+                if c_q.name != row[company_name_col]:
                     unsync_exist = True
                     
                     if execute:
-                        c_name_col_idx = ccp_df.columns.get_loc('*company_name')
-                        ccp_sheet.update_cell(2 + row_id, c_name_col_idx + 1, c_q.name)
+                        c_name_col_idx = df.columns.get_loc(company_name_col)
+                        sheet.update_cell(2 + row_id, c_name_col_idx + 1, c_q.name)
 
                         print(f"coal_company_performance sheet on row, col: {2 + row_id}, {c_name_col_idx + 1} has been updated to {c_q.name}")
 
                     else:
                         diff = []
-                        diff.append((c_q.name, row['*company_name']))
+                        diff.append((c_q.name, row[company_name_col]))
 
-                        print("Different naming detected:\n", tabulate(diff, headers=["DB Value", "Sheet Value"], tablefmt="grid"))   
+                        print(f"Different naming detected on row {row_id}:\n", tabulate(diff, headers=["DB Value", "Sheet Value"], tablefmt="grid"))   
             else:
-                print("Unlisted company:", row['*company_name'])
-
+                print("Unlisted company:", row[company_name_col])
+    
     return unsync_exist
 
-if syncCompanyNameAndID() and \
+# %%
+
+if syncCompanyNameAndID(ccp_df, ccp_sheet) and \
     (input("Sycn company names? [Y/N]") == "Y"):
-    syncCompanyNameAndID(execute=True)
+    syncCompanyNameAndID(ccp_df, ccp_sheet, execute=True)
 
 # %%
 
@@ -285,7 +285,8 @@ def checkCPPEditAndInsert(execute=False):
                 change_exist = True
 
                 if execute:
-                    print(f"{field} for {ccp_q.company.name} has been updated to {df_value}")
+                    for diff in differences:
+                        print(f"{diff[0]} for {ccp_q.company.name} {ccp_q.year} has been updated to {diff}")
                     ccp_q.save()
 
                 else:
@@ -373,7 +374,7 @@ def syncCCPID(execute=False):
                 else:
                     print(f"Need to fill in row ID for company name, year: {row['*company_name']}, {row['year']}")
             else:
-                print("Unsync row", ccp_q.id, row['id'])
+                print("Unsync row at", row_id + 2, ccp_q.id, row['id'])
 
     return unsync_exist
 
@@ -381,3 +382,54 @@ if syncCCPID() and \
     (input("Sync coal_company_performance sheet id with DB? [Y/N]") == "Y"):
     syncCCPID(execute=True)
 # %%
+
+if syncCompanyNameAndID(c_df, c_sheet, company_id_col='*parent_company_id', company_name_col='*parent_company_name') and \
+    (input("Sycn company names? [Y/N]") == "Y"):
+    syncCompanyNameAndID(c_df, c_sheet, company_id_col='*parent_company_id', company_name_col='*parent_company_name', execute=True)
+
+# %%
+
+def replaceCO(df):
+
+    def safe_value(val, tp=int):
+        if (pd.isna(val) or val == ""):
+            return None
+        else:
+            return tp(val)
+
+    CompanyOwnership.delete().execute()
+
+    print("All Company Ownership records deleted")
+
+    for _, row in df.iterrows():
+
+        print(row['id'])
+
+        try:
+            with db.atomic():
+
+                parent = Company.get_or_none(Company.name == row['*parent_company_name'])
+                company = Company.get_or_none(Company.name == row['name'])
+
+                if parent and company:
+
+                    CompanyOwnership.insert(
+                        parent=parent.id,
+                        company=company.id,
+                        percentage_ownership=safe_value(row['percentage_ownership'], float)
+                    ).execute()
+
+                    print(f"Inserted for: {parent.id} and {company.id}")
+
+                else:
+                    print(f"{row['*parent_company_name']} and / or {row['name']} is unlisted")
+
+        except Exception as e:
+            print(f"Transaction failed: {e}")
+
+        else:
+            print(f"{row['*parent_company_name']} and {row['name']} added succesfully!")
+
+if (input("Replace company ownerhip according to the sheet?") == "Y"):
+    replaceCO(c_df)
+# %%# %%
