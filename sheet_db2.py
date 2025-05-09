@@ -423,3 +423,156 @@ def replaceCO(df):
 if (input("Replace company ownerhip according to the sheet?") == "Y"):
     replaceCO(c_df)
 # %%# %%
+
+ms_sheet = client.open_by_key(spreadsheet_id).worksheet('mining_site')
+
+ms_data = ms_sheet.get('A1:W43')
+ms_df = pd.DataFrame(ms_data[1:], columns=ms_data[0])
+ms_df = ms_df.rename(columns={"total_reserve": "reserve", "total_resource":"resource"})
+
+if syncCompanyNameAndID(ms_df, ms_sheet) and \
+    (input("Sycn company names? [Y/N]") == "Y"):
+    syncCompanyNameAndID(ms_df, ms_sheet, execute=True)
+
+# %%
+
+ms_field_type = [
+        ('name', str),
+        ('year', int),
+        ('calorific_value', str),
+        ('production_volume', float),
+        ('overburden_removal_volume', float),
+        ('strip_ratio', float),
+        ('reserve', float),
+        ('resource', float),
+        ('province', str),
+        ('city', str),
+        ('mineral_type', str)
+    ]
+
+def checkMSEditAndInsert(df, fields_to_compare, execute=False):
+
+    change_exist = False
+
+    def safe_value(val, tp):
+        if (pd.isna(val) or val == ""):
+            return None
+        else:
+            return tp(val)
+
+    for row_id, row in df.iterrows():
+        q = MiningSite.get_or_none(
+            (MiningSite.name == row['name']) &
+            (MiningSite.company == row['company_id']) & 
+            (MiningSite.year == row['year'])
+        )
+
+        if q:
+            differences = []
+            for field, field_type in fields_to_compare:
+                model_value = getattr(q, field)
+                df_value = safe_value(row[field], field_type)
+
+                if (model_value != df_value):
+                    differences.append([field, model_value, df_value])
+
+                    if execute:
+                        setattr(q, field, df_value)
+
+            if differences:
+
+                change_exist = True
+
+                if execute:
+                    for diff in differences:
+                        print(f"{diff[0]} for {q.name} {q.company.name} {q.year} has been updated to {diff[2]}")
+                    q.save()
+
+                else:
+                    print(f"\nDifferences for company, year '{q.name} {q.company.name} {q.year}':")
+                    print(tabulate(differences, headers=["Field", "DB Value", "CSV Value"], tablefmt="grid"))
+        else:
+
+            if execute == False:
+                print("New Data:", row['id'], row['name'], row['company_id'], row['*company_name'], row['year'])
+            
+            change_exist = True
+
+            if execute:
+                try:
+                    with db.atomic():
+
+                        q_c = Company.get_or_none(Company.name == row['*company_name'])
+
+                        if q_c:
+                            ms = MiningSite(
+                                name=safe_value(row['name'], str),
+                                year=safe_value(row['year'], int),
+                                company=q_c.id,
+                                calorific_value=safe_value(row['calorific_value'], str),
+                                production_volume=safe_value(row['production_volume'], float),
+                                overburden_removal_volume=safe_value(row['overburden_removal_volume'], float),
+                                strip_ratio=safe_value(row['strip_ratio'], float),
+                                reserve=safe_value(row['reserve'], float),
+                                resource=safe_value(row['resource'], float),
+                                province=safe_value(row['province'], str),
+                                city=safe_value(row['city'], str),
+                                mineral_type=safe_value(row['mineral_type'], str),
+                            )
+                            ms.save()
+
+                            print(f"Inserted at ID: {ms.id}")
+
+                        else:
+                            print(f"{row['*company_name']} is unlisted")
+
+                except Exception as e:
+                    print(f"Transaction failed: {e}")
+
+                else:
+                    print(f"{row['*company_name']} added successfully!")
+
+    return change_exist
+
+
+if checkMSEditAndInsert(ms_df, ms_field_type) and \
+    (input("Apply changes? [Y/N]") == "Y"):
+    checkMSEditAndInsert(ms_df, ms_field_type, execute=True)
+# %%
+
+def syncID(df, sheet, execute=False):
+    unsync_exist = False
+
+    def safeCast(val, tp):
+        if (pd.isna(val) or val == ""):
+            return None
+        else:
+            return tp(val)
+
+    for row_id, row in df.iterrows():
+        q = MiningSite.get_or_none(
+            (MiningSite.name == row['name']) &
+            (MiningSite.company == row['company_id']) & 
+            (MiningSite.year == row['year'])
+        )
+
+        if q.id != safeCast(row['id'], int):
+
+            unsync_exist = True
+
+            if (row['id'] is None) or (row['id'] == ''):
+                if execute:
+                    id_col_idx = df.columns.get_loc('id')
+                    sheet.update_cell(2 + row_id, id_col_idx + 1, q.id)
+                    print(f"Synced Mining Site ID: {q.id} for site name, company name, year: {row['name']} {row['*company_name']}, {row['year']}")
+                else:
+                    print(f"Need to fill in row ID for site name, company name, year: {row['name']}, {row['*company_name']}, {row['year']}")
+            else:
+                print("Unsync row at", row_id + 2, q.id, row['id'])
+
+    return unsync_exist
+
+if syncID(ms_df, ms_sheet) and \
+    (input("Sync mining_site sheet id with DB? [Y/N]") == "Y"):
+    syncID(ms_df, ms_sheet, execute=True)
+# %%
