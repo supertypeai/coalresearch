@@ -1,23 +1,10 @@
 # %%
-import gspread
 import pandas as pd
-from google.oauth2.service_account import Credentials
 import re
+from google_sheet_auth import createClient
 
 # %%
-
-SERVICE_ACCOUNT_FILE = 'keys/supertype-insider-d4710ac3561a.json'
-
-# Define scope
-SCOPES = [
-    'https://www.googleapis.com/auth/spreadsheets',
-    'https://www.googleapis.com/auth/drive'
-]
-
-creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-client = gspread.authorize(creds)
-spreadsheet_id = "19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk"
-
+client, spreadsheet_id = createClient()
 ms_sheet = client.open_by_key(spreadsheet_id).worksheet('mining_site')
 
 ms_data = ms_sheet.get('A1:W75')

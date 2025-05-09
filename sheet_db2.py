@@ -1,27 +1,17 @@
 # %%
-import gspread
 import pandas as pd
 from peewee import (
     SqliteDatabase, IntegrityError, fn
     )
-from google.oauth2.service_account import Credentials
 from db import Company, CoalCompanyPerformance, MiningSite, CompanyOwnership
 import re
+from google_sheet_auth import createClient
+
 from tabulate import tabulate
 
 # %%
-# Path to your service account JSON file
-SERVICE_ACCOUNT_FILE = 'keys/supertype-insider-d4710ac3561a.json'
 
-# Define scope
-SCOPES = [
-    'https://www.googleapis.com/auth/spreadsheets',
-    'https://www.googleapis.com/auth/drive'
-]
-
-creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-client = gspread.authorize(creds)
-spreadsheet_id = "19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk"
+client, spreadsheet_id = createClient()
 
 def clean_company_name(name):
     return re.sub(r'\b(PT|Tbk)\b', '', name).lower().strip()
@@ -32,7 +22,7 @@ existing_companies = [clean_company_name(company.name) for company in Company.se
 # %%
 c_sheet = client.open_by_key(spreadsheet_id).worksheet('company')
 
-c_data = c_sheet.get('A1:R250')
+c_data = c_sheet.get('A1:R248')
 c_df = pd.DataFrame(c_data[1:], columns=c_data[0])
 c_df['company_name_cleaned'] = c_df['name'].apply(clean_company_name)
 
@@ -40,8 +30,8 @@ c_df['company_name_cleaned'] = c_df['name'].apply(clean_company_name)
 deleted_companies = []
 
 for company in Company.select():
-    company_name_cleaned = clean_company_name(company.name)
-    if company_name_cleaned not in c_df['company_name_cleaned'].values:
+    
+    if company.id not in c_df['id'].astype(int).values:
         deleted_companies.append((company.id, company.name))
 
 print(f"Deleted company list: \n{deleted_companies}")
