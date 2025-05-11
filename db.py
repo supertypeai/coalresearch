@@ -111,11 +111,11 @@ class Company(Model):
         table_name = 'company'
 
 class CompanyOwnership(Model):
-    parent = ForeignKeyField(
+    parent_company_id = ForeignKeyField(
         Company,
         column_name='parent_company_id'
     )
-    company = ForeignKeyField(
+    company_id = ForeignKeyField(
         Company,
         column_name='company_id'
     )
@@ -128,7 +128,7 @@ class CompanyOwnership(Model):
 
 class CoalCompanyPerformance(Model):
     id = IntegerField(primary_key=True)
-    company = ForeignKeyField(
+    company_id = ForeignKeyField(
         Company,
         column_name='company_id'
     )
@@ -173,7 +173,7 @@ class MiningSite(Model):
     id = IntegerField(primary_key=True)
     name = CharField()
     year = IntegerField(null=True)
-    company = ForeignKeyField(
+    company_id = ForeignKeyField(
         Company,
         column_name='company_id'
     )
