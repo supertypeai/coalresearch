@@ -64,7 +64,17 @@ c_types['phone_number'] = 'string'
 c_df = castTypes(c_df, c_types)
 
 # %%
-def checkDeletedAndOrder(model: pw.ModelBase, df: pd.DataFrame, key='id') -> None:
+
+def deleteID(model:pw.ModelBase, id:int) -> None:
+    q = model.get_by_id(id)
+    q.delete_instance()
+    print(f"ID {id} has been deleted from {model.__name__} table")
+
+# %%
+def checkDeletedAndOrder(model:pw.ModelBase, df:pd.DataFrame, key='id', execute=False) -> bool:
+    
+    change_exists = False
+    
     db_ids = list(
         model.select(getattr(model, key))
         .order_by(getattr(model, key))
@@ -78,8 +88,15 @@ def checkDeletedAndOrder(model: pw.ModelBase, df: pd.DataFrame, key='id') -> Non
     # Check deleted IDs
     deleted_ids = set(db_ids) - set(df_ids)
     if deleted_ids:
-        print(f"Deleted rows from Sheet for model {mn}:")
-        print(deleted_ids)
+
+        if execute:
+            for di in deleted_ids:
+                deleteID(model, di)
+        else:
+            print(f"Deleted rows from Sheet for model {mn}:")
+            print(deleted_ids)
+
+        change_exists = True
 
     # Check ID order
     if db_ids != df_ids:
@@ -87,7 +104,14 @@ def checkDeletedAndOrder(model: pw.ModelBase, df: pd.DataFrame, key='id') -> Non
         print(df_ids)
         print(f"ID order mismatch in model {mn}")
 
-checkDeletedAndOrder(Company, c_df)
+    return change_exists
+
+def confirmChange(func:Callable, model:pw.ModelBase, df:pd.DataFrame, *args, **kwargs) -> None:
+    if func(model, df, *args, **kwargs) and \
+        input("Apply changes? [Y/N]") == "Y":
+        func(model, df, *args, execute=True)
+
+confirmChange(checkDeletedAndOrder, Company, c_df)
 
 # %%
 
@@ -131,11 +155,6 @@ def compareDBSheet(model:pw.ModelBase, df:pd.DataFrame, execute=False) -> bool:
                 print("Different value at ID:", row['id'], c_name, '\n', table)
 
     return diff_exist
-
-def confirmChange(func:Callable, model:pw.ModelBase, df:pd.DataFrame, *args, **kwargs) -> None:
-    if func(model, df, *args, **kwargs) and \
-        input("Apply changes? [Y/N]") == "Y":
-        func(model, df, *args, execute=True)
 
 confirmChange(compareDBSheet, Company, c_df)
 
@@ -187,7 +206,7 @@ ccp_df = castTypes(ccp_df, ccp_types)
 
 # %%
 
-checkDeletedAndOrder(CoalCompanyPerformance, ccp_df)
+confirmChange(checkDeletedAndOrder, CoalCompanyPerformance, ccp_df)
 
 confirmChange(compareDBSheet, CoalCompanyPerformance, ccp_df)
 
@@ -206,7 +225,7 @@ ms_df = castTypes(ms_df, ms_types)
 
 # %%
 
-checkDeletedAndOrder(MiningSite, ms_df)
+confirmChange(checkDeletedAndOrder, MiningSite, ms_df)
 
 confirmChange(compareDBSheet, MiningSite, ms_df)
 
