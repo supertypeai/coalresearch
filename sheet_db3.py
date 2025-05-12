@@ -1,24 +1,16 @@
 # %%
 import pandas as pd
-from peewee import (
-    SqliteDatabase, fn
-    )
+from peewee import SqliteDatabase, fn
 import peewee as pw
 from typing import Callable
 from db import Company, CoalCompanyPerformance, MiningSite, CompanyOwnership
-import re
 from google_sheet_auth import createClient
 from tabulate import tabulate
 
 # %%
 
 client, spreadsheet_id = createClient()
-
-def clean_company_name(name):
-    return re.sub(r'\b(PT|Tbk)\b', '', name).lower().strip()
-
 db = SqliteDatabase('coal_db.sqlite')
-existing_companies = [clean_company_name(company.name) for company in Company.select()]
 
 # %%
 
@@ -65,17 +57,20 @@ def getFieldTypes(model:pw.ModelBase):
 
 c_sheet = client.open_by_key(spreadsheet_id).worksheet('company')
 
-c_data = c_sheet.get('A1:R254')
+c_data = c_sheet.get('A1:R251')
 c_df = pd.DataFrame(c_data[1:], columns=c_data[0])
-c_df['company_name_cleaned'] = c_df['name'].apply(clean_company_name)
 c_types = getFieldTypes(Company)
 c_types['phone_number'] = 'string'
 c_df = castTypes(c_df, c_types)
 
 # %%
 def checkDeletedAndOrder(model: pw.ModelBase, df: pd.DataFrame, key='id') -> None:
-    db_ids = list(model.select(getattr(model, key)).scalars())
-    df_ids = list(df[key].astype(int))
+    db_ids = list(
+        model.select(getattr(model, key))
+        .order_by(getattr(model, key))
+        .scalars()
+        )
+    df_ids = [int(x) for x in df[key] if str(x).strip().isdigit()]
     df_ids = df_ids[:len(db_ids)]
 
     mn = model.__name__
@@ -88,6 +83,8 @@ def checkDeletedAndOrder(model: pw.ModelBase, df: pd.DataFrame, key='id') -> Non
 
     # Check ID order
     if db_ids != df_ids:
+        print(db_ids)
+        print(df_ids)
         print(f"ID order mismatch in model {mn}")
 
 checkDeletedAndOrder(Company, c_df)
@@ -149,7 +146,11 @@ def checkNewData(model:pw.ModelBase, df:pd.DataFrame, field_types:dict, execute=
     found_new = False
     
     for row_idx, row in df.iterrows():
-        q = model.get_or_none(model.id == row['id'])
+
+        rowid = row.get('id')
+        rowid = None if pd.isna(rowid) else rowid
+
+        q = model.get_or_none(model.id == rowid)
         if q is None:
             found_new = True
 
@@ -167,7 +168,8 @@ def checkNewData(model:pw.ModelBase, df:pd.DataFrame, field_types:dict, execute=
                 print(f"Insert successfull! For {model.__name__} table on ID: {m.id}")
 
             else:
-                print(f"New data to add: {row.to_dict()}")
+                row_to_add = row[[ft for ft in field_types]]
+                print(f"New data to add: {row_to_add.to_dict()}")
 
     return found_new
 
@@ -177,7 +179,7 @@ confirmChange(checkNewData, Company, c_df, c_types)
 
 ccp_sheet = client.open_by_key(spreadsheet_id).worksheet('coal_company_performance')
 
-ccp_data = ccp_sheet.get('A1:Y135')
+ccp_data = ccp_sheet.get('A1:Y138')
 ccp_df = pd.DataFrame(ccp_data[1:], columns=ccp_data[0])
 ccp_df = ccp_df.rename(columns={"total_reserve": "reserve", "total_resource":"resource"})
 ccp_types = getFieldTypes(CoalCompanyPerformance)
@@ -188,3 +190,25 @@ ccp_df = castTypes(ccp_df, ccp_types)
 checkDeletedAndOrder(CoalCompanyPerformance, ccp_df)
 
 confirmChange(compareDBSheet, CoalCompanyPerformance, ccp_df)
+
+confirmChange(checkNewData, CoalCompanyPerformance, ccp_df, ccp_types)
+
+
+# %%
+
+ms_sheet = client.open_by_key(spreadsheet_id).worksheet('mining_site')
+
+ms_data = ms_sheet.get('A1:W43')
+ms_df = pd.DataFrame(ms_data[1:], columns=ms_data[0])
+ms_df = ms_df.rename(columns={"total_reserve": "reserve", "total_resource":"resource"})
+ms_types = getFieldTypes(MiningSite)
+ms_df = castTypes(ms_df, ms_types)
+
+# %%
+
+checkDeletedAndOrder(MiningSite, ms_df)
+
+confirmChange(compareDBSheet, MiningSite, ms_df)
+
+confirmChange(checkNewData, MiningSite, ms_df, ms_types)
+# %%
