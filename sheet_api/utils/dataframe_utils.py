@@ -1,0 +1,36 @@
+import pandas as pd
+
+def convertColType(df: pd.DataFrame, col: str, c_type: type) -> pd.Series:
+    return df[col].replace('', pd.NA).astype(c_type)
+
+def forceConvert(df: pd.DataFrame, col: str, c_type: type) -> pd.Series:
+    for row_id, row in enumerate(df[col]):
+        try:
+            _ = pd.Series([row]).astype(c_type)
+        except (TypeError, ValueError):
+            df.at[row_id, col] = pd.NA
+    return convertColType(df, col, c_type)
+
+def castTypes(df: pd.DataFrame, types: dict) -> pd.DataFrame:
+    for col, c_type in types.items():
+        try:
+            df[col] = convertColType(df, col, c_type)
+        except (TypeError, ValueError):
+            df[col] = forceConvert(df, col, c_type)
+    return df
+
+type_map = {
+    'IntegerField': 'Int64',
+    'FloatField': 'Float64',
+    'CharField': 'string',
+    'TextField': 'string',
+    'BooleanField': 'boolean',
+    'ForeignKeyField': 'Int64',
+}
+
+def getFieldTypes(model) -> dict:
+    field_types = {}
+    for field in model._meta.sorted_fields:
+        dtype = type_map.get(type(field).__name__, 'string')
+        field_types[field.name] = dtype
+    return field_types

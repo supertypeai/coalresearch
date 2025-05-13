@@ -3,9 +3,9 @@ import pandas as pd
 from peewee import (
     SqliteDatabase, IntegrityError, fn
     )
-from db import Company, CoalCompanyPerformance, MiningSite, CompanyOwnership
+from sheet_api.db.models import Company, CoalCompanyPerformance, MiningSite, CompanyOwnership
 import re
-from google_sheet_auth import createClient
+from sheet_api.google_sheets.auth import createClient
 
 from tabulate import tabulate
 

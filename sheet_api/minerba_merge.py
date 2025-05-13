@@ -1,7 +1,7 @@
 # %%
 import pandas as pd
 import re
-from google_sheet_auth import createClient
+from sheet_api.google_sheets.auth import createClient
 
 client, spreadsheet_id = createClient()
 
