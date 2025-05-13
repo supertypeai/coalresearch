@@ -87,13 +87,14 @@ def replaceCO(co_model, c_model, df) -> None:
 
         parent = c_model.get_or_none(c_model.name == safeCast(row['*parent_company_name'], str))
         company = c_model.get_or_none(c_model.name == safeCast(row['name'], str))
+        ownership = safeCast(row['*percentage_ownership'], float)
 
-        if parent and company:
+        if parent and company and ownership:
 
             co_model.insert(
                 parent_company_id=parent.id,
                 company_id=company.id,
-                percentage_ownership=safeCast(row['percentage_ownership'], float)
+                percentage_ownership=ownership
             ).execute()
 
             print(f"Inserted parent_id: {parent.id}, company_id: {company.id}")
