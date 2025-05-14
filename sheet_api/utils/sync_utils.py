@@ -18,6 +18,9 @@ def checkDeletedAndOrder(model, df, key='id', execute=False) -> bool:
         if execute:
             for di in deleted_ids:
                 deleteID(model, di)
+
+            return False
+
         else:
             print(f"Deleted rows from Sheet for model {model.__name__}: {deleted_ids}")
     
@@ -44,9 +47,10 @@ def compareDBSheet(model, df, execute=False) -> bool:
         if diff:
             diff_exist = True
             if execute:
-                for field_name, _, new_val in diff:
+                for field_name, old_val, new_val in diff:
                     setattr(model_row, field_name, new_val)
                 model_row.save()
+                print(f"Updated for {model.__name__} at {model_row}, {field_name}: {old_val} -> {new_val} ")
             else:
                 c_name = row.get('name', row.get('*company_name'))
                 print(f"Different value at ID {row['id']} {c_name}:\n{tabulate(diff, headers=['Field', 'DB Value', 'Sheet Value'], tablefmt='grid')}")
@@ -68,7 +72,7 @@ def checkNewData(model, df, field_types: dict, execute=False) -> bool:
 
 def confirmChange(func: Callable, model, df, *args, **kwargs) -> None:
     if func(model, df, *args, **kwargs):
-        if input("Apply changes? [Y/N]") == "Y":
+        if input(f"Apply changes for {func.__name__} ? [Y/N]") == "Y":
             func(model, df, *args, execute=True, **kwargs)
 
 def replaceCO(co_model, c_model, df) -> None:

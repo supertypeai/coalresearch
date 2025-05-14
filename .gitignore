@@ -6,3 +6,4 @@ updates/
 __pycache__/
 keys/*
 .env
+.vscode/*
