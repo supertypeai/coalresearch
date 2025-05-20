@@ -63,7 +63,6 @@ CREATE TABLE IF NOT EXISTS mining_contract (
   id INTEGER PRIMARY KEY,
   mine_owner_id INTEGER,
   contractor_id INTEGER,
-  mine_id INTEGER,
   contract_period_end TEXT
 );
 
