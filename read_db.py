@@ -68,11 +68,11 @@ def list_tables_with_structure():
             print(f"{cid} | {name} | {col_type} | {notnull} | {dflt} | {pk}")
 
 
-def list_tables_with_structure(db_path: str, sample_limit: int = 5):
+def list_tables_with_structure_and_indexes(db_path: str, sample_limit: int = 5):
     """
     Connect to the SQLite file at `db_path`, list all user tables,
-    print each table's column definitions, and show up to `sample_limit`
-    rows of sample data.
+    print each table's column definitions, show up to `sample_limit`
+    rows of sample data, and display all indexes for each table.
     """
     if not os.path.exists(db_path):
         print(f"Database file not found: {db_path}")
@@ -88,7 +88,7 @@ def list_tables_with_structure(db_path: str, sample_limit: int = 5):
         FROM sqlite_master
         WHERE type = 'table'
           AND name NOT LIKE 'sqlite_%';
-    """
+        """
     )
     tables = [row[0] for row in cursor.fetchall()]
 
@@ -99,7 +99,7 @@ def list_tables_with_structure(db_path: str, sample_limit: int = 5):
         for tbl in tables:
             print(f" - {tbl}")
 
-        # 2) For each table: describe schema and sample data
+        # 2) For each table: describe schema, sample data, and indexes
         for table in tables:
             # Schema
             cursor.execute(f"PRAGMA table_info('{table}');")
@@ -123,10 +123,27 @@ def list_tables_with_structure(db_path: str, sample_limit: int = 5):
                 print(header)
                 print(separator)
                 for row in rows:
-                    # Convert each value to str to handle None, etc.
                     print(" | ".join(str(val) for val in row))
             else:
                 print(f"\n`{table}` is empty.")
+
+            # Indexes
+            cursor.execute(f"PRAGMA index_list('{table}');")
+            index_list = cursor.fetchall()  # (seq, name, unique, origin, partial)
+            if index_list:
+                print(f"\nIndexes on `{table}`:")
+                print("seq | name | unique | origin | partial")
+                print("-" * 50)
+                for seq, idx_name, unique, origin, partial in index_list:
+                    print(f"{seq} | {idx_name} | {unique} | {origin} | {partial}")
+
+                    # Details for each index: columns
+                    cursor.execute(f"PRAGMA index_info('{idx_name}');")
+                    idx_info = cursor.fetchall()  # (seqno, cid, name)
+                    cols = [info[2] for info in idx_info]
+                    print(f"    -> Columns: {', '.join(cols)}")
+            else:
+                print(f"\nNo indexes found on `{table}`.")
 
     cursor.close()
     conn.close()
@@ -139,7 +156,7 @@ try:
 
     # New: list all tables and their structure
     # list_tables_with_structure()
-    list_tables_with_structure(DEV_DB_FILE, 5)
+    list_tables_with_structure_and_indexes(DEV_DB_FILE, 5)
 
 
 finally:
