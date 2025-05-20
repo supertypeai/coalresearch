@@ -23,56 +23,12 @@ else:
 client = create_client_sync(url=db_url, auth_token=auth_token)
 
 
-def fetch_and_print(table_name: str, limit: int = 5):
-    """Fetch and print up to `limit` rows from `table_name`, plus its columns."""
-    # Fetch sample rows
-    sample = client.execute(f"SELECT * FROM {table_name} LIMIT {limit};")
-    # Get column names via PRAGMA
-    pragma = client.execute(f"PRAGMA table_info('{table_name}');")
-    cols = [col_row[1] for col_row in pragma.rows]
-
-    # Print header
-    header = " | ".join(cols)
-    separator = "-" * len(header)
-    print(f"\nTable: {table_name}")
-    print(header)
-    print(separator)
-
-    # Print rows
-    for row in sample.rows:
-        print(" | ".join(str(item) for item in row))
-
-
-def list_tables_with_structure():
-    """
-    List all user tables in the database and print out their column structures.
-    """
-    # 1) Get all table names
-    result = client.execute(
-        "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';"
-    )
-    table_names = [row[0] for row in result.rows]
-
-    print("\nFound tables:")
-    for tbl in table_names:
-        print(f" - {tbl}")
-
-    # 2) For each table, show its schema
-    for table in table_names:
-        pragma = client.execute(f"PRAGMA table_info('{table}');")
-        cols = pragma.rows  # each row: (cid, name, type, notnull, dflt_value, pk)
-        print(f"\nStructure of `{table}`:")
-        print("cid | name | type | notnull | default | pk")
-        print("-" * 40)
-        for cid, name, col_type, notnull, dflt, pk in cols:
-            print(f"{cid} | {name} | {col_type} | {notnull} | {dflt} | {pk}")
-
-
 def list_tables_with_structure_and_indexes(db_path: str, sample_limit: int = 5):
     """
     Connect to the SQLite file at `db_path`, list all user tables,
     print each table's column definitions, show up to `sample_limit`
-    rows of sample data, and display all indexes for each table.
+    rows of sample data, display all indexes, and show foreign keys
+    for each table.
     """
     if not os.path.exists(db_path):
         print(f"Database file not found: {db_path}")
@@ -99,9 +55,9 @@ def list_tables_with_structure_and_indexes(db_path: str, sample_limit: int = 5):
         for tbl in tables:
             print(f" - {tbl}")
 
-        # 2) For each table: describe schema, sample data, and indexes
+        # 2) For each table: describe schema, sample data, indexes, and FKs
         for table in tables:
-            # Schema
+            print(f"\nStructure of `{table}`:")
             cursor.execute(f"PRAGMA table_info('{table}');")
             cols = cursor.fetchall()  # (cid, name, type, notnull, dflt_value, pk)
 
@@ -109,7 +65,6 @@ def list_tables_with_structure_and_indexes(db_path: str, sample_limit: int = 5):
             header = " | ".join(col_names)
             separator = "-" * len(header)
 
-            print(f"\nStructure of `{table}`:")
             print("cid | name | type | notnull | default | pk")
             print("-" * 50)
             for cid, name, col_type, notnull, dflt, pk in cols:
@@ -136,8 +91,6 @@ def list_tables_with_structure_and_indexes(db_path: str, sample_limit: int = 5):
                 print("-" * 50)
                 for seq, idx_name, unique, origin, partial in index_list:
                     print(f"{seq} | {idx_name} | {unique} | {origin} | {partial}")
-
-                    # Details for each index: columns
                     cursor.execute(f"PRAGMA index_info('{idx_name}');")
                     idx_info = cursor.fetchall()  # (seqno, cid, name)
                     cols = [info[2] for info in idx_info]
@@ -145,19 +98,39 @@ def list_tables_with_structure_and_indexes(db_path: str, sample_limit: int = 5):
             else:
                 print(f"\nNo indexes found on `{table}`.")
 
+            # Foreign keys
+            cursor.execute(f"PRAGMA foreign_key_list('{table}');")
+            fkeys = (
+                cursor.fetchall()
+            )  # (id, seq, table, from, to, on_update, on_delete, match)
+            if fkeys:
+                print(f"\nForeign keys for `{table}`:")
+                print(
+                    "id | seq | foreign_table | from_column | to_column | on_update | on_delete | match"
+                )
+                print("-" * 80)
+                for (
+                    fid,
+                    seq,
+                    ref_table,
+                    from_col,
+                    to_col,
+                    on_upd,
+                    on_del,
+                    match,
+                ) in fkeys:
+                    print(
+                        f"{fid} | {seq} | {ref_table} | {from_col} | {to_col} | {on_upd} | {on_del} | {match}"
+                    )
+            else:
+                print(f"\nNo foreign keys defined on `{table}`.")
+
     cursor.close()
     conn.close()
 
 
-try:
-    # Sample: print first few rows of specific tables
-    # fetch_and_print("commodities", limit=5)
-    # fetch_and_print("commodity_prices", limit=5)
-
-    # New: list all tables and their structure
-    # list_tables_with_structure()
-    list_tables_with_structure_and_indexes(DEV_DB_FILE, 5)
-
-
-finally:
-    client.close()
+if __name__ == "__main__":
+    try:
+        list_tables_with_structure_and_indexes(DEV_DB_FILE, 5)
+    finally:
+        client.close()
