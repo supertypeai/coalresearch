@@ -7,3 +7,4 @@ __pycache__/
 keys/*
 .env
 .vscode/*
+sheet_api/keys/*
