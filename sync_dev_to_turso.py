@@ -7,7 +7,7 @@ def sync_nine_tables_to_turso(sqlite_path: str):
     """
     Bulk-sync nine tables from local SQLite to Turso using HTTP client.
 
-    Tables and their actual SQLite schemas:
+    Tables:
       - company
       - company_ownership
       - company_performance
@@ -49,29 +49,12 @@ def sync_nine_tables_to_turso(sqlite_path: str):
         client = create_client_sync(url=db_url, auth_token=auth_token)
         print("Turso client created successfully.")
 
-        # 3. Ensure remote schema matches actual SQLite structures
-        schema_stmts = [
-            "CREATE TABLE IF NOT EXISTS company (id INTEGER PRIMARY KEY, name TEXT NOT NULL, idx_ticker TEXT, operation_province TEXT, operation_kabkot TEXT, representative_address TEXT, company_type TEXT, key_operation TEXT NOT NULL, activities TEXT, website TEXT, phone_number INTEGER, email TEXT);",
-            "CREATE TABLE IF NOT EXISTS company_ownership (parent_company_id INTEGER PRIMARY KEY, company_id INTEGER NOT NULL, percentage_ownership DECIMAL(10,5) NOT NULL);",
-            "CREATE TABLE IF NOT EXISTS company_performance (id INTEGER PRIMARY KEY, company_id INTEGER NOT NULL, year INTEGER NOT NULL, commodity_type TEXT, commodity_sub_type TEXT, mining_operation_status TEXT, mining_license TEXT, production_volume DECIMAL(10,5), sales_volume DECIMAL(10,5), overburden_removal_volume DECIMAL(10,5), strip_ratio DECIMAL(10,5), resources_reserves TEXT, product TEXT);",
-            "CREATE TABLE IF NOT EXISTS export_destination (id INTEGER PRIMARY KEY, country TEXT NOT NULL, year INTEGER NOT NULL, commodity_type TEXT, export_USD DECIMAL(10,5), export_volume_BPS DECIMAL(10,5), export_volume_ESDM DECIMAL(10,5));",
-            "CREATE TABLE IF NOT EXISTS mining_contract (mine_owner_id INTEGER PRIMARY KEY, contractor_id INTEGER NOT NULL, contract_period_end TEXT);",
-            "CREATE TABLE IF NOT EXISTS mining_site (id INTEGER PRIMARY KEY, name TEXT NOT NULL, project_name TEXT, year INTEGER NOT NULL, mineral_type TEXT, company_id INTEGER NOT NULL, production_volume DECIMAL(10,5), overburden_removal_volume DECIMAL(10,5), strip_ratio DECIMAL(10,5), resources_reserves TEXT, location TEXT);",
-            "CREATE TABLE IF NOT EXISTS resources_and_reserves (id INTEGER PRIMARY KEY, province TEXT NOT NULL, year INTEGER NOT NULL, commodity_type TEXT, exploration_target_1 DECIMAL(10,5), total_inventory_1 DECIMAL(10,5), resources_inferred DECIMAL(10,5), resources_indicated DECIMAL(10,5), resources_measured DECIMAL(10,5), resources_total DECIMAL(10,5), verified_resources_2 DECIMAL(10,5), reserves_1 DECIMAL(10,5), verified_reserves_2 DECIMAL(10,5));",
-            "CREATE TABLE IF NOT EXISTS total_commodities_production (id INTEGER PRIMARY KEY, commodity_type TEXT, production_volume DECIMAL(10,5), unit TEXT, year INTEGER NOT NULL);",
-            "CREATE TABLE IF NOT EXISTS commodity (commodity_id INTEGER PRIMARY KEY, name TEXT NOT NULL, name_english TEXT, unit TEXT, price TEXT);",
-        ]
-        for stmt in schema_stmts:
-            print(f"Executing DDL: {stmt}")
-            client.execute(stmt)
-        print("All schema statements executed.")
-
-        # 4. Connect to local SQLite
+        # 3. Connect to local SQLite
         print(f"Connecting to SQLite at {sqlite_path}")
         conn = sqlite3.connect(sqlite_path)
         cur = conn.cursor()
 
-        # 5. Fetch local data for all tables
+        # 4. Fetch local data for all tables
         print("Fetching local data...")
         local = {}
         tables = [
@@ -176,7 +159,7 @@ def sync_nine_tables_to_turso(sqlite_path: str):
             local[tbl] = rows
             print(f"Fetched {len(rows)} rows from {tbl}.")
 
-        # 6. Clear remote tables (child-first)
+        # 5. Clear remote tables (child-first)
         delete_order = [
             "company_ownership",
             "company_performance",
@@ -193,7 +176,7 @@ def sync_nine_tables_to_turso(sqlite_path: str):
             client.execute(f"DELETE FROM {tbl};")
         print("Remote tables cleared.")
 
-        # 7. Insert base tables and build mappings
+        # 6. Insert base tables and build mappings
         id_maps = {}
         # commodity
         print("Inserting commodity...")
@@ -281,7 +264,7 @@ def sync_nine_tables_to_turso(sqlite_path: str):
             for row in client.execute("SELECT id FROM mining_site;").rows
         }
 
-        # 8. Insert dependent tables
+        # 7. Insert dependent tables
         print("Inserting company_ownership...")
         for parent_id, comp_id, pct in local["company_ownership"]:
             client.execute(
@@ -338,4 +321,5 @@ def sync_nine_tables_to_turso(sqlite_path: str):
             print("Closed Turso client.")
 
 
+# Static invocation
 sync_nine_tables_to_turso("db.sqlite")
