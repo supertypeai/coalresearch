@@ -22,7 +22,7 @@ END_RANGE = f"{end.month:02d}/{end.year}"
 
 # ─── CONFIG ─────────────────────────────────────────────────────────────────────
 HOME_URL = "https://www.minerba.esdm.go.id/harga_acuan"
-DB_PATH = "coal-db.sqlite"
+DB_PATH = "db.sqlite"
 load_dotenv()
 
 # ─── HELPERS ────────────────────────────────────────────────────────────────────
