@@ -89,6 +89,7 @@ if __name__ == "__main__":
     # %%
 
     # %%
+    sync_model("coal_product", "A1:L56", CoalProduct, rename)
     sync_model("mining_license", "A1:O958", MiningLicense, rename)
     sync_model(
         "coal_resources_and_reserves", "A1:L24", CoalResourcesAndReserves, rename
