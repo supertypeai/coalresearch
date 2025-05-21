@@ -1,16 +1,15 @@
 from peewee import (
     Model,
     SqliteDatabase,
-    CharField,
     TextField,
     IntegerField,
+    DecimalField,
     ForeignKeyField,
-    FloatField,
     Check,
     CompositeKey,
 )
 
-operation_province_constraints = (
+province_constraints = (
     "Aceh",
     "Bali",
     "Kepulauan Bangka Belitung",
@@ -63,7 +62,14 @@ key_operation_constraints = (
     "Coal Trading",
     "Investment",
 )
-
+commodity_type_constraints = (
+    "Coal",
+    "Aluminium",
+    "Gold",
+    "Zinc and Lead",
+    "Oil",
+    "Nickel",
+)
 mineral_type_constraints = (
     "Coal",
     "Aluminium",
@@ -72,32 +78,37 @@ mineral_type_constraints = (
     "Oil",
     "Nickel",
 )
+mining_operation_status_constraints = (
+    "production", 
+    "development", 
+    "inactive"
+)
 
 # %%
-db = SqliteDatabase("coal-db.sqlite")
-
+db = SqliteDatabase("db.sqlite")
 
 # %%
 class Company(Model):
     id = IntegerField(primary_key=True)
-    name = CharField()
-    idx_ticker = CharField(null=True)
-    operation_province = CharField(
+    name = TextField()
+    idx_ticker = TextField(null=True)
+    operation_province = TextField(
         null=True,
-        constraints=[Check(f"operation_province IN {operation_province_constraints}")],
-    )
-    operation_kabkot = CharField(null=True)
+        constraints=[Check(f"operation_province IN {province_constraints}")],
+    )    
+    operation_kabkot = TextField(null=True)
     representative_address = TextField(null=True)
-    company_type = CharField(
-        null=True, constraints=[Check(f"company_type IN {company_type_constraints}")]
+    company_type = TextField(
+        null=True, 
+        constraints=[Check(f"company_type IN {company_type_constraints}")]
     )
-    key_operation = CharField(
+    key_operation = TextField(
         constraints=[Check(f"key_operation IN {key_operation_constraints}")]
     )
     activities = TextField(null=True, constraints=[Check("json_valid(activities)")])
-    website = CharField(null=True)
+    website = TextField(null=True)
     phone_number = IntegerField(null=True)
-    email = CharField(null=True)
+    email = TextField(null=True)
 
     class Meta:
         database = db
@@ -107,173 +118,138 @@ class Company(Model):
 class CompanyOwnership(Model):
     parent_company_id = ForeignKeyField(Company, column_name="parent_company_id")
     company_id = ForeignKeyField(Company, column_name="company_id")
-    percentage_ownership = FloatField(null=True)
+    percentage_ownership = DecimalField()
 
     class Meta:
         database = db
         table_name = "company_ownership"
-        primary_key = CompositeKey("parent", "company")
+        primary_key = CompositeKey("parent_company_id", "company_id")
 
 
-class CoalCompanyPerformance(Model):
+class CompanyPerformance(Model):
     id = IntegerField(primary_key=True)
     company_id = ForeignKeyField(Company, column_name="company_id")
-    year = IntegerField(null=True)
-    mineral_type = CharField(
-        null=True, constraints=[Check(f"mineral_type IN {mineral_type_constraints}")]
+    year = IntegerField()
+    commodity_type = TextField(
+        null=True, 
+        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")]
     )
-    calorific_value = CharField(null=True)
-    mining_operation_status = CharField(
+    commodity_sub_type = TextField(null=True)
+    mining_operation_status = TextField(
         null=True,
-        constraints=[
-            Check(
-                "mining_operation_status IN ('production', 'development', 'inactive')"
-            )
-        ],
+        constraints=[Check(f"mining_operation_status IN {mining_operation_status_constraints}")],
     )
-    mining_permit = CharField(
+    mining_license = TextField(
         null=True,
-        constraints=[
-            Check("mining_permit IN ('IUP', 'IUPK', 'PKP2B', 'IUPJ', 'WIUP')")
-        ],
+        constraints=[Check("json_valid(mining_license)")]
     )
-    area = IntegerField(null=True)
-    production_volume = FloatField(null=True)
-    sales_volume = FloatField(null=True)
-    overburden_removal_volume = FloatField(null=True)
-    strip_ratio = FloatField(null=True)
-    reserve = FloatField(null=True)
-    resource = FloatField(null=True)
-    mineral_sub_type = CharField(null=True)
-    area_geometry = TextField(
-        null=True, constraints=[Check("json_valid(area_geometry)")]
+    production_volume = DecimalField(null=True)
+    sales_volume = DecimalField(null=True)
+    overburden_removal_volume = DecimalField(null=True)
+    strip_ratio = DecimalField(null=True)
+    resources_reserves = TextField(
+        null=True,
+        constraints=[Check("json_valid(resources_reserves)")]
+    )
+    product = TextField(
+        null=True, 
+        constraints=[Check("json_valid(product)")]
     )
 
     class Meta:
         database = db
-        table_name = "coal_company_performance"
+        table_name = "company_performance"
 
 
 class MiningSite(Model):
     id = IntegerField(primary_key=True)
-    name = CharField()
-    year = IntegerField(null=True)
-    company_id = ForeignKeyField(Company, column_name="company_id")
-    calorific_value = CharField(null=True)
-    production_volume = FloatField(null=True)
-    overburden_removal_volume = FloatField(null=True)
-    strip_ratio = FloatField(null=True)
-    reserve = FloatField(null=True)
-    resource = FloatField(null=True)
-    province = CharField(
-        null=True, constraints=[Check(f"province IN {operation_province_constraints}")]
+    name = TextField()
+    project_name = TextField(null=True)
+    year = IntegerField()
+    mineral_type = TextField(
+        null=True, 
+        constraints=[Check(f"mineral_type IN {mineral_type_constraints}")]
     )
-    city = CharField(null=True)
-    mineral_type = CharField(
-        null=True, constraints=[Check(f"mineral_type IN {mineral_type_constraints}")]
+    company_id = ForeignKeyField(Company, column_name="company_id")
+    production_volume = DecimalField(null=True)
+    overburden_removal_volume = DecimalField(null=True)
+    strip_ratio = DecimalField(null=True)
+    resources_reserves = TextField(
+        null=True,
+        constraints=[Check("json_valid(resources_reserves)")]
+    )
+    location = TextField(
+        null=True, 
+        constraints=[Check("json_valid(location)")]
     )
 
     class Meta:
         database = db
         table_name = "mining_site"
 
-
-class MiningLicense(Model):
+class ResourcesAndReserves(Model):
     id = IntegerField(primary_key=True)
-    province = CharField(
-        null=True, constraints=[Check(f"province IN {operation_province_constraints}")]
+    province = TextField( 
+        constraints=[Check(f"province IN {province_constraints}")]
     )
-    district = CharField()
-    permit_type = CharField(
-        null=True,
-        constraints=[Check("permit_type IN ('IUP', 'IUPK', 'PKP2B', 'IUPJ', 'WIUP')")],
+    year = IntegerField()
+    commodity_type = TextField(
+        null=True, 
+        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")]
     )
-    business_entity = CharField(null=True)
-    business_name = CharField()
-    mining_license_number = CharField(null=True)
-    permit_effective_date = IntegerField(null=True)
-    permit_expiry_date = IntegerField(null=True)
-    activity = CharField(null=True)
-    licensed_area = FloatField(null=True)
-    cnc = CharField(null=True)
-    generation = CharField(null=True)
-    location = TextField(null=True)
-    geometry = TextField(null=True)
+    exploration_target_1 = DecimalField(null=True)
+    total_inventory_1 = DecimalField(null=True)
+    resources_inferred = DecimalField(null=True)
+    resources_indicated = DecimalField(null=True)
+    resources_measured = DecimalField(null=True)
+    resources_total = DecimalField(null=True)
+    verified_resources_2 = DecimalField(null=True)
+    reserves_1 = DecimalField(null=True)
+    verified_reserves_2 = DecimalField(null=True)
 
     class Meta:
         database = db
-        table_name = "mining_license"
+        table_name = "resources_and_reserves"
 
 
-class CoalResourcesAndReserves(Model):
+class TotalCommoditiesProduction(Model):
     id = IntegerField(primary_key=True)
-    province = CharField(
-        null=True, constraints=[Check(f"province IN {operation_province_constraints}")]
+    commodity_type = TextField(
+        null=True, 
+        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")]
     )
-    exploration_target_1 = FloatField(null=True)
-    total_inventory_1 = FloatField(null=True)
-    resources_inferred = FloatField(null=True)
-    resources_indicated = FloatField(null=True)
-    resources_measured = FloatField(null=True)
-    resources_total = FloatField(null=True)
-    verified_resources_2 = FloatField(null=True)
-    reserves_1 = FloatField(null=True)
-    verified_reserves_2 = FloatField(null=True)
-    year = IntegerField(null=True)
+    production_volume = DecimalField(null=True)
+    unit = TextField(null=True)
+    year = IntegerField()
 
     class Meta:
         database = db
-        table_name = "coal_resources_and_reserves"
+        table_name = "total_commodities_production"
 
 
-class TotalCoalProduction(Model):
+class ExportDestination(Model):
     id = IntegerField(primary_key=True)
-    production_volume = FloatField(null=True)
-    unit = CharField(null=True)
-    year = IntegerField(null=True)
+    country = TextField()
+    year = IntegerField()
+    commodity_type = TextField(
+        null=True, 
+        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")]
+    )
+    export_USD = DecimalField(null=True)
+    export_volume_BPS = DecimalField(null=True)
+    export_volume_ESDM = DecimalField(null=True)
 
     class Meta:
         database = db
-        table_name = "total_coal_production"
-
-
-class CoalExportDestination(Model):
-    id = IntegerField(primary_key=True)
-    country = CharField()
-    year = IntegerField(null=True)
-    export_USD = FloatField(null=True)
-    export_volume_BPS = FloatField(null=True)
-    export_volume_ESDM = FloatField(null=True)
-
-    class Meta:
-        database = db
-        table_name = "coal_export_destination"
+        table_name = "export_destination"
 
 
 class MiningContract(Model):
-    id = IntegerField(primary_key=True)
     mine_owner_id = ForeignKeyField(Company, column_name="mine_owner_id")
     contractor_id = ForeignKeyField(Company, column_name="contractor_id")
-    contract_period_end = CharField(null=True)
+    contract_period_end = TextField(null=True)
 
     class Meta:
         database = db
         table_name = "mining_contract"
-
-
-class CoalProduct(Model):
-    id = IntegerField(primary_key=True)
-    company_id = ForeignKeyField(Company, column_name="company_id")
-    product_name = CharField()
-    calorific_value = CharField(null=True)
-    total_moisture = CharField(null=True)
-    ash_content_arb = CharField(null=True)
-    total_sulphur_arb = CharField(null=True)
-    ash_content_adb = CharField(null=True)
-    total_sulphur_adb = CharField(null=True)
-    volatile_matter_adb = CharField(null=True)
-    fixed_carbon_adb = CharField(null=True)
-
-    class Meta:
-        database = db
-        table_name = "coal_product"
+        primary_key = CompositeKey("mine_owner_id", "contractor_id")
