@@ -1,7 +1,7 @@
 # %%
 import sys
 import os
-
+os.chdir('..')
 sys.path.append(os.path.join(os.getcwd(), "sheet_api"))
 
 import pandas as pd
@@ -10,16 +10,15 @@ import peewee as pw
 from peewee import SqliteDatabase
 from typing import Callable
 from db.models import (
+    db,
     Company,
-    CoalCompanyPerformance,
-    MiningSite,
     CompanyOwnership,
-    CoalProduct,
+    CompanyPerformance,
+    MiningSite,
+    ResourcesAndReserves,
+    TotalCommoditiesProduction,
+    ExportDestination,
     MiningContract,
-    CoalExportDestination,
-    TotalCoalProduction,
-    CoalResourcesAndReserves,
-    MiningLicense,
 )
 from google_sheets.auth import createClient
 from utils.dataframe_utils import castTypes, mapPeeweeToPandasFields
@@ -29,6 +28,7 @@ from utils.sync_utils import (
     checkNewData,
     confirmChange,
     replaceCO,
+    replaceMC
 )
 
 # %%
@@ -65,6 +65,14 @@ def processCompanyOwnership() -> None:
     if input("Replace company ownerhip according to the sheet?") == "Y":
         replaceCO(CompanyOwnership, Company, df)
 
+def processMiningContract() -> None:
+    sheet = client.open_by_key(spreadsheet_id).worksheet("mining_contract")
+    data = sheet.get("A1:F33")
+    df = pd.DataFrame(data[1:], columns=data[0])
+
+    if input("Replace company ownerhip according to the sheet?") == "Y":
+        replaceMC(MiningContract, Company, df)
+
 
 if __name__ == "__main__":
 
@@ -81,21 +89,19 @@ if __name__ == "__main__":
     # %%
     sync_model("company", "A1:R246", Company, company_preprocess)
     # %%
-    sync_model("coal_company_performance", "A1:AB134", CoalCompanyPerformance, rename)
+    # sync_model("coal_company_performance", "A1:AB134", CoalCompanyPerformance, rename)
     # %%
-    sync_model("mining_site", "A1:W51", MiningSite, rename)
+    # sync_model("mining_site", "A1:W51", MiningSite, rename)
     # %%
     processCompanyOwnership()
-    # %%
 
     # %%
-    sync_model("coal_product", "A1:L56", CoalProduct, rename)
-    sync_model("mining_license", "A1:O958", MiningLicense, rename)
-    sync_model(
-        "coal_resources_and_reserves", "A1:L24", CoalResourcesAndReserves, rename
-    )
-    sync_model("total_coal_production", "A1:D12", TotalCoalProduction, rename)
-    sync_model("mining_contract", "A1:G33", MiningContract, rename)
-    sync_model("coal_export_destination", "A1:F122", CoalExportDestination, rename)
+    sync_model("resources_and_reserves", "A1:N24", ResourcesAndReserves, rename)
+    # %%
+    sync_model("total_commodities_production", "A1:E12", TotalCommoditiesProduction, rename)
+    # %%
+    processMiningContract()
+    # %%
+    sync_model("export_destination", "A1:G122", ExportDestination, rename)
 
 # %%

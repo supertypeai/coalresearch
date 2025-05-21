@@ -102,3 +102,31 @@ def replaceCO(co_model, c_model, df) -> None:
             ).execute()
 
             print(f"Inserted parent_id: {parent.id}, company_id: {company.id}")
+
+def replaceMC(co_model, c_model, df) -> None:
+
+    def safeCast(val, tp=int):
+        if (pd.isna(val) or val == ""):
+            return None
+        else:
+            return tp(val)
+
+    co_model.delete().execute()
+
+    print("All Mining Contract records have been deleted")
+
+    for _, row in df.iterrows():
+
+        mine_owner = c_model.get_or_none(c_model.name == safeCast(row['*mine_owner_name'], str))
+        contractor = c_model.get_or_none(c_model.name == safeCast(row['*contractor_name'], str))
+        contract_period_end = safeCast(row['contract_period_end'], str)
+
+        if mine_owner and contractor and contract_period_end:
+
+            co_model.insert(
+                mine_owner_id=mine_owner.id,
+                contractor_id=contractor.id,
+                contract_period_end=contract_period_end
+            ).execute()
+
+            print(f"Inserted mine_owner_id: {mine_owner.id}, contractor_id: {contractor.id}")
