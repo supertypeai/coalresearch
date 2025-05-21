@@ -22,6 +22,7 @@ def castTypes(df:pd.DataFrame, types:dict) -> pd.DataFrame:
 type_map = {
     'IntegerField': 'Int64',
     'FloatField': 'Float64',
+    'DecimalField': 'object',
     'CharField': 'string',
     'TextField': 'string',
     'BooleanField': 'boolean',

@@ -1,6 +1,7 @@
 from tabulate import tabulate
 import pandas as pd
 from typing import Callable
+from decimal import Decimal
 
 def deleteID(model, id: int) -> None:
     q = model.get_by_id(id)
@@ -41,6 +42,10 @@ def compareDBSheet(model, df, execute=False) -> bool:
                 db_val = db_val.id
             sheet_val = row.get(field)
             sheet_val = None if pd.isna(sheet_val) else sheet_val
+
+            if type(db_val) == Decimal:
+                sheet_val = Decimal(sheet_val)
+
             if db_val != sheet_val:
                 diff.append((field, db_val, sheet_val))
         
