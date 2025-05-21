@@ -3,9 +3,9 @@ import requests
 import pandas as pd
 import sqlite3
 import re
+import json
 from io import StringIO
 from datetime import date
-from libsql_client import create_client_sync
 from dotenv import load_dotenv
 
 # ─── DYNAMIC RANGE ──────────────────────────────────────────────────────────────
@@ -93,28 +93,14 @@ def init_db(path):
     c = conn.cursor()
     c.execute(
         """
-    CREATE TABLE IF NOT EXISTS commodities (
-      commodity_id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name         TEXT NOT NULL UNIQUE,
-      unit         TEXT NOT NULL
-    );"""
-    )
-    c.execute(
+        CREATE TABLE IF NOT EXISTS commodity (
+            commodity_id   INTEGER PRIMARY KEY AUTOINCREMENT,
+            name           TEXT    NOT NULL UNIQUE,
+            name_english   TEXT,
+            unit           TEXT,
+            price          TEXT
+        );
         """
-    CREATE TABLE IF NOT EXISTS commodity_prices (
-      price_id     INTEGER PRIMARY KEY AUTOINCREMENT,
-      commodity_id INTEGER NOT NULL REFERENCES commodities(commodity_id),
-      price_date   DATE    NOT NULL,
-      price_value  REAL    NOT NULL,
-      info         TEXT,
-      UNIQUE(commodity_id, price_date)
-    );"""
-    )
-    c.execute(
-        """
-    CREATE INDEX IF NOT EXISTS idx_prices_commodity_date
-      ON commodity_prices (commodity_id, price_date);
-    """
     )
     conn.commit()
     return conn
@@ -122,161 +108,37 @@ def init_db(path):
 
 def upsert_local(conn, df):
     c = conn.cursor()
-    # commodities
-    for full in df["Komoditas"]:
+    for _, row in df.iterrows():
+        full = row["Komoditas"]
         m = re.match(r"^(.*?)\s*\(([^)]+)\)$", full)
         if not m:
             continue
         name, unit = m.groups()
-        c.execute(
-            "INSERT OR IGNORE INTO commodities(name,unit) VALUES(?,?)",
-            (name.strip(), unit.strip()),
-        )
-    conn.commit()
-
-    # prices
-    c.execute("SELECT commodity_id,name FROM commodities")
-    id_map = {name: cid for cid, name in c.fetchall()}
-    for _, row in df.iterrows():
-        name = re.match(r"^(.*?)\s*\(", row["Komoditas"]).group(1).strip()
-        cid = id_map.get(name)
-        if not cid:
-            continue
+        # Build price list as JSON
+        price_entries = []
         for hdr in df.columns[1:]:
             val = row[hdr]
             if pd.isna(val):
                 continue
-            dt = parse_header_to_date(hdr)
-            c.execute(
-                """
-            INSERT INTO commodity_prices(commodity_id,price_date,price_value,info)
-            VALUES(?,?,?,?)
-            ON CONFLICT(commodity_id,price_date) DO UPDATE
-              SET price_value=excluded.price_value
+            dt = parse_header_to_date(str(hdr))
+            price_entries.append({dt.isoformat(): str(val)})
+        price_json = json.dumps(price_entries, ensure_ascii=False)
+
+        # Upsert into commodity table
+        c.execute(
+            """
+            INSERT INTO commodity (name, name_english, unit, price)
+            VALUES (?, ?, ?, ?)
+            ON CONFLICT(name) DO UPDATE
+              SET unit = excluded.unit,
+                  price = excluded.price
             """,
-                (cid, dt.isoformat(), float(val), None),
-            )
+            (name.strip(), None, unit.strip(), price_json),
+        )
     conn.commit()
 
 
-def sync_two_tables_to_turso(sqlite_path: str):
-    """
-    Bulk-sync 'commodities' and 'commodity_prices' from local SQLite to Turso using HTTP client.
-
-    Parameters:
-      sqlite_path: Local SQLite DB file path
-    """
-    print("Starting sync_two_tables_to_turso function...")
-
-    # Retrieve Turso credentials
-    turso_url = os.getenv("TURSO_DATABASE_URL") or ""
-    auth_token = os.getenv("TURSO_AUTH_TOKEN")
-
-    # Normalize URL
-    if turso_url.startswith("wss://"):
-        db_url = "https://" + turso_url[len("wss://") :]
-    elif turso_url.startswith("libsql://"):
-        db_url = "https://" + turso_url[len("libsql://") :]
-    else:
-        db_url = turso_url
-
-    print(f"TURSO_DATABASE_URL: {db_url}")
-    print(f"TURSO_AUTH_TOKEN present: {auth_token is not None}")
-
-    if not db_url or not auth_token:
-        print("Skipping Turso sync: missing Turso credentials.")
-        return
-
-    client = None
-    conn = None
-    try:
-        print(f"Debug: Using HTTP client against {db_url}")
-        client = create_client_sync(url=db_url, auth_token=auth_token)
-        print("Turso client created successfully.")
-
-        # Ensure schema
-        schema_stmts = [
-            "CREATE TABLE IF NOT EXISTS commodities (commodity_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL UNIQUE, unit TEXT NOT NULL);",
-            "CREATE TABLE IF NOT EXISTS commodity_prices (price_id INTEGER PRIMARY KEY AUTOINCREMENT, commodity_id INTEGER NOT NULL REFERENCES commodities(commodity_id), price_date DATE NOT NULL, price_value REAL NOT NULL, info TEXT, UNIQUE(commodity_id, price_date));",
-        ]
-        for stmt in schema_stmts:
-            print(f"Debug: DDL: {stmt}")
-            client.execute(stmt)
-            print(f"Schema statement executed successfully: {stmt[:50]}...")
-
-        # Read local data
-        print(f"Connecting to local SQLite database at {sqlite_path}")
-        conn = sqlite3.connect(sqlite_path)
-        cur = conn.cursor()
-
-        print("Fetching commodities from SQLite...")
-        local_coms = cur.execute(
-            "SELECT commodity_id, name, unit FROM commodities"
-        ).fetchall()
-        print(f"Found {len(local_coms)} commodities.")
-
-        print("Fetching commodity prices from SQLite...")
-        local_prices = cur.execute(
-            "SELECT commodity_id, price_date, price_value, info FROM commodity_prices"
-        ).fetchall()
-        print(f"Found {len(local_prices)} commodity prices.")
-
-        # Clear remote
-        print("Clearing remote tables on Turso...")
-        client.execute("DELETE FROM commodity_prices;")
-        client.execute("DELETE FROM commodities;")
-        print("Remote tables cleared.")
-
-        # Insert commodities
-        print("Inserting commodities into Turso...")
-        for _, name, unit in local_coms:
-            client.execute(
-                "INSERT OR IGNORE INTO commodities(name,unit) VALUES(?,?);",
-                (name, unit),
-            )
-        print("Finished inserting commodities.")
-
-        # Fetch remote IDs
-        print("Fetching remote commodity IDs...")
-        res = client.execute("SELECT commodity_id, name FROM commodities;")
-        remote_ids = {row["name"]: row["commodity_id"] for row in res.rows}
-        print(f"Fetched {len(remote_ids)} remote commodity mappings.")
-
-        # Map local ID to name
-        id_to_name = {cid: name for cid, name, _ in local_coms}
-
-        # Insert prices
-        print("Inserting commodity prices into Turso...")
-        for loc_cid, pd, pv, info in local_prices:
-            name = id_to_name.get(loc_cid)
-            rcid = remote_ids.get(name)
-            if not rcid:
-                print(
-                    f"⚠️ Missing remote ID for commodity ID={loc_cid}, name={name}. Skipping price entry."
-                )
-                continue
-            client.execute(
-                "INSERT OR REPLACE INTO commodity_prices(commodity_id, price_date, price_value, info) VALUES(?,?,?,?);",
-                (rcid, pd, pv, info),
-            )
-        print("Finished inserting commodity prices.")
-
-    except Exception as e:
-        print(f"Error during Turso sync: {e}")
-        raise
-    finally:
-        # Clean up resources
-        if conn:
-            conn.close()
-            print("Closed connection to local SQLite database.")
-        if client:
-            client.close()
-            print("Closed Turso client.")
-
-    print("✅ Turso sync complete")
-
-
-# ─── MAIN ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+# ─── MAIN ───────────────────────────────────────────────────────────────────
 
 
 def main():
@@ -294,8 +156,6 @@ def main():
     upsert_local(conn, df)
     conn.close()
     print(f"Local DB updated: {DB_PATH}")
-
-    sync_two_tables_to_turso(DB_PATH)
 
 
 if __name__ == "__main__":
