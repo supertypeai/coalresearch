@@ -33,7 +33,6 @@ from utils.sync_utils import (
 
 # %%
 
-db = SqliteDatabase("coal_db.sqlite")
 client, spreadsheet_id = createClient()
 
 
@@ -81,17 +80,17 @@ if __name__ == "__main__":
         return df, field_types
 
     def rename(df, field_types):
-        df = df.rename(
-            columns={"total_reserve": "reserve", "total_resource": "resource"}
-        )
+        # df = df.rename(
+        #     columns={"total_reserve": "reserve", "total_resource": "resource"}
+        # )
         return df, field_types
 
     # %%
     sync_model("company", "A1:R246", Company, company_preprocess)
     # %%
-    # sync_model("coal_company_performance", "A1:AB134", CoalCompanyPerformance, rename)
+    sync_model("coal_company_performance", "A1:W134", CompanyPerformance, rename)
     # %%
-    # sync_model("mining_site", "A1:W51", MiningSite, rename)
+    sync_model("mining_site", "A1:P51", MiningSite, rename)
     # %%
     processCompanyOwnership()
 

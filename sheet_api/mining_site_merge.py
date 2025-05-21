@@ -7,8 +7,6 @@ from sheet_api.google_sheets.auth import createClient
 client, spreadsheet_id = createClient()
 ms_sheet = client.open_by_key(spreadsheet_id).worksheet('mining_site')
 
-used_rows = (32, 38)
-
 ms_data = ms_sheet.get('A1:W74')
 ms_df = pd.DataFrame(ms_data[1:], columns=ms_data[0])
 
@@ -21,8 +19,8 @@ esdm_coal_df['object_name_strip'] = esdm_coal_df['object_name'].str.replace(r'\b
 # esdm_to_merge_column = ["year_measured", "mineral_grade", "inferred_resource", "indicated_resource", "measured_resource", "total_resource", "probable_reserve", "proven_reserve", "total_reserve"]
 # ms_to_merge_column = ["*year_measured", "calorific_value", "*resources_inferred", "*resources_indicated", "*resources_measured", "total_resource", "*reserves_probable", "*reserves_proved", "total_reserve"]
 
-esdm_to_merge_column = ["city"]
-ms_to_merge_column = ["city"]
+esdm_to_merge_column = ["latitude", "longitude"]
+ms_to_merge_column = ["*latitude", "*longitude"]
 
 
 def checkObjectName(val):
@@ -32,22 +30,31 @@ def checkObjectName(val):
     else:
         return esdm_coal_df[esdm_coal_df['object_name_strip'] == val]
 
-for row_id, row in ms_df.iloc[used_rows[0]:used_rows[1] + 1, :].iterrows():
-    
-    q = checkObjectName(row['name'])
 
-    if not q.empty:
+def updateSheet(starts_from=0):
 
-        for m, e in zip(ms_to_merge_column, esdm_to_merge_column):
-            col_id = ms_df.columns.get_loc(m)
-            
-            original_value = row[m]
-            new_value = str(q[e].iloc[0])
+    for row_id, row in ms_df.iterrows():
 
-            to_use_value = original_value
+        if (row_id + 2) < starts_from:
+            continue
 
-            ms_sheet.update_cell(row_id, col_id + 1, to_use_value)
+        q = checkObjectName(row['name'])
 
-            print("Updating row number, col number, value:", row_id, col_id, to_use_value)
-    
+        if not q.empty:
+
+            for m, e in zip(ms_to_merge_column, esdm_to_merge_column):
+                col_id = ms_df.columns.get_loc(m)
+                
+                original_value = row[m]
+                new_value = str(q[e].iloc[0])
+
+                to_use_value = new_value
+
+                ms_sheet.update_cell(2 + row_id, col_id + 1, to_use_value)
+
+                print("Updating row number, col number, value:", row_id, col_id, to_use_value)
+        
+# %%
+updateSheet(starts_from=71)
+
 # %%
