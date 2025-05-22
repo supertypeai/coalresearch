@@ -35,3 +35,14 @@ def mapPeeweeToPandasFields(pw_field_types:dict) -> dict:
         dtype = type_map.get(type, 'string')
         df_field_types[field] = dtype
     return df_field_types
+
+def safeCast(val, type):
+    if (val == pd.isna) or (val == "") or (val == None):
+        return None
+    else:
+        val = type(val)
+
+        if isinstance(val, float) and val.is_integer():
+            val = int(val)    
+        
+        return val

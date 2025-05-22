@@ -50,12 +50,8 @@ def syncCompanyNameID(df, sheet, company_name_col, company_id_col, starts_from=0
 
 # %%
 syncCompanyNameID(c_df, c_sheet, '*parent_company_name', '*parent_company_id', starts_from=210)
-
 # %%
-
 syncCompanyNameID(ccp_df, ccp_sheet, '*company_name', 'company_id', starts_from=131)
 # %%
-
 syncCompanyNameID(ms_df, ms_sheet, '*company_name', 'company_id', starts_from=69)
-
 # %%

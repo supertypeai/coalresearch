@@ -2,6 +2,7 @@
 import pandas as pd
 import json
 from google_sheets.auth import createClient
+from sheet_api.utils.dataframe_utils import safeCast
 
 client, spreadsheet_id = createClient()
 
@@ -30,13 +31,7 @@ included_columns = [
 
 # %%
 
-def safeCast(val, type):
-	if (val == pd.isna) or (val == "") or (val == None):
-		return None
-	else:
-		return type(val)
-
-def updateProduct(sheet, starts_from=0):
+def updateProduct(starts_from=0):
 	for (company_id, year), group_df in cp_df.groupby(['company_id', 'year']):
 		print(company_id, year)
 
@@ -63,12 +58,12 @@ def updateProduct(sheet, starts_from=0):
 
 			coal_product_list = json.dumps(coal_product_list)
 
-			col_id = ccp_df.columns.get_loc('product')
-			sheet.update_cell(sheet_row, col_id + 1, coal_product_list)
+			col_id = list(ccp_df.columns).index('product')
+
+			ccp_sheet.update_cell(sheet_row, col_id + 1, coal_product_list)
 	
 			print(f"Updated row {sheet_row}: {coal_product_list}")
 
 # %%
-updateProduct(ccp_sheet)
-
+updateProduct()
 # %%

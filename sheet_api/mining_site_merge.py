@@ -34,6 +34,8 @@ def checkObjectName(val):
 def updateSheet(starts_from=0):
 
     for row_id, row in ms_df.iterrows():
+        
+        assert isinstance(row_id, int)
 
         if (row_id + 2) < starts_from:
             continue
@@ -43,7 +45,7 @@ def updateSheet(starts_from=0):
         if not q.empty:
 
             for m, e in zip(ms_to_merge_column, esdm_to_merge_column):
-                col_id = ms_df.columns.get_loc(m)
+                col_id = list(ms_df.columns).index(m)
                 
                 original_value = row[m]
                 new_value = str(q[e].iloc[0])
