@@ -1,16 +1,30 @@
 import os
 import sqlite3
-import requests
+from libsql_client import create_client_sync
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
 
-# Turso REST endpoint & auth
-TURSO_URL = os.getenv("TURSO_DATABASE_URL", "").rstrip(
-    "/"
-)  # e.g. https://db.xyz.turso.io
-AUTH_TOKEN = os.getenv("TURSO_AUTH_TOKEN", "")
+# Raw Turso URL & auth token
+raw_url = os.getenv("TURSO_DATABASE_URL", "")
+auth_token = os.getenv("TURSO_AUTH_TOKEN", "")
+
+if not raw_url or not auth_token:
+    print("ERROR: TURSO_DATABASE_URL and TURSO_AUTH_TOKEN must be set")
+    exit(1)
+
+# Normalize URL for the libsql client
+if raw_url.startswith("wss://"):
+    db_url = "https://" + raw_url[len("wss://") :]
+elif raw_url.startswith("libsql://"):
+    db_url = "https://" + raw_url[len("libsql://") :]
+else:
+    db_url = raw_url
+db_url = db_url.rstrip("/")
+
+# Create Turso HTTP client
+client = create_client_sync(url=db_url, auth_token=auth_token)
 
 # Resolve local SQLite path relative to this script (<project>/turso/...)
 SCRIPT_DIR = os.path.dirname(__file__)
@@ -43,22 +57,10 @@ CONFLICT_TARGET = {
 }
 
 
-def turso_execute(sql: str, params: list = None):
-    """Send a single SQL statement to Turso via REST API."""
-    if params is None:
-        params = []
-    headers = {
-        "Authorization": f"Bearer {AUTH_TOKEN}",
-        "Content-Type": "application/json",
-    }
-    body = {"statements": [{"sql": sql, "args": params}]}
-
-    resp = requests.post(f"{TURSO_URL}/v2/rest-query", json=body, headers=headers)
-    resp.raise_for_status()
-    data = resp.json()
-    if "error" in data:
-        raise RuntimeError(f"Turso error: {data['error']}")
-    return data
+def turso_execute(sql: str, *params):
+    """Send a single SQL statement to Turso via libsql_client."""
+    res = client.execute(sql, params)
+    return res
 
 
 def get_sqlite_rows(conn: sqlite3.Connection, table: str):
@@ -91,32 +93,28 @@ DO UPDATE SET {update_clause};
 
     for row in rows:
         params = [row[c] for c in cols]
-        turso_execute(sql, params)
+        turso_execute(sql, *params)
     print(f"[{table}] upserted {len(rows)} rows.")
 
 
 def main():
-    # 1) Credentials check
-    if not TURSO_URL or not AUTH_TOKEN:
-        print("ERROR: TURSO_DATABASE_URL and TURSO_AUTH_TOKEN must be set")
-        return
-
-    # 2) Connectivity check
+    # 1) Verify Turso connectivity
     try:
         print("Verifying Turso connection…", end=" ")
-        turso_execute("SELECT 1;", [])
+        turso_execute("SELECT 1;")
         print("OK")
     except Exception as e:
         print(f"\nERROR: Unable to reach Turso: {e}")
+        client.close()
         return
 
     conn = None
     try:
-        # 3) Open SQLite
+        # 2) Open SQLite
         conn = sqlite3.connect(LOCAL_DB_PATH)
         print(f"Connected to SQLite at {LOCAL_DB_PATH}")
 
-        # 4) Sync each table
+        # 3) Sync each table
         for tbl in TABLES:
             try:
                 print(f"\nSyncing {tbl}…")
@@ -131,6 +129,8 @@ def main():
         if conn:
             conn.close()
             print("Closed SQLite connection.")
+        client.close()
+        print("Closed Turso client.")
 
 
 if __name__ == "__main__":
