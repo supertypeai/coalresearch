@@ -1,4 +1,4 @@
-name: Weekly Minerba Commodities Scraper
+name: Weekly Commodity Table Scraper
 
 on:
   schedule:
