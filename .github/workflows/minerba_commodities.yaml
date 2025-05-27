@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-minerba:
+  update-commodity-table:
     runs-on: ubuntu-latest
 
     steps:
