@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from libsql_client import create_client_sync
 
-load_dotenv()
+load_dotenv()  # load variables from .env
 
 # Load Turso URL and auth token from environment
 TURSO_DATABASE_URL = os.getenv("TURSO_DATABASE_URL")
@@ -14,6 +14,38 @@ if not TURSO_DATABASE_URL or not TURSO_AUTH_TOKEN:
     )
 
 TABLE_STATEMENTS = [
+    """
+    CREATE TABLE IF NOT EXISTS company (
+        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        name TEXT NOT NULL,
+        idx_ticker TEXT,
+        operation_province TEXT,
+        operation_kabkot TEXT,
+        representative_address TEXT,
+        company_type TEXT,
+        key_operation TEXT,
+        activities TEXT,
+        website TEXT,
+        phone_number TEXT,
+        email TEXT
+    );
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS company_ownership (
+        parent_company_id INTEGER NOT NULL,
+        company_id INTEGER NOT NULL,
+        percentage_ownership INTEGER NOT NULL,
+        PRIMARY KEY (parent_company_id, company_id),
+        FOREIGN KEY (parent_company_id)
+          REFERENCES company(id)
+            ON UPDATE NO ACTION
+            ON DELETE NO ACTION,
+        FOREIGN KEY (company_id)
+          REFERENCES company(id)
+            ON UPDATE NO ACTION
+            ON DELETE NO ACTION
+    );
+    """,
     """
     CREATE TABLE IF NOT EXISTS company_performance (
         id INTEGER PRIMARY KEY NOT NULL,
@@ -36,46 +68,6 @@ TABLE_STATEMENTS = [
     );
     """,
     """
-    CREATE TABLE IF NOT EXISTS commodity (
-        commodity_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        name TEXT NOT NULL,
-        name_english TEXT,
-        unit TEXT,
-        price TEXT
-    );
-    """,
-    """
-    CREATE TABLE IF NOT EXISTS company_ownership (
-        parent_company_id INTEGER NOT NULL,
-        company_id INTEGER NOT NULL,
-        percentage_ownership INTEGER NOT NULL,
-        FOREIGN KEY (parent_company_id)
-          REFERENCES company(id)
-            ON UPDATE NO ACTION
-            ON DELETE NO ACTION,
-        FOREIGN KEY (company_id)
-          REFERENCES company(id)
-            ON UPDATE NO ACTION
-            ON DELETE NO ACTION
-    );
-    """,
-    """
-    CREATE TABLE IF NOT EXISTS company (
-        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        name TEXT NOT NULL,
-        idx_ticker TEXT,
-        operation_province TEXT,
-        operation_kabkot TEXT,
-        representative_address TEXT,
-        company_type TEXT,
-        key_operation TEXT,
-        activities TEXT,
-        website TEXT,
-        phone_number TEXT,
-        email TEXT
-    );
-    """,
-    """
     CREATE TABLE IF NOT EXISTS export_destination (
         id INTEGER PRIMARY KEY NOT NULL,
         country TEXT NOT NULL,
@@ -91,6 +83,7 @@ TABLE_STATEMENTS = [
         mine_owner_id INTEGER NOT NULL,
         contractor_id INTEGER NOT NULL,
         contract_period_end TEXT,
+        PRIMARY KEY (mine_owner_id, contractor_id),
         FOREIGN KEY (mine_owner_id)
           REFERENCES company(id)
             ON UPDATE NO ACTION
@@ -144,6 +137,15 @@ TABLE_STATEMENTS = [
         production_volume REAL,
         unit TEXT,
         year INTEGER NOT NULL
+    );
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS commodity (
+        commodity_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        name TEXT NOT NULL,
+        name_english TEXT,
+        unit TEXT,
+        price TEXT
     );
     """,
 ]
