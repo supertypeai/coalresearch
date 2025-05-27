@@ -8,3 +8,4 @@ keys/*
 .env
 .vscode/*
 sheet_api/keys/*
+scrapper/*.csv
