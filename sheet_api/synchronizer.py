@@ -88,7 +88,7 @@ if __name__ == "__main__":
     # %%
     sync_model("company", "A1:R246", Company, company_preprocess)
     # %%
-    sync_model("company_performance", "A1:W134", CompanyPerformance, rename)
+    sync_model("company_performance", "A1:AB180", CompanyPerformance, rename)
     # %%
     sync_model("mining_site", "A1:P51", MiningSite, rename)
     # %%
