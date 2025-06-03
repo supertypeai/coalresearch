@@ -7,10 +7,8 @@ sys.path.append(os.path.join(os.getcwd(), "sheet_api"))
 import pandas as pd
 import peewee as pw
 
-from peewee import SqliteDatabase
 from typing import Callable
 from db.models import (
-    db,
     Company,
     CompanyOwnership,
     CompanyPerformance,

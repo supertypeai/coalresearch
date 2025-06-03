@@ -112,7 +112,8 @@ lo_cols_type = [
 ]
 
 # %%
-compileToJson(ms_df, ms_sheet, lo_cols_type, 'location', starts_from=50)
+# compileToJson(ms_df, ms_sheet, lo_cols_type, 'location', starts_from=0)
+compileToJsonBatch(ms_df, lo_cols_type, 'location', 1578569108)
 # %%
 cp_sheet, cp_df = getSheet('company_performance', 'A1:AB180')
 
