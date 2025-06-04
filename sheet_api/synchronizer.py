@@ -28,6 +28,13 @@ from utils.sync_utils import (
     replaceCO,
     replaceMC
 )
+from compile_to_json import (
+    compileToJsonBatch,
+    fillMiningLicense,
+    mining_site_location_cols_type,
+    mining_site_resources_reserves_cols_type,
+    company_performance_resources_reserves_cols_type
+)
 
 # %%
 
@@ -44,14 +51,13 @@ def sync_model(
     field_types = mapPeeweeToPandasFields(pw_field_types)
 
     if preprocess is not None:
-        df, field_types = preprocess(df, field_types)
+        df, field_types, sheet = preprocess(df, field_types, sheet)
 
     df = castTypes(df, field_types)
 
     confirmChange(checkDeletedAndOrder, model, df)
     confirmChange(compareDBSheet, model, df)
     confirmChange(checkNewData, model, df, field_types)
-
 
 def processCompanyOwnership() -> None:
     sheet = client.open_by_key(spreadsheet_id).worksheet("company")
@@ -72,14 +78,28 @@ def processMiningContract() -> None:
 
 if __name__ == "__main__":
 
-    def phoneNumberToString(df: pd.DataFrame, field_types: dict):
+    def phoneNumberToString(df: pd.DataFrame, field_types: dict, sheet):
         field_types["phone_number"] = "string"
-        return df, field_types
+        return df, field_types, sheet
+    
+    def companyPerformanceCompileToJson(df: pd.DataFrame, field_types: dict, sheet):
+
+        cols_type = company_performance_resources_reserves_cols_type
+        target_col = "resources_reserves"
+
+        print(f"Compiling to json format on company_performance's {target_col}...")
+        compileToJsonBatch(df, cols_type, target_col, sheet.id)
+
+        print("Filling out company_performance's mining_license...")
+        fillMiningLicense(df, sheet.id)
+
+        return df, field_types, sheet
+
 
     # %%
     sync_model("company", "A1:R246", Company, phoneNumberToString)
     # %%
-    sync_model("company_performance", "A1:AB180", CompanyPerformance)
+    sync_model("company_performance", "A1:W189", CompanyPerformance, companyPerformanceCompileToJson)
     # %%
     sync_model("mining_site", "A1:Y51", MiningSite)
     # %%
