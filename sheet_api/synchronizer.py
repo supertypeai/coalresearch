@@ -7,7 +7,7 @@ sys.path.append(os.path.join(os.getcwd(), "sheet_api"))
 import pandas as pd
 import peewee as pw
 
-from typing import Callable
+from typing import Callable, Optional
 from db.models import (
     Company,
     CompanyOwnership,
@@ -33,9 +33,8 @@ from utils.sync_utils import (
 
 client, spreadsheet_id = createClient()
 
-
 def sync_model(
-    sheet_name: str, range: str, model: pw.ModelBase, preprocess: Callable
+    sheet_name: str, range: str, model: pw.ModelBase, preprocess: Optional[Callable] = None
 ) -> None:
     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
     data = sheet.get(range)
@@ -44,7 +43,7 @@ def sync_model(
     pw_field_types = {fn.name: type(fn).__name__ for fn in model._meta.sorted_fields}
     field_types = mapPeeweeToPandasFields(pw_field_types)
 
-    if preprocess:
+    if preprocess is not None:
         df, field_types = preprocess(df, field_types)
 
     df = castTypes(df, field_types)
@@ -73,32 +72,25 @@ def processMiningContract() -> None:
 
 if __name__ == "__main__":
 
-    def company_preprocess(df: pd.DataFrame, field_types: dict):
+    def phoneNumberToString(df: pd.DataFrame, field_types: dict):
         field_types["phone_number"] = "string"
         return df, field_types
 
-    def rename(df, field_types):
-        # df = df.rename(
-        #     columns={"total_reserve": "reserve", "total_resource": "resource"}
-        # )
-        return df, field_types
-
     # %%
-    sync_model("company", "A1:R246", Company, company_preprocess)
+    sync_model("company", "A1:R246", Company, phoneNumberToString)
     # %%
-    sync_model("company_performance", "A1:AB180", CompanyPerformance, rename)
+    sync_model("company_performance", "A1:AB180", CompanyPerformance)
     # %%
-    sync_model("mining_site", "A1:P51", MiningSite, rename)
+    sync_model("mining_site", "A1:Y51", MiningSite)
     # %%
     processCompanyOwnership()
-
     # %%
-    sync_model("resources_and_reserves", "A1:N24", ResourcesAndReserves, rename)
+    sync_model("resources_and_reserves", "A1:N24", ResourcesAndReserves)
     # %%
-    sync_model("total_commodities_production", "A1:E12", TotalCommoditiesProduction, rename)
+    sync_model("total_commodities_production", "A1:E12", TotalCommoditiesProduction)
     # %%
     processMiningContract()
     # %%
-    sync_model("export_destination", "A1:G122", ExportDestination, rename)
+    sync_model("export_destination", "A1:G122", ExportDestination)
 
 # %%

@@ -5,6 +5,7 @@ updates/
 .venv/
 __pycache__/
 keys/*
+sketch.py
 .env
 .vscode/*
 sheet_api/keys/*
