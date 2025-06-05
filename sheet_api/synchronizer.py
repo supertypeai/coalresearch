@@ -112,5 +112,3 @@ if __name__ == "__main__":
     processMiningContract()
     # %%
     sync_model("export_destination", "A1:G122", ExportDestination)
-
-# %%

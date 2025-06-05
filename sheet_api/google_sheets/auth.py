@@ -22,3 +22,9 @@ def createService():
     service = build('sheets', 'v4', credentials=creds)
 
     return service
+
+def createEntryClient():
+    client = gspread.authorize(creds)
+    spreadsheet_id = "1kRw7FGZ99v8a16EoOE0L02ltxoo39dgGhJqO2QAZ81g"
+
+    return client, spreadsheet_id
