@@ -35,7 +35,6 @@ from compile_to_json import (
     mining_site_resources_reserves_cols_type,
     company_performance_resources_reserves_cols_type
 )
-
 # %%
 
 client, spreadsheet_id = createClient()
@@ -97,9 +96,9 @@ if __name__ == "__main__":
 
 
     # %%
-    sync_model("company", "A1:R246", Company, phoneNumberToString)
+    sync_model("company", "A1:R249", Company, phoneNumberToString)
     # %%
-    sync_model("company_performance", "A1:W189", CompanyPerformance, companyPerformanceCompileToJson)
+    sync_model("company_performance", "A1:W206", CompanyPerformance, companyPerformanceCompileToJson)
     # %%
     sync_model("mining_site", "A1:Y51", MiningSite)
     # %%

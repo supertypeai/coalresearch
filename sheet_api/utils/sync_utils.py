@@ -44,7 +44,7 @@ def compareDBSheet(model, df, execute=False) -> bool:
             sheet_val = None if pd.isna(sheet_val) else sheet_val
 
             if type(db_val) == Decimal:
-                sheet_val = Decimal(sheet_val)
+                sheet_val = Decimal(sheet_val) if sheet_val is not None else None
 
             if db_val != sheet_val:
                 diff.append((field, db_val, sheet_val))
