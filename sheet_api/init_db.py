@@ -14,13 +14,13 @@ def create_tables():
     db.connect()
     db.create_tables([
         Company,
-        CompanyOwnership,
+        # CompanyOwnership,
         CompanyPerformance,
-        MiningSite,
-        ResourcesAndReserves,
-        TotalCommoditiesProduction,
-        ExportDestination,
-        MiningContract,
+        # MiningSite,
+        # ResourcesAndReserves,
+        # TotalCommoditiesProduction,
+        # ExportDestination,
+        # MiningContract,
     ])
     print("All tables created successfully.")
 

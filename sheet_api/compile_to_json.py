@@ -81,7 +81,7 @@ def fillMiningLicense(df, sheet_id, starts_from=0):
         if (row_id + 2) < starts_from:
             continue
 
-        company_q = minerba_df[minerba_df['company_name'].str.lower() == clean_company_name(row['*company_name'])]
+        company_q = minerba_df[minerba_df['company_name'].str.lower() == clean_company_name(row['name'])]
 
         if not company_q.empty:
             license_json = company_q[included_columns].iloc[0].to_json()
@@ -157,6 +157,16 @@ company_performance_resources_reserves_cols_type = [
     ("*resources_measured", float),
     ("*reserves_proved", float),
     ("*reserves_probable", float)
+]
+
+company_performance_coal_stats_type = [
+    ("mining_operation_status", str),
+    ("*production_volume", float),
+    ("*sales_volume", float),
+    ("*overburden_removal_volume", float),
+    ("*strip_ratio", float),
+    ("*resources_reserves", dict),
+    ("*product", dict)
 ]
 
 # compileToJsonBatch(cp_df, rr_cols_type, 'resources_reserves', 147673991)

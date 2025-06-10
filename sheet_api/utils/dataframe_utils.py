@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 
 def convertColType(df:pd.DataFrame, col:str, c_type:type) -> pd.Series:
     return df[col].replace('', pd.NA).astype(c_type)
@@ -36,13 +37,14 @@ def mapPeeweeToPandasFields(pw_field_types:dict) -> dict:
         df_field_types[field] = dtype
     return df_field_types
 
-def safeCast(val, type):
+def safeCast(val, dtype):
     if (val == pd.isna) or (val == "") or (val == None):
         return None
     else:
-        val = type(val)
-
         if isinstance(val, float) and val.is_integer():
-            val = int(val)    
+            return int(val)
         
-        return val
+        if dtype == dict:
+            return json.loads(val)
+        
+        return dtype(val)

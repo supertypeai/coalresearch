@@ -33,6 +33,7 @@ from compile_to_json import (
     fillMiningLicense,
     mining_site_location_cols_type,
     mining_site_resources_reserves_cols_type,
+    company_performance_coal_stats_type,
     company_performance_resources_reserves_cols_type
 )
 # %%
@@ -75,30 +76,34 @@ def processMiningContract() -> None:
         replaceMC(MiningContract, Company, df)
 
 
-if __name__ == "__main__":
-
-    def phoneNumberToString(df: pd.DataFrame, field_types: dict, sheet):
+if __name__ == "__main__":    
+    def companyPreprocess(df: pd.DataFrame, field_types: dict, sheet):
+        
+        # 1. Convert phone number to string type
         field_types["phone_number"] = "string"
-        return df, field_types, sheet
-    
-    def companyPerformanceCompileToJson(df: pd.DataFrame, field_types: dict, sheet):
 
-        cols_type = company_performance_resources_reserves_cols_type
-        target_col = "resources_reserves"
-
-        print(f"Compiling to json format on company_performance's {target_col}...")
-        compileToJsonBatch(df, cols_type, target_col, sheet.id)
-
-        print("Filling out company_performance's mining_license...")
+        # 2. Fill out mining license
+        print("Filling out company's mining_license...")
         fillMiningLicense(df, sheet.id)
 
         return df, field_types, sheet
+    
+    def companyPerformancePreprocess(df: pd.DataFrame, field_types: dict, sheet):
 
+        # 1. Compile to json for resources_reserves column
+        print(f"Compiling to json format on company_performance's *resources_reserves...")
+        compileToJsonBatch(df, company_performance_resources_reserves_cols_type, "*resources_reserves", sheet.id)
+
+        # 2. Compile to json for commodity_stats column
+        print(f"Compiling to json format on company_performance's commodity_stats...")
+        compileToJsonBatch(df, company_performance_coal_stats_type, "commodity_stats", sheet.id)
+
+        return df, field_types, sheet
 
     # %%
-    sync_model("company", "A1:R249", Company, phoneNumberToString)
+    sync_model("company", "A1:S249", Company, companyPreprocess)
     # %%
-    sync_model("company_performance", "A1:W206", CompanyPerformance, companyPerformanceCompileToJson)
+    sync_model("company_performance", "A1:W26", CompanyPerformance, companyPerformancePreprocess)
     # %%
     sync_model("mining_site", "A1:Y51", MiningSite)
     # %%

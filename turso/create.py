@@ -27,7 +27,8 @@ TABLE_STATEMENTS = [
         activities TEXT,
         website TEXT,
         phone_number TEXT,
-        email TEXT
+        email TEXT,
+        mining_license TEXT
     );
     """,
     """
@@ -54,13 +55,7 @@ TABLE_STATEMENTS = [
         commodity_type TEXT,
         commodity_sub_type TEXT,
         mining_operation_status TEXT,
-        mining_license TEXT,
-        production_volume REAL,
-        sales_volume REAL,
-        overburden_removal_volume REAL,
-        strip_ratio REAL,
-        resources_reserves TEXT,
-        product TEXT,
+        commodity_stats TEXT,
         FOREIGN KEY (company_id)
           REFERENCES company(id)
             ON UPDATE NO ACTION

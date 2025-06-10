@@ -60,6 +60,7 @@ key_operation_constraints = (
     "Overburden Removal & Hauling",
     "Dredging",
     "Coal Trading",
+    "Barging, Port & Transshipment",
     "Investment",
 )
 commodity_type_constraints = (
@@ -109,7 +110,10 @@ class Company(Model):
     website = TextField(null=True)
     phone_number = IntegerField(null=True)
     email = TextField(null=True)
-
+    mining_license = TextField(
+        null=True,
+        constraints=[Check("json_valid(mining_license)")]
+    )
     class Meta:
         database = db
         table_name = "company"
@@ -135,25 +139,8 @@ class CompanyPerformance(Model):
         constraints=[Check(f"commodity_type IN {commodity_type_constraints}")]
     )
     commodity_sub_type = TextField(null=True)
-    mining_operation_status = TextField(
-        null=True,
-        constraints=[Check(f"mining_operation_status IN {mining_operation_status_constraints}")],
-    )
-    mining_license = TextField(
-        null=True,
-        constraints=[Check("json_valid(mining_license)")]
-    )
-    production_volume = DecimalField(null=True)
-    sales_volume = DecimalField(null=True)
-    overburden_removal_volume = DecimalField(null=True)
-    strip_ratio = DecimalField(null=True)
-    resources_reserves = TextField(
-        null=True,
-        constraints=[Check("json_valid(resources_reserves)")]
-    )
-    product = TextField(
-        null=True, 
-        constraints=[Check("json_valid(product)")]
+    commodity_stats = TextField(
+        constraints=[Check("json_valid(commodity_stats)")]
     )
 
     class Meta:
