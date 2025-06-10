@@ -1,7 +1,8 @@
 # %%
 import sys
 import os
-os.chdir('..')
+
+os.chdir("..")
 sys.path.append(os.path.join(os.getcwd(), "sheet_api"))
 
 import pandas as pd
@@ -17,6 +18,7 @@ from db.models import (
     TotalCommoditiesProduction,
     ExportDestination,
     MiningContract,
+    GlobalCoalData,
 )
 from google_sheets.auth import createClient
 from utils.dataframe_utils import castTypes, mapPeeweeToPandasFields
@@ -26,7 +28,7 @@ from utils.sync_utils import (
     checkNewData,
     confirmChange,
     replaceCO,
-    replaceMC
+    replaceMC,
 )
 from compile_to_json import (
     compileToJsonBatch,
@@ -34,14 +36,19 @@ from compile_to_json import (
     mining_site_location_cols_type,
     mining_site_resources_reserves_cols_type,
     company_performance_coal_stats_type,
-    company_performance_resources_reserves_cols_type
+    company_performance_resources_reserves_cols_type,
 )
+
 # %%
 
 client, spreadsheet_id = createClient()
 
+
 def sync_model(
-    sheet_name: str, range: str, model: pw.ModelBase, preprocess: Optional[Callable] = None
+    sheet_name: str,
+    range: str,
+    model: pw.ModelBase,
+    preprocess: Optional[Callable] = None,
 ) -> None:
     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
     data = sheet.get(range)
@@ -59,6 +66,7 @@ def sync_model(
     confirmChange(compareDBSheet, model, df)
     confirmChange(checkNewData, model, df, field_types)
 
+
 def processCompanyOwnership() -> None:
     sheet = client.open_by_key(spreadsheet_id).worksheet("company")
     data = sheet.get("A1:R251")
@@ -66,6 +74,7 @@ def processCompanyOwnership() -> None:
 
     if input("Replace company ownerhip according to the sheet?") == "Y":
         replaceCO(CompanyOwnership, Company, df)
+
 
 def processMiningContract() -> None:
     sheet = client.open_by_key(spreadsheet_id).worksheet("mining_contract")
@@ -76,9 +85,10 @@ def processMiningContract() -> None:
         replaceMC(MiningContract, Company, df)
 
 
-if __name__ == "__main__":    
+if __name__ == "__main__":
+
     def companyPreprocess(df: pd.DataFrame, field_types: dict, sheet):
-        
+
         # 1. Convert phone number to string type
         field_types["phone_number"] = "string"
 
@@ -87,23 +97,37 @@ if __name__ == "__main__":
         fillMiningLicense(df, sheet.id)
 
         return df, field_types, sheet
-    
+
     def companyPerformancePreprocess(df: pd.DataFrame, field_types: dict, sheet):
 
         # 1. Compile to json for resources_reserves column
-        print(f"Compiling to json format on company_performance's *resources_reserves...")
-        compileToJsonBatch(df, company_performance_resources_reserves_cols_type, "*resources_reserves", sheet.id)
+        print(
+            f"Compiling to json format on company_performance's *resources_reserves..."
+        )
+        compileToJsonBatch(
+            df,
+            company_performance_resources_reserves_cols_type,
+            "*resources_reserves",
+            sheet.id,
+        )
 
         # 2. Compile to json for commodity_stats column
         print(f"Compiling to json format on company_performance's commodity_stats...")
-        compileToJsonBatch(df, company_performance_coal_stats_type, "commodity_stats", sheet.id)
+        compileToJsonBatch(
+            df, company_performance_coal_stats_type, "commodity_stats", sheet.id
+        )
 
         return df, field_types, sheet
 
     # %%
     sync_model("company", "A1:S249", Company, companyPreprocess)
     # %%
-    sync_model("company_performance", "A1:W206", CompanyPerformance, companyPerformancePreprocess)
+    sync_model(
+        "company_performance",
+        "A1:W206",
+        CompanyPerformance,
+        companyPerformancePreprocess,
+    )
     # %%
     sync_model("mining_site", "A1:Y51", MiningSite)
     # %%
@@ -116,3 +140,7 @@ if __name__ == "__main__":
     processMiningContract()
     # %%
     sync_model("export_destination", "A1:G122", ExportDestination)
+    # %%
+    sync_model("global_coal_data", "A1:E88", GlobalCoalData)
+
+# %%

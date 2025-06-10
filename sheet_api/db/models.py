@@ -79,14 +79,11 @@ mineral_type_constraints = (
     "Oil",
     "Nickel",
 )
-mining_operation_status_constraints = (
-    "production", 
-    "development", 
-    "inactive"
-)
+mining_operation_status_constraints = ("production", "development", "inactive")
 
 # %%
 db = SqliteDatabase("db.sqlite")
+
 
 # %%
 class Company(Model):
@@ -96,12 +93,11 @@ class Company(Model):
     operation_province = TextField(
         null=True,
         constraints=[Check(f"operation_province IN {province_constraints}")],
-    )    
+    )
     operation_kabkot = TextField(null=True)
     representative_address = TextField(null=True)
     company_type = TextField(
-        null=True, 
-        constraints=[Check(f"company_type IN {company_type_constraints}")]
+        null=True, constraints=[Check(f"company_type IN {company_type_constraints}")]
     )
     key_operation = TextField(
         constraints=[Check(f"key_operation IN {key_operation_constraints}")]
@@ -111,12 +107,30 @@ class Company(Model):
     phone_number = IntegerField(null=True)
     email = TextField(null=True)
     mining_license = TextField(
-        null=True,
-        constraints=[Check("json_valid(mining_license)")]
+        null=True, constraints=[Check("json_valid(mining_license)")]
     )
+
     class Meta:
         database = db
         table_name = "company"
+
+
+class GlobalCoalData(Model):
+    id = IntegerField(primary_key=True)
+    country = TextField()
+    resources_reserves = TextField(
+        null=True, constraints=[Check("json_valid(resources_reserves)")]
+    )
+    export_import = TextField(
+        null=True, constraints=[Check("json_valid(export_import)")]
+    )
+    production_volume = TextField(
+        null=True, constraints=[Check("json_valid(production_volume)")]
+    )
+
+    class Meta:
+        database = db
+        table_name = "global_coal_data"
 
 
 class CompanyOwnership(Model):
@@ -135,13 +149,11 @@ class CompanyPerformance(Model):
     company_id = ForeignKeyField(Company, column_name="company_id")
     year = IntegerField()
     commodity_type = TextField(
-        null=True, 
-        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")]
+        null=True,
+        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")],
     )
     commodity_sub_type = TextField(null=True)
-    commodity_stats = TextField(
-        constraints=[Check("json_valid(commodity_stats)")]
-    )
+    commodity_stats = TextField(constraints=[Check("json_valid(commodity_stats)")])
 
     class Meta:
         database = db
@@ -154,35 +166,29 @@ class MiningSite(Model):
     project_name = TextField(null=True)
     year = IntegerField()
     mineral_type = TextField(
-        null=True, 
-        constraints=[Check(f"mineral_type IN {mineral_type_constraints}")]
+        null=True, constraints=[Check(f"mineral_type IN {mineral_type_constraints}")]
     )
     company_id = ForeignKeyField(Company, column_name="company_id")
     production_volume = DecimalField(null=True)
     overburden_removal_volume = DecimalField(null=True)
     strip_ratio = DecimalField(null=True)
     resources_reserves = TextField(
-        null=True,
-        constraints=[Check("json_valid(resources_reserves)")]
+        null=True, constraints=[Check("json_valid(resources_reserves)")]
     )
-    location = TextField(
-        null=True, 
-        constraints=[Check("json_valid(location)")]
-    )
+    location = TextField(null=True, constraints=[Check("json_valid(location)")])
 
     class Meta:
         database = db
         table_name = "mining_site"
 
+
 class ResourcesAndReserves(Model):
     id = IntegerField(primary_key=True)
-    province = TextField( 
-        constraints=[Check(f"province IN {province_constraints}")]
-    )
+    province = TextField(constraints=[Check(f"province IN {province_constraints}")])
     year = IntegerField()
     commodity_type = TextField(
-        null=True, 
-        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")]
+        null=True,
+        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")],
     )
     exploration_target_1 = DecimalField(null=True)
     total_inventory_1 = DecimalField(null=True)
@@ -202,8 +208,8 @@ class ResourcesAndReserves(Model):
 class TotalCommoditiesProduction(Model):
     id = IntegerField(primary_key=True)
     commodity_type = TextField(
-        null=True, 
-        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")]
+        null=True,
+        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")],
     )
     production_volume = DecimalField(null=True)
     unit = TextField(null=True)
@@ -219,8 +225,8 @@ class ExportDestination(Model):
     country = TextField()
     year = IntegerField()
     commodity_type = TextField(
-        null=True, 
-        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")]
+        null=True,
+        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")],
     )
     export_USD = DecimalField(null=True)
     export_volume_BPS = DecimalField(null=True)
