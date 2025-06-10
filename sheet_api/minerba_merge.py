@@ -39,5 +39,9 @@ def prepareMinerbaDf():
     minerba_df['city'] = minerba_df['city'].str.replace(r'^KAB\.\s*', '', regex=True).str.title()
     minerba_df['activity'] = minerba_df['activity'].str.lower()
     minerba_df['location'] = minerba_df['location'].str.lower()
+    minerba_df['permit_effective_date'] = pd.to_datetime(minerba_df['permit_effective_date'], unit='ms')
+    minerba_df['permit_expiry_date'] = pd.to_datetime(minerba_df['permit_expiry_date'], unit='ms')
+    minerba_df['permit_effective_date'] = minerba_df['permit_effective_date'].dt.strftime('%d/%m/%Y')
+    minerba_df['permit_expiry_date'] = minerba_df['permit_expiry_date'].dt.strftime('%d/%m/%Y')
 
     return minerba_df, included_columns
