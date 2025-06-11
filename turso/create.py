@@ -5,13 +5,20 @@ from libsql_client import create_client_sync
 load_dotenv()  # load variables from .env
 
 # Load Turso URL and auth token from environment
-TURSO_DATABASE_URL = os.getenv("TURSO_DATABASE_URL")
-TURSO_AUTH_TOKEN = os.getenv("TURSO_AUTH_TOKEN")
+raw_url = os.getenv("TURSO_DATABASE_URL", "")
+auth_token = os.getenv("TURSO_AUTH_TOKEN")
 
-if not TURSO_DATABASE_URL or not TURSO_AUTH_TOKEN:
-    raise RuntimeError(
-        "Please set TURSO_DATABASE_URL and TURSO_AUTH_TOKEN environment variables."
-    )
+if not raw_url or not auth_token:
+    print("Missing Turso credentials, exiting.")
+    exit(1)
+
+# Normalize URL for HTTP access
+if raw_url.startswith("wss://"):
+    db_url = "https://" + raw_url[len("wss://") :]
+elif raw_url.startswith("libsql://"):
+    db_url = "https://" + raw_url[len("libsql://") :]
+else:
+    db_url = raw_url
 
 TABLE_STATEMENTS = [
     """
@@ -147,7 +154,7 @@ TABLE_STATEMENTS = [
 
 
 def main():
-    client = create_client_sync(url=TURSO_DATABASE_URL, auth_token=TURSO_AUTH_TOKEN)
+    client = create_client_sync(url=db_url, auth_token=auth_token)
 
     try:
         for sql in TABLE_STATEMENTS:
