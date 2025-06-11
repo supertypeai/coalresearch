@@ -135,7 +135,7 @@ if __name__ == "__main__":
     # %%
     sync_model("resources_and_reserves", "A1:N24", ResourcesAndReserves)
     # %%
-    sync_model("total_commodities_production", "A1:E12", TotalCommoditiesProduction)
+    sync_model("commodities_production_id", "A1:E32", TotalCommoditiesProduction)
     # %%
     processMiningContract()
     # %%
