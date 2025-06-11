@@ -8,7 +8,7 @@ from db.models import (
     TotalCommoditiesProduction,
     ExportDestination,
     MiningContract,
-    GlobalCoalData,
+    GlobalCommodityData,
 )
 
 
@@ -24,7 +24,7 @@ def create_tables():
             # TotalCommoditiesProduction,
             # ExportDestination,
             # MiningContract,
-            GlobalCoalData,
+            GlobalCommodityData,
         ]
     )
     print("All tables created successfully.")

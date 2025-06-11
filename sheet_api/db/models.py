@@ -115,7 +115,7 @@ class Company(Model):
         table_name = "company"
 
 
-class GlobalCoalData(Model):
+class GlobalCommodityData(Model):
     id = IntegerField(primary_key=True)
     country = TextField()
     resources_reserves = TextField(
@@ -127,10 +127,14 @@ class GlobalCoalData(Model):
     production_volume = TextField(
         null=True, constraints=[Check("json_valid(production_volume)")]
     )
+    commodity_type = TextField(
+        null=True,
+        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")],
+    )
 
     class Meta:
         database = db
-        table_name = "global_coal_data"
+        table_name = "global_commodity_data"
 
 
 class CompanyOwnership(Model):

@@ -18,7 +18,7 @@ from db.models import (
     TotalCommoditiesProduction,
     ExportDestination,
     MiningContract,
-    GlobalCoalData,
+    GlobalCommodityData,
 )
 from google_sheets.auth import createClient
 from utils.dataframe_utils import castTypes, mapPeeweeToPandasFields
@@ -141,6 +141,6 @@ if __name__ == "__main__":
     # %%
     sync_model("export_destination", "A1:G122", ExportDestination)
     # %%
-    sync_model("global_coal_data", "A1:E88", GlobalCoalData)
+    sync_model("global_commodity_data", "A1:F88", GlobalCommodityData)
 
 # %%
