@@ -4,6 +4,8 @@ import json
 import time
 import random
 import logging
+import argparse
+import sys
 
 # Configure logging with timestamp
 logging.basicConfig(
@@ -39,6 +41,14 @@ DEFAULT_PARAMS = {
     "resultRecordCount": 90,
 }
 
+# Predefined tasks mapped to their WHERE clauses
+tasks = {
+    "nickel": "LOWER(komoditas) LIKE '%nikel%'",
+    "gold": "LOWER(komoditas) LIKE '%emas%'",
+    "coal": "LOWER(komoditas) LIKE '%batubara%'",
+    "all": None,
+}
+
 
 def construct_url_and_params(extra_filters: dict):
     """
@@ -62,7 +72,6 @@ def fetch_page(url: str, params: dict, max_retries: int = 5) -> dict:
             response.raise_for_status()
 
             data = response.json()
-            # Debug head of response
             if isinstance(data, dict) and "features" in data:
                 logging.debug(
                     f"Head features: {json.dumps(data['features'][:2], indent=2)}"
@@ -132,21 +141,26 @@ def scrape(where_clause: str = None) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    # Define filters and output filenames here
-    tasks = [
-        # {"name": "nickel", "where": "LOWER(komoditas) LIKE '%nikel%'"},
-        # {"name": "gold", "where": "LOWER(komoditas) LIKE '%emas%'"},
-        # {"name": "coal", "where": "LOWER(komoditas) LIKE '%batubara%'"},
-        {"name": "all", "where": None},
-    ]
+    parser = argparse.ArgumentParser(
+        description="Scrape ESDM minerba data for a specific commodity or all."
+    )
+    parser.add_argument(
+        "commodity", choices=tasks.keys(), help="Which dataset to scrape: %(choices)s"
+    )
+    args = parser.parse_args()
 
-    for task in tasks:
-        logging.info(
-            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Starting scrape for {task['name']}"
-        )
-        df = scrape(where_clause=task["where"])
-        filename = f"scrapper/esdm_minerba_{task['name']}.csv"
-        df.to_csv(filename, index=False)
-        logging.info(
-            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Saved {len(df)} rows to {filename}"
-        )
+    selected = args.commodity
+    where_clause = tasks[selected]
+
+    logging.info(
+        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Starting scrape for {selected}"
+    )
+    df = scrape(where_clause=where_clause)
+
+    filename = f"esdm_minerba_{selected}.csv"
+    # Write CSV with leading empty column via index
+    df.to_csv(filename, index=True)
+
+    logging.info(
+        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Saved {len(df)} rows to {filename}"
+    )
