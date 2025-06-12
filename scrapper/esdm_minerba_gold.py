@@ -1,8 +1,10 @@
 import requests
 import pandas as pd
-import json
+import json  # Make sure to keep this import if you want the debug print for JSON head
 
+# --- REVISED URL HERE ---
 url = "https://geoportal.esdm.go.id/monaresia/sharing/servers/48852a855c014a63acfd78bf06c2689a/rest/services/Pusat/WIUP_Publish/MapServer/0/query"
+# --- END REVISED URL ---
 
 
 def constructUrlAndParams(query_filter):
@@ -56,7 +58,7 @@ def scrape(data_count: int, query_filter: dict):
             data = response.json()
             print(f"Request successful! Status code: {response.status_code}")
 
-            # --- DEBUG PRINT: Head of the response data ---
+            # --- DEBUG PRINT: Head of the JSON response data ---
             print("\n--- Head of JSON response data: ---")
             if (
                 isinstance(data, dict)
@@ -106,14 +108,15 @@ def scrape(data_count: int, query_filter: dict):
     return minerba_df
 
 
-nickel_filter = {
-    "data_count": 950,
-    "query_filter": {"where": "(LOWER(komoditas) LIKE '%nikel%')"},
-}
-
-gold_filter = {
+# Note: The 'emas' filter will now correctly use the new URL.
+emas_filter = {
     "data_count": 950,
     "query_filter": {"where": "(LOWER(komoditas) LIKE '%emas%')"},
+}
+
+nickel_filter = {
+    "data_count": 340,
+    "query_filter": {"where": "(LOWER(komoditas) LIKE '%nikel%')"},
 }
 
 batubara_filter = {
@@ -121,19 +124,18 @@ batubara_filter = {
     "query_filter": {"where": "(LOWER(komoditas) LIKE '%batubara%')"},
 }
 
-all_filter = {"data_count": 10000, "query_filter": {}}
+all_filter = {"data_count": 8300, "query_filter": {}}
 
+print("\n--- Calling scrape for emas data ---")
+emas_df = scrape(**emas_filter)  # Changed to scrape 'emas' data
+
+print("\n--- Saving emas data to CSV ---")
+# Changed filename to reflect 'emas' data
+emas_df.to_csv(f"scrapper/esdm_minerba-emas2.csv", index=False)
+print("--- Emas data saved successfully! ---")
+
+# You can uncomment and run other filters if needed
 # print("\n--- Calling scrape for nickel data ---")
 # nickel_df = scrape(**nickel_filter)
-
-# print("\n--- Saving nickel data to CSV ---")
 # nickel_df.to_csv(f"scrapper/esdm_minerba-nickel.csv", index=False)
 # print("--- Nickel data saved successfully! ---")
-
-
-print("\n--- Calling scrape for all data ---")
-nickel_df = scrape(**all_filter)
-
-print("\n--- Saving all data to CSV ---")
-nickel_df.to_csv(f"scrapper/esdm_minerba-all.csv", index=False)
-print("--- all data saved successfully! ---")
