@@ -1,4 +1,4 @@
-name: Weekly Commodity Table Scraper
+name: Weekly Mining License Scraper
 
 on:
   schedule:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-commodity-table:
+  update-minerba-csv:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,18 +26,18 @@ jobs:
 
       - name: Execute scraper
         run: |
-          python minerba_commodities_scraper.py
+          python ./scrapper/esdm_minerba.py all
 
       - name: Pull remote changes
         run: git pull origin main
 
-      - name: Commit updated database
+      - name: Commit updated CSV
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add db.sqlite
+          git add esdm_minerba_all.csv
           git diff-index --quiet HEAD \
-            || git commit -m "chore: daily update of db.sqlite" --allow-empty
+            || git commit -m "chore: weekly update of esdm_minerba_all.csv" --allow-empty
 
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
