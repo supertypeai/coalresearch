@@ -45,6 +45,10 @@ def safeCast(val, dtype):
             return int(val)
         
         if dtype == dict:
-            return json.loads(val)
+            try:
+                return json.loads(val)
+            except Exception as e:
+                print(f"Failed to parse as JSON: {val}")
+                raise e
         
         return dtype(val)
