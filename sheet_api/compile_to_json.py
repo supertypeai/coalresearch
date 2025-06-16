@@ -10,7 +10,7 @@ _, spreadsheet_id = createClient()
 service = createService()
 
 # %%
-def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=0):
+def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=203):
     
     col_id = df.columns.get_loc(target_col)
 
@@ -42,18 +42,46 @@ def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=0
             }
         )
 
+    # requests = [
+    #     {
+    #         'updateCells': {
+    #             'range': {
+    #                 'sheetId': 147673991,
+    #                 'startRowIndex': starts_from + 1,
+    #                 'endRowIndex': 240 + 1,
+    #                 'startColumnIndex': col_id,
+    #                 'endColumnIndex': col_id + 1
+    #             },
+    #             'rows': rows,
+    #             'fields': 'userEnteredValue'
+    #         }
+    #     }
+    # ]
+
     requests = [
         {
-            'updateCells': {
-                'range': {
-                    'sheetId': sheet_id,
-                    'startRowIndex': starts_from + 1,
-                    'endRowIndex': len(df) + 1,
-                    'startColumnIndex': col_id,
-                    'endColumnIndex': col_id + 1
+            "updateSheetProperties": {
+                "properties": {
+                    "sheetId": sheet_id,
+                    "gridProperties": {
+                        "rowCount": 300,
+                        "columnCount": 43
+                    }
                 },
-                'rows': rows,
-                'fields': 'userEnteredValue'
+                "fields": "gridProperties(rowCount,columnCount)"
+            }
+        },
+        {
+            "updateCells": {
+                "range": {
+                    "sheetId": sheet_id,
+                    "startRowIndex": starts_from + 3,
+                    "endRowIndex": 241 + 3,
+                    "startColumnIndex": col_id,
+                    "endColumnIndex": col_id + 1
+                },
+                "rows": rows,
+                "fields": "userEnteredValue"
             }
         }
     ]
@@ -146,8 +174,6 @@ mining_site_location_cols_type = [
     ("*longitude", float),
 ]
 
-# compileToJsonBatch(ms_df, lo_cols_type, 'location', ms_sheet.id)
-
 company_performance_resources_reserves_cols_type = [
     ("*year_measured", int),
     ("*total_reserve", float),
@@ -169,5 +195,37 @@ company_performance_coal_stats_type = [
     ("*product", dict)
 ]
 
-# compileToJsonBatch(cp_df, rr_cols_type, 'resources_reserves', 147673991)
-# compileToJsonBatch(cp_df, rr_cols_type, 'resources_reserves', cp_sheet.id)
+mineral_reserves_cols_type = [
+    ("ore_reserves material (mt)", float),
+    ("ore_reserves g/ton Au (koz)", float),
+    ("ore_reserves Au (koz)", float),
+    ("ore_reserves g/ton Ag (koz)", float),
+    ("ore_reserves Ag (koz)", float),
+    ("ore_reserves % Cu", float),
+    ("ore_reserves Cu (mt)", float)
+]
+
+mineral_resources_cols_type = [
+    ("resources material (mt)", float),
+    ("resources g/ton Au (koz)", float),
+    ("resources Au (koz)", float),
+    ("resources g/ton Ag (koz)", float),
+    ("resources Ag (koz)", float),
+    ("resources % Cu", float),
+    ("resources Cu (mt)", float)
+]
+
+mineral_reserves_resources_cols_type = [
+    ("*year_measured", int),
+    ("ore_reserves", dict),
+    ("resources", dict),
+]
+
+mineral_commodity_stats_type = [
+    ("*unit", str),
+    ("mining_operation_status", str),
+    ("*production_volume", float),
+    ("*sales_volume", float),
+    ("*resources_reserves", dict),
+    ("*product", dict)
+]

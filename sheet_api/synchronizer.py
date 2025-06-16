@@ -37,6 +37,10 @@ from compile_to_json import (
     mining_site_resources_reserves_cols_type,
     company_performance_coal_stats_type,
     company_performance_resources_reserves_cols_type,
+    mineral_reserves_cols_type,
+    mineral_resources_cols_type,
+    mineral_reserves_resources_cols_type,
+    mineral_commodity_stats_type
 )
 
 # %%
@@ -60,11 +64,11 @@ def sync_model(
     if preprocess is not None:
         df, field_types, sheet = preprocess(df, field_types, sheet)
 
-    df = castTypes(df, field_types)
+    # df = castTypes(df, field_types)
 
-    confirmChange(checkDeletedAndOrder, model, df)
-    confirmChange(compareDBSheet, model, df)
-    confirmChange(checkNewData, model, df, field_types)
+    # confirmChange(checkDeletedAndOrder, model, df)
+    # confirmChange(compareDBSheet, model, df)
+    # confirmChange(checkNewData, model, df, field_types)
 
 
 def processCompanyOwnership() -> None:
@@ -100,13 +104,35 @@ if __name__ == "__main__":
 
     def companyPerformancePreprocess(df: pd.DataFrame, field_types: dict, sheet):
 
+        mineral_mask = df['commodity_type'] != 'Coal'
+        coal_mask = df['commodity_type'] == 'Coal'
+
+        compileToJsonBatch(
+            df[mineral_mask],
+            mineral_reserves_cols_type,
+            "ore_reserves",
+            sheet.id,
+        )
+        compileToJsonBatch(
+            df[mineral_mask],
+            mineral_resources_cols_type,
+            "resources",
+            sheet.id,
+        )
+
         # 1. Compile to json for resources_reserves column
         print(
             f"Compiling to json format on company_performance's *resources_reserves..."
         )
         compileToJsonBatch(
-            df,
+            df[coal_mask],
             company_performance_resources_reserves_cols_type,
+            "*resources_reserves",
+            sheet.id,
+        )
+        compileToJsonBatch(
+            df[mineral_mask],
+            mineral_reserves_resources_cols_type,
             "*resources_reserves",
             sheet.id,
         )
@@ -114,7 +140,10 @@ if __name__ == "__main__":
         # 2. Compile to json for commodity_stats column
         print(f"Compiling to json format on company_performance's commodity_stats...")
         compileToJsonBatch(
-            df, company_performance_coal_stats_type, "commodity_stats", sheet.id
+            df[coal_mask], company_performance_coal_stats_type, "commodity_stats", sheet.id
+        )
+        compileToJsonBatch(
+            df[mineral_mask], mineral_commodity_stats_type, "commodity_stats", sheet.id
         )
 
         return df, field_types, sheet
@@ -124,7 +153,7 @@ if __name__ == "__main__":
     # %%
     sync_model(
         "company_performance",
-        "A1:W206",
+        "A1:AQ241",
         CompanyPerformance,
         companyPerformancePreprocess,
     )
