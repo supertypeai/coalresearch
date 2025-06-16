@@ -145,8 +145,6 @@ TABLE_STATEMENTS = [
     CREATE TABLE IF NOT EXISTS commodity (
         commodity_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         name TEXT NOT NULL,
-        name_english TEXT,
-        unit TEXT,
         price TEXT
     );
     """,
