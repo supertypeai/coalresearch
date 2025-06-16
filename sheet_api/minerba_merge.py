@@ -53,6 +53,7 @@ def prepareMinerbaDf():
     )
     minerba_df["activity"] = minerba_df["activity"].str.lower()
     minerba_df["location"] = minerba_df["location"].str.lower()
+    minerba_df["license_number"] = minerba_df["license_number"].str.strip()
     minerba_df["permit_effective_date"] = pd.to_datetime(
         minerba_df["permit_effective_date"], unit="ms"
     )
