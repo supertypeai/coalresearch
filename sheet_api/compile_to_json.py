@@ -10,6 +10,52 @@ _, spreadsheet_id = createClient()
 service = createService()
 
 # %%
+COAL_RESERVES_RESOURCES = [
+    ("*year_measured", int),
+    ("*total_reserve", float),
+    ("*total_resource", float),
+    ("*resources_inferred", float),
+    ("*resources_indicated", float),
+    ("*resources_measured", float),
+    ("*reserves_proved", float),
+    ("*reserves_probable", float)
+]
+
+COAL_STATS = [
+    ("mining_operation_status", str),
+    ("*production_volume", float),
+    ("*sales_volume", float),
+    ("*overburden_removal_volume", float),
+    ("*strip_ratio", float),
+]
+
+MINERAL_RESERVES = [
+    ("ore_reserves material (mt)", float),
+    ("ore_reserves g/ton Au (koz)", float),
+    ("ore_reserves Au (koz)", float),
+    ("ore_reserves g/ton Ag (koz)", float),
+    ("ore_reserves Ag (koz)", float),
+    ("ore_reserves % Cu", float),
+    ("ore_reserves Cu (mt)", float)
+]
+
+MINERAL_RESOURCES = [
+    ("resources material (mt)", float),
+    ("resources g/ton Au (koz)", float),
+    ("resources Au (koz)", float),
+    ("resources g/ton Ag (koz)", float),
+    ("resources Ag (koz)", float),
+    ("resources % Cu", float),
+    ("resources Cu (mt)", float)
+]
+
+MINERAL_STATS = [
+    ("*unit", str),
+    ("mining_operation_status", str),
+    ("*production_volume", float),
+    ("*sales_volume", float),
+]
+
 def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=203):
     
     col_id = df.columns.get_loc(target_col)
@@ -42,46 +88,18 @@ def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=2
             }
         )
 
-    # requests = [
-    #     {
-    #         'updateCells': {
-    #             'range': {
-    #                 'sheetId': 147673991,
-    #                 'startRowIndex': starts_from + 1,
-    #                 'endRowIndex': 240 + 1,
-    #                 'startColumnIndex': col_id,
-    #                 'endColumnIndex': col_id + 1
-    #             },
-    #             'rows': rows,
-    #             'fields': 'userEnteredValue'
-    #         }
-    #     }
-    # ]
-
     requests = [
         {
-            "updateSheetProperties": {
-                "properties": {
-                    "sheetId": sheet_id,
-                    "gridProperties": {
-                        "rowCount": 300,
-                        "columnCount": 43
-                    }
+            'updateCells': {
+                'range': {
+                    'sheetId': 147673991,
+                    'startRowIndex': starts_from + 1,
+                    'endRowIndex': 240 + 1,
+                    'startColumnIndex': col_id,
+                    'endColumnIndex': col_id + 1
                 },
-                "fields": "gridProperties(rowCount,columnCount)"
-            }
-        },
-        {
-            "updateCells": {
-                "range": {
-                    "sheetId": sheet_id,
-                    "startRowIndex": starts_from + 3,
-                    "endRowIndex": 241 + 3,
-                    "startColumnIndex": col_id,
-                    "endColumnIndex": col_id + 1
-                },
-                "rows": rows,
-                "fields": "userEnteredValue"
+                'rows': rows,
+                'fields': 'userEnteredValue'
             }
         }
     ]
@@ -92,6 +110,82 @@ def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=2
     ).execute()
 
     print(f"Batch update response: {response}")
+
+def default_key_formatter(col):
+    return col.lstrip("*")
+
+def renderDict(row, field_types, key_formatter=default_key_formatter):
+    return {
+        key_formatter(col): safeCast(row[col], dtype)
+        for col, dtype in field_types
+    }
+
+def renderMineralStats(row):
+    data_dict = renderDict(row, MINERAL_STATS)
+    data_dict["resources_reserves"] = {
+        "year_measured": safeCast(row["*year_measured"], int),
+        "reserves": renderDict(row, MINERAL_RESERVES, lambda col: col.replace("ore_reserves ", "").lstrip("*")),
+        "resources": renderDict(row, MINERAL_RESOURCES, lambda col: col.replace("resources ", "").lstrip("*"))
+        }
+    data_dict["product"] = None
+    return data_dict
+
+def renderCoalStats(row):
+    data_dict = renderDict(row, COAL_STATS)
+    data_dict["resources_reserves"] = renderDict(row, COAL_RESERVES_RESOURCES)
+    data_dict["product"] = renderDict(row, [("*product", dict)])
+    return data_dict
+
+def jsonifyCommodityStats(df, sheet_id, starts_from=0):
+    
+    col_id = df.columns.get_loc("commodity_stats")
+    rows = []
+
+    for row_id, row in df.iterrows():
+
+        if row_id < starts_from:
+            continue
+
+        if row["commodity_type"] != "Coal":
+            data_dict = renderMineralStats(row)
+        else:
+            data_dict = renderCoalStats(row)
+            
+        rr_cols_json = json.dumps(data_dict)
+        to_use_value = {'stringValue':f'{rr_cols_json}'}
+
+        rows.append(
+            {
+                'values': 
+                    [
+                        {'userEnteredValue': to_use_value}
+                    ]
+            }
+        )
+
+    requests = [
+        {
+            'updateCells': {
+                'range': {
+                    'sheetId': sheet_id,
+                    'startRowIndex': starts_from + 1,
+                    'endRowIndex': len(df) + 1,
+                    'startColumnIndex': col_id,
+                    'endColumnIndex': col_id + 1
+                },
+                'rows': rows,
+                'fields': 'userEnteredValue'
+            }
+        }
+    ]
+
+    response = service.spreadsheets().batchUpdate(
+        spreadsheetId=spreadsheet_id,
+        body={'requests': requests}
+    ).execute()
+
+    print(f"Batch update response: {response}")
+
 
 def clean_company_name(name):
     return re.sub(r'\b(PT|Tbk)\b', '', name).lower().strip()
@@ -127,9 +221,6 @@ def fillMiningLicense(df, sheet_id, starts_from=0):
             }
         )
 
-            # sheet.update_cell(2 + row_id, col_id + 1, license_json)
-            # print(f"Updated row {row_id + 2}: {license_json}")
-
     requests = [
         {
             'updateCells': {
@@ -152,80 +243,3 @@ def fillMiningLicense(df, sheet_id, starts_from=0):
     ).execute()
 
     print(f"Batch update response: {response}")
-
-# %%
-
-mining_site_resources_reserves_cols_type = [
-    ("*year_measured", int),
-    ("*calorific_value", str),
-    ("*total_reserve", float),
-    ("*total_resource", float),
-    ("*resources_inferred", float),
-    ("*resources_indicated", float),
-    ("*resources_measured", float),
-    ("*reserves_proved", float),
-    ("*reserves_probable", float)
-]
-
-mining_site_location_cols_type = [
-    ("*province", str),
-    ("*city", str),
-    ("*latitude", float),
-    ("*longitude", float),
-]
-
-company_performance_resources_reserves_cols_type = [
-    ("*year_measured", int),
-    ("*total_reserve", float),
-    ("*total_resource", float),
-    ("*resources_inferred", float),
-    ("*resources_indicated", float),
-    ("*resources_measured", float),
-    ("*reserves_proved", float),
-    ("*reserves_probable", float)
-]
-
-company_performance_coal_stats_type = [
-    ("mining_operation_status", str),
-    ("*production_volume", float),
-    ("*sales_volume", float),
-    ("*overburden_removal_volume", float),
-    ("*strip_ratio", float),
-    ("*resources_reserves", dict),
-    ("*product", dict)
-]
-
-mineral_reserves_cols_type = [
-    ("ore_reserves material (mt)", float),
-    ("ore_reserves g/ton Au (koz)", float),
-    ("ore_reserves Au (koz)", float),
-    ("ore_reserves g/ton Ag (koz)", float),
-    ("ore_reserves Ag (koz)", float),
-    ("ore_reserves % Cu", float),
-    ("ore_reserves Cu (mt)", float)
-]
-
-mineral_resources_cols_type = [
-    ("resources material (mt)", float),
-    ("resources g/ton Au (koz)", float),
-    ("resources Au (koz)", float),
-    ("resources g/ton Ag (koz)", float),
-    ("resources Ag (koz)", float),
-    ("resources % Cu", float),
-    ("resources Cu (mt)", float)
-]
-
-mineral_reserves_resources_cols_type = [
-    ("*year_measured", int),
-    ("ore_reserves", dict),
-    ("resources", dict),
-]
-
-mineral_commodity_stats_type = [
-    ("*unit", str),
-    ("mining_operation_status", str),
-    ("*production_volume", float),
-    ("*sales_volume", float),
-    ("*resources_reserves", dict),
-    ("*product", dict)
-]

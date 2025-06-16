@@ -31,16 +31,8 @@ from utils.sync_utils import (
     replaceMC,
 )
 from compile_to_json import (
-    compileToJsonBatch,
+    jsonifyCommodityStats,
     fillMiningLicense,
-    mining_site_location_cols_type,
-    mining_site_resources_reserves_cols_type,
-    company_performance_coal_stats_type,
-    company_performance_resources_reserves_cols_type,
-    mineral_reserves_cols_type,
-    mineral_resources_cols_type,
-    mineral_reserves_resources_cols_type,
-    mineral_commodity_stats_type
 )
 
 # %%
@@ -104,52 +96,12 @@ if __name__ == "__main__":
 
     def companyPerformancePreprocess(df: pd.DataFrame, field_types: dict, sheet):
 
-        mineral_mask = df['commodity_type'] != 'Coal'
-        coal_mask = df['commodity_type'] == 'Coal'
-
-        compileToJsonBatch(
-            df[mineral_mask],
-            mineral_reserves_cols_type,
-            "ore_reserves",
-            sheet.id,
-        )
-        compileToJsonBatch(
-            df[mineral_mask],
-            mineral_resources_cols_type,
-            "resources",
-            sheet.id,
-        )
-
-        # 1. Compile to json for resources_reserves column
-        print(
-            f"Compiling to json format on company_performance's *resources_reserves..."
-        )
-        compileToJsonBatch(
-            df[coal_mask],
-            company_performance_resources_reserves_cols_type,
-            "*resources_reserves",
-            sheet.id,
-        )
-        compileToJsonBatch(
-            df[mineral_mask],
-            mineral_reserves_resources_cols_type,
-            "*resources_reserves",
-            sheet.id,
-        )
-
-        # 2. Compile to json for commodity_stats column
-        print(f"Compiling to json format on company_performance's commodity_stats...")
-        compileToJsonBatch(
-            df[coal_mask], company_performance_coal_stats_type, "commodity_stats", sheet.id
-        )
-        compileToJsonBatch(
-            df[mineral_mask], mineral_commodity_stats_type, "commodity_stats", sheet.id
-        )
+        jsonifyCommodityStats(df, sheet.id)
 
         return df, field_types, sheet
 
     # %%
-    sync_model("company", "A1:S249", Company, companyPreprocess)
+    # sync_model("company", "A1:S249", Company, companyPreprocess)
     # %%
     sync_model(
         "company_performance",
