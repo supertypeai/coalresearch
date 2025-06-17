@@ -35,8 +35,8 @@ def prepareMinerbaDf():
         "license_number",
         "province",
         "city",
-        "business_entity",
-        "company_name",
+        # "business_entity",
+        # "company_name",
         "permit_effective_date",
         "permit_expiry_date",
         "activity",
@@ -47,24 +47,26 @@ def prepareMinerbaDf():
         "geometry",
     ]
     minerba_df["province"] = minerba_df["province"].str.title()
-    minerba_df["company_name"] = minerba_df["company_name"].str.title()
+    # minerba_df["company_name"] = minerba_df["company_name"].str.title()
     minerba_df["city"] = (
         minerba_df["city"].str.replace(r"^KAB\.\s*", "", regex=True).str.title()
     )
     minerba_df["activity"] = minerba_df["activity"].str.lower()
     minerba_df["location"] = minerba_df["location"].str.lower()
-    minerba_df["license_number"] = minerba_df["license_number"].str.strip()
+    minerba_df["license_number"] = minerba_df["license_number"].fillna("-").str.strip()
     minerba_df["permit_effective_date"] = pd.to_datetime(
-        minerba_df["permit_effective_date"], unit="ms"
+        minerba_df["permit_effective_date"], unit="ms", errors="coerce"
     )
     minerba_df["permit_expiry_date"] = pd.to_datetime(
-        minerba_df["permit_expiry_date"], unit="ms"
+        minerba_df["permit_expiry_date"], unit="ms", errors="coerce"
     )
-    minerba_df["permit_effective_date"] = minerba_df[
-        "permit_effective_date"
-    ].dt.strftime("%d/%m/%Y")
-    minerba_df["permit_expiry_date"] = minerba_df["permit_expiry_date"].dt.strftime(
-        "%d/%m/%Y"
+    minerba_df["permit_effective_date"] = (
+        minerba_df["permit_effective_date"].dt.strftime("%d/%m/%Y").fillna("-")
     )
+    minerba_df["permit_expiry_date"] = (
+        minerba_df["permit_expiry_date"].dt.strftime("%d/%m/%Y").fillna("-")
+    )
+
+    minerba_df["generation"] = minerba_df["generation"].fillna("-")
 
     return minerba_df, included_columns

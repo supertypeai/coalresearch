@@ -94,11 +94,9 @@ def init_db(path):
     c.execute(
         """
         CREATE TABLE IF NOT EXISTS commodity (
-            commodity_id   INTEGER PRIMARY KEY AUTOINCREMENT,
-            name           TEXT    NOT NULL UNIQUE,
-            name_english   TEXT,
-            unit           TEXT,
-            price          TEXT
+            commodity_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name         TEXT    NOT NULL UNIQUE,
+            price        TEXT
         );
         """
     )
@@ -127,13 +125,12 @@ def upsert_local(conn, df):
         # Upsert into commodity table
         c.execute(
             """
-            INSERT INTO commodity (name, name_english, unit, price)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO commodity (name, price)
+            VALUES (?, ?)
             ON CONFLICT(name) DO UPDATE
-              SET unit = excluded.unit,
-                  price = excluded.price
+              SET price = excluded.price
             """,
-            (name.strip(), None, unit.strip(), price_json),
+            (name.strip(), price_json),
         )
     conn.commit()
 

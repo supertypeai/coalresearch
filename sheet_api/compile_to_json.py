@@ -9,6 +9,7 @@ import re
 _, spreadsheet_id = createClient()
 service = createService()
 
+
 # %%
 COAL_RESERVES_RESOURCES = [
     ("*year_measured", int),
@@ -57,11 +58,11 @@ MINERAL_STATS = [
 ]
 
 def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=203):
-    
+
     col_id = df.columns.get_loc(target_col)
 
     rows = []
-    
+
     for row_id, row in df.iterrows():
 
         if (row_id + 2) < starts_from:
@@ -69,7 +70,7 @@ def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=2
 
         data_dict = {}
 
-        for in_col, type in included_columns:		
+        for in_col, type in included_columns:
             val = safeCast(row[in_col], type)
 
             in_col_cleaned = in_col.lstrip("*")
@@ -77,16 +78,9 @@ def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=2
             data_dict[in_col_cleaned] = val
 
         rr_cols_json = json.dumps(data_dict)
-        to_use_value = {'stringValue':f'{rr_cols_json}'}
-        
-        rows.append(
-            {
-                'values': 
-                    [
-                        {'userEnteredValue': to_use_value}
-                    ]
-            }
-        )
+        to_use_value = {"stringValue": f"{rr_cols_json}"}
+
+        rows.append({"values": [{"userEnteredValue": to_use_value}]})
 
     requests = [
         {
@@ -101,13 +95,14 @@ def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=2
                 'rows': rows,
                 'fields': 'userEnteredValue'
             }
-        }
+        },
     ]
 
-    response = service.spreadsheets().batchUpdate(
-        spreadsheetId=spreadsheet_id,
-        body={'requests': requests}
-    ).execute()
+    response = (
+        service.spreadsheets()
+        .batchUpdate(spreadsheetId=spreadsheet_id, body={"requests": requests})
+        .execute()
+    )
 
     print(f"Batch update response: {response}")
 
@@ -188,13 +183,14 @@ def jsonifyCommodityStats(df, sheet_id, starts_from=0):
 
 
 def clean_company_name(name):
-    return re.sub(r'\b(PT|Tbk)\b', '', name).lower().strip()
+    return re.sub(r"\b(PT|Tbk)\b", "", name).lower().strip()
+
 
 def fillMiningLicense(df, sheet_id, starts_from=0):
 
     minerba_df, included_columns = prepareMinerbaDf()
-    
-    col_id = df.columns.get_loc('mining_license')
+
+    col_id = df.columns.get_loc("mining_license")
 
     rows = []
 
@@ -203,43 +199,39 @@ def fillMiningLicense(df, sheet_id, starts_from=0):
         if (row_id + 2) < starts_from:
             continue
 
-        company_q = minerba_df[minerba_df['company_name'].str.lower() == clean_company_name(row['name'])]
+        company_q = minerba_df[
+            minerba_df["company_name"].str.lower() == clean_company_name(row["name"])
+        ]
 
         if not company_q.empty:
-            license_json = company_q[included_columns].iloc[0].to_json()
-            to_use_value = {'stringValue':f'{license_json}'}
-
+            records = company_q[included_columns].to_dict(orient="records")
         else:
-            to_use_value = {}
+            records = []  # empty list when no matches
 
-        rows.append(
-            {
-                'values': 
-                    [
-                        {'userEnteredValue': to_use_value}
-                    ]
-            }
-        )
+        # ### CHANGED: dump the list (even if empty) as your JSON array
+        license_json = json.dumps(records, ensure_ascii=False)
+        to_use_value = {"stringValue": license_json}
 
     requests = [
         {
-            'updateCells': {
-                'range': {
-                    'sheetId': sheet_id,
-                    'startRowIndex': starts_from + 1,
-                    'endRowIndex': len(df) + 1,
-                    'startColumnIndex': col_id,
-                    'endColumnIndex': col_id + 1
+            "updateCells": {
+                "range": {
+                    "sheetId": sheet_id,
+                    "startRowIndex": starts_from + 1,
+                    "endRowIndex": len(df) + 1,
+                    "startColumnIndex": col_id,
+                    "endColumnIndex": col_id + 1,
                 },
-                'rows': rows,
-                'fields': 'userEnteredValue'
+                "rows": rows,
+                "fields": "userEnteredValue",
             }
         }
     ]
 
-    response = service.spreadsheets().batchUpdate(
-        spreadsheetId=spreadsheet_id,
-        body={'requests': requests}
-    ).execute()
+    response = (
+        service.spreadsheets()
+        .batchUpdate(spreadsheetId=spreadsheet_id, body={"requests": requests})
+        .execute()
+    )
 
     print(f"Batch update response: {response}")
