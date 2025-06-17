@@ -65,7 +65,7 @@ def sync_model(
 
 def processCompanyOwnership() -> None:
     sheet = client.open_by_key(spreadsheet_id).worksheet("company")
-    data = sheet.get("A1:R251")
+    data = sheet.get("A1:S282")
     df = pd.DataFrame(data[1:], columns=data[0])
 
     if input("Replace company ownerhip according to the sheet?") == "Y":

@@ -106,7 +106,10 @@ def batchUpdate(df, company_name_col, company_id_col, sheet_id, starts_from=0):
     print(f"Batch update response: {response}")
 
 # %%
-batchUpdate(ccp_df, '*company_name', 'company_id', 1665285265)
+batchUpdate(ccp_df, '*company_name', 'company_id', ccp_sheet.id)
+
+# %%
+batchUpdate(c_df, '*parent_company_name', '*parent_company_id', c_sheet.id)
 
 # # %%
 # syncCompanyNameID(c_df, c_sheet, '*parent_company_name', '*parent_company_id', starts_from=210)
