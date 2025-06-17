@@ -57,7 +57,7 @@ MINERAL_STATS = [
     ("*sales_volume", float),
 ]
 
-def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=203):
+def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=0):
 
     col_id = df.columns.get_loc(target_col)
 
@@ -72,7 +72,6 @@ def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=2
 
         for in_col, type in included_columns:
             val = safeCast(row[in_col], type)
-
             in_col_cleaned = in_col.lstrip("*")
 
             data_dict[in_col_cleaned] = val
@@ -86,9 +85,9 @@ def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=2
         {
             'updateCells': {
                 'range': {
-                    'sheetId': 147673991,
+                    'sheetId': sheet_id,
                     'startRowIndex': starts_from + 1,
-                    'endRowIndex': 240 + 1,
+                    'endRowIndex': len(df) + 1,
                     'startColumnIndex': col_id,
                     'endColumnIndex': col_id + 1
                 },

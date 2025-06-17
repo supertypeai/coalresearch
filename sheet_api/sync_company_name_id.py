@@ -21,7 +21,7 @@ ccp_data = ccp_sheet.get('A1:AB240')
 ccp_df = pd.DataFrame(ccp_data[1:], columns=ccp_data[0])
 
 ms_sheet = client.open_by_key(spreadsheet_id).worksheet('mining_site')
-ms_data = ms_sheet.get('A1:W91')
+ms_data = ms_sheet.get('A1:Y110')
 ms_df = pd.DataFrame(ms_data[1:], columns=ms_data[0])
 
 # %%
@@ -110,6 +110,9 @@ batchUpdate(ccp_df, '*company_name', 'company_id', ccp_sheet.id)
 
 # %%
 batchUpdate(c_df, '*parent_company_name', '*parent_company_id', c_sheet.id)
+
+# %%
+batchUpdate(ms_df, '*company_name', 'company_id', ms_sheet.id)
 
 # # %%
 # syncCompanyNameID(c_df, c_sheet, '*parent_company_name', '*parent_company_id', starts_from=210)

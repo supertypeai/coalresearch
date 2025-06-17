@@ -31,6 +31,7 @@ from utils.sync_utils import (
     replaceMC,
 )
 from compile_to_json import (
+    compileToJsonBatch,
     jsonifyCommodityStats,
     fillMiningLicense,
 )
@@ -99,6 +100,32 @@ if __name__ == "__main__":
         jsonifyCommodityStats(df, sheet.id)
 
         return df, field_types, sheet
+    
+    def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
+        # 1. Compile reserves_resourcees
+        reserves_resources_fields = [
+            ("*year_measured", int),
+            ("*calorific_value", str),
+            ("*total_reserve", float),
+            ("*total_resource", float),
+            ("*resources_inferred", float),
+            ("*resources_indicated", float),
+            ("*resources_measured", float),
+            ("*reserves_proved", float),
+            ("*reserves_probable", float)
+        ]
+        compileToJsonBatch(df, reserves_resources_fields, "resources_reserves", sheet.id)
+
+        # 2. Compile location
+        location = [
+            ("*province", str),
+            ("*city", str),
+            ("*latitude", float),
+            ("*longitude", float),
+        ]
+        compileToJsonBatch(df, location, "location", sheet.id)
+
+        return df, field_types, sheet
 
     # %%
     sync_model("company", "A1:S282", Company, companyPreprocess)
@@ -110,7 +137,7 @@ if __name__ == "__main__":
         companyPerformancePreprocess,
     )
     # %%
-    sync_model("mining_site", "A1:Y51", MiningSite)
+    sync_model("mining_site", "A1:Y110", MiningSite, miningSitePreprocess)
     # %%
     processCompanyOwnership()
     # %%
