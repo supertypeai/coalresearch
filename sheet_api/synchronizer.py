@@ -56,11 +56,11 @@ def sync_model(
     if preprocess is not None:
         df, field_types, sheet = preprocess(df, field_types, sheet)
 
-    # df = castTypes(df, field_types)
+    df = castTypes(df, field_types)
 
-    # confirmChange(checkDeletedAndOrder, model, df)
-    # confirmChange(compareDBSheet, model, df)
-    # confirmChange(checkNewData, model, df, field_types)
+    confirmChange(checkDeletedAndOrder, model, df)
+    confirmChange(compareDBSheet, model, df)
+    confirmChange(checkNewData, model, df, field_types)
 
 
 def processCompanyOwnership() -> None:
@@ -101,11 +101,11 @@ if __name__ == "__main__":
         return df, field_types, sheet
 
     # %%
-    # sync_model("company", "A1:S249", Company, companyPreprocess)
+    sync_model("company", "A1:S282", Company, companyPreprocess)
     # %%
     sync_model(
         "company_performance",
-        "A1:AQ241",
+        "A1:AQ239",
         CompanyPerformance,
         companyPerformancePreprocess,
     )

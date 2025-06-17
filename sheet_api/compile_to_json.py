@@ -128,7 +128,7 @@ def renderMineralStats(row):
 def renderCoalStats(row):
     data_dict = renderDict(row, COAL_STATS)
     data_dict["resources_reserves"] = renderDict(row, COAL_RESERVES_RESOURCES)
-    data_dict["product"] = renderDict(row, [("*product", dict)])
+    data_dict["product"] = safeCast(row["*product"], dict)
     return data_dict
 
 def jsonifyCommodityStats(df, sheet_id, starts_from=0):
@@ -212,26 +212,34 @@ def fillMiningLicense(df, sheet_id, starts_from=0):
         license_json = json.dumps(records, ensure_ascii=False)
         to_use_value = {"stringValue": license_json}
 
+        rows.append(
+            {
+                'values': 
+                    [
+                        {'userEnteredValue': to_use_value}
+                    ]
+            }
+        )
+
     requests = [
         {
-            "updateCells": {
-                "range": {
-                    "sheetId": sheet_id,
-                    "startRowIndex": starts_from + 1,
-                    "endRowIndex": len(df) + 1,
-                    "startColumnIndex": col_id,
-                    "endColumnIndex": col_id + 1,
+            'updateCells': {
+                'range': {
+                    'sheetId': sheet_id,
+                    'startRowIndex': starts_from + 1,
+                    'endRowIndex': len(df) + 1,
+                    'startColumnIndex': col_id,
+                    'endColumnIndex': col_id + 1
                 },
-                "rows": rows,
-                "fields": "userEnteredValue",
+                'rows': rows,
+                'fields': 'userEnteredValue'
             }
         }
     ]
 
-    response = (
-        service.spreadsheets()
-        .batchUpdate(spreadsheetId=spreadsheet_id, body={"requests": requests})
-        .execute()
-    )
+    response = service.spreadsheets().batchUpdate(
+        spreadsheetId=spreadsheet_id,
+        body={'requests': requests}
+    ).execute()
 
     print(f"Batch update response: {response}")

@@ -70,6 +70,8 @@ commodity_type_constraints = (
     "Zinc and Lead",
     "Oil",
     "Nickel",
+    "Copper",
+    "Silver",
 )
 mineral_type_constraints = (
     "Coal",
