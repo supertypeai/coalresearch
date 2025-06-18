@@ -1,5 +1,5 @@
 from shapely.geometry import shape, Point, Polygon
-from client import getSheet
+from google_sheets.client import getSheet
 from pyproj import Transformer
 import pandas as pd 
 from random import random
