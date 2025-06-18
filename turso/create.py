@@ -150,18 +150,18 @@ TABLE_STATEMENTS = [
     """,
     """
     CREATE TABLE IF NOT EXISTS global_commodity_data (
-    id                INTEGER PRIMARY KEY,
-    country           TEXT    NOT NULL,
-    resources_reserves TEXT   CHECK(json_valid(resources_reserves)),
-    export_import     TEXT    CHECK(json_valid(export_import)),
-    production_volume TEXT    CHECK(json_valid(production_volume)),
-    commodity_type    TEXT    NOT NULL
+        id                INTEGER PRIMARY KEY,
+        country           TEXT    NOT NULL,
+        resources_reserves TEXT,
+        export_import     TEXT,
+        production_volume TEXT,
+        commodity_type    TEXT    NOT NULL
     );
     """,
     """
-    CREATE TABLE mining_license (
+    CREATE TABLE IF NOT EXISTS mining_license (
         license_type TEXT,
-        license_number TEXT,
+        license_number TEXT PRIMARY KEY,
         province TEXT,
         city TEXT,
         permit_effective_date TEXT,
