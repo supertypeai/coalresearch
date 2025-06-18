@@ -24,6 +24,10 @@ ms_sheet = client.open_by_key(spreadsheet_id).worksheet('mining_site')
 ms_data = ms_sheet.get('A1:Y110')
 ms_df = pd.DataFrame(ms_data[1:], columns=ms_data[0])
 
+cp_sheet = client.open_by_key(spreadsheet_id).worksheet('coal_product')
+cp_data = cp_sheet.get('A1:O103')
+cp_df = pd.DataFrame(cp_data[1:], columns=cp_data[0])
+
 # %%
 def syncCompanyNameID(df, sheet, company_name_col, company_id_col, starts_from=0):
     for row_id, row in df.iterrows():
@@ -114,12 +118,5 @@ batchUpdate(c_df, '*parent_company_name', '*parent_company_id', c_sheet.id)
 # %%
 batchUpdate(ms_df, '*company_name', 'company_id', ms_sheet.id)
 
-# # %%
-# syncCompanyNameID(c_df, c_sheet, '*parent_company_name', '*parent_company_id', starts_from=210)
-# # %%
-# syncCompanyNameID(ccp_df, ccp_sheet, '*company_name', 'company_id', starts_from=131)
-# # %%
-# syncCompanyNameID(ms_df, ms_sheet, '*company_name', 'company_id', starts_from=69)
-# # %%
-
 # %%
+batchUpdate(cp_df, '*company_name', 'company_id', cp_sheet.id)

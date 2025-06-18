@@ -132,7 +132,7 @@ if __name__ == "__main__":
     # %%
     sync_model(
         "company_performance",
-        "A1:AQ239",
+        "A1:AQ245",
         CompanyPerformance,
         companyPerformancePreprocess,
     )

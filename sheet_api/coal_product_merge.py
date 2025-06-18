@@ -9,7 +9,7 @@ client, spreadsheet_id = createClient()
 
 # %%
 cp_sheet = client.open_by_key(spreadsheet_id).worksheet('coal_product')
-cp_data = cp_sheet.get('A1:O56')
+cp_data = cp_sheet.get('A1:O103')
 cp_df = pd.DataFrame(cp_data[1:], columns=cp_data[0])
 cp_df.columns = [col.lstrip("*") for col in cp_df.columns]
 
@@ -33,27 +33,29 @@ included_columns = [
 # %%
 
 def updateProduct(starts_from=0):
-	DEFAULT_YEAR = '2023'
 	cell_updates = []
 
 	for ccp_idx, ccp_row in ccp_df.iterrows():
 		
 		if ccp_row['commodity_type'] != 'Coal':
 			continue                        
-
+		
 		q = cp_df[
             (cp_df['company_id'] == ccp_row['company_id']) &
             (cp_df['year'] == ccp_row['year'])
-		]
-
+        ]
+		
 		if q.empty:
-			q = cp_df[
-				(cp_df['company_id'] == ccp_row['company_id']) &
-				(cp_df['year'] == DEFAULT_YEAR)
-			]
+            # Filter only by company_id
+			product_q = cp_df[cp_df['company_id'] == ccp_row['company_id']]
+			
+			if product_q.empty:
+				continue
 
-		if q.empty:
-			continue
+            # Get the latest available year
+			latest_year = product_q['year'].max()
+			q = product_q[product_q['year'] == latest_year]
+
 
 		assert isinstance(ccp_idx, int)
 		sheet_row = 2 + ccp_idx
