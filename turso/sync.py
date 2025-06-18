@@ -57,7 +57,7 @@ CONFLICT_TARGET = {
     "total_commodities_production": ["id"],
     "commodity": ["commodity_id"],
     "global_commodity_data": ["id"],
-    "mining_license": ["license_number"],
+    "mining_license": ["id"],
 }
 
 
