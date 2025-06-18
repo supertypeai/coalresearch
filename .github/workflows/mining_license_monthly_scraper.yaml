@@ -28,6 +28,10 @@ jobs:
         run: |
           python ./scrapper/esdm_minerba.py all
 
+      - name: Sort mining license data
+        run: |
+          python ./scrapper/sort_mining_license.py
+
       - name: Pull remote changes
         run: git pull origin main
 
@@ -36,8 +40,9 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add esdm_minerba_all.csv
+          git add db.sqlite
           git diff-index --quiet HEAD \
-            || git commit -m "chore: weekly update of esdm_minerba_all.csv" --allow-empty
+            || git commit -m "chore: weekly update of esdm_minerba_all.csv and db.sqlite for sorted mining_license" --allow-empty
 
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
