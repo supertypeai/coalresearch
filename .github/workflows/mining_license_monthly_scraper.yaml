@@ -1,9 +1,9 @@
-name: Weekly Mining License Scraper
+name: Monthly Mining License Scraper
 
 on:
   schedule:
-    # at 00:00 (midnight) on Monday
-    - cron: "0 0 * * 1"
+    # at 00:00 (midnight) on the 1st day of every month
+    - cron: "0 0 1 * *"
   workflow_dispatch:
 
 jobs:
