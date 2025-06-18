@@ -160,8 +160,9 @@ TABLE_STATEMENTS = [
     """,
     """
     CREATE TABLE IF NOT EXISTS mining_license (
+        id TEXT PRIMARY KEY NOT NULL,
         license_type TEXT,
-        license_number TEXT PRIMARY KEY,
+        license_number TEXT,
         province TEXT,
         city TEXT,
         permit_effective_date TEXT,
