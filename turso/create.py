@@ -148,6 +148,30 @@ TABLE_STATEMENTS = [
         price TEXT
     );
     """,
+    """
+    CREATE TABLE IF NOT EXISTS global_commodity_data (
+        id                INTEGER PRIMARY KEY,
+        country           TEXT    NOT NULL,
+        resources_reserves TEXT,
+        export_import     TEXT,
+        production_volume TEXT,
+        commodity_type    TEXT    NOT NULL
+    );
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS mining_license (
+        id TEXT PRIMARY KEY NOT NULL,
+        license_type TEXT,
+        license_number TEXT,
+        province TEXT,
+        city TEXT,
+        permit_effective_date TEXT,
+        permit_expiry_date TEXT,
+        activity TEXT,
+        licensed_area INTEGER,
+        location TEXT
+    );
+    """,
 ]
 
 

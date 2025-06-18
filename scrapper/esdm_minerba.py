@@ -41,7 +41,6 @@ DEFAULT_PARAMS = {
     "resultRecordCount": 90,
 }
 
-# Predefined tasks mapped to their WHERE clauses
 tasks = {
     "nickel": "LOWER(komoditas) LIKE '%nikel%'",
     "gold": "LOWER(komoditas) LIKE '%emas%'",
@@ -51,57 +50,40 @@ tasks = {
 
 
 def construct_url_and_params(extra_filters: dict):
-    """
-    Combine DEFAULT_PARAMS with any extra_filters provided (e.g., where, resultOffset).
-    """
     params = DEFAULT_PARAMS.copy()
     params.update(extra_filters)
     return BASE_URL, params
 
 
 def fetch_page(url: str, params: dict, max_retries: int = 5) -> dict:
-    """
-    Request a single page of data, retrying up to max_retries on failure.
-    """
     for attempt in range(1, max_retries + 1):
         try:
             logging.info(
-                f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Requesting offset={params.get('resultOffset')} (Attempt {attempt}/{max_retries})"
+                f"Requesting offset={params.get('resultOffset')} (Attempt {attempt}/{max_retries})"
             )
             response = requests.get(url, params=params, timeout=15)
             response.raise_for_status()
-
             data = response.json()
-            if isinstance(data, dict) and "features" in data:
-                logging.debug(
-                    f"Head features: {json.dumps(data['features'][:2], indent=2)}"
+            # early check for broken base URL response
+            if not isinstance(data, dict) or "features" not in data:
+                raise ValueError(
+                    "Unexpected response structure, possible broken URL or service down."
                 )
             return data
-
-        except (requests.RequestException, json.JSONDecodeError) as e:
-            logging.warning(
-                f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Failed on attempt {attempt}: {e}"
-            )
+        except (requests.RequestException, json.JSONDecodeError, ValueError) as e:
+            logging.warning(f"Failed on attempt {attempt}: {e}")
             if attempt < max_retries:
                 sleep_time = random.uniform(1, 3)
-                logging.info(
-                    f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Sleeping {sleep_time:.2f}s before retry"
-                )
+                logging.info(f"Sleeping {sleep_time:.2f}s before retry")
                 time.sleep(sleep_time)
             else:
                 logging.error(
-                    f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Max retries reached for offset {params.get('resultOffset')}"
+                    f"Max retries reached for offset {params.get('resultOffset')}. Skipping further requests."
                 )
                 return {}
-        finally:
-            pass
 
 
 def scrape(where_clause: str = None) -> pd.DataFrame:
-    """
-    Continues fetching pages of 90 records until an empty page is returned.
-    Optionally filters by a SQL WHERE clause (e.g., komoditas).
-    """
     frames = []
     offset = 0
 
@@ -114,9 +96,7 @@ def scrape(where_clause: str = None) -> pd.DataFrame:
         page = fetch_page(url, params)
 
         if not page or "features" not in page or not page["features"]:
-            logging.info(
-                f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] No more data at offset={offset}. Ending scrape."
-            )
+            logging.info(f"No more data at offset={offset}. Ending scrape.")
             break
 
         records = []
@@ -126,17 +106,12 @@ def scrape(where_clause: str = None) -> pd.DataFrame:
             attr["geometry"] = geom
             records.append(attr)
 
-        logging.info(
-            f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Fetched {len(records)} records for offset={offset}"
-        )
+        logging.info(f"Fetched {len(records)} records for offset={offset}")
         frames.append(pd.DataFrame(records))
-
         offset += DEFAULT_PARAMS["resultRecordCount"]
 
     result_df = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
-    logging.info(
-        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Total records scraped: {len(result_df)}"
-    )
+    logging.info(f"Total records scraped: {len(result_df)}")
     return result_df
 
 
@@ -152,15 +127,20 @@ if __name__ == "__main__":
     selected = args.commodity
     where_clause = tasks[selected]
 
-    logging.info(
-        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Starting scrape for {selected}"
-    )
-    df = scrape(where_clause=where_clause)
+    logging.info(f"Starting scrape for {selected}")
 
-    filename = f"esdm_minerba_{selected}.csv"
-    # Write CSV with leading empty column via index
-    df.to_csv(filename, index=True)
-
-    logging.info(
-        f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Saved {len(df)} rows to {filename}"
-    )
+    try:
+        df = scrape(where_clause=where_clause)
+        if df.empty or len(df) < 7000:
+            logging.warning(
+                f"Scraped data is insufficient (row count = {len(df)}); existing CSV will not be overwritten."
+            )
+        else:
+            filename = f"esdm_minerba_{selected}.csv"
+            df.to_csv(filename, index=True)
+            logging.info(f"Saved {len(df)} rows to {filename}")
+    except Exception as e:
+        logging.error(
+            f"Scrape failed due to an unexpected error: {e}. Existing CSV remains unchanged."
+        )
+        sys.exit(1)

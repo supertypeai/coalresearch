@@ -41,6 +41,8 @@ TABLES = [
     "resources_and_reserves",
     "total_commodities_production",
     "commodity",
+    "global_commodity_data",
+    "mining_license",
 ]
 
 # Primary-key columns for each table
@@ -54,6 +56,8 @@ CONFLICT_TARGET = {
     "resources_and_reserves": ["id"],
     "total_commodities_production": ["id"],
     "commodity": ["commodity_id"],
+    "global_commodity_data": ["id"],
+    "mining_license": ["id"],
 }
 
 
