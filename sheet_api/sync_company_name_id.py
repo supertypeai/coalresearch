@@ -17,7 +17,7 @@ c_data = c_sheet.get('A1:S282')
 c_df = pd.DataFrame(c_data[1:], columns=c_data[0])
 
 ccp_sheet = client.open_by_key(spreadsheet_id).worksheet('company_performance')
-ccp_data = ccp_sheet.get('A1:AB240')
+ccp_data = ccp_sheet.get('A1:AQ244')
 ccp_df = pd.DataFrame(ccp_data[1:], columns=ccp_data[0])
 
 ms_sheet = client.open_by_key(spreadsheet_id).worksheet('mining_site')
