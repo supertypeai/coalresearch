@@ -169,7 +169,8 @@ TABLE_STATEMENTS = [
         permit_expiry_date TEXT,
         activity TEXT,
         licensed_area INTEGER,
-        location TEXT
+        location TEXT,
+        commodity TEXT
     );
     """,
 ]

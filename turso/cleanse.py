@@ -29,7 +29,8 @@ tables_to_drop = [
     # "total_commodities_production",
     # "export_destination",
     # "mining_contract",
-    "commodity",
+    # "commodity",
+    "mining_license",
 ]
 try:
     for tbl in tables_to_drop:

@@ -1,5 +1,6 @@
 import pandas as pd
 import sqlite3
+import json
 
 
 def load_and_parse(csv_path: str) -> pd.DataFrame:
@@ -25,6 +26,19 @@ def prepare_top_n(df: pd.DataFrame, n: int = 100) -> pd.DataFrame:
     )
     df_sorted["permit_expiry_date"] = df_sorted["tgl_akhir"].dt.strftime("%d/%m/%Y")
     df_sorted["id"] = range(1, len(df_sorted) + 1)
+    df_sorted["commodity"] = (
+        df_sorted["komoditas"]
+        .astype(str)
+        .apply(
+            lambda x: [
+                entry.strip().title()
+                for entry in x.split(",")
+                if entry and entry.strip()
+            ]
+        )
+    )
+    # JSON-serialize the list for SQLite storage
+    df_sorted["commodity"] = df_sorted["commodity"].apply(json.dumps)
     return df_sorted
 
 
@@ -44,7 +58,8 @@ def create_table(conn: sqlite3.Connection):
         permit_expiry_date TEXT,
         activity TEXT,
         licensed_area INTEGER,
-        location TEXT
+        location TEXT,
+        commodity TEXT
     );
     """
     )
@@ -66,7 +81,8 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
         permit_expiry_date,
         activity,
         licensed_area,
-        location
+        location,
+        commodity
     ) VALUES (
         :id,
         :license_type,
@@ -77,7 +93,8 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
         :permit_expiry_date,
         :activity,
         :licensed_area,
-        :location
+        :location,
+        :commodity
     )
     ON CONFLICT(id) DO UPDATE SET
         license_type        = excluded.license_type,
@@ -88,7 +105,8 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
         permit_expiry_date  = excluded.permit_expiry_date,
         activity            = excluded.activity,
         licensed_area       = excluded.licensed_area,
-        location            = excluded.location;
+        location            = excluded.location,
+        commodity           = excluded.commodity;
     """
     # map scraped → table columns
     df_upsert = df.rename(
@@ -113,6 +131,7 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
         "activity",
         "licensed_area",
         "location",
+        "commodity",
     ]
     with conn:
         conn.executemany(upsert_sql, df_upsert[cols].to_dict(orient="records"))
@@ -136,5 +155,4 @@ def scrape_and_upsert(csv_path: str, db_path: str, top_n: int = 100):
 
 
 if __name__ == "__main__":
-    # adjust paths as needed
     scrape_and_upsert("esdm_minerba_all.csv", "db.sqlite", top_n=100)
