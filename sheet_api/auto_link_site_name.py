@@ -6,6 +6,7 @@ from random import random
 from gspread.exceptions import APIError
 from gspread import Cell
 from typing import Optional
+from shapely.ops import unary_union
 
 import json 
 import time
@@ -13,36 +14,67 @@ import gspread
 
 def extract_geometry_from_license(lic_cell: str) -> Optional[Polygon]:
     """
-    Parse a JSON-encoded license cell string and extract a Shapely Polygon.
+    Parses a JSON-encoded license cell and constructs a unified Polygon or MultiPolygon
+    from all valid geometries, robust against individual malformed entries.
 
     Args:
-        lic_cell (str): JSON string of a list of license objects, each with a 'geometry' key
-                         containing a JSON-encoded list of coordinates.
+        lic_cell (str): A JSON string representing a list of license objects, each
+                         containing a 'geometry' key with a JSON-encoded coordinate list.
 
     Returns:
-        Optional[Polygon]: Shapely Polygon constructed from the first license's geometry,
-                           or None if parsing fails or no geometry is found.
+        Optional[Polygon]: A combined Shapely geometry (Polygon or MultiPolygon) of all
+                           valid polygons found, or None if none are valid or input invalid.
     """
-    try:
-        # Load outer list of licenses
-        lic_list = json.loads(lic_cell)
-        if not lic_list:
-            return None
-
-        # Pull out the geometry string from the first license
-        geom_str = lic_list[0].get("geometry")
-        if not geom_str:
-            return None
-
-        # Parse that string into a Python list of coords
-        coords = json.loads(geom_str)
-
-        # Build a GeoJSON‐style polygon and hand it to Shapely
-        return shape({"type": "Polygon", "coordinates": coords})
-
-    except (json.JSONDecodeError, TypeError, ValueError) as error:
-        print(f"Failed to parse geometry for cell: {error}")
+    if not isinstance(lic_cell, str):
+        print(f"Input must be string, got {type(lic_cell)}")
         return None
+    
+    try:
+        # Top-level parse of the license cell into a list
+        license_list = json.loads(lic_cell)
+    except (json.JSONDecodeError, TypeError) as error:
+        print(f"[extract_geometry] Failed to parse license list: {error}")
+        return None
+    
+    valid_polygons = []
+    
+    # Iterate through each license entry
+    for license_obj in license_list:
+        geom_str = license_obj.get('geometry')
+        if not geom_str or not isinstance(geom_str, str):
+            # Skip if no geometry string present
+            continue
+
+        try:
+            # Parse inner geometry coordinates
+            coords = json.loads(geom_str)
+            if not coords or not isinstance(coords, list) or not coords[0]:
+                # Skip empty or malformed coordinate arrays
+                continue
+
+            # Build Shapely polygon
+            poly = shape({"type": "Polygon", "coordinates": coords})  
+
+            # Repair invalid polygons (e.g., self-intersections) using buffer trick
+            if not poly.is_valid:
+                poly = poly.buffer(0)
+
+            # Add only non-empty, valid geometries
+            if poly and not poly.is_empty:
+                valid_polygons.append(poly)
+
+        except (json.JSONDecodeError, TypeError, ValueError, IndexError) as error:
+            # Log and skip individual bad entries
+            print(f"[extract_geometry] Skipping malformed polygon: {error}")
+            continue
+
+    if not valid_polygons:
+        # No valid geometries found
+        return None
+
+    # Merge all valid polygons into one geometry
+    combined = unary_union(valid_polygons)
+    return combined
 
 def safe_update(sheet: gspread.Spreadsheet, cell_list: list[Cell], max_retries: int = 5) -> None:
     """
