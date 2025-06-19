@@ -55,7 +55,7 @@ def construct_url_and_params(extra_filters: dict):
     return BASE_URL, params
 
 
-def fetch_page(url: str, params: dict, max_retries: int = 5) -> dict:
+def fetch_page(url: str, params: dict, max_retries: int = 10) -> dict:
     for attempt in range(1, max_retries + 1):
         try:
             logging.info(
@@ -115,6 +115,36 @@ def scrape(where_clause: str = None) -> pd.DataFrame:
     return result_df
 
 
+def cleanse_df(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Clean the dataframe by:
+    - Trimming whitespace in all string columns
+    - Removing rows with null, unreadable, or placeholder (‘-’) values in any column, except 'generasi' and 'kode_wil'
+    - Removing embedded newlines in string fields to preserve CSV row integrity
+    - Dropping rows where 'tgl_berlaku' equals 'tgl_akhir'
+    """
+    exemptions = {"generasi", "kode_wil"}
+    for col in df.columns:
+        if df[col].dtype == object:
+            # Trim whitespace
+            df[col] = df[col].astype(str).str.strip()
+            # Replace any newline or carriage return to space
+            df[col] = df[col].str.replace(r"[\r\n]+", " ", regex=True)
+    valid = pd.Series(True, index=df.index)
+    for col in df.columns:
+        if col in exemptions:
+            continue
+        if df[col].dtype == object:
+            invalid = df[col].isin(["", "-", None, "nan", "None"])
+            valid &= ~invalid
+        else:
+            valid &= df[col].notnull()
+    df = df[valid]
+    if "tgl_berlaku" in df.columns and "tgl_akhir" in df.columns:
+        df = df[df["tgl_berlaku"] != df["tgl_akhir"]]
+    return df
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Scrape ESDM minerba data for a specific commodity or all."
@@ -131,7 +161,8 @@ if __name__ == "__main__":
 
     try:
         df = scrape(where_clause=where_clause)
-        if df.empty or len(df) < 7000:
+        df = cleanse_df(df)
+        if df.empty or len(df) < 3500:
             logging.warning(
                 f"Scraped data is insufficient (row count = {len(df)}); existing CSV will not be overwritten."
             )
