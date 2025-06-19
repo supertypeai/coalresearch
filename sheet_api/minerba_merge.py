@@ -62,10 +62,10 @@ def prepareMinerbaDf():
         minerba_df["permit_expiry_date"], unit="ms", errors="coerce"
     )
     minerba_df["permit_effective_date"] = (
-        minerba_df["permit_effective_date"].dt.strftime("%d/%m/%Y").fillna("-")
+        minerba_df["permit_effective_date"].dt.strftime("%Y-%m-%d").fillna("-")
     )
     minerba_df["permit_expiry_date"] = (
-        minerba_df["permit_expiry_date"].dt.strftime("%d/%m/%Y").fillna("-")
+        minerba_df["permit_expiry_date"].dt.strftime("%Y-%m-%d").fillna("-")
     )
     minerba_df["commodity"] = (
         minerba_df["commodity"]
