@@ -35,7 +35,8 @@ TABLE_STATEMENTS = [
         website TEXT,
         phone_number TEXT,
         email TEXT,
-        mining_license TEXT
+        mining_license TEXT,
+        mining_contract TEXT
     );
     """,
     """

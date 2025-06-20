@@ -3,96 +3,14 @@ import sqlite3
 import os
 import sys
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "coal-db.sqlite")
+DB_PATH = os.path.join(os.path.dirname(__file__), "db.sqlite")
 
 MIGRATION_SQL = """
-PRAGMA foreign_keys = OFF;
+PRAGMA foreign_keys=off;
 BEGIN TRANSACTION;
-
-DROP TABLE IF EXISTS mining_license;
-DROP TABLE IF EXISTS coal_resources_and_reserves;
-DROP TABLE IF EXISTS total_coal_production;
-DROP TABLE IF EXISTS coal_export_destination;
-DROP TABLE IF EXISTS mining_contract;
-DROP TABLE IF EXISTS coal_product;
-
--- Create tables
-CREATE TABLE IF NOT EXISTS mining_license (
-  id INTEGER PRIMARY KEY,
-  province TEXT NOT NULL,
-  district TEXT NOT NULL,
-  permit_type TEXT NOT NULL,
-  business_entity TEXT,
-  business_name TEXT NOT NULL,
-  mining_license_number TEXT,
-  permit_effective_date INTEGER,
-  permit_expiry_date INTEGER,
-  activity TEXT,
-  licensed_area NUMERIC,
-  cnc TEXT,
-  generation TEXT,
-  location TEXT,
-  geometry TEXT
-);
-
-CREATE TABLE IF NOT EXISTS coal_resources_and_reserves (
-  id INTEGER PRIMARY KEY,
-  province TEXT,
-  exploration_target_1 NUMERIC,
-  total_inventory_1 NUMERIC,
-  resources_inferred NUMERIC,
-  resources_indicated NUMERIC,
-  resources_measured NUMERIC,
-  resources_total NUMERIC,
-  verified_resources_2 NUMERIC,
-  reserves_1 NUMERIC,
-  verified_reserves_2 NUMERIC,
-  year INTEGER
-);
-
-CREATE TABLE IF NOT EXISTS total_coal_production (
-  id INTEGER PRIMARY KEY,
-  production_volume NUMERIC,
-  unit TEXT,
-  year INTEGER
-);
-
-CREATE TABLE IF NOT EXISTS coal_export_destination (
-  id INTEGER PRIMARY KEY,
-  country TEXT NOT NULL,
-  year INTEGER,
-  export_USD NUMERIC,
-  export_volume_BPS NUMERIC,
-  export_volume_ESDM NUMERIC
-);
-
-CREATE TABLE IF NOT EXISTS mining_contract (
-  id INTEGER PRIMARY KEY,
-  mine_owner_id INTEGER,
-  contractor_id INTEGER,
-  contract_period_end TEXT,
-  FOREIGN KEY (mine_owner_id) REFERENCES company(id),
-  FOREIGN KEY (contractor_id) REFERENCES company(id)
-);
-
-CREATE TABLE IF NOT EXISTS coal_product (
-  id INTEGER PRIMARY KEY,
-  company_name TEXT,
-  company_id INTEGER,
-  product_name TEXT,
-  calorific_value TEXT,
-  total_moisture TEXT,
-  ash_content_arb TEXT,
-  total_sulphur_arb TEXT,
-  ash_content_adb TEXT,
-  total_sulphur_adb TEXT,
-  volatile_matter_adb TEXT,
-  fixed_carbon_adb TEXT,
-  FOREIGN KEY (company_id) REFERENCES company(id)
-);
-
+ALTER TABLE company ADD COLUMN mining_contract TEXT;
 COMMIT;
-PRAGMA foreign_keys = ON;
+PRAGMA foreign_keys=on;
 """
 
 

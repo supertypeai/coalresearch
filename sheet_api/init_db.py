@@ -7,7 +7,6 @@ from db.models import (
     ResourcesAndReserves,
     TotalCommoditiesProduction,
     ExportDestination,
-    MiningContract,
     GlobalCommodityData,
 )
 
@@ -23,7 +22,6 @@ def create_tables():
             # ResourcesAndReserves,
             # TotalCommoditiesProduction,
             # ExportDestination,
-            # MiningContract,
             GlobalCommodityData,
         ]
     )

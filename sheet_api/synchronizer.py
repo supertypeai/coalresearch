@@ -1,9 +1,10 @@
 # %%
 import sys
 import os
+import json
 
-os.chdir("..")
-sys.path.append(os.path.join(os.getcwd(), "sheet_api"))
+# os.chdir("..")
+# sys.path.append(os.path.join(os.getcwd(), "sheet_api"))
 
 import pandas as pd
 import peewee as pw
@@ -17,7 +18,6 @@ from db.models import (
     ResourcesAndReserves,
     TotalCommoditiesProduction,
     ExportDestination,
-    MiningContract,
     GlobalCommodityData,
 )
 from google_sheets.auth import createClient
@@ -28,7 +28,6 @@ from utils.sync_utils import (
     checkNewData,
     confirmChange,
     replaceCO,
-    replaceMC,
 )
 from compile_to_json import (
     compileToJsonBatch,
@@ -73,19 +72,9 @@ def processCompanyOwnership() -> None:
         replaceCO(CompanyOwnership, Company, df)
 
 
-def processMiningContract() -> None:
-    sheet = client.open_by_key(spreadsheet_id).worksheet("mining_contract")
-    data = sheet.get("A1:F33")
-    df = pd.DataFrame(data[1:], columns=data[0])
-
-    if input("Replace company ownerhip according to the sheet?") == "Y":
-        replaceMC(MiningContract, Company, df)
-
-
 if __name__ == "__main__":
 
     def companyPreprocess(df: pd.DataFrame, field_types: dict, sheet):
-
         # 1. Convert phone number to string type
         field_types["phone_number"] = "string"
 
@@ -96,11 +85,10 @@ if __name__ == "__main__":
         return df, field_types, sheet
 
     def companyPerformancePreprocess(df: pd.DataFrame, field_types: dict, sheet):
-
         jsonifyCommodityStats(df, sheet.id)
 
         return df, field_types, sheet
-    
+
     def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
         # 1. Compile reserves_resourcees
         reserves_resources_fields = [
@@ -112,9 +100,11 @@ if __name__ == "__main__":
             ("*resources_indicated", float),
             ("*resources_measured", float),
             ("*reserves_proved", float),
-            ("*reserves_probable", float)
+            ("*reserves_probable", float),
         ]
-        compileToJsonBatch(df, reserves_resources_fields, "resources_reserves", sheet.id)
+        compileToJsonBatch(
+            df, reserves_resources_fields, "resources_reserves", sheet.id
+        )
 
         # 2. Compile location
         location = [
@@ -128,7 +118,7 @@ if __name__ == "__main__":
         return df, field_types, sheet
 
     # %%
-    sync_model("company", "A1:S282", Company, companyPreprocess)
+    sync_model("company", "A1:U282", Company, companyPreprocess)
     # %%
     sync_model(
         "company_performance",
@@ -144,8 +134,6 @@ if __name__ == "__main__":
     sync_model("resources_and_reserves", "A1:N24", ResourcesAndReserves)
     # %%
     sync_model("commodities_production_id", "A1:E32", TotalCommoditiesProduction)
-    # %%
-    processMiningContract()
     # %%
     sync_model("export_destination", "A1:G122", ExportDestination)
     # %%

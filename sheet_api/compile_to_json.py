@@ -1,6 +1,6 @@
 # %%
-from sheet_api.utils.dataframe_utils import safeCast
-from sheet_api.google_sheets.auth import createClient, createService
+from utils.dataframe_utils import safeCast
+from google_sheets.auth import createClient, createService
 from minerba_merge import prepareMinerbaDf
 
 import json

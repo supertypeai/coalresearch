@@ -111,6 +111,9 @@ class Company(Model):
     mining_license = TextField(
         null=True, constraints=[Check("json_valid(mining_license)")]
     )
+    mining_contract = TextField(
+        null=True, constraints=[Check("json_valid(mining_contract)")]
+    )
 
     class Meta:
         database = db
@@ -241,14 +244,3 @@ class ExportDestination(Model):
     class Meta:
         database = db
         table_name = "export_destination"
-
-
-class MiningContract(Model):
-    mine_owner_id = ForeignKeyField(Company, column_name="mine_owner_id")
-    contractor_id = ForeignKeyField(Company, column_name="contractor_id")
-    contract_period_end = TextField(null=True)
-
-    class Meta:
-        database = db
-        table_name = "mining_contract"
-        primary_key = CompositeKey("mine_owner_id", "contractor_id")
