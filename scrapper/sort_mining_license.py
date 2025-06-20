@@ -110,14 +110,20 @@ def create_table(conn: sqlite3.Connection):
 def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
     """
     Upsert each row in df into mining_license using id as PK.
-    Look up company_id in Python by matching cleaned names.
+    Looks up company_id and canonical company_name from the company table,
+    then writes those into mining_license.
     """
-    # 1) Load company table and build a mapping: cleaned_name -> id
+    # 1) Pull the company master list
     company_df = pd.read_sql("SELECT id, name FROM company;", conn)
     company_df["cleaned_company_name"] = company_df["name"].apply(clean_company_name)
-    company_map = dict(zip(company_df["cleaned_company_name"], company_df["id"]))
 
-    # 2) Prepare df for upsert and rename columns
+    # Build two lookup dicts:
+    #   cleaned_name -> id
+    #   cleaned_name -> canonical name
+    company_id_map = dict(zip(company_df["cleaned_company_name"], company_df["id"]))
+    company_name_map = dict(zip(company_df["cleaned_company_name"], company_df["name"]))
+
+    # 2) Prepare our license DataFrame
     df_up = df.rename(
         columns={
             "jenis_izin": "license_type",
@@ -127,16 +133,18 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
             "kegiatan": "activity",
             "luas_sk": "licensed_area",
             "lokasi": "location",
-            "nama_usaha": "company_name",
         }
     ).copy()
 
-    # 3) Clean company names and map to company_id
-    df_up["cleaned_company_name"] = df_up["company_name"].apply(clean_company_name)
-    df_up["company_id"] = df_up["cleaned_company_name"].map(company_map)
+    # 3) Clean the scraped company names and map to id & canonical name
+    df_up["cleaned_company_name"] = df_up["nama_usaha"].apply(clean_company_name)
+    df_up["company_id"] = df_up["cleaned_company_name"].map(company_id_map)
+    df_up["company_name"] = df_up["cleaned_company_name"].map(company_name_map)
+
+    # 4) Ensure company_id is an integer (nullable dtype) so we don't get 123.0
     df_up["company_id"] = df_up["company_id"].astype("Int64")
 
-    # 4) Upsert SQL (no sub‑select needed)
+    # 5) Perform the upsert
     upsert_sql = """
     INSERT INTO mining_license (
       id, license_type, license_number, province, city,
@@ -162,7 +170,6 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
       company_id            = excluded.company_id;
     """
 
-    # 5) Execute
     cols = [
         "id",
         "license_type",
