@@ -1,6 +1,5 @@
 import pandas as pd
 import sqlite3
-import json
 
 
 def load_and_parse(csv_path: str) -> pd.DataFrame:
@@ -34,7 +33,7 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
         "kegiatan",  # activity
         "luas_sk",  # licensed_area
         "lokasi",  # location
-        "komoditas",  # commodity
+        "komoditas_mapped",  # commodity
     ]
     df_sorted = df_sorted.dropna(subset=required_cols)
 
@@ -61,21 +60,7 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
 
     # Assign sequential IDs
     df_sorted["id"] = range(1, len(df_sorted) + 1)
-
-    # Parse and title-case commodity list
-    df_sorted["commodity"] = (
-        df_sorted["komoditas"]
-        .astype(str)
-        .apply(
-            lambda x: [
-                entry.strip().title()
-                for entry in x.split(",")
-                if entry and entry.strip() and entry.strip() != "-"
-            ]
-        )
-    )
-    # JSON-serialize the list for SQLite storage
-    df_sorted["commodity"] = df_sorted["commodity"].apply(json.dumps)
+    df_sorted["commodity"] = df_sorted["komoditas_mapped"].astype(str)
     return df_sorted
 
 
