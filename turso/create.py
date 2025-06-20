@@ -36,7 +36,8 @@ TABLE_STATEMENTS = [
         phone_number TEXT,
         email TEXT,
         mining_license TEXT,
-        mining_contract TEXT
+        mining_contract TEXT,
+        commodity TEXT
     );
     """,
     """
@@ -171,7 +172,10 @@ TABLE_STATEMENTS = [
         activity TEXT,
         licensed_area INTEGER,
         location TEXT,
-        commodity TEXT
+        commodity TEXT,
+        company_name TEXT,
+        company_id TEXT,
+        FOREIGN KEY (company_id) REFERENCES company(id)
     );
     """,
 ]
