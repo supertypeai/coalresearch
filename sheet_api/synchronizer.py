@@ -122,8 +122,7 @@ if __name__ == "__main__":
             contract_list = []
             for _, row in group.iterrows():
                 new_contract = {
-                    "company_name": row.get("*mine_owner_name"),
-                    "company_id": row.get("mine_owner_id"),
+                    "mine_owner_id": row.get("mine_owner_id"),
                     "contractor_id": row.get("contractor_id"),
                     "contract_period_end": row.get("contract_period_end"),
                 }
