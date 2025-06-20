@@ -52,11 +52,22 @@ grouped = mining_contract_df.groupby("contractor_id")
 # Create a mapping from company id to its index for efficient updates
 id_to_index_map = {id_val: index for index, id_val in company_df["id"].items()}
 
-# For each contractor, aggregate their contracts into a JSON array
+# For each contractor, aggregate their contracts into a JSON array with the new structure
 for contractor_id, group in grouped:
     if contractor_id in id_to_index_map:
         idx = id_to_index_map[contractor_id]
-        contracts_json = group.to_json(orient="records")
+
+        contract_list = []
+        for _, row in group.iterrows():
+            new_contract = {
+                "company_name": row.get("*mine_owner_name"),
+                "company_id": row.get("mine_owner_id"),
+                "contractor_id": row.get("contractor_id"),
+                "contract_period_end": row.get("contract_period_end"),
+            }
+            contract_list.append(new_contract)
+
+        contracts_json = json.dumps(contract_list)
         company_df.at[idx, "mining_contract"] = contracts_json
 
 # Convert dataframe to list of lists to update the sheet
@@ -70,4 +81,4 @@ company_sheet.update(
     range_name="A1", values=updated_values, value_input_option="USER_ENTERED"
 )
 
-print("Updated 'company' sheet with mining contract JSON data.")
+print("Updated 'company' sheet with restructured mining contract JSON data.")

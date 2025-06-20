@@ -82,6 +82,57 @@ if __name__ == "__main__":
         print("Filling out company's mining_license...")
         fillMiningLicense(df, sheet.id)
 
+        # 3. Fill out mining contracts
+        print("Filling out company's mining_contracts...")
+        mining_contract_sheet = client.open_by_key(spreadsheet_id).worksheet(
+            "mining_contract"
+        )
+
+        # Handle duplicate headers safely
+        mc_raw_values = mining_contract_sheet.get_all_values()
+        mc_headers = mc_raw_values[0]
+        seen = {}
+        unique_headers = []
+        for h in mc_headers:
+            if h in seen:
+                seen[h] += 1
+                unique_headers.append(f"{h}_{seen[h]}")
+            else:
+                seen[h] = 0
+                unique_headers.append(h)
+        mc_df = pd.DataFrame(mc_raw_values[1:], columns=unique_headers)
+
+        if "mining_contract" not in df.columns:
+            df["mining_contract"] = pd.Series([None] * len(df), dtype=object)
+
+        # Clean and normalize IDs for reliable matching
+        mc_df["contractor_id"] = (
+            pd.to_numeric(mc_df["contractor_id"], errors="coerce")
+            .astype("Int64")
+            .astype(str)
+        )
+        df["id"] = df["id"].astype(str)
+
+        # Group contracts by contractor_id
+        grouped_contracts = mc_df.groupby("contractor_id")
+
+        # Create a dictionary of contracts with the new JSON structure
+        contracts_dict = {}
+        for contractor_id, group in grouped_contracts:
+            contract_list = []
+            for _, row in group.iterrows():
+                new_contract = {
+                    "company_name": row.get("*mine_owner_name"),
+                    "company_id": row.get("mine_owner_id"),
+                    "contractor_id": row.get("contractor_id"),
+                    "contract_period_end": row.get("contract_period_end"),
+                }
+                contract_list.append(new_contract)
+            contracts_dict[str(contractor_id)] = json.dumps(contract_list)
+
+        # Map contracts to company dataframe
+        df["mining_contract"] = df["id"].map(contracts_dict)
+
         return df, field_types, sheet
 
     def companyPerformancePreprocess(df: pd.DataFrame, field_types: dict, sheet):
