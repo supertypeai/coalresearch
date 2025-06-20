@@ -1,5 +1,17 @@
 import pandas as pd
 import sqlite3
+import re
+
+
+def clean_company_name(name):
+    """Removes common corporate prefixes/suffixes and converts to lowercase."""
+    if pd.isna(name):
+        return None
+    return (
+        re.sub(r"\b(PT|Tbk|CV|UD|PD|KSU|KUD)\b", "", str(name), flags=re.IGNORECASE)
+        .lower()
+        .strip()
+    )
 
 
 def load_and_parse(csv_path: str) -> pd.DataFrame:
@@ -34,6 +46,7 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
         "luas_sk",  # licensed_area
         "lokasi",  # location
         "komoditas_mapped",  # commodity
+        "nama_usaha",  # company_name
     ]
     df_sorted = df_sorted.dropna(subset=required_cols)
 
@@ -61,6 +74,9 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
     # Assign sequential IDs
     df_sorted["id"] = range(1, len(df_sorted) + 1)
     df_sorted["commodity"] = df_sorted["komoditas_mapped"].astype(str)
+    df_sorted["cleaned_company_name_for_match"] = df_sorted["nama_usaha"].apply(
+        clean_company_name
+    )
     return df_sorted
 
 
@@ -71,7 +87,7 @@ def create_table(conn: sqlite3.Connection):
     conn.execute(
         """
     CREATE TABLE IF NOT EXISTS mining_license (
-        id INTEGER PRIMARY KEY NOT NULL,
+        id TEXT PRIMARY KEY NOT NULL,
         license_type TEXT,
         license_number TEXT,
         province TEXT,
@@ -81,7 +97,10 @@ def create_table(conn: sqlite3.Connection):
         activity TEXT,
         licensed_area INTEGER,
         location TEXT,
-        commodity TEXT
+        commodity TEXT,
+        company_name TEXT,
+        company_id TEXT,
+        FOREIGN KEY (company_id) REFERENCES company(id)
     );
     """
     )
@@ -91,46 +110,15 @@ def create_table(conn: sqlite3.Connection):
 def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
     """
     Upsert each row in df into mining_license using id as PK.
+    Look up company_id in Python by matching cleaned names.
     """
-    upsert_sql = """
-    INSERT INTO mining_license (
-        id,
-        license_type,
-        license_number,
-        province,
-        city,
-        permit_effective_date,
-        permit_expiry_date,
-        activity,
-        licensed_area,
-        location,
-        commodity
-    ) VALUES (
-        :id,
-        :license_type,
-        :license_number,
-        :province,
-        :city,
-        :permit_effective_date,
-        :permit_expiry_date,
-        :activity,
-        :licensed_area,
-        :location,
-        :commodity
-    )
-    ON CONFLICT(id) DO UPDATE SET
-        license_type        = excluded.license_type,
-        license_number      = excluded.license_number,
-        province            = excluded.province,
-        city                = excluded.city,
-        permit_effective_date = excluded.permit_effective_date,
-        permit_expiry_date  = excluded.permit_expiry_date,
-        activity            = excluded.activity,
-        licensed_area       = excluded.licensed_area,
-        location            = excluded.location,
-        commodity           = excluded.commodity;
-    """
-    df_upsert = df.rename(
+    # 1) Load company table and build a mapping: cleaned_name -> id
+    company_df = pd.read_sql("SELECT id, name FROM company;", conn)
+    company_df["cleaned_company_name"] = company_df["name"].apply(clean_company_name)
+    company_map = dict(zip(company_df["cleaned_company_name"], company_df["id"]))
+
+    # 2) Prepare df for upsert and rename columns
+    df_up = df.rename(
         columns={
             "jenis_izin": "license_type",
             "sk_iup": "license_number",
@@ -139,8 +127,42 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
             "kegiatan": "activity",
             "luas_sk": "licensed_area",
             "lokasi": "location",
+            "nama_usaha": "company_name",
         }
+    ).copy()
+
+    # 3) Clean company names and map to company_id
+    df_up["cleaned_company_name"] = df_up["company_name"].apply(clean_company_name)
+    df_up["company_id"] = df_up["cleaned_company_name"].map(company_map)
+    df_up["company_id"] = df_up["company_id"].astype("Int64")
+
+    # 4) Upsert SQL (no sub‑select needed)
+    upsert_sql = """
+    INSERT INTO mining_license (
+      id, license_type, license_number, province, city,
+      permit_effective_date, permit_expiry_date, activity,
+      licensed_area, location, commodity, company_name, company_id
+    ) VALUES (
+      :id, :license_type, :license_number, :province, :city,
+      :permit_effective_date, :permit_expiry_date, :activity,
+      :licensed_area, :location, :commodity, :company_name, :company_id
     )
+    ON CONFLICT(id) DO UPDATE SET
+      license_type          = excluded.license_type,
+      license_number        = excluded.license_number,
+      province              = excluded.province,
+      city                  = excluded.city,
+      permit_effective_date = excluded.permit_effective_date,
+      permit_expiry_date    = excluded.permit_expiry_date,
+      activity              = excluded.activity,
+      licensed_area         = excluded.licensed_area,
+      location              = excluded.location,
+      commodity             = excluded.commodity,
+      company_name          = excluded.company_name,
+      company_id            = excluded.company_id;
+    """
+
+    # 5) Execute
     cols = [
         "id",
         "license_type",
@@ -153,9 +175,11 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
         "licensed_area",
         "location",
         "commodity",
+        "company_name",
+        "company_id",
     ]
     with conn:
-        conn.executemany(upsert_sql, df_upsert[cols].to_dict(orient="records"))
+        conn.executemany(upsert_sql, df_up[cols].to_dict(orient="records"))
 
 
 def scrape_and_upsert(csv_path: str, db_path: str):
