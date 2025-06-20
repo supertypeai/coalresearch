@@ -48,6 +48,108 @@ tasks = {
     "all": None,
 }
 
+COMMODITY_MAP = {
+    "TIMAH": "Tin",
+    "BATUBARA": "Coal",
+    "NICKEL": "Nickel",
+    "BAUKSIT": "Bauxite",
+    "EMAS": "Gold",
+    "TEMBAGA": "Copper",
+    "BATU GAMPING UNTUK INDUSTRI": "Limestone",
+    "KERIKIL BERPASIR ALAMI (SIRTU)": "Sand",
+    "ANDESIT": "Andesite",
+    "ASPAL": "Asphalt",
+    "HEMATITE": "Hematite",
+    "ZEOLIT": "Zeolite",
+    "MARMER": "Marble",
+    "MANGAN": "Manganese",
+    "BESI": "Iron",
+    "KAOLIN": "Kaolin",
+    "TANAH LIAT": "Clay",
+    "LATERIT BESI": "Iron Laterite",
+    "PASIR KUARSA": "Quartz",
+    "BATU GAMPING": "Limestone",
+    "GRANIT": "Granite",
+    "BIJIH BESI": "Iron Ore",
+    "CLAY": "Clay",
+    "BIJIH NIKEL": "Nickel Ore",
+    "BIJIH TIMAH": "Tin Ore",
+    "BARIT": "Barite",
+    "TIMAH PUTIH": "Tin",
+    "PASIR TIMAH": "Tin",
+    "ZIRKON": "Zircon",
+    "BATUAN ASPAL": "Asphalt",
+    "KROMIT": "Chromite",
+    "DOLOMIT": "Dolomite",
+    "BATU KAPUR": "Limestone",
+    "GALENA": "Galena",
+    "SIRTU": "Sirtu",
+    "BATUPASIR": "Sandstone",
+    "PASIR BESI": "Iron",
+    "TIMBAL": "Lead",
+    "BATUGAMPING": "Limestone",
+    "PASIR URUG": "Sand",
+    "BATUAN (TRASS)": "Trass",
+    "TIMAH HITAM": "Lead",
+    "RIJANG": "Chert",
+    "BATU GUNUNG QUARRY BESAR": "Mountain Stone",
+    "BATU ANDESIT": "Andesite Stone",
+    "BATU GAMPING UNTUK SEMEN": "Limestone",
+    "PASIR LAUT": "Sand",
+    "GAMPING": "Limestone",
+    "BATUAN": "Rock",
+    "PASIR, BATU, KERIKIL": "Sand, Stone, Gravel",
+    "PASIR": "Sand",
+    "TANAH URUG": "Filling Soil",
+    "LATERIT": "Laterite",
+    "BATU BESI": "Iron Stone",
+    "TANAH MERAH (LATERIT)": "Laterite",
+    "ANTIMON": "Antimony",
+    "ANTIMONI": "Antimony",
+    "BATU GUNUNG": "Mountain Stone",
+    "BASALT": "Basalt",
+    "FELDSPAR": "Feldspar",
+    "TRAS": "Trass",
+    "BATU KAPUR/ GAMPING": "Limestone",
+    "PASIR PASANG": "Sand",
+    "PASIR DARAT": "Sand",
+    "KERIKIL SUNGAI": "River Gravel",
+    "BENTONIT": "Bentonite",
+    "TRASS": "Trass",
+    "BATU KAPUR UNTUK SEMEN": "Limestone",
+    "BATU KALI": "Stone",
+    "BATU GAMPING (BATUAN)": "Limestone",
+    "PERIDOTIT": "Peridotite",
+    "PASIR BATU": "Stone",
+    "BALL CLAY": "Clay",
+    "BATU LEMPUNG": "Clay",
+    "BATUGAMPING UNTUK SEMEN": "Limestone",
+    "BIJIH EMAS": "Gold Ore",
+    "BATU LEMPUNG (TANAH LIAT)": "Clay",
+    "PASIR BANGUNAN": "Sand",
+    "SLATE": "Slate",
+    "KALSIT": "Calcite",
+    "DIORIT": "Diorite",
+    "GABRO": "Gabbro",
+    "FOSFAT": "Phosphate",
+    "MOLIBDENUM": "Molybdenum",
+    "PIROFILIT": "Pyrophyllite",
+    "PASIR DAN BATU (SIRTU)": "Sand, Stone",
+    "BATU KUARSA": "Quartz",
+    "GRANODIORIT": "Granodiorite",
+    "QUARRY BESAR": "Large Quarry",
+    "OBSIDIAN": "Obsidian",
+    "GAMPING UNTUK SEMEN": "Limestone",
+    "SENG, TIMAH HITAM": "Zinc, Lead",
+    "BATU GARNET": "Garnet",
+    "GRAFIT": "Graphite",
+    "KUARSIT": "Quartzite",
+    "MINERAL BUKAN LOGAM": "Non-Metallic Mineral",
+    "BATU GUNUNG KUARI BESAR": "Mountain Stone",
+    "PERLIT": "Perlite",
+    "MANGAAN": "Manganese",
+}
+
 
 def construct_url_and_params(extra_filters: dict):
     params = DEFAULT_PARAMS.copy()
@@ -120,16 +222,17 @@ def cleanse_df(df: pd.DataFrame) -> pd.DataFrame:
     Clean the dataframe by:
     - Trimming whitespace in all string columns
     - Removing rows with null, unreadable, or placeholder (‘-’) values in any column, except 'generasi' and 'kode_wil'
-    - Removing embedded newlines in string fields to preserve CSV row integrity
+    - Removing embedded newlines in string fields
+    - Standardizing 'komoditas' to mapped categories
     - Dropping rows where 'tgl_berlaku' equals 'tgl_akhir'
     """
     exemptions = {"generasi", "kode_wil"}
+    # Normalize strings and remove newlines
     for col in df.columns:
         if df[col].dtype == object:
-            # Trim whitespace
             df[col] = df[col].astype(str).str.strip()
-            # Replace any newline or carriage return to space
             df[col] = df[col].str.replace(r"[\r\n]+", " ", regex=True)
+    # Filter invalid rows
     valid = pd.Series(True, index=df.index)
     for col in df.columns:
         if col in exemptions:
@@ -140,8 +243,13 @@ def cleanse_df(df: pd.DataFrame) -> pd.DataFrame:
         else:
             valid &= df[col].notnull()
     df = df[valid]
+    # Drop rows with identical dates
     if "tgl_berlaku" in df.columns and "tgl_akhir" in df.columns:
         df = df[df["tgl_berlaku"] != df["tgl_akhir"]]
+    # Map commodities
+    if "komoditas" in df.columns:
+        cleaned = df["komoditas"].str.upper().str.replace(r"\s+DMP$", "", regex=True)
+        df["komoditas_mapped"] = cleaned.map(COMMODITY_MAP).fillna(cleaned.str.title())
     return df
 
 
