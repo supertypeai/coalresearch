@@ -29,6 +29,7 @@ def prepareMinerbaDf():
         "region_code",  # 'kode_wil'
         "location",  # 'lokasi'
         "geometry",  # 'geometry'
+        "komoditas_mapped",  # 'komoditas_mapped'
     ]
     included_columns = [
         "license_type",
@@ -46,6 +47,7 @@ def prepareMinerbaDf():
         "location",
         "commodity",
         "geometry",
+        "commodity",  # 'komoditas_mapped'
     ]
     minerba_df["province"] = minerba_df["province"].str.title()
     # minerba_df["company_name"] = minerba_df["company_name"].str.title()
@@ -68,15 +70,7 @@ def prepareMinerbaDf():
         minerba_df["permit_expiry_date"].dt.strftime("%Y-%m-%d").fillna("-")
     )
     minerba_df["commodity"] = (
-        minerba_df["commodity"]
-        .astype(str)
-        .apply(
-            lambda x: [
-                entry.strip().title()
-                for entry in x.split(",")
-                if entry and entry.strip()
-            ]
-        )
+        minerba_df["komoditas_mapped"].astype(str).str.strip().str.title()
     )
     minerba_df["generation"] = minerba_df["generation"].fillna("-")
 

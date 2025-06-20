@@ -3,8 +3,8 @@ import sys
 import os
 import json
 
-# os.chdir("..")
-# sys.path.append(os.path.join(os.getcwd(), "sheet_api"))
+os.chdir("..")
+sys.path.append(os.path.join(os.getcwd(), "sheet_api"))
 
 import pandas as pd
 import peewee as pw

@@ -148,6 +148,7 @@ COMMODITY_MAP = {
     "BATU GUNUNG KUARI BESAR": "Mountain Stone",
     "PERLIT": "Perlite",
     "MANGAAN": "Manganese",
+    "NIKEL": "Nickel",
 }
 
 
