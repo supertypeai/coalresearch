@@ -111,15 +111,12 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
     """
     Upsert each row in df into mining_license using id as PK.
     Looks up company_id and canonical company_name from the company table,
-    then writes those into mining_license.
+    then writes those into mining_license, falling back to the scraped name.
     """
     # 1) Pull the company master list
     company_df = pd.read_sql("SELECT id, name FROM company;", conn)
     company_df["cleaned_company_name"] = company_df["name"].apply(clean_company_name)
 
-    # Build two lookup dicts:
-    #   cleaned_name -> id
-    #   cleaned_name -> canonical name
     company_id_map = dict(zip(company_df["cleaned_company_name"], company_df["id"]))
     company_name_map = dict(zip(company_df["cleaned_company_name"], company_df["name"]))
 
@@ -140,6 +137,16 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
     df_up["cleaned_company_name"] = df_up["nama_usaha"].apply(clean_company_name)
     df_up["company_id"] = df_up["cleaned_company_name"].map(company_id_map)
     df_up["company_name"] = df_up["cleaned_company_name"].map(company_name_map)
+
+    # ←── NEW: where there's no match, fall back to the original scraped name
+    # df_up["company_name"] = df_up["company_name"].fillna(df_up["nama_usaha"])
+
+    # ←── NEW: combine badan_usaha + nama_usaha, title-case each word as a fallback
+    nama_title = df_up["nama_usaha"].fillna("").str.title()
+    fallback = df_up["badan_usaha"].fillna("") + " " + nama_title
+    fallback = fallback.str.strip()
+
+    df_up["company_name"] = df_up["company_name"].fillna(fallback)
 
     # 4) Ensure company_id is an integer (nullable dtype) so we don't get 123.0
     df_up["company_id"] = df_up["company_id"].astype("Int64")
