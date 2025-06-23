@@ -163,6 +163,7 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
 
     df_sorted["nama_prov"] = df_sorted["nama_prov"].apply(normalize_admin)
     df_sorted["nama_kab"] = df_sorted["nama_kab"].apply(normalize_admin)
+    df_sorted["kegiatan"] = df_sorted["kegiatan"].apply(normalize_admin)
 
     # Reformat dates
     df_sorted["permit_effective_date"] = df_sorted["tgl_berlaku"].dt.strftime(
