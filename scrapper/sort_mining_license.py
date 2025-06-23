@@ -3,6 +3,91 @@ import sqlite3
 import re
 
 
+def normalize_admin(name: str) -> str:
+    """
+    Normalize a province or city string:
+     - split on commas, strip each piece
+     - expand kab., prov., kota → full words
+     - remove stray dots/extra spaces
+     - title-case each word, except 'dan'
+     - re-join with ', ' (guaranteed space)
+    """
+    if pd.isna(name):
+        return ""
+    # 1) break into parts
+    parts = [part.strip() for part in str(name).split(",") if part.strip()]
+    cleaned = []
+    for part in parts:
+        s = part
+        # 2) expand abbreviations
+        exp = {
+            r"\bkab\.?\b": "kabupaten",
+            r"\bprov\.?\b": "provinsi",
+            r"\bkota\b": "kota",
+        }
+        for pat, sub in exp.items():
+            s = re.sub(pat, sub, s, flags=re.IGNORECASE)
+        # 3) remove dots & collapse spaces
+        s = s.replace(".", "")
+        s = re.sub(r"\s{2,}", " ", s).strip()
+
+        # 4) title-case words (except 'dan')
+        def _tc(w):
+            return w.lower() if w.lower() == "dan" else w.capitalize()
+
+        s = " ".join(_tc(w) for w in s.split())
+        cleaned.append(s)
+    # 5) re-join with comma+space
+    return ", ".join(cleaned)
+
+
+def normalize_location(row):
+    raw = str(row["lokasi"]).strip()
+
+    # 1) DIGIT ONLY → "City, Province"
+    if raw.isdigit():
+        return f"{row['nama_kab'].title()}, {row['nama_prov'].title()}"
+
+    loc = raw
+
+    # 2) Remove any "Kode Pos 91552" or similar
+    loc = re.sub(r"Kode\s+Pos\s*\d+", "", loc, flags=re.IGNORECASE)
+
+    # 3) Expand abbreviations, force trailing space
+    expansions = {
+        r"\bkec\.?\s*": "kecamatan ",
+        r"\bkab\.?\s*": "kabupaten ",
+        r"\bprov\.?\s*": "provinsi ",
+        r"\bkel\.?\s*": "kelurahan ",
+        r"\bdesa/kel\.?\s*": "desa/kelurahan ",
+    }
+    for pat, sub in expansions.items():
+        loc = re.sub(pat, sub, loc, flags=re.IGNORECASE)
+
+    # 4) Fix words run together (e.g. "Kecamatanmook" → "Kecamatan mook")
+    loc = re.sub(
+        r"(?i)(kecamatan|kabupaten|provinsi|kelurahan)([A-Za-z])",
+        lambda m: m.group(1) + " " + m.group(2),
+        loc,
+    )
+
+    # 5) Drop all stray periods, then collapse multi-spaces/commas
+    loc = loc.replace(".", "")
+    loc = re.sub(r"\s{2,}", " ", loc)
+    loc = re.sub(r"\s*,\s*", ", ", loc)
+
+    # 6) Title-case each segment, except "dan"
+    def tc_word(w):
+        return w.lower() if w.lower() == "dan" else w.capitalize()
+
+    parts = [seg.strip() for seg in loc.split(",")]
+    cleaned_parts = []
+    for seg in parts:
+        words = seg.split()
+        cleaned_parts.append(" ".join(tc_word(w) for w in words))
+    return ", ".join(p for p in cleaned_parts if p)
+
+
 def clean_company_name(name):
     """Removes common corporate prefixes/suffixes and converts to lowercase."""
     if pd.isna(name):
@@ -65,6 +150,9 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
 
     df_sorted = df_sorted[df_sorted.apply(valid_row, axis=1)]
 
+    df_sorted["nama_prov"] = df_sorted["nama_prov"].apply(normalize_admin)
+    df_sorted["nama_kab"] = df_sorted["nama_kab"].apply(normalize_admin)
+
     # Reformat dates
     df_sorted["permit_effective_date"] = df_sorted["tgl_berlaku"].dt.strftime(
         "%Y-%m-%d"
@@ -77,6 +165,8 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
     df_sorted["cleaned_company_name_for_match"] = df_sorted["nama_usaha"].apply(
         clean_company_name
     )
+    df_sorted["location"] = df_sorted.apply(normalize_location, axis=1)
+
     return df_sorted
 
 
