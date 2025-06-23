@@ -6,6 +6,7 @@ import random
 import logging
 import argparse
 import sys
+import re
 
 # Configure logging with timestamp
 logging.basicConfig(
@@ -56,98 +57,98 @@ COMMODITY_MAP = {
     "EMAS": "Gold",
     "TEMBAGA": "Copper",
     "BATU GAMPING UNTUK INDUSTRI": "Limestone",
-    "KERIKIL BERPASIR ALAMI (SIRTU)": "Sand",
-    "ANDESIT": "Andesite",
-    "ASPAL": "Asphalt",
-    "HEMATITE": "Hematite",
-    "ZEOLIT": "Zeolite",
-    "MARMER": "Marble",
-    "MANGAN": "Manganese",
+    "KERIKIL BERPASIR ALAMI (SIRTU)": "Sand, Stone, Gravel",
+    "ANDESIT": "Non-Metallic Mineral",
+    "ASPAL": "Non-Metallic Mineral",
+    "HEMATITE": "Non-Metallic Mineral",
+    "ZEOLIT": "Non-Metallic Mineral",
+    "MARMER": "Non-Metallic Mineral",
+    "MANGAN": "Non-Metallic Mineral",
     "BESI": "Iron",
-    "KAOLIN": "Kaolin",
+    "KAOLIN": "Non-Metallic Mineral",
     "TANAH LIAT": "Clay",
-    "LATERIT BESI": "Iron Laterite",
-    "PASIR KUARSA": "Quartz",
+    "LATERIT BESI": "Iron",
+    "PASIR KUARSA": "Non-Metallic Mineral",
     "BATU GAMPING": "Limestone",
     "GRANIT": "Granite",
-    "BIJIH BESI": "Iron Ore",
+    "BIJIH BESI": "Iron",
     "CLAY": "Clay",
-    "BIJIH NIKEL": "Nickel Ore",
-    "BIJIH TIMAH": "Tin Ore",
-    "BARIT": "Barite",
+    "BIJIH NIKEL": "Nickel",
+    "BIJIH TIMAH": "Tin",
+    "BARIT": "Non-Metallic Mineral",
     "TIMAH PUTIH": "Tin",
     "PASIR TIMAH": "Tin",
-    "ZIRKON": "Zircon",
-    "BATUAN ASPAL": "Asphalt",
-    "KROMIT": "Chromite",
-    "DOLOMIT": "Dolomite",
+    "ZIRKON": "Non-Metallic Mineral",
+    "BATUAN ASPAL": "Non-Metallic Mineral",
+    "KROMIT": "Non-Metallic Mineral",
+    "DOLOMIT": "Limestone",
     "BATU KAPUR": "Limestone",
-    "GALENA": "Galena",
-    "SIRTU": "Sirtu",
-    "BATUPASIR": "Sandstone",
+    "GALENA": "Non-Metallic Mineral",
+    "SIRTU": "Sand, Stone, Gravel",
+    "BATUPASIR": "Sand, Stone, Gravel",
     "PASIR BESI": "Iron",
-    "TIMBAL": "Lead",
+    "TIMBAL": "Non-Metallic Mineral",
     "BATUGAMPING": "Limestone",
     "PASIR URUG": "Sand",
-    "BATUAN (TRASS)": "Trass",
-    "TIMAH HITAM": "Lead",
-    "RIJANG": "Chert",
-    "BATU GUNUNG QUARRY BESAR": "Mountain Stone",
-    "BATU ANDESIT": "Andesite Stone",
+    "BATUAN (TRASS)": "Non-Metallic Mineral",
+    "TIMAH HITAM": "Non-Metallic Mineral",
+    "RIJANG": "Non-Metallic Mineral",
+    "BATU GUNUNG QUARRY BESAR": "Sand, Stone, Gravel",
+    "BATU ANDESIT": "Sand, Stone, Gravel",
     "BATU GAMPING UNTUK SEMEN": "Limestone",
-    "PASIR LAUT": "Sand",
+    "PASIR LAUT": "Sand, Stone, Gravel",
     "GAMPING": "Limestone",
-    "BATUAN": "Rock",
+    "BATUAN": "Sand, Stone, Gravel",
     "PASIR, BATU, KERIKIL": "Sand, Stone, Gravel",
-    "PASIR": "Sand",
-    "TANAH URUG": "Filling Soil",
-    "LATERIT": "Laterite",
-    "BATU BESI": "Iron Stone",
-    "TANAH MERAH (LATERIT)": "Laterite",
-    "ANTIMON": "Antimony",
-    "ANTIMONI": "Antimony",
-    "BATU GUNUNG": "Mountain Stone",
-    "BASALT": "Basalt",
-    "FELDSPAR": "Feldspar",
-    "TRAS": "Trass",
+    "PASIR": "Sand, Stone, Gravel",
+    "TANAH URUG": "Non-Metallic Mineral",
+    "LATERIT": "Non-Metallic Mineral",
+    "BATU BESI": "Iron",
+    "TANAH MERAH (LATERIT)": "Non-Metallic Mineral",
+    "ANTIMON": "Non-Metallic Mineral",
+    "ANTIMONI": "Non-Metallic Mineral",
+    "BATU GUNUNG": "Sand, Stone, Gravel",
+    "BASALT": "Sand, Stone, Gravel",
+    "FELDSPAR": "Non-Metallic Mineral",
+    "TRAS": "Non-Metallic Mineral",
     "BATU KAPUR/ GAMPING": "Limestone",
-    "PASIR PASANG": "Sand",
-    "PASIR DARAT": "Sand",
-    "KERIKIL SUNGAI": "River Gravel",
-    "BENTONIT": "Bentonite",
-    "TRASS": "Trass",
+    "PASIR PASANG": "Sand, Stone, Gravel",
+    "PASIR DARAT": "Sand, Stone, Gravel",
+    "KERIKIL SUNGAI": "Sand, Stone, Gravel",
+    "BENTONIT": "Non-Metallic Mineral",
+    "TRASS": "Non-Metallic Mineral",
     "BATU KAPUR UNTUK SEMEN": "Limestone",
-    "BATU KALI": "Stone",
+    "BATU KALI": "Sand, Stone, Gravel",
     "BATU GAMPING (BATUAN)": "Limestone",
-    "PERIDOTIT": "Peridotite",
-    "PASIR BATU": "Stone",
+    "PERIDOTIT": "Non-Metallic Mineral",
+    "PASIR BATU": "Sand, Stone, Gravel",
     "BALL CLAY": "Clay",
     "BATU LEMPUNG": "Clay",
     "BATUGAMPING UNTUK SEMEN": "Limestone",
-    "BIJIH EMAS": "Gold Ore",
+    "BIJIH EMAS": "Gold",
     "BATU LEMPUNG (TANAH LIAT)": "Clay",
-    "PASIR BANGUNAN": "Sand",
-    "SLATE": "Slate",
-    "KALSIT": "Calcite",
-    "DIORIT": "Diorite",
-    "GABRO": "Gabbro",
-    "FOSFAT": "Phosphate",
-    "MOLIBDENUM": "Molybdenum",
-    "PIROFILIT": "Pyrophyllite",
-    "PASIR DAN BATU (SIRTU)": "Sand, Stone",
-    "BATU KUARSA": "Quartz",
-    "GRANODIORIT": "Granodiorite",
-    "QUARRY BESAR": "Large Quarry",
-    "OBSIDIAN": "Obsidian",
+    "PASIR BANGUNAN": "Sand, Stone, Gravel",
+    "SLATE": "Non-Metallic Mineral",
+    "KALSIT": "Non-Metallic Mineral",
+    "DIORIT": "Sand, Stone, Gravel",
+    "GABRO": "Sand, Stone, Gravel",
+    "FOSFAT": "Non-Metallic Mineral",
+    "MOLIBDENUM": "Non-Metallic Mineral",
+    "PIROFILIT": "Non-Metallic Mineral",
+    "PASIR DAN BATU (SIRTU)": "Sand, Stone, Gravel",
+    "BATU KUARSA": "Non-Metallic Mineral",
+    "GRANODIORIT": "Sand, Stone, Gravel",
+    "QUARRY BESAR": "Sand, Stone, Gravel",
+    "OBSIDIAN": "Non-Metallic Mineral",
     "GAMPING UNTUK SEMEN": "Limestone",
-    "SENG, TIMAH HITAM": "Zinc, Lead",
-    "BATU GARNET": "Garnet",
-    "GRAFIT": "Graphite",
-    "KUARSIT": "Quartzite",
+    "SENG, TIMAH HITAM": "Non-Metallic Mineral",
+    "BATU GARNET": "Non-Metallic Mineral",
+    "GRAFIT": "Non-Metallic Mineral",
+    "KUARSIT": "Non-Metallic Mineral",
     "MINERAL BUKAN LOGAM": "Non-Metallic Mineral",
-    "BATU GUNUNG KUARI BESAR": "Mountain Stone",
-    "PERLIT": "Perlite",
-    "MANGAAN": "Manganese",
+    "BATU GUNUNG KUARI BESAR": "Sand, Stone, Gravel",
+    "PERLIT": "Non-Metallic Mineral",
+    "MANGAAN": "Non-Metallic Mineral",
     "NIKEL": "Nickel",
 }
 
@@ -224,16 +225,95 @@ def cleanse_df(df: pd.DataFrame) -> pd.DataFrame:
     - Trimming whitespace in all string columns
     - Removing rows with null, unreadable, or placeholder (‘-’) values in any column, except 'generasi' and 'kode_wil'
     - Removing embedded newlines in string fields
-    - Standardizing 'komoditas' to mapped categories
+    - Standardizing 'komoditas' to mapped categories (fillna with 'Others')
     - Dropping rows where 'tgl_berlaku' equals 'tgl_akhir'
+    - Normalizing administrative names and locations
     """
     exemptions = {"generasi", "kode_wil"}
-    # Normalize strings and remove newlines
+
+    # Internal helper: normalize province or city names
+    def normalize_admin(name: str) -> str:
+        if pd.isna(name):
+            return ""
+        parts = [part.strip() for part in str(name).split(",") if part.strip()]
+        cleaned = []
+        for part in parts:
+            s = part
+            # expand abbreviations
+            exp = {
+                r"\bkab\.?\b": "kabupaten",
+                r"\bprov\.?\b": "provinsi",
+                r"\bkota\b": "kota",
+            }
+            for pat, sub in exp.items():
+                s = re.sub(pat, sub, s, flags=re.IGNORECASE)
+            # remove dots & collapse spaces
+            s = s.replace(".", "")
+            s = re.sub(r"\s{2,}", " ", s).strip()
+
+            # title-case words (except 'dan')
+            def _tc(w):
+                return w.lower() if w.lower() == "dan" else w.capitalize()
+
+            s = " ".join(_tc(w) for w in s.split())
+            cleaned.append(s)
+        return ", ".join(cleaned)
+
+    # Internal helper: normalize free-form location strings
+    def normalize_location(row) -> str:
+        raw = str(row.get("lokasi", "")).strip()
+        raw = re.sub(r"^[\.\s]+", "", raw)
+        # DIGIT-ONLY → fallback to kab/prov
+        if raw.isdigit():
+            return (
+                f"{row.get('nama_kab', '').title()}, {row.get('nama_prov', '').title()}"
+            )
+        # URLs → fallback
+        if re.search(r"https?://|goo\.gl/", raw, flags=re.IGNORECASE):
+            return f"{row.get('nama_kab', '')}, {row.get('nama_prov', '')}"
+        loc = raw
+        loc = re.sub(r"\bdesa/kelurahan\b", "Desa/Kelurahan", loc, flags=re.IGNORECASE)
+        # Expand Ds or Ds.
+        loc = re.sub(r"\bds\.?\b", "desa ", loc, flags=re.IGNORECASE)
+        # Ensure Jl. and No.
+        loc = re.sub(r"\bJl\.?\b", "Jl.", loc)
+        loc = re.sub(r"\bNo\.?\b", "No.", loc)
+        # Uppercase RT/RW
+        loc = re.sub(r"\bRt\b", "RT", loc, flags=re.IGNORECASE)
+        loc = re.sub(r"\bRw\b", "RW", loc, flags=re.IGNORECASE)
+        # Other expansions
+        expansions = {
+            r"\bkec\.?\s*": "kecamatan ",
+            r"\bkab\.?\s*": "kabupaten ",
+            r"\bprov\.?\s*": "provinsi ",
+            r"\bkel\.?\s*": "kelurahan ",
+            r"\bdesa/kel\.?\s*": "desa/kelurahan ",
+        }
+        for pat, sub in expansions.items():
+            loc = re.sub(pat, sub, loc, flags=re.IGNORECASE)
+        # Fix fused words
+        loc = re.sub(
+            r"(?i)(kecamatan|kabupaten|provinsi|kelurahan)([A-Za-z])",
+            lambda m: m.group(1) + " " + m.group(2),
+            loc,
+        )
+        # Normalize spacing
+        loc = re.sub(r"\s{2,}", " ", loc)
+        loc = re.sub(r"\s*,\s*", ", ", loc).strip(" ,")
+
+        def tc(w):
+            return w.lower() if w.lower() == "dan" else w.capitalize()
+
+        parts = [p.strip() for p in loc.split(",") if p.strip()]
+        cleaned = [" ".join(tc(w) for w in part.split()) for part in parts]
+        return ", ".join(cleaned)
+
+    # 1) Trim and remove newlines in string fields
     for col in df.columns:
         if df[col].dtype == object:
             df[col] = df[col].astype(str).str.strip()
             df[col] = df[col].str.replace(r"[\r\n]+", " ", regex=True)
-    # Filter invalid rows
+    # 2) Filter invalid rows
     valid = pd.Series(True, index=df.index)
     for col in df.columns:
         if col in exemptions:
@@ -244,13 +324,23 @@ def cleanse_df(df: pd.DataFrame) -> pd.DataFrame:
         else:
             valid &= df[col].notnull()
     df = df[valid]
-    # Drop rows with identical dates
+    # 3) Drop identical dates
     if "tgl_berlaku" in df.columns and "tgl_akhir" in df.columns:
         df = df[df["tgl_berlaku"] != df["tgl_akhir"]]
-    # Map commodities
+    # 4) Map commodities with fallback 'Others'
     if "komoditas" in df.columns:
         cleaned = df["komoditas"].str.upper().str.replace(r"\s+DMP$", "", regex=True)
-        df["komoditas_mapped"] = cleaned.map(COMMODITY_MAP).fillna(cleaned.str.title())
+        df["komoditas_mapped"] = cleaned.map(COMMODITY_MAP).fillna("Others")
+    # 5) Normalize administrative names if present
+    if "nama_prov" in df.columns:
+        df["provinsi_norm"] = df["nama_prov"].apply(normalize_admin)
+    if "nama_kab" in df.columns:
+        df["kabupaten_norm"] = df["nama_kab"].apply(normalize_admin)
+    if "kegiatan" in df.columns:
+        df["kegiatan_norm"] = df["kegiatan"].apply(normalize_admin)
+    # 6) Normalize free-form locations
+    if "lokasi" in df.columns:
+        df["lokasi_norm"] = df.apply(normalize_location, axis=1)
     return df
 
 

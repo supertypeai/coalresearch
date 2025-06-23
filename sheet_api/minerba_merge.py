@@ -30,6 +30,10 @@ def prepareMinerbaDf():
         "location",  # 'lokasi'
         "geometry",  # 'geometry'
         "komoditas_mapped",  # 'komoditas_mapped'
+        "provinsi_norm",  # 'provinsi_norm'
+        "kabupaten_norm",  # 'kabupaten_norm'
+        "kegiatan_norm",  # 'kegiatan_norm'
+        "lokasi_norm",  # 'lokasi_norm'
     ]
     included_columns = [
         "license_type",
@@ -47,15 +51,19 @@ def prepareMinerbaDf():
         "location",
         "commodity",
         "geometry",
-        "commodity",  # 'komoditas_mapped'
+        # "commodity",  # 'komoditas_mapped'
     ]
-    minerba_df["province"] = minerba_df["province"].str.title()
+    # minerba_df["province"] = minerba_df["province"].str.title()
+    minerba_df["province"] = minerba_df["provinsi_norm"]
+    minerba_df["city"] = minerba_df["kabupaten_norm"]
+    minerba_df["activity"] = minerba_df["kegiatan_norm"]
+    minerba_df["location"] = minerba_df["lokasi_norm"]
     # minerba_df["company_name"] = minerba_df["company_name"].str.title()
-    minerba_df["city"] = (
-        minerba_df["city"].str.replace(r"^KAB\.\s*", "", regex=True).str.title()
-    )
-    minerba_df["activity"] = minerba_df["activity"].str.lower()
-    minerba_df["location"] = minerba_df["location"].str.lower()
+    # minerba_df["city"] = (
+    #     minerba_df["city"].str.replace(r"^KAB\.\s*", "", regex=True).str.title()
+    # )
+    # minerba_df["activity"] = minerba_df["activity"].str.lower()
+    # minerba_df["location"] = minerba_df["location"].str.lower()
     minerba_df["license_number"] = minerba_df["license_number"].fillna("-").str.strip()
     minerba_df["permit_effective_date"] = pd.to_datetime(
         minerba_df["permit_effective_date"], unit="ms", errors="coerce"
