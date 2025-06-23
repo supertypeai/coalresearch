@@ -44,16 +44,31 @@ def normalize_admin(name: str) -> str:
 def normalize_location(row):
     raw = str(row["lokasi"]).strip()
 
+    raw = re.sub(r"^[\.\s]+", "", raw)
+
     # 1) DIGIT ONLY → "City, Province"
     if raw.isdigit():
         return f"{row['nama_kab'].title()}, {row['nama_prov'].title()}"
 
+    if re.search(r"https?://|goo\.gl/", raw, flags=re.IGNORECASE):
+        return f"{row['nama_kab']}, {row['nama_prov']}"
+
     loc = raw
 
-    # 2) Remove any "Kode Pos 91552" or similar
-    loc = re.sub(r"Kode\s+Pos\s*\d+", "", loc, flags=re.IGNORECASE)
+    loc = re.sub(r"\bdesa/kelurahan\b", "Desa/Kelurahan", loc, flags=re.IGNORECASE)
 
-    # 3) Expand abbreviations, force trailing space
+    # 2) Expand “Ds” or “Ds.” → “Desa ”
+    loc = re.sub(r"\bds\.?\b", "desa ", loc, flags=re.IGNORECASE)
+
+    # 3) Ensure “Jl.” and “No.”
+    loc = re.sub(r"\bJl\.?\b", "Jl.", loc)
+    loc = re.sub(r"\bNo\.?\b", "No.", loc)
+
+    # 4) Uppercase RT/RW
+    loc = re.sub(r"\bRt\b", "RT", loc, flags=re.IGNORECASE)
+    loc = re.sub(r"\bRw\b", "RW", loc, flags=re.IGNORECASE)
+
+    # 5) Expand other abbreviations
     expansions = {
         r"\bkec\.?\s*": "kecamatan ",
         r"\bkab\.?\s*": "kabupaten ",
@@ -64,28 +79,24 @@ def normalize_location(row):
     for pat, sub in expansions.items():
         loc = re.sub(pat, sub, loc, flags=re.IGNORECASE)
 
-    # 4) Fix words run together (e.g. "Kecamatanmook" → "Kecamatan mook")
+    # 6) Fix fused words, e.g. “Kecamatanmook”
     loc = re.sub(
         r"(?i)(kecamatan|kabupaten|provinsi|kelurahan)([A-Za-z])",
         lambda m: m.group(1) + " " + m.group(2),
         loc,
     )
 
-    # 5) Drop all stray periods, then collapse multi-spaces/commas
-    loc = loc.replace(".", "")
+    # 7) Normalize comma spacing & collapse multiple spaces
     loc = re.sub(r"\s{2,}", " ", loc)
-    loc = re.sub(r"\s*,\s*", ", ", loc)
+    loc = re.sub(r"\s*,\s*", ", ", loc).strip(" ,")
 
-    # 6) Title-case each segment, except "dan"
-    def tc_word(w):
+    # 8) Title-case words except 'dan'
+    def tc(w):
         return w.lower() if w.lower() == "dan" else w.capitalize()
 
-    parts = [seg.strip() for seg in loc.split(",")]
-    cleaned_parts = []
-    for seg in parts:
-        words = seg.split()
-        cleaned_parts.append(" ".join(tc_word(w) for w in words))
-    return ", ".join(p for p in cleaned_parts if p)
+    parts = [p.strip() for p in loc.split(",") if p.strip()]
+    cleaned = [" ".join(tc(w) for w in part.split()) for part in parts]
+    return ", ".join(cleaned)
 
 
 def clean_company_name(name):
