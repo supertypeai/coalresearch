@@ -197,6 +197,6 @@ if __name__ == "__main__":
     # %%
     sync_model("export_destination", "A1:G122", ExportDestination)
     # %%
-    sync_model("global_commodity_data", "A1:F88", GlobalCommodityData)
+    sync_model("global_commodity_data", "A1:F104", GlobalCommodityData)
 
 # %%
