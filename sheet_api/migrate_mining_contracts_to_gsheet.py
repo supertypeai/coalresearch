@@ -59,15 +59,27 @@ for contractor_id, group in grouped:
 
         contract_list = []
         for _, row in group.iterrows():
+            agreement_type_str = row.get("Agreement type", "")
+            agreement_types = (
+                [item.strip() for item in agreement_type_str.split(",")]
+                if agreement_type_str
+                else []
+            )
+
             new_contract = {
-                "mine_owner_id": row.get("mine_owner_id"),
-                "contractor_id": row.get("contractor_id"),
+                "company_name": row.get("*mine_owner_name"),
+                "company_id": row.get("mine_owner_id"),
                 "contract_period_end": row.get("contract_period_end"),
+                "agreement_type": agreement_types,
             }
             contract_list.append(new_contract)
 
         contracts_json = json.dumps(contract_list)
         company_df.at[idx, "mining_contract"] = contracts_json
+
+# Fill empty mining_contract cells with '[]'
+company_df["mining_contract"] = company_df["mining_contract"].fillna("[]")
+company_df.loc[company_df["mining_contract"] == "", "mining_contract"] = "[]"
 
 # Convert dataframe to list of lists to update the sheet
 updated_values = [company_df.columns.values.tolist()] + company_df.fillna(

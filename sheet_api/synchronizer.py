@@ -116,21 +116,31 @@ if __name__ == "__main__":
         # # Group contracts by contractor_id
         # grouped_contracts = mc_df.groupby("contractor_id")
 
-        # # Create a dictionary of contracts with the new JSON structure
-        # contracts_dict = {}
-        # for contractor_id, group in grouped_contracts:
-        #     contract_list = []
-        #     for _, row in group.iterrows():
-        #         new_contract = {
-        #             "mine_owner_id": row.get("mine_owner_id"),
-        #             "contractor_id": row.get("contractor_id"),
-        #             "contract_period_end": row.get("contract_period_end"),
-        #         }
-        #         contract_list.append(new_contract)
-        #     contracts_dict[str(contractor_id)] = json.dumps(contract_list)
+        # Create a dictionary of contracts with the new JSON structure
+        contracts_dict = {}
+        for contractor_id, group in grouped_contracts:
+            contract_list = []
+            for _, row in group.iterrows():
+                agreement_type_str = row.get("Agreement type", "")
+                agreement_types = (
+                    [item.strip() for item in agreement_type_str.split(",")]
+                    if agreement_type_str
+                    else []
+                )
 
-        # # Map contracts to company dataframe
-        # df["mining_contract"] = df["id"].map(contracts_dict)
+                new_contract = {
+                    "company_name": row.get("*mine_owner_name"),
+                    "company_id": row.get("mine_owner_id"),
+                    "contract_period_end": row.get("contract_period_end"),
+                    "agreement_type": agreement_types,
+                }
+                contract_list.append(new_contract)
+            contracts_dict[str(contractor_id)] = json.dumps(contract_list)
+
+        # Map contracts to company dataframe and fill empty values with '[]'
+        df["mining_contract"] = df["id"].map(contracts_dict)
+        df["mining_contract"] = df["mining_contract"].fillna("[]")
+        df.loc[df["mining_contract"].isnull(), "mining_contract"] = "[]"
 
         return df, field_types, sheet
 
