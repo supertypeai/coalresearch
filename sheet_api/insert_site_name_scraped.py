@@ -1,10 +1,10 @@
-from shapely.geometry   import shape, Point, Polygon
-from pyproj             import Transformer
-from gspread            import Cell
-from google_sheets.auth import createClient, createEntryClient
-from pyproj             import Transformer
-from link_site_name     import safe_update
-from typing             import Optional, Any, Tuple
+from shapely.geometry               import shape, Point, Polygon
+from pyproj                         import Transformer
+from gspread                        import Cell
+from sheet_api.google_sheets.auth   import createClient
+from pyproj                         import Transformer
+from link_site_name                 import safe_update
+from typing                         import Optional, Any, Tuple
 
 import json 
 import time
@@ -12,10 +12,9 @@ import pandas    as pd
 import geopandas as gpd
 
 CLIENT, SPREADSHEET_ID = createClient()
-ENTRY_CLIENT, ENTRY_SPREADSHEET_ID = createEntryClient()
 
 def check_column_exists(sheet_name: str, column_header: str,
-                         client = CLIENT, spreadsheet_id = ENTRY_SPREADSHEET_ID):
+                         client = CLIENT, spreadsheet_id = SPREADSHEET_ID):
     """
     Ensures a column exists in the sheet. Creates it if it doesn't exist.
     
@@ -168,7 +167,7 @@ def merge_coal_databases(path_esdm: str, path_minerba:str,
 
 def get_mining_sheet(sheet_name: str,
                      client = CLIENT, 
-                     spreadsheet_id = ENTRY_SPREADSHEET_ID) -> tuple[Any, pd.DataFrame]: 
+                     spreadsheet_id = SPREADSHEET_ID) -> tuple[Any, pd.DataFrame]: 
     """
     Fetch mining data from Google Sheets and convert to a pandas DataFrame.
 
