@@ -8,10 +8,11 @@ sys.path.append(os.path.join(os.getcwd(), "sheet_api"))
 import pandas as pd
 import re
 
-from google_sheets.auth import createClient
+from google_sheets.auth import createClient, createService
 
 # %%
 client, spreadsheet_id = createClient()
+service = createService()
 ms_sheet = client.open_by_key(spreadsheet_id).worksheet('mining_site')
 
 ms_data = ms_sheet.get('A1:Y110')
