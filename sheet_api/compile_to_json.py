@@ -2,7 +2,9 @@
 from sheet_api.utils.dataframe_utils import safeCast
 from sheet_api.google_sheets.auth import createClient, createService
 from minerba_merge import prepareMinerbaDf
+from rapidfuzz import process, fuzz
 
+import pandas as pd
 import json
 import re
 
@@ -58,7 +60,6 @@ MINERAL_STATS = [
 ]
 
 def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=0):
-
     col_id = df.columns.get_loc(target_col)
 
     rows = []
@@ -130,8 +131,7 @@ def renderCoalStats(row):
     data_dict["product"] = safeCast(row["*product"], dict)
     return data_dict
 
-def jsonifyCommodityStats(df, sheet_id, starts_from=0):
-    
+def jsonifyCommodityStats(df: pd.DataFrame, sheet_id: int, starts_from: int = 0):
     col_id = df.columns.get_loc("commodity_stats")
     rows = []
 
@@ -180,32 +180,56 @@ def jsonifyCommodityStats(df, sheet_id, starts_from=0):
 
     print(f"Batch update response: {response}")
 
+def clean_company_name(name: str) -> tuple[str, str]:
+    cleaned = re.sub(r"\b(PT|Tbk)\b", "", name).lower().strip()
+    cleaned = cleaned.lower().strip()
+    return cleaned, cleaned.replace(" ", "")
 
-def clean_company_name(name):
-    return re.sub(r"\b(PT|Tbk)\b", "", name).lower().strip()
+def clean_minerba_df(minerba_df: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]: 
+    # prepare a list of cleaned minerba names
+    minerba_df["_cmp"] = minerba_df["company_name"] \
+        .str.lower() \
+        .str.replace(r"\s+", " ", regex=True)
+    
+    minerba_df["_cmp_nospace"] = minerba_df["_cmp"].str.replace(" ", "", regex=False)
+    minerba_names = minerba_df["_cmp"].tolist()
+    return minerba_df, minerba_names
 
-
-def fillMiningLicense(df, sheet_id, starts_from=0):
-
+def fillMiningLicense(df: pd.DataFrame, sheet_id: int, 
+                      starts_from: int = 0, threshold: int = 93
+                    ) -> None:
+    # Load and clean reference DataFrame
     minerba_df, included_columns = prepareMinerbaDf()
+    minerba_df, minerba_keys = clean_minerba_df(minerba_df)
 
     col_id = df.columns.get_loc("mining_license")
 
     rows = []
-
     for row_id, row in df.iterrows():
-
         if (row_id + 2) < starts_from:
             continue
+        
+        orig_name   = row["name"]
+        key, key_nospace = clean_company_name(orig_name)
 
-        company_q = minerba_df[
-            minerba_df["company_name"].str.lower() == clean_company_name(row["name"])
-        ]
+        # Attempt exact matches
+        company_q = minerba_df[minerba_df['_cmp'] == key]
+        
+        # Attempt exact on no-space
+        if company_q.empty: 
+            company_q = minerba_df[minerba_df['_cmp_nospace'] == key_nospace]
+        
+        # Fuzzy fallback
+        if company_q.empty: 
+            match, score, idx = process.extractOne(key, minerba_keys, scorer=fuzz.token_sort_ratio)
+            if score >= threshold:
+                company_q = minerba_df.iloc[[idx]]
 
         if not company_q.empty:
             records = company_q[included_columns].to_dict(orient="records")
         else:
-            records = []  # empty list when no matches
+            # empty list when no matches
+            records = []  
 
         # ### CHANGED: dump the list (even if empty) as your JSON array
         license_json = json.dumps(records, ensure_ascii=False)
@@ -219,7 +243,8 @@ def fillMiningLicense(df, sheet_id, starts_from=0):
                     ]
             }
         )
-
+        
+    # Batch update sheet
     requests = [
         {
             'updateCells': {
