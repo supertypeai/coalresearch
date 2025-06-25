@@ -21,11 +21,11 @@ ccp_data = ccp_sheet.get('A1:AQ244')
 ccp_df = pd.DataFrame(ccp_data[1:], columns=ccp_data[0])
 
 ms_sheet = client.open_by_key(spreadsheet_id).worksheet('mining_site')
-ms_data = ms_sheet.get('A1:Y110')
+ms_data = ms_sheet.get('A1:Y150')
 ms_df = pd.DataFrame(ms_data[1:], columns=ms_data[0])
 
-cp_sheet = client.open_by_key(spreadsheet_id).worksheet('coal_product')
-cp_data = cp_sheet.get('A1:O103')
+cp_sheet = client.open_by_key(spreadsheet_id).worksheet('product')
+cp_data = cp_sheet.get('A1:S122')
 cp_df = pd.DataFrame(cp_data[1:], columns=cp_data[0])
 
 # %%

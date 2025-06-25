@@ -117,30 +117,30 @@ if __name__ == "__main__":
         # grouped_contracts = mc_df.groupby("contractor_id")
 
         # Create a dictionary of contracts with the new JSON structure
-        contracts_dict = {}
-        for contractor_id, group in grouped_contracts:
-            contract_list = []
-            for _, row in group.iterrows():
-                agreement_type_str = row.get("Agreement type", "")
-                agreement_types = (
-                    [item.strip() for item in agreement_type_str.split(",")]
-                    if agreement_type_str
-                    else []
-                )
+        # contracts_dict = {}
+        # for contractor_id, group in grouped_contracts:
+        #     contract_list = []
+        #     for _, row in group.iterrows():
+        #         agreement_type_str = row.get("Agreement type", "")
+        #         agreement_types = (
+        #             [item.strip() for item in agreement_type_str.split(",")]
+        #             if agreement_type_str
+        #             else []
+        #         )
 
-                new_contract = {
-                    "company_name": row.get("*mine_owner_name"),
-                    "company_id": row.get("mine_owner_id"),
-                    "contract_period_end": row.get("contract_period_end"),
-                    "agreement_type": agreement_types,
-                }
-                contract_list.append(new_contract)
-            contracts_dict[str(contractor_id)] = json.dumps(contract_list)
+        #         new_contract = {
+        #             "company_name": row.get("*mine_owner_name"),
+        #             "company_id": row.get("mine_owner_id"),
+        #             "contract_period_end": row.get("contract_period_end"),
+        #             "agreement_type": agreement_types,
+        #         }
+        #         contract_list.append(new_contract)
+        #     contracts_dict[str(contractor_id)] = json.dumps(contract_list)
 
-        # Map contracts to company dataframe and fill empty values with '[]'
-        df["mining_contract"] = df["id"].map(contracts_dict)
-        df["mining_contract"] = df["mining_contract"].fillna("[]")
-        df.loc[df["mining_contract"].isnull(), "mining_contract"] = "[]"
+        # # Map contracts to company dataframe and fill empty values with '[]'
+        # df["mining_contract"] = df["id"].map(contracts_dict)
+        # df["mining_contract"] = df["mining_contract"].fillna("[]")
+        # df.loc[df["mining_contract"].isnull(), "mining_contract"] = "[]"
 
         return df, field_types, sheet
 
@@ -150,30 +150,24 @@ if __name__ == "__main__":
         return df, field_types, sheet
 
     def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
-        # 1. Compile reserves_resourcees
-        reserves_resources_fields = [
-            ("*year_measured", int),
-            ("*calorific_value", str),
-            ("*total_reserve", float),
-            ("*total_resource", float),
-            ("*resources_inferred", float),
-            ("*resources_indicated", float),
-            ("*resources_measured", float),
-            ("*reserves_proved", float),
-            ("*reserves_probable", float),
-        ]
-        compileToJsonBatch(
-            df, reserves_resources_fields, "resources_reserves", sheet.id
-        )
+        # # 1. Compile reserves_resourcees
+        # reserves_resources_fields = [
+        #     ("*year_measured", int),
+        #     ("*total_reserve", float),
+        #     ("*total_resource", float),
+        # ]
+        # compileToJsonBatch(
+        #     df, reserves_resources_fields, "resources_reserves", sheet.id, 111 - 2
+        # )
 
-        # 2. Compile location
-        location = [
-            ("*province", str),
-            ("*city", str),
-            ("*latitude", float),
-            ("*longitude", float),
-        ]
-        compileToJsonBatch(df, location, "location", sheet.id)
+        # # 2. Compile location
+        # location = [
+        #     ("*province", str),
+        #     ("*city", str),
+        #     ("*latitude", float),
+        #     ("*longitude", float),
+        # ]
+        # compileToJsonBatch(df, location, "location", sheet.id)
 
         return df, field_types, sheet
 
@@ -182,12 +176,12 @@ if __name__ == "__main__":
     # %%
     sync_model(
         "company_performance",
-        "A1:AQ245",
+        "A1:AQ238",
         CompanyPerformance,
         companyPerformancePreprocess,
     )
     # %%
-    sync_model("mining_site", "A1:Y110", MiningSite, miningSitePreprocess)
+    sync_model("mining_site", "A1:Y132", MiningSite, miningSitePreprocess)
     # %%
     processCompanyOwnership()
     # %%

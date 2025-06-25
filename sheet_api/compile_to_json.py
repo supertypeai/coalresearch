@@ -34,9 +34,9 @@ COAL_STATS = [
 
 MINERAL_RESERVES = [
     ("ore_reserves material (mt)", float),
-    ("ore_reserves g/ton Au (koz)", float),
+    ("ore_reserves g/ton Au", float),
     ("ore_reserves Au (koz)", float),
-    ("ore_reserves g/ton Ag (koz)", float),
+    ("ore_reserves g/ton Ag", float),
     ("ore_reserves Ag (koz)", float),
     ("ore_reserves % Cu", float),
     ("ore_reserves Cu (mt)", float)
@@ -44,9 +44,9 @@ MINERAL_RESERVES = [
 
 MINERAL_RESOURCES = [
     ("resources material (mt)", float),
-    ("resources g/ton Au (koz)", float),
+    ("resources g/ton Au", float),
     ("resources Au (koz)", float),
-    ("resources g/ton Ag (koz)", float),
+    ("resources g/ton Ag", float),
     ("resources Ag (koz)", float),
     ("resources % Cu", float),
     ("resources Cu (mt)", float)
@@ -66,7 +66,7 @@ def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=0
 
     for row_id, row in df.iterrows():
 
-        if (row_id + 2) < starts_from:
+        if row_id < starts_from:
             continue
 
         data_dict = {}
@@ -122,7 +122,7 @@ def renderMineralStats(row):
         "reserves": renderDict(row, MINERAL_RESERVES, lambda col: col.replace("ore_reserves ", "").lstrip("*")),
         "resources": renderDict(row, MINERAL_RESOURCES, lambda col: col.replace("resources ", "").lstrip("*"))
         }
-    data_dict["product"] = None
+    data_dict["product"] = safeCast(row["*product"], dict)
     return data_dict
 
 def renderCoalStats(row):

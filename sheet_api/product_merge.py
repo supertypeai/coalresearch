@@ -8,17 +8,17 @@ from gspread import Cell
 client, spreadsheet_id = createClient()
 
 # %%
-cp_sheet = client.open_by_key(spreadsheet_id).worksheet('coal_product')
-cp_data = cp_sheet.get('A1:O103')
+cp_sheet = client.open_by_key(spreadsheet_id).worksheet('product')
+cp_data = cp_sheet.get('A1:S122')
 cp_df = pd.DataFrame(cp_data[1:], columns=cp_data[0])
 cp_df.columns = [col.lstrip("*") for col in cp_df.columns]
 
 ccp_sheet = client.open_by_key(spreadsheet_id).worksheet('company_performance')
-ccp_data = ccp_sheet.get('A1:X244')
+ccp_data = ccp_sheet.get('A1:X247')
 ccp_df = pd.DataFrame(ccp_data[1:], columns=ccp_data[0])
 # %%
 
-included_columns = [
+coal_specs = [
 	("product_name", str),
 	("calorific_value", str),
 	("total_moisture", str),
@@ -30,6 +30,16 @@ included_columns = [
 	("fixed_carbon_adb", str)
 ]
 
+gold_specs = [
+	("product_name", str),
+	("g/ton Au", str),
+]
+
+SPECS_MAP = {
+	'Coal': coal_specs,
+	'Gold': gold_specs
+}
+
 # %%
 
 def updateProduct(starts_from=0):
@@ -37,17 +47,24 @@ def updateProduct(starts_from=0):
 
 	for ccp_idx, ccp_row in ccp_df.iterrows():
 		
-		if ccp_row['commodity_type'] != 'Coal':
+		commodity = ccp_row['commodity_type']
+		if commodity not in  SPECS_MAP:
 			continue                        
 		
 		q = cp_df[
             (cp_df['company_id'] == ccp_row['company_id']) &
+			(cp_df['commodity_type'] == commodity) &
             (cp_df['year'] == ccp_row['year'])
         ]
 		
 		if q.empty:
             # Filter only by company_id
-			product_q = cp_df[cp_df['company_id'] == ccp_row['company_id']]
+
+
+			product_q = cp_df[
+				(cp_df['company_id'] == ccp_row['company_id']) &
+				(cp_df['commodity_type'] == commodity)
+			]
 			
 			if product_q.empty:
 				continue
@@ -56,26 +73,25 @@ def updateProduct(starts_from=0):
 			latest_year = product_q['year'].max()
 			q = product_q[product_q['year'] == latest_year]
 
-
 		assert isinstance(ccp_idx, int)
 		sheet_row = 2 + ccp_idx
 
 		if sheet_row < starts_from:
 			continue
-        
-		coal_product_list = []
+
+		product_list = []
 		for _, group_row in q.iterrows():
 			product_dict = {}
-			for in_col, type in included_columns:
+			for in_col, type in SPECS_MAP[commodity]:
 				val = safeCast(group_row[in_col], type)
 				product_dict[in_col] = val
-			coal_product_list.append(product_dict)
+			product_list.append(product_dict)
 			
-		coal_product_list_json = json.dumps(coal_product_list)
+		product_list_json = json.dumps(product_list)
 		col_id = list(ccp_df.columns).index('*product') + 1  # 1-based indexing
 
 		# Prepare Cell object
-		cell = Cell(row=sheet_row, col=col_id, value=coal_product_list_json)
+		cell = Cell(row=sheet_row, col=col_id, value=product_list_json)
 		cell_updates.append(cell)
 			
     # Perform batch update
