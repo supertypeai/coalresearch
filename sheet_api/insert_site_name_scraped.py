@@ -345,14 +345,33 @@ def combine_all_merged_data(df_confidence: pd.DataFrame,
     Returns:
         pd.DataFrame: Consolidated DataFrame of all matched entries.
     """
-    # Stack all merging data where object_name is not null
-    merged_tier1_clean = df_confidence[df_confidence['site_name_scraped'].notna()]
-    merged_tier1_clean.rename({"site_name_scraped":"object_name"},axis=1,inplace=True)
+    # Start with Tier 1 results
+    final_df = df_confidence.copy()
+    
+    # Create mappings from 'name' to 'object_name' for tier 2 and tier 3
+    # Only include rows where object_name is not null
+    tier2_mapping = df_coordinate[df_coordinate['object_name'].notna()].set_index('name')['object_name'].to_dict()
+    tier3_mapping = df_company[df_company['object_name'].notna()].set_index('name')['object_name'].to_dict()
+    
+    # Loop first dataframe merging
+    for idx, row in final_df.iterrows(): 
+        site_name = row['name']
+        current_scraped = row['site_name_scraped']
 
-    merged_tier2_clean = df_coordinate[df_coordinate['object_name'].notna()]
-    merged_tier3_clean = df_company[df_company['object_name'].notna()]
-    final_df_clean = pd.concat([merged_tier1_clean, merged_tier2_clean, merged_tier3_clean]).reset_index(drop=True)
-    return final_df_clean
+        # Only update empty values on the first dataframe merge
+        if pd.isna(current_scraped):
+            # Update if name in tier2 and assign with tier2 value
+            if site_name in tier2_mapping:
+                final_df.at[idx, 'site_name_scraped'] = tier2_mapping[site_name]
+            # Update if name in tier3 and assign with tier3 value
+            elif site_name in tier3_mapping:
+                final_df.at[idx, 'site_name_scraped'] = tier3_mapping[site_name]
+          
+    total_matched = final_df['site_name_scraped'].notna().sum()
+    total_records = len(final_df)
+    
+    print(f"Final result: {total_matched}/{total_records} records matched ({total_matched/total_records*100:.1f}%)")
+    return final_df
 
 def sanitize_value(val: Any) -> str:
     """
@@ -376,7 +395,8 @@ def sanitize_value(val: Any) -> str:
     
 def write_into_sheet(final_df: pd.DataFrame, 
                      mining_sheet: Any,
-                     mining_df: pd.DataFrame) -> None: 
+                     mining_df: pd.DataFrame, 
+                     new_column: str) -> None: 
     """
     For each matched record, locates the corresponding row in the mining sheet and writes
     the scraped object name into the 'name_scraped' column. Uses batch updates to minimize API calls.
@@ -391,32 +411,22 @@ def write_into_sheet(final_df: pd.DataFrame,
     """
     try:
         # Find the 1-based index of the 'name_scraped' column for updateCells
-        name_scraped_col = mining_df.columns.get_loc("name_scraped") + 1
+        target_col = mining_df.columns.get_loc(new_column) + 1
     except KeyError as error:
         print(f"Required column not found in sheet: {error}")
         return
     
-    updates: list = []
-    
+    updates = []
     # Iterate through all matched entries
-    for _, row in final_df.iterrows():
-        site_name = sanitize_value(row['name'])
-        site_name_scraped = sanitize_value(row['object_name'])
+    for idx, row in final_df.iterrows():
+        site_name_scraped = sanitize_value(row['site_name_scraped'])
         
-        if not site_name or not site_name_scraped:
-            continue
-        
-        # Checking exact match site name from mining_df and mining_site sheet
-        matching_rows = mining_df[mining_df['name'] == site_name]
-        
-        if not matching_rows.empty:
-            # Site exists, update the name_scraped column
-            for match_idx in matching_rows.index:
-                sheet_row = match_idx + 2  
-                updates.append((sheet_row, name_scraped_col, site_name_scraped))
-                print(f"Found existing site '{site_name}' at row {sheet_row}, updating name_scraped")
-        else:
-            print(f"Site '{site_name}' not found in existing data, skipping update")
+        if site_name_scraped and pd.notna(site_name_scraped):
+            sheet_row = idx + 2  
+            updates.append((sheet_row, target_col, site_name_scraped))
+            
+            site_name = sanitize_value(row.get('name', ''))
+            print(f"Updating '{site_name}' at row {sheet_row} with '{site_name_scraped}'")
     
     if not updates:
         print("No updates to perform")
@@ -425,10 +435,8 @@ def write_into_sheet(final_df: pd.DataFrame,
     # Perform batched API calls to update sheet
     cell_batch = []
     for row, col, val in updates:
-        # Sanitize the value before creating Cell object
-        sanitized_val = sanitize_value(val)
         # Create Cell object with sanitized value
-        cell_batch.append(Cell(row, col, sanitized_val))
+        cell_batch.append(Cell(row, col, val))
         if len(cell_batch) >= 50:
             # Flush batch when it reaches threshold
             safe_update(mining_sheet, cell_batch)
@@ -444,7 +452,7 @@ def write_into_sheet(final_df: pd.DataFrame,
 def auto_write_name_scraped(path_esdm: str, 
                             path_minerba:str, 
                             mining_site_name:str, 
-                            new_column: str = "name_scraped") -> None:
+                            new_column: str = "*name_scraped") -> None:
     """
     Runs end-to-end process: merges ESDM & Minerba data, matches sites, and writes back
     scraped names into the Google Sheet.
@@ -479,7 +487,7 @@ def auto_write_name_scraped(path_esdm: str,
     final_df = combine_all_merged_data(merged_df_confidence, merged_df_coordinate, merged_df_company)
     
     # Write data into new column 
-    write_into_sheet(final_df, mining_sheet, df_mining)    
+    write_into_sheet(final_df, mining_sheet, df_mining, new_column)    
     
     
 if __name__ == "__main__":
