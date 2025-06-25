@@ -114,9 +114,7 @@ class Company(Model):
     mining_contract = TextField(
         null=True, constraints=[Check("json_valid(mining_contract)")]
     )
-    commodity = TextField(
-        null=True, constraints=[Check("json_valid(commodity)")]
-    )
+    commodity = TextField(null=True, constraints=[Check("json_valid(commodity)")])
 
     class Meta:
         database = db
@@ -135,10 +133,7 @@ class GlobalCommodityData(Model):
     production_volume = TextField(
         null=True, constraints=[Check("json_valid(production_volume)")]
     )
-    commodity_type = TextField(
-        null=True,
-        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")],
-    )
+    commodity_type = TextField()
 
     class Meta:
         database = db
