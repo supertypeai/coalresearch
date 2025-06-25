@@ -24,9 +24,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r minerba_commodities_scraper_requirements.txt
 
-      - name: Execute scraper
+      - name: Execute minerba_commodities_scraper.py
         run: |
           python minerba_commodities_scraper.py
+
+      - name: Execute commodity_gold_silver.py
+        run: |
+          python commodity_gold_silver.py
 
       - name: Pull remote changes
         run: git pull origin main
@@ -37,7 +41,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git add db.sqlite
           git diff-index --quiet HEAD \
-            || git commit -m "chore: daily update of db.sqlite" --allow-empty
+            || git commit -m "chore: weekly update of db.sqlite" --allow-empty
 
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
