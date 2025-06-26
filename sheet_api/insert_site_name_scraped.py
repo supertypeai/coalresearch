@@ -3,7 +3,7 @@ from pyproj                         import Transformer
 from gspread                        import Cell
 from sheet_api.google_sheets.auth   import createClient
 from pyproj                         import Transformer
-from link_site_name                 import safe_update
+from sheet_api.link_site_name       import safe_update
 from typing                         import Optional, Any, Tuple
 
 import json 
@@ -107,17 +107,22 @@ def coords_to_polygon(coords: Any) -> Optional[Polygon]:
         print(f"Error converting coordinates to polygon: {error}")
         return None
         
-def merge_coal_databases(path_esdm: str, path_minerba:str, 
-                         is_saved: bool = False) -> pd.DataFrame:
+def merge_coal_databases(path_esdm: str, path_minerba:str, komoditas: str,
+                         is_saved: bool = False, is_insert_data: bool = False) -> pd.DataFrame:
     """
-    Merges ESDM and Minerba coal datasets using spatial join based on point-in-polygon logic.
+    Performs a spatial join of ESDM point data and Minerba polygon data, with optional 
+    commodity filtering and CSV export.
 
     Args:
-        path_esdm (str): Path to the CSV file containing ESDM coal data with lat/lon.
-        path_minerba (str): Path to the CSV file containing Minerba polygons.
+        path_esdm (str): File path to the ESDM CSV containing point coordinates.
+        path_minerba (str): File path to the Minerba CSV containing polygon geometries.
+        komoditas (str): Commodity name used to filter results when insertion mode is enabled.
+        is_saved (bool): If True, write the full merged GeoDataFrame to "merged_esdm_coal_and_minerba.csv".
+        is_insert_data (bool): If True, filter out records without a matched company and by `komoditas`.
 
     Returns:
-        pd.DataFrame: Merged DataFrame of ESDM points with matched Minerba companies.
+        pd.DataFrame: A GeoDataFrame of ESDM points joined to Minerba polygons, 
+                      optionally filtered down for insert operations.
     """
     if not isinstance(path_esdm, str) or not isinstance(path_minerba, str): 
         raise ValueError(f"Input must be a string got type {type(path_esdm)} and {type(path_minerba)}")
@@ -156,16 +161,27 @@ def merge_coal_databases(path_esdm: str, path_minerba:str,
     print(f"Merged records: {len(merged)}")
     
     # Select relevant columns to use
-    merged = merged[['object_name','nama_usaha','longitude', 
-                     'latitude','geometry','badan_usaha']]
+    if not is_insert_data:
+        merged = merged[['object_name','nama_usaha','longitude', 
+                        'latitude','geometry','badan_usaha']]
     
-    # Save to csv
+    # Drop auto-generated index columns if present
+    if 'Unnamed: 0__esdm' in merged.columns or 'Unnamed: 0__minerba' in merged.columns:
+        merged.drop(columns=['Unnamed: 0__esdm', 'Unnamed: 0__minerba'], inplace=True)
+
+    # When insertion mode is on, filter to matched companies and by commodity
+    if is_insert_data and komoditas is not None:
+        merged = merged[merged['nama_usaha'].notna()].copy()
+        merged = merged.reset_index(drop=True)
+        merged = merged[merged['komoditas_mapped'].str.lower() == komoditas.lower()]
+
+    # Optionally save the full merged result as csv
     if is_saved: 
         merged.to_csv("merged_esdm_coal_and_minerba.csv", index=False)
     
     return merged
 
-def get_mining_sheet(sheet_name: str,
+def get_data_sheet(sheet_name: str,
                      client = CLIENT, 
                      spreadsheet_id = SPREADSHEET_ID) -> tuple[Any, pd.DataFrame]: 
     """
@@ -473,7 +489,7 @@ def auto_write_name_scraped(path_esdm: str,
     esdm_merged = merge_coal_databases(path_esdm, path_minerba)
     
     # Get data mining_site 
-    mining_sheet, df_mining = get_mining_sheet(mining_site_name)
+    mining_sheet, df_mining = get_data_sheet(mining_site_name)
     
     # Standardized columns for matching
     df_mining_standardized, esdm_merged_standardized = standardized_data(df_mining, esdm_merged)
