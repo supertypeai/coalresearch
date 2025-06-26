@@ -1,16 +1,16 @@
 # %%
-from utils.dataframe_utils import safeCast
-from google_sheets.auth import createClient, createService
-from minerba_merge import prepareMinerbaDf
-from rapidfuzz import process, fuzz
+from utils.dataframe_utils  import safeCast
+from google_sheets.auth     import createClient, createService
+from minerba_merge          import prepareMinerbaDf
+from rapidfuzz              import process, fuzz
+from insert_data_scraped    import clean_company_name, clean_company_df
 
 import pandas as pd
 import json
 import re
 
-_, spreadsheet_id = createClient()
-service = createService()
-
+_, SPREADSHEET_ID = createClient()
+SERVICE = createService()
 
 # %%
 COAL_RESERVES_RESOURCES = [
@@ -99,8 +99,8 @@ def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=0
     ]
 
     response = (
-        service.spreadsheets()
-        .batchUpdate(spreadsheetId=spreadsheet_id, body={"requests": requests})
+        SERVICE.spreadsheets()
+        .batchUpdate(spreadsheetId=SPREADSHEET_ID, body={"requests": requests})
         .execute()
     )
 
@@ -173,65 +173,63 @@ def jsonifyCommodityStats(df: pd.DataFrame, sheet_id: int, starts_from: int = 0)
         }
     ]
 
-    response = service.spreadsheets().batchUpdate(
-        spreadsheetId=spreadsheet_id,
+    response = SERVICE.spreadsheets().batchUpdate(
+        spreadsheetId=SPREADSHEET_ID,
         body={'requests': requests}
     ).execute()
 
     print(f"Batch update response: {response}")
 
-def clean_company_name(name: str) -> tuple[str, str]:
-    cleaned = re.sub(r"\b(PT|Tbk)\b", "", name).lower().strip()
-    cleaned = cleaned.lower().strip()
-    return cleaned, cleaned.replace(" ", "")
-
-def clean_minerba_df(minerba_df: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]: 
-    # prepare a list of cleaned minerba names
-    minerba_df["_cmp"] = minerba_df["company_name"] \
-        .str.lower() \
-        .str.replace(r"\s+", " ", regex=True)
-    
-    minerba_df["_cmp_nospace"] = minerba_df["_cmp"].str.replace(" ", "", regex=False)
-    minerba_names = minerba_df["_cmp"].tolist()
-    return minerba_df, minerba_names
-
-def fillMiningLicense(df: pd.DataFrame, sheet_id: int, 
+def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
                       starts_from: int = 0, threshold: int = 93
                     ) -> None:
     # Load and clean reference DataFrame
     minerba_df, included_columns = prepareMinerbaDf()
-    minerba_df, minerba_keys = clean_minerba_df(minerba_df)
+    
+    df_company = clean_company_df(df, 'name')
+    df_minerba = clean_company_df(minerba_df,'company_name')
 
+    # Pre-extract the list of normalized names for fuzzy matching
+    clean_list = df_minerba['name_cleaned'].tolist()
+    
     col_id = df.columns.get_loc("mining_license")
 
     rows = []
-    for row_id, row in df.iterrows():
+    for row_id, row in df_company.iterrows():
         if (row_id + 2) < starts_from:
             continue
         
-        orig_name   = row["name"]
-        key, key_nospace = clean_company_name(orig_name)
+        key = row['name_cleaned']
+        key_no_space = row['name_cleaned_no_space'] 
 
-        # Attempt exact matches
-        company_q = minerba_df[minerba_df['_cmp'] == key]
+        # Exact matching
+        matches = df_minerba[df_minerba['name_cleaned'] == key]
+        if is_debug:
+            if not matches.empty: 
+                print(f"[EXACT] '{key}' matched '{matches.iloc[0]['name_cleaned']}'")
         
-        # Attempt exact on no-space
-        if company_q.empty: 
-            company_q = minerba_df[minerba_df['_cmp_nospace'] == key_nospace]
-        
-        # Fuzzy fallback
-        if company_q.empty: 
-            match, score, idx = process.extractOne(key, minerba_keys, scorer=fuzz.token_sort_ratio)
+        # No space matching
+        if matches.empty:
+            matches = df_minerba[df_minerba['name_cleaned_no_space'] == key_no_space]
+            if is_debug:
+                if not matches.empty: 
+                    print(f"[NOSPACE] '{key}' matched '{matches.iloc[0]['name_cleaned']}'")
+
+        # Fuzzy matching
+        if matches.empty: 
+            match, score, idx = process.extractOne(key, clean_list, scorer=fuzz.token_sort_ratio)
             if score >= threshold:
-                company_q = minerba_df.iloc[[idx]]
+                matches = df_minerba.iloc[[idx]]
+                if is_debug:
+                    print(f"[FUZZY] '{key}' → '{match}' (score: {score})")
 
-        if not company_q.empty:
-            records = company_q[included_columns].to_dict(orient="records")
+        if not matches.empty:
+            records = matches[included_columns].to_dict(orient="records")
         else:
             # empty list when no matches
             records = []  
 
-        # ### CHANGED: dump the list (even if empty) as your JSON array
+        ### CHANGED: dump the list (even if empty) as your JSON array
         license_json = json.dumps(records, ensure_ascii=False)
         to_use_value = {"stringValue": license_json}
 
@@ -244,7 +242,7 @@ def fillMiningLicense(df: pd.DataFrame, sheet_id: int,
             }
         )
         
-    # Batch update sheet
+    # push all at once
     requests = [
         {
             'updateCells': {
@@ -261,8 +259,8 @@ def fillMiningLicense(df: pd.DataFrame, sheet_id: int,
         }
     ]
 
-    response = service.spreadsheets().batchUpdate(
-        spreadsheetId=spreadsheet_id,
+    response = SERVICE.spreadsheets().batchUpdate(
+        spreadsheetId=SPREADSHEET_ID,
         body={'requests': requests}
     ).execute()
 
