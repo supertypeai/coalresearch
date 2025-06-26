@@ -35,7 +35,7 @@ def clean_company_name(name: str) -> tuple[str, str]:
     cleaned_no_space = cleaned.replace(" ", "")
     return cleaned, cleaned_no_space
 
-def clean_merge_df(df: pd.DataFrame, company_column: str) -> pd.DataFrame:
+def clean_company_df(df: pd.DataFrame, company_column: str) -> pd.DataFrame:
     """
     Add cleaned company name columns to a DataFrame and return the cleaned names list.
 
@@ -117,8 +117,8 @@ def matching_company(df_merged_filter: pd.DataFrame,
             - matching_score obtained via exact or fuzzy matching.
     """
     # Clean both DataFrames
-    df_company_clean    = clean_merge_df(df_company,      'name')
-    df_merged_clean     = clean_merge_df(df_merged_filter,'nama_usaha')
+    df_company_clean    = clean_company_df(df_company,      'name')
+    df_merged_clean     = clean_company_df(df_merged_filter,'nama_usaha')
 
     results = []
 
