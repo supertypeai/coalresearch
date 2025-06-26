@@ -4,7 +4,6 @@ from sheet_api.google_sheets.auth       import createClient
 from sheet_api.link_site_name           import safe_update
 from gspread                            import Cell
 
-
 import gspread
 import re 
 import json
@@ -238,6 +237,25 @@ def standardized_data(df: pd.DataFrame) -> pd.DataFrame:
     
     return df
 
+def validate_columns(cols_to_write: list[str], columns_check: list[str]) -> bool: 
+    """
+    Vlidate every required column name exists in the list of available columns.
+
+    Args:
+        required (List[str]): Column names that must be present.
+        available (List[str]): Column names to check against.
+
+    Returns:
+        bool: True if all required columns are found, False otherwise (and prints missing names).
+    """
+    missing_in_sheet = [col for col in cols_to_write if col not in columns_check]
+    if missing_in_sheet:
+        print("Error: these columns are in cols_to_write but NOT in the sheet:")
+        for column in missing_in_sheet:
+            print(f" • {column}")
+        return False
+    return True
+
 def write_to_sheet(start_index: int, 
                    sheet_name: str, 
                    df:pd.DataFrame, 
@@ -269,22 +287,11 @@ def write_to_sheet(start_index: int,
 
         # Get all headers from the first row of the sheet
         sheet_headers = worksheet.row_values(1)
-        print(f"Sheet headers found: {sheet_headers}")
 
-        # Check cols_to_write against the sheet
-        missing_in_sheet = [col for col in cols_to_write if col not in sheet_headers]
-        if missing_in_sheet:
-            print("Error: these columns are in cols_to_write but NOT in the sheet:")
-            for column in missing_in_sheet:
-                print(f"different column: {column}")
+        # Validate required columns against sheet and DataFrame
+        if not validate_columns(cols_to_write, sheet_headers):
             return False
-
-        # Check cols_to_write against the DataFrame
-        missing_in_df = [col for col in cols_to_write if col not in df.columns]
-        if missing_in_df:
-            print("Error: these columns are in cols_to_write but NOT in the DataFrame:")
-            for column in missing_in_df:
-                print(f"different_column: {column}")
+        if not validate_columns(cols_to_write, list(df.columns)):
             return False
 
         # Map each column name to its 1-based sheet index
@@ -318,7 +325,7 @@ def write_to_sheet(start_index: int,
 
         # Batch update using your safe_update function
         if cell_list:
-            print(f"Writing {len(cell_list)} cells to sheet '{sheet_name}' starting at row {start_index}")
+            print(f"Writing starting at row {start_index}")
             safe_update(worksheet, cell_list)
             print(f"Successfully wrote {len(df)} rows to '{sheet_name}' in columns: {list(column_mapping.keys())}")
             return True
