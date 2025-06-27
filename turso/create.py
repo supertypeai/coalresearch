@@ -59,11 +59,10 @@ TABLE_STATEMENTS = [
     """
     CREATE TABLE IF NOT EXISTS company_performance (
         id INTEGER PRIMARY KEY NOT NULL,
-        company_id INTEGER,
+        company_id INTEGER NOT NULL,
         year INTEGER,
         commodity_type TEXT,
         commodity_sub_type TEXT,
-        mining_operation_status TEXT,
         commodity_stats TEXT,
         FOREIGN KEY (company_id)
           REFERENCES company(id)
