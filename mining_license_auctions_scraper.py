@@ -16,7 +16,7 @@ logging.basicConfig(
 LOGGER = logging.getLogger(__name__)
 LOGGER.info("Init Global Variable")
 
-# The correct API URL that you found
+# The API URL 
 API_URL = "https://minerba.esdm.go.id/lelang/api/pub/lelang_done?page=1"
 
 DB_PATH = 'db.sqlite'
