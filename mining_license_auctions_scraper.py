@@ -24,7 +24,7 @@ DB_PATH = 'db.sqlite'
 HEADERS = {
     'Accept': 'application/json, text/plain, */*',
     'Authorization': 'Bearer iIsInR5cCI6IkpXVCJ9eyJhbGciOiJIUzI1N__2Nzg5MDEyMzQ1NiIsImUiOiJwdWJsaWNAZW1haWwuY29tIiwiciI6InB1YmxpYyIsIm4iOiJHdWVzdCIsInMiOiJibDRja200bWI0ISEiLCJpYXQiOjE3NTEyNTU1MzIsImV4cCI6MTc1MTI1NTgzMn0eyJpIjoiMTIzNDU__QlQeMAfAfZvEuJmqm9oY0oec95wRgZwQlQeMAfAfZvEuJmqm9oY0oec95wRgZw', # <--- PASTE YOUR TOKEN HERE
-    'Accept-Language': 'en-US,en;q=0.9,id;q=0.8', # Or whatever your browser sends
+    'Accept-Language': 'en-US,en;q=0.9,id;q=0.8', 
     'Referer': 'https://minerba.esdm.go.id/lelang/',
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', # Copy your actual User-Agent
 }
@@ -79,7 +79,7 @@ def drop_data_dict(datas: list[dict], columns_to_filter: list[str]) -> list[dict
     
     filtered_list = []
     for data in datas: 
-        # build a new dict without the unwanted keys
+        # Build a new dict without the unwanted keys
         cleaned = {}
         for key, value in data.items(): 
             if key not in columns_to_filter:
