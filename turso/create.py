@@ -1,24 +1,49 @@
+from dotenv         import load_dotenv
+from libsql_client  import create_client_sync
+
 import os
-from dotenv import load_dotenv
-from libsql_client import create_client_sync
 
-load_dotenv()  # load variables from .env
+# load variables from .env
+load_dotenv()  
 
-# Load Turso URL and auth token from environment
-raw_url = os.getenv("TURSO_DATABASE_URL", "")
-auth_token = os.getenv("TURSO_AUTH_TOKEN")
 
-if not raw_url or not auth_token:
-    print("Missing Turso credentials, exiting.")
-    exit(1)
+def get_turso_credentials() -> tuple[str, str]:
+    """
+    Retrieve Turso database URL and auth token from environment variables.
+    If not set, print an error message and exit.
+    
+    Returns:
+        tuple[str, str]: A tuple containing the raw database URL and auth token.
+    """
+    raw_url = os.getenv("TURSO_DATABASE_URL", "")
+    auth_token = os.getenv("TURSO_DATABASE_AUTH")
 
-# Normalize URL for HTTP access
-if raw_url.startswith("wss://"):
-    db_url = "https://" + raw_url[len("wss://") :]
-elif raw_url.startswith("libsql://"):
-    db_url = "https://" + raw_url[len("libsql://") :]
-else:
-    db_url = raw_url
+    if not raw_url or not auth_token:
+        print("Missing Turso credentials, exiting.")
+        exit(1)
+        
+    return raw_url, auth_token
+
+
+def normalize_db_url(raw_url: str) -> str:
+    """ 
+    Normalize the raw Turso URL to a format suitable for HTTP access. 
+    
+    Args: 
+        raw_url (str): The raw Turso database URL.
+        
+    Returns:
+        str: Normalized URL for HTTP access.
+    """
+    if raw_url.startswith("wss"):
+        db_url = raw_url.replace('wss', 'https')
+    elif raw_url.startswith("libsql"):
+        db_url = raw_url.replace('libsql', 'https')
+    else:
+        db_url = raw_url
+    db_url = db_url.rstrip("/")
+    return db_url
+
 
 TABLE_STATEMENTS = [
     """
@@ -177,11 +202,30 @@ TABLE_STATEMENTS = [
         FOREIGN KEY (company_id) REFERENCES company(id)
     );
     """,
+    """ 
+    CREATE TABLE IF NOT EXISTS mining_news (
+        id INTEGER PRIMARY KEY, 
+        title TEXT NOT NULL,
+        body TEXT,
+        source TEXT,
+        timestamp TEXT,
+        commodities TEXT,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE(source)
+    );
+    """
 ]
 
 
 def main():
-    client = create_client_sync(url=db_url, auth_token=auth_token)
+    """ 
+    Main function to create tables in the Turso database. 
+    This function retrieves the database URL and auth token from environment variables,
+    normalizes the URL, and then creates a synchronous client to execute the table creation statements.
+    """
+    db_url, auth_token = get_turso_credentials()
+    db_url_normalized = normalize_db_url(db_url)
+    client = create_client_sync(url=db_url_normalized, auth_token=auth_token)
 
     try:
         for sql in TABLE_STATEMENTS:
