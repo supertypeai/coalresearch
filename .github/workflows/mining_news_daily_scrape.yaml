@@ -24,7 +24,7 @@ jobs:
           pip install -r insider_news/requirements.txt
       
       - name: Run Mining News Scraping and Push Local
-        run: python insider_news/scripts/pipeline.py --scrape --pages 5 --db db.sqlite --output mining_news
+        run: python insider_news/scripts/pipeline.py --scrape --pages 1 --db db.sqlite --output mining_news
 
       - name: Run Archive Old News
         run: python insider_news/scripts/pipeline.py --archive
