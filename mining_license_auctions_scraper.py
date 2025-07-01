@@ -23,10 +23,10 @@ DB_PATH = 'db.sqlite'
 
 HEADERS = {
     'Accept': 'application/json, text/plain, */*',
-    'Authorization': 'Bearer iIsInR5cCI6IkpXVCJ9eyJhbGciOiJIUzI1N__2Nzg5MDEyMzQ1NiIsImUiOiJwdWJsaWNAZW1haWwuY29tIiwiciI6InB1YmxpYyIsIm4iOiJHdWVzdCIsInMiOiJibDRja200bWI0ISEiLCJpYXQiOjE3NTEyNTU1MzIsImV4cCI6MTc1MTI1NTgzMn0eyJpIjoiMTIzNDU__QlQeMAfAfZvEuJmqm9oY0oec95wRgZwQlQeMAfAfZvEuJmqm9oY0oec95wRgZw', # <--- PASTE YOUR TOKEN HERE
+    'Authorization': 'Bearer iIsInR5cCI6IkpXVCJ9eyJhbGciOiJIUzI1N__2Nzg5MDEyMzQ1NiIsImUiOiJwdWJsaWNAZW1haWwuY29tIiwiciI6InB1YmxpYyIsIm4iOiJHdWVzdCIsInMiOiJibDRja200bWI0ISEiLCJpYXQiOjE3NTEyNTU1MzIsImV4cCI6MTc1MTI1NTgzMn0eyJpIjoiMTIzNDU__QlQeMAfAfZvEuJmqm9oY0oec95wRgZwQlQeMAfAfZvEuJmqm9oY0oec95wRgZw',
     'Accept-Language': 'en-US,en;q=0.9,id;q=0.8', 
     'Referer': 'https://minerba.esdm.go.id/lelang/',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', # Copy your actual User-Agent
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 
 }
 
 
