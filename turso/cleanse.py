@@ -30,6 +30,7 @@ tables_to_drop = [
     # "total_commodities_production",
     # "commodity",
     # "global_commodity_data",
+    # "mining_news",
     "mining_license",
     "company",
 ]
