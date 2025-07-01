@@ -66,16 +66,16 @@ class Scraper:
   
   # Writer methods
   def write_json(self, jsontext, filename):
-    with open(f'./data/{filename}.json', 'w') as f:
+    with open(f'insider_news/data/{filename}.json', 'w') as f:
       json.dump(jsontext, f, indent=4)
 
   def write_file_soup(self, filetext, filename):
-    with open(f'./data/{filename}.txt', 'w', encoding='utf-8') as f:
+    with open(f'insider_news/data/{filename}.txt', 'w', encoding='utf-8') as f:
       f.write(filetext.prettify())
 
   def write_csv(self, data, filename):
     
-    with open(f'./data/{filename}.csv', 'w', newline='', encoding='utf-8') as csv_file:
+    with open(f'insider_news/data/{filename}.csv', 'w', newline='', encoding='utf-8') as csv_file:
     
       csv_writer = csv.writer(csv_file)
         
