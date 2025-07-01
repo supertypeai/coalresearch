@@ -6,45 +6,6 @@ import os
 # load variables from .env
 load_dotenv()  
 
-
-def get_turso_credentials() -> tuple[str, str]:
-    """
-    Retrieve Turso database URL and auth token from environment variables.
-    If not set, print an error message and exit.
-    
-    Returns:
-        tuple[str, str]: A tuple containing the raw database URL and auth token.
-    """
-    raw_url = os.getenv("TURSO_DATABASE_URL", "")
-    auth_token = os.getenv("TURSO_DATABASE_AUTH")
-
-    if not raw_url or not auth_token:
-        print("Missing Turso credentials, exiting.")
-        exit(1)
-        
-    return raw_url, auth_token
-
-
-def normalize_db_url(raw_url: str) -> str:
-    """ 
-    Normalize the raw Turso URL to a format suitable for HTTP access. 
-    
-    Args: 
-        raw_url (str): The raw Turso database URL.
-        
-    Returns:
-        str: Normalized URL for HTTP access.
-    """
-    if raw_url.startswith("wss"):
-        db_url = raw_url.replace('wss', 'https')
-    elif raw_url.startswith("libsql"):
-        db_url = raw_url.replace('libsql', 'https')
-    else:
-        db_url = raw_url
-    db_url = db_url.rstrip("/")
-    return db_url
-
-
 TABLE_STATEMENTS = [
     """
     CREATE TABLE IF NOT EXISTS company (
@@ -215,6 +176,44 @@ TABLE_STATEMENTS = [
     );
     """
 ]
+
+
+def get_turso_credentials() -> tuple[str, str]:
+    """
+    Retrieve Turso database URL and auth token from environment variables.
+    If not set, print an error message and exit.
+    
+    Returns:
+        tuple[str, str]: A tuple containing the raw database URL and auth token.
+    """
+    raw_url = os.getenv("TURSO_DATABASE_URL", "")
+    auth_token = os.getenv("TURSO_AUTH_TOKEN")
+
+    if not raw_url or not auth_token:
+        print("Missing Turso credentials, exiting.")
+        exit(1)
+        
+    return raw_url, auth_token
+
+
+def normalize_db_url(raw_url: str) -> str:
+    """ 
+    Normalize the raw Turso URL to a format suitable for HTTP access. 
+    
+    Args: 
+        raw_url (str): The raw Turso database URL.
+        
+    Returns:
+        str: Normalized URL for HTTP access.
+    """
+    if raw_url.startswith("wss"):
+        db_url = raw_url.replace('wss', 'https')
+    elif raw_url.startswith("libsql"):
+        db_url = raw_url.replace('libsql', 'https')
+    else:
+        db_url = raw_url
+    db_url = db_url.rstrip("/")
+    return db_url
 
 
 def main():

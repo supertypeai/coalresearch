@@ -63,7 +63,7 @@ def get_turso_credentials() -> tuple[str, str]:
         tuple[str, str]: A tuple containing the raw database URL and auth token.
     """
     raw_url = os.getenv("TURSO_DATABASE_URL", "")
-    auth_token = os.getenv("TURSO_DATABASE_AUTH")
+    auth_token = os.getenv("TURSO_AUTH_TOKEN")
 
     if not raw_url or not auth_token:
         LOGGER.info("Missing Turso credentials, exiting.")
