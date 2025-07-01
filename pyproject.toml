@@ -15,5 +15,8 @@ dependencies = [
     "RapidFuzz==3.13.0",
     "shapely==2.1.1", 
     "pyproj==3.7.1", 
-    "geopandas==1.1.0"
+    "geopandas==1.1.0",
+    "beautifulsoup4==4.13.4", 
+    "dateparser==1.2.2", 
+    "load-dotenv==0.1.0"
 ]
