@@ -1,5 +1,14 @@
 [
     {
+        "title": "Indonesia plans to cut mining quota period back to one year, minister says",
+        "body": "The move is expected to help underpin prices of coal and ores and boost government revenues.",
+        "source": "https://www.mining.com/web/indonesia-plans-to-cut-mining-quota-period-back-to-one-year-minister-says/",
+        "timestamp": "2025-07-02 00:00:00",
+        "commodities": [
+            "Coal"
+        ]
+    },
+    {
         "title": "Indonesia offers US critical minerals joint investment as part of tariff talks",
         "body": "Indonesia's sovereign fund Danantara Indonesia will be involved in the project being offered, minister Airlangga Hartarto added.",
         "source": "https://www.mining.com/web/indonesia-offers-us-critical-minerals-joint-investment-as-part-of-tariff-talks/",
@@ -72,15 +81,6 @@
         "timestamp": "2025-05-28 00:00:00",
         "commodities": [
             "Nickel"
-        ]
-    },
-    {
-        "title": "Freeport Indonesia says Manyar smelter resumes operations after fire",
-        "body": "The miner said its $3.7 billion copper smelter has resumed operations earlier than anticipated.",
-        "source": "https://www.mining.com/web/freeport-indonesia-says-manyar-smelter-resumes-operations-after-fire/",
-        "timestamp": "2025-05-22 00:00:00",
-        "commodities": [
-            "Copper"
         ]
     }
 ]
