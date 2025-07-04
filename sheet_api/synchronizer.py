@@ -39,7 +39,6 @@ from compile_to_json import (
 
 client, spreadsheet_id = createClient()
 
-
 def sync_model(
     sheet_name: str,
     range: str,
@@ -176,7 +175,7 @@ if __name__ == "__main__":
     # %%
     sync_model(
         "company_performance",
-        "A1:AQ238",
+        "A1:AQ221",
         CompanyPerformance,
         companyPerformancePreprocess,
     )
