@@ -1,11 +1,14 @@
+from bs4    import BeautifulSoup
+from dotenv import load_dotenv
+
 import requests
-from bs4 import BeautifulSoup
 import json
 import csv
 import ssl
 import urllib.request
 import os
-from dotenv import load_dotenv
+import pandas as pd
+
 
 # Determine the base directory where the .env file is located
 base_dir = os.path.dirname(os.path.abspath(__file__)) 
@@ -66,8 +69,11 @@ class Scraper:
   
   # Writer methods
   def write_json(self, jsontext, filename):
-    with open(f'insider_news/data/{filename}.json', 'w') as f:
-      json.dump(jsontext, f, indent=4)
+    path = f'insider_news/data/{filename}.json'
+    if isinstance(jsontext, pd.DataFrame):
+      jsontext = jsontext.to_dict(orient='records')
+    with open(path, 'w', encoding='utf-8') as f:
+      json.dump(jsontext, f, indent=4, ensure_ascii=False)
 
   def write_file_soup(self, filetext, filename):
     with open(f'insider_news/data/{filename}.txt', 'w', encoding='utf-8') as f:
