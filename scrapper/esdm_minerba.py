@@ -150,6 +150,8 @@ COMMODITY_MAP = {
     "PERLIT": "Non-Metallic Mineral",
     "MANGAAN": "Non-Metallic Mineral",
     "NIKEL": "Nickel",
+    "Bauxite": "Bauxite", 
+    "BATU BARA": "Coal"
 }
 
 
