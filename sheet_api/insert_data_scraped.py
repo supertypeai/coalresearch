@@ -1,8 +1,9 @@
-from sheet_api.insert_site_name_scraped import merge_coal_databases, get_data_sheet
 from rapidfuzz                          import process, fuzz
+from gspread                            import Cell
+
+from sheet_api.insert_site_name_scraped import merge_coal_databases, get_data_sheet
 from sheet_api.google_sheets.auth       import createClient
 from sheet_api.link_site_name           import safe_update
-from gspread                            import Cell
 
 import gspread
 import re 
