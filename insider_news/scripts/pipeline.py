@@ -1,4 +1,8 @@
 from datetime import datetime, timedelta
+from typing import Optional
+
+from insider_news.models.scrape_coalmetal import run_coalmetal_scraping
+from insider_news.models.scrape_mining import MiningScraper
 
 import sqlite3
 import json
@@ -7,10 +11,6 @@ import sys
 import os
 import logging 
 import argparse
-
-# Add the parent directory to sys.path to import from models
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from models.scrape_mining import MiningScraper
 
 logging.basicConfig(
     level=logging.INFO, # Set the logging level
@@ -215,47 +215,61 @@ def insert_news_records(conn: sqlite3.Connection, df: pd.DataFrame):
     LOGGER.info(f"Inserted {inserted} new news records (duplicates ignored).")
 
 
-def scrape_and_insert_news(num_pages: int, db_path: str, output_filename: str = None):
+def scrape_and_insert_news(num_pages: int, 
+                           db_path: str, 
+                           limit_scrape: int,
+                           output_filename: Optional[str] = None):
     """
     Full pipeline:
-    1. Scrape news data using MiningScraper
-    2. Save to JSON (optional)
+    1. Scrape Article data from miningnews.com and coalmetal.com
+       (using MiningScraper and coalmetal scraping function)
+    2. Save to JSON (optional for miningnews)
     3. Prepare data for database
     4. Create table if needed
     5. Insert into SQLite
     """
-    # Step 1: Scrape news data
+    # Step 1: Scrape news data from miningnews.com
     LOGGER.info(f"Scraping {num_pages} pages of mining news...")
+
     scraper = MiningScraper()
-    articles = scraper.extract_news_pages(num_pages)
+    df_articles_mining_news = scraper.extract_news_pages(num_pages)
+    if df_articles_mining_news.empty:
+        LOGGER.info("No articles found from miningnews.com")
+        return pd.DataFrame()
     
-    if not articles:
-        LOGGER.info("No articles found.")
-        return
-    
-    LOGGER.info(f"Scraped {len(articles)} articles.")
+    # Scrape news data from coalmetal.com
+    df_articles_coalmetal = run_coalmetal_scraping(limit_article=limit_scrape)
+    if df_articles_coalmetal.empty:
+        LOGGER.info("No articles found from coalmetal.com")
+        return pd.DataFrame()
+
+    LOGGER.info(f"Scraped {df_articles_mining_news.shape[0]} articles from miningnews" 
+                f"Scraped {df_articles_coalmetal.shape[0]} articles from coalmetal after filtering")
     
     # Step 2: Save to JSON (optional)
     if output_filename:
         os.makedirs('insider_news/data', exist_ok=True)
-        scraper.write_json(articles, output_filename)
-        LOGGER.info(f"Saved articles to {output_filename}.json")
+        scraper.write_json(df_articles_mining_news, output_filename)
+        scraper.write_json(df_articles_coalmetal, f"{output_filename}_coalmetal")
+        LOGGER.info(f"Saved articles_mining_news to {output_filename}.json")
     
-    # Step 3: Prepare data
-    df = prepare_news_data(articles)
-    
-    if df.empty:
-        LOGGER.info("No valid articles to insert after filtering.")
-        return
-    
+    # Step 3: Prepare data for coalmetal and miningnews
+    df_articles_mining_news = prepare_news_data(df_articles_mining_news, df_articles_coalmetal, 
+                                                is_mining_news=True)
+    df_articles_coalmetal = prepare_news_data(df_articles_mining_news, df_articles_coalmetal,
+                                               is_mining_news=False)
+
     # Step 4 & 5: Create table and insert data
     conn = get_connection(db_path)
     create_news_table(conn)
-    insert_news_records(conn, df)
+    # insert for miningnews scraping
+    insert_news_records(conn, df_articles_mining_news)
+    #insert for coalmetal scraping
+    insert_news_records(conn, df_articles_coalmetal)
+
     conn.close()
 
-
-def load_and_insert_news(json_path: str, db_path: str):
+def load_and_insert_news(json_path: str):
     """
     Load news data from existing JSON file and insert into database.
     
@@ -368,6 +382,7 @@ if __name__ == "__main__":
     parser.add_argument("--pages", type=int, default=1, help="Number of pages to scrape (default: 1)")
     parser.add_argument("--db", type=str, default="db.sqlite", help="Database path (default: db.sqlite)")
     parser.add_argument("--output", type=str, help="Output filename for JSON (optional)")
+    parser.add_argument("--limit-coalmetal", type=int, default=15, help="Limit number of articles to scrape coalmetal.com (default: 10)")
     parser.add_argument("--archive", action="store_true", help="Archive all mining_news records older than `--days-old` days into CSV")
     parser.add_argument("--days-old", type=int, default=182, dest="days_old", help="Archive articles older than this many days (default: 182)")
     parser.add_argument("--archive-path", type=str, default="insider_news/data/archive", dest="archive_path", help="Path to the directory for saving archived news")
