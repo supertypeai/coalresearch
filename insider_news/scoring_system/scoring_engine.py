@@ -163,7 +163,6 @@ def get_scoring_news(article_title: str,
         | scoring_parser 
     )
 
-
     try: 
         # Invoke the scoring chain with the provided article details
         response_scoring = scoring_chain.invoke({

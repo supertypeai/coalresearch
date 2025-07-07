@@ -195,7 +195,8 @@ def get_article_links(initial_run: bool = True) -> list[str]:
                     if full_link not in links:
                         links.append(full_link)
             else:
-                LOGGER.info(f"Skipping article not from 2025: '{date_text}' for link '{card.find('a')['href'] if card.find('a') and card.find('a').has_attr('href') else ''}'")
+                LOGGER.info(f"Skipping article not from 2025: '{date_text}'",
+                            f"for link '{card.find('a')['href'] if card.find('a') and card.find('a').has_attr('href') else ''}'")
         
         # For non-initial runs, include all articles regardless of date
         else:
