@@ -87,7 +87,7 @@ CRITERIA = """Revised Scoring System: Indonesian Coal, Metal & Mineral Market In
 
 
 class ScoringNews(BaseModel):
-    news_score: str = Field(description="Scoring system of a news based only on provided criteria")
+    news_score: int = Field(description="Scoring system of a news based only on provided criteria")
 
 
 def get_scoring_news(article_title: str,
