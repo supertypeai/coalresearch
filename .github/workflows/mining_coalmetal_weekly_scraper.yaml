@@ -1,4 +1,4 @@
-name: Mining News Daily Pipeline
+name: Mining CoalMetal Weekly Pipeline
 
 on:
   schedule:
