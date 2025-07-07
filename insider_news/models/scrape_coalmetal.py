@@ -79,7 +79,6 @@ def bypass_first_visit(url: str, timeout: float = 20.0) -> str:
 
     try:
         driver.get(url)
-        
         # Handle Notification Pop-up
         try:
             LOGGER.info("Looking for notification pop-up...")
@@ -149,7 +148,7 @@ def get_article_links() -> list[str]:
     """
     LOGGER.info("Starting browser to load the main page...")
 
-    EXCLUDED_CATEGORIES = ['Lifestyle Etc.', 'Sustainability & Environment']
+    EXCLUDED_CATEGORIES = ['Lifestyle Etc.', 'Sustainability & Environment', 'Opinion & Analysis']
     
     # Get the page source after it's fully loaded
     html_content = bypass_first_visit(START_URL)
