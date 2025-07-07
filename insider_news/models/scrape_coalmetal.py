@@ -27,6 +27,7 @@ nltk.download('punkt_tab', quiet=True)
 nltk.download('stopwords', quiet=True)
 
 logging.basicConfig(
+    # filename='app.log',
     level=logging.INFO,  # Set the logging level
     format='%(asctime)s [%(levelname)s] - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
@@ -139,7 +140,7 @@ def bypass_article_content(url: str, wait: float = 6.0) -> str:
     return html_content
 
 
-def get_article_links() -> list[str]:
+def get_article_links(initial_run: bool = True) -> list[str]:
     """
     Scrapes the main page for article links, filtering out unwanted categories.
 
@@ -170,19 +171,40 @@ def get_article_links() -> list[str]:
     
     # Loop through each article card to extract the category and link
     for card in article_cards:
-        category_tag = card.find('p', class_='font-light')
-        category = category_tag.get_text(strip=True) if category_tag else "Uncategorized"
+        p_tags = card.find_all('p', class_='font-light')
+        # Safety check to ensure the card has the expected structure
+        if len(p_tags) < 2:
+            continue
+        # The last p tag is expected to contain the date, and the rest are categories
+        date_text = p_tags[-1].get_text(strip=True)
+        category_tags = p_tags[:-1]
+        categories = [tag.get_text(strip=True).replace(' |', '').strip() for tag in category_tags]
 
-        # The core filtering logic
-        if category not in EXCLUDED_CATEGORIES:
+        # Skip ONLY if there's exactly one category AND it's in the excluded list.
+        if len(categories) == 1 and categories[0] in EXCLUDED_CATEGORIES:
+            LOGGER.info(f"Skipping article with single excluded category: {categories}")
+            continue
+        
+        # Flow for initial run, only keep articles from 2025
+        if initial_run: 
+            if "2025" in date_text: 
+                link_tag = card.find('a')
+                if link_tag and link_tag.has_attr('href'):
+                    full_link = urljoin(BASE_URL, link_tag['href'])
+                    # Avoid duplicates
+                    if full_link not in links:
+                        links.append(full_link)
+            else:
+                LOGGER.info(f"Skipping article not from 2025: '{date_text}' for link '{card.find('a')['href'] if card.find('a') and card.find('a').has_attr('href') else ''}'")
+        
+        # For non-initial runs, include all articles regardless of date
+        else:
             link_tag = card.find('a')
             if link_tag and link_tag.has_attr('href'):
                 full_link = urljoin(BASE_URL, link_tag['href'])
                 # Avoid duplicates
                 if full_link not in links: 
                     links.append(full_link)
-        else:
-            LOGGER.info(f"Skipping article from excluded category: '{category}'")
     
     LOGGER.info(f"Found {len(links)} articles to scrape after filtering.")
     return links
@@ -333,7 +355,7 @@ def get_article_contents(article_links: list[str]) -> list[dict]:
     return all_articles_data
 
 
-def run_coalmetal_scraping(limit_article: int) -> pd.DataFrame:
+def run_coalmetal_scraping(initial_run: bool, limit_articles: int) -> pd.DataFrame:
     """  
     Runs the scraping process for CoalMetal articles and returns a DataFrame.
 
@@ -343,13 +365,13 @@ def run_coalmetal_scraping(limit_article: int) -> pd.DataFrame:
     Returns:
         pd.DataFrame: A DataFrame containing the scraped article data.
     """
-    all_links = get_article_links()
-    scraped = get_article_contents(all_links[:limit_article])
+    all_links = get_article_links(initial_run)
+    scraped = get_article_contents(all_links[:limit_articles])
     df = pd.DataFrame(scraped)
     return df 
 
 
 if __name__ == '__main__':
-    df = run_coalmetal_scraping(limit_article=10)
-    # df.to_csv('coalmetal_news_test.csv', index=False)
+    df = run_coalmetal_scraping(False, limit_articles=10)
+    df.to_csv('coalmetal_news_test.csv', index=False)
     
