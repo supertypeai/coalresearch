@@ -1,65 +1,48 @@
-name: Mining News Daily Pipeline
+name: Scrape - Archive - and Push Mining News Data 
 
-on:
-  schedule:
-    - cron: '0 0 * * *'  # Runs every day at midnight UTC
-  workflow_dispatch:
+on: 
+  schedule: 
+    - cron: '0 0 * * *' # Runs every day at midnight UTC
+  workflow_dispatch: 
 
-jobs:
-  sync:
-    runs-on: ubuntu-latest
+jobs: 
+  sync: 
+    runs-on: ubuntu-latest 
 
-    env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
-    steps:
-      - name: Check out code
+    steps: 
+      - name: Check out code 
         uses: actions/checkout@v3
-
-      - name: Cache WebDriverManager
-        uses: actions/cache@v3
-        with:
-          path: ~/.wdm
-          key: ${{ runner.os }}-wdm-${{ hashFiles('insider_news/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-wdm-
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
+      
+      - name: Set up Python 
+        uses: actions/setup-python@v4 
+        with: 
           python-version: '3.11'
-
-      - name: Install Dependencies
+      
+      - name: Install Dependencies 
         run: |
           python -m pip install --upgrade pip
           pip install -r insider_news/requirements.txt
-
-      - name: Set up Google Chrome & ChromeDriver
-        uses: browser-actions/setup-chrome@v1
-        with:
-          # installs the very latest Chrome snapshot (same as default)
-          chrome-version: 'latest'
-          # also installs the matching ChromeDriver binary
-          install-chromedriver: true
-
-      - name: Run Mining News and CoalMetal Scraping and Push Local
-        run: python -m insider_news.scripts.pipeline --scrape --pages 1 --db db.sqlite --limit-coalmetal 25
+      
+      - name: Run Mining News Scraping and Push Local
+        run: python insider_news.scripts.pipeline --scrape-miningnews --pages 1 --db db.sqlite
 
       - name: Run Archive Old News
-        run: python -m insider_news.scripts.pipeline --archive
+        run: python insider_news.scripts.pipeline --archive
 
       - name: Pull Latest Changes
         run: git pull origin main
 
-      - name: Commit and Update Database
-        run: |
+      - name: Commit and Updated database
+        run: | 
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+
           git add db.sqlite insider_news/data/
+
           git diff-index --quiet HEAD \
             || git commit -m "chore: daily scrape of mining news, update db.sqlite, and archive old data" --allow-empty
 
-      - name: Push Changes
+      - name: Push Changes 
         uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
