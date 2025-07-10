@@ -145,7 +145,6 @@ if __name__ == "__main__":
         return df, field_types, sheet
 
     def companyPerformancePreprocess(df: pd.DataFrame, field_types: dict, sheet):
-        jsonifyCommodityStats(df, sheet.id)
 
         return df, field_types, sheet
 
@@ -169,7 +168,7 @@ if __name__ == "__main__":
     # %%
     sync_model(
         "company_performance",
-        "A1:AQ221",
+        "A1:H245",
         CompanyPerformance,
         companyPerformancePreprocess,
     )

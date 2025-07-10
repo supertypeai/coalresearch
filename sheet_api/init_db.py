@@ -17,12 +17,12 @@ def create_tables():
         [
             # Company,
             # CompanyOwnership,
-            # CompanyPerformance,
+            CompanyPerformance,
             # MiningSite,
             # ResourcesAndReserves,
             # TotalCommoditiesProduction,
             # ExportDestination,
-            GlobalCommodityData,
+            # GlobalCommodityData,
         ]
     )
     print("All tables created successfully.")
