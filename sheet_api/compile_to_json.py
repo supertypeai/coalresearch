@@ -1,35 +1,33 @@
 # %%
-from utils.dataframe_utils  import safeCast
+from utils.dataframe_utils  import safeCast, clean_company_df
 from google_sheets.auth     import createClient, createService
 from minerba_merge          import prepareMinerbaDf
 from rapidfuzz              import process, fuzz
-from insert_data_scraped    import clean_company_name, clean_company_df
 
 import pandas as pd
 import json
-import re
 
 _, SPREADSHEET_ID = createClient()
 SERVICE = createService()
 
 # %%
 COAL_RESERVES_RESOURCES = [
-    ("*year_measured", int),
-    ("*total_reserve", float),
-    ("*total_resource", float),
-    ("*resources_inferred", float),
-    ("*resources_indicated", float),
-    ("*resources_measured", float),
-    ("*reserves_proved", float),
-    ("*reserves_probable", float)
+    ("year_measured", int),
+    ("total_reserve", float),
+    ("total_resource", float),
+    ("resources_inferred", float),
+    ("resources_indicated", float),
+    ("resources_measured", float),
+    ("reserves_proved", float),
+    ("reserves_probable", float)
 ]
 
 COAL_STATS = [
     ("mining_operation_status", str),
-    ("*production_volume", float),
-    ("*sales_volume", float),
-    ("*overburden_removal_volume", float),
-    ("*strip_ratio", float),
+    ("production_volume", float),
+    ("sales_volume", float),
+    ("overburden_removal_volume", float),
+    ("strip_ratio", float),
 ]
 
 MINERAL_RESERVES = [
@@ -53,10 +51,10 @@ MINERAL_RESOURCES = [
 ]
 
 MINERAL_STATS = [
-    ("*unit", str),
+    ("unit", str),
     ("mining_operation_status", str),
-    ("*production_volume", float),
-    ("*sales_volume", float),
+    ("production_volume", float),
+    ("sales_volume", float),
 ]
 
 # Columns for Gold Mines
@@ -105,6 +103,10 @@ LIM_RSRV = [(f"lim rsrv {col}", typ) for col, typ in NICKEL_MINE]
 LIM_RSRO = [(f"lim rsro {col}", typ) for col, typ in NICKEL_MINE]
 SAP_RSRV = [(f"sap rsrv {col}", typ) for col, typ in NICKEL_MINE]
 SAP_RSRO = [(f"sap rsro {col}", typ) for col, typ in NICKEL_MINE]
+
+# Columns for Nickel Stats
+NICKEL_RSRV = [(f"rsrv {col}", typ) for col, typ in NICKEL_MINE]
+NICKEL_RSRO = [(f"rsro {col}", typ) for col, typ in NICKEL_MINE]
 
 def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=0):
     col_id = df.columns.get_loc(target_col)
@@ -165,17 +167,27 @@ def renderDict(row, field_types, key_formatter=default_key_formatter):
 def renderMineralStats(row):
     data_dict = renderDict(row, MINERAL_STATS)
     data_dict["resources_reserves"] = {
-        "year_measured": safeCast(row["*year_measured"], int),
+        "year_measured": safeCast(row["year_measured"], int),
         "reserves": renderDict(row, MINERAL_RESERVES, lambda col: col.replace("ore_reserves ", "").lstrip("*")),
         "resources": renderDict(row, MINERAL_RESOURCES, lambda col: col.replace("resources ", "").lstrip("*"))
         }
-    data_dict["product"] = safeCast(row["*product"], dict)
+    data_dict["product"] = safeCast(row["product"], dict)
+    return data_dict
+
+def renderNickelStats(row):
+    data_dict = renderDict(row, MINERAL_STATS)
+    data_dict["resources_reserves"] = {
+        "year_measured": safeCast(row["year_measured"], int),
+        "reserves": renderDict(row, NICKEL_RSRV, lambda col: col.replace("rsrv ", "").lstrip("*")),
+        "resources": renderDict(row, NICKEL_RSRO, lambda col: col.replace("rsro ", "").lstrip("*"))
+        }
+    data_dict["product"] = safeCast(row["product"], dict)
     return data_dict
 
 def renderCoalStats(row):
     data_dict = renderDict(row, COAL_STATS)
     data_dict["resources_reserves"] = renderDict(row, COAL_RESERVES_RESOURCES)
-    data_dict["product"] = safeCast(row["*product"], dict)
+    data_dict["product"] = safeCast(row["product"], dict)
     return data_dict
 
 def jsonifyCommodityStats(df: pd.DataFrame, sheet_id: int, starts_from: int = 0):

@@ -1,5 +1,6 @@
 import pandas as pd
 import json
+import re
 
 def convertColType(df:pd.DataFrame, col:str, c_type:type) -> pd.Series:
     return df[col].replace('', pd.NA).astype(c_type)
@@ -52,3 +53,44 @@ def safeCast(val, dtype):
                 raise e
         
         return dtype(val)
+    
+def clean_company_name(name: str) -> tuple[str, str]:
+    """
+    Clean a company name by removing 'PT' and 'Tbk', lowercasing, and stripping spaces.
+
+    Args:
+        name (str): Original company name.
+
+    Returns:
+        tuple[str, str]: (cleaned name, cleaned name with no spaces)
+    """
+    if pd.isna(name):
+        return "", ""
+
+    cleaned = re.sub(r"\b(PT|Tbk)\b", "", str(name), flags=re.IGNORECASE).strip()
+    cleaned = re.sub(r"\s+", " ", cleaned).lower().strip()
+    cleaned_no_space = cleaned.replace(" ", "")
+    return cleaned, cleaned_no_space
+
+def clean_company_df(df: pd.DataFrame, company_column: str) -> pd.DataFrame:
+    """
+    Add cleaned company name columns to a DataFrame and return the cleaned names list.
+
+    Args:
+        df (pd.DataFrame): DataFrame with a company name column.
+        company_column (str): Name of the column containing company names.
+
+    Returns:
+        pd.DataFrame: DataFrame with extra cleaning columns added.
+    """
+    df = df.copy()
+
+    # Apply cleaning function to get both cleaned versions
+    df[['name_cleaned', 'name_cleaned_no_space']] = (
+        pd.DataFrame(
+            df[company_column].apply(clean_company_name).tolist(),
+            index=df.index
+        )
+    )
+
+    return df

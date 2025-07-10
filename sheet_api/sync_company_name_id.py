@@ -16,6 +16,7 @@ c_sheet, c_df = getSheetAll('company')
 ccp_sheet, ccp_df = getSheetAll('company_performance')
 ms_sheet, ms_df = getSheetAll('mining_site')
 cp_sheet, cp_df = getSheetAll('product')
+n_sheet, n_df = getSheetAll('nickel_performance')
 
 # %%
 def syncCompanyNameID(df, sheet, company_name_col, company_id_col, starts_from=0):
@@ -109,3 +110,6 @@ batchUpdate(ms_df, '*company_name', 'company_id', ms_sheet.id)
 
 # %%
 batchUpdate(cp_df, '*company_name', 'company_id', cp_sheet.id)
+
+# %%
+batchUpdate(n_df, '*company_name', 'company_id', n_sheet.id)

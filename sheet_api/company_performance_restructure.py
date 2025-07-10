@@ -1,5 +1,7 @@
-from sheet_api.google_sheets.auth       import createClient 
-from sheet_api.insert_site_name_scraped import get_data_sheet
+from google_sheets.auth    import createClient 
+from google_sheets.client  import getSheetAll 
+from compile_to_json       import renderCoalStats, renderMineralStats, renderNickelStats
+from utils.dataframe_utils import safeCast
 
 import gspread
 import pandas as pd
@@ -8,7 +10,7 @@ import json
 
 SPREADSHEET_NAME = 'company performance'
 NEW_SHEET_NAMES = ['gold', 'coal', 'nickel', 'copper', 'silver']
-COMMON_COLUMNS = ['id', 'company_id', 'year', 'commodity_type']
+COMMON_COLUMNS = ['id', 'company_id', '*company_name', 'year', 'commodity_type', 'commodity_sub_type']    
 
 
 def get_json_columns(df: pd.DataFrame, commodity_type: str) -> list[str]:
@@ -57,7 +59,7 @@ def flatten_coal_data(data: dict) -> dict:
     for key, value in data.items():
         if isinstance(value, dict):
             for sub_key, sub_value in value.items():
-                flat_data[f"*{sub_key}"] = sub_value
+                flat_data[sub_key] = sub_value
         else:
             flat_data[key] = value
     return flat_data
@@ -172,7 +174,11 @@ def migrate_data(spreadsheet: gspread.Spreadsheet, df: pd.DataFrame) -> None:
                 # Extract the commodity_stats JSON and flatten it
                 if row.get('commodity_stats') and isinstance(row.get('commodity_stats'), str):
                     stats_data = json.loads(row['commodity_stats'])
-                    
+
+                    # Write product as a json serializable string
+                    if stats_data['product'] is not None:
+                        stats_data['product'] = json.dumps(stats_data['product'])
+                                        
                     # Flatten the JSON data based on the commodity type
                     if commodity_name == 'coal':
                         flat_stats = flatten_coal_data(stats_data)
@@ -180,7 +186,7 @@ def migrate_data(spreadsheet: gspread.Spreadsheet, df: pd.DataFrame) -> None:
                         flat_stats = flatten_gold_data(stats_data)
                     else:
                         flat_stats = {}
-
+                    
                     new_row.update(flat_stats)
                 
                 migrated_rows.append(new_row)
@@ -209,7 +215,10 @@ def migrate_data(spreadsheet: gspread.Spreadsheet, df: pd.DataFrame) -> None:
         
         # Convert DataFrame to a serializable format for Google Sheets
         df_serializable = df_to_write.astype(str)
-        
+
+        # Remove .0 (last on year measured)
+        df_serializable['year_measured'] = df_serializable['year_measured'].str.replace(r'\.0$', '', regex=True)
+
         # Update the worksheet with the new data
         worksheet.update(range_name='A2', values=df_serializable.values.tolist())
         print(f"Successfully migrated {len(df_to_write)} rows to '{sheet_name}'.")
@@ -230,7 +239,7 @@ def write_new_company_performance(spreadsheet: gspread.Spreadsheet, df: pd.DataF
     print("\nCreating new_company_performance sheet")
 
     # Define the columns to keep in the new sheet and name of the new sheet
-    list_columns = ['id', 'company_id', 'year', 'commodity_type', 'commodity_sub_type', 'commodity_stats']
+    list_columns = COMMON_COLUMNS + ['commodity_stats']
     new_sheet_name = 'new_company_performance'
 
     try:
@@ -282,16 +291,59 @@ def write_new_company_performance(spreadsheet: gspread.Spreadsheet, df: pd.DataF
     except Exception as e:
         print(f"An error occurred in write_new_company_performance: {e}")
 
+def init_restructure() -> None:
+    client, spreadsheet_id = createClient()    
+    _, df_comp_performance = getSheetAll('company_performance')
 
-if __name__ == '__main__':
-    client, spreadsheet_id = createClient()
-    _, df_comp_performance = get_data_sheet('company_performance', client, spreadsheet_id)
-    
     if df_comp_performance is not None:
         spreadsheet = client.open_by_key(spreadsheet_id)
         create_new_sheets(spreadsheet, df_comp_performance)
         migrate_data(spreadsheet, df_comp_performance)
-        write_new_company_performance(spreadsheet, df_comp_performance)
+        # write_new_company_performance(spreadsheet, df_comp_performance)
         print("\nMigration script finished.")
     else:
         print("Could not retrieve data. Exiting.")
+
+def update_new_company_performance() -> None:   
+    client, spreadsheet_id = createClient()    
+    spreadsheet = client.open_by_key(spreadsheet_id)
+    new_sheet_name = 'new_company_performance'
+    list_columns = ['performance_id'] + COMMON_COLUMNS + ['commodity_stats']
+
+    df_list = []
+    renderMap = {
+        'gold': renderMineralStats,
+        'coal': renderCoalStats,
+        'nickel': renderNickelStats
+    }
+
+    for n in NEW_SHEET_NAMES:
+        sheet_name = f'{n}_performance'
+        _, df = getSheetAll(sheet_name)
+        df['performance_id'] = f'{n}_' + df['id']
+
+        renderFunction = renderMap.get(n, renderMineralStats)
+        df['commodity_stats'] = df.apply(
+            lambda row: json.dumps(renderFunction(row)), axis=1
+        )
+        df_list.append(df[list_columns])
+
+    df_new = pd.concat(df_list)
+    df_new['id'] = ''
+
+    # Create or get the new worksheet
+    try:
+        worksheet = spreadsheet.worksheet(new_sheet_name)
+        print(f"Sheet '{new_sheet_name}' already exists. Clearing and writing new data.")
+        worksheet.clear()
+    except gspread.WorksheetNotFound:
+        print(f"Creating new sheet: '{new_sheet_name}'...")
+        worksheet = spreadsheet.add_worksheet(title=new_sheet_name, rows=len(df_new) + 1, cols=len(df_new.columns))
+    
+    # Write the headers and the data to the new sheet
+    worksheet.update(range_name='A1', values=[df_new.columns.values.tolist()] + df_new.values.tolist())
+    print(f"Successfully wrote {len(df_new)} rows to '{new_sheet_name}' with performance_id column.")
+
+if __name__ == '__main__':
+    update_new_company_performance()
+    
