@@ -32,6 +32,7 @@ from utils.sync_utils import (
 from compile_to_json import (
     compileToJsonBatch,
     jsonifyCommodityStats,
+    jsonifyMineRsrvRsro,
     fillMiningLicense,
 )
 
@@ -55,11 +56,11 @@ def sync_model(
     if preprocess is not None:
         df, field_types, sheet = preprocess(df, field_types, sheet)
 
-    df = castTypes(df, field_types)
+    # df = castTypes(df, field_types)
 
-    confirmChange(checkDeletedAndOrder, model, df)
-    confirmChange(compareDBSheet, model, df)
-    confirmChange(checkNewData, model, df, field_types)
+    # confirmChange(checkDeletedAndOrder, model, df)
+    # confirmChange(compareDBSheet, model, df)
+    # confirmChange(checkNewData, model, df, field_types)
 
 
 def processCompanyOwnership() -> None:
@@ -150,28 +151,21 @@ if __name__ == "__main__":
 
     def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
         # # 1. Compile reserves_resourcees
-        # reserves_resources_fields = [
-        #     ("*year_measured", int),
-        #     ("*total_reserve", float),
-        #     ("*total_resource", float),
-        # ]
-        # compileToJsonBatch(
-        #     df, reserves_resources_fields, "resources_reserves", sheet.id, 111 - 2
-        # )
+        jsonifyMineRsrvRsro(df, sheet.id)
 
-        # # 2. Compile location
-        # location = [
-        #     ("*province", str),
-        #     ("*city", str),
-        #     ("*latitude", float),
-        #     ("*longitude", float),
-        # ]
-        # compileToJsonBatch(df, location, "location", sheet.id)
+        # 2. Compile location
+        location = [
+            ("*province", str),
+            ("*city", str),
+            ("*latitude", float),
+            ("*longitude", float),
+        ]
+        compileToJsonBatch(df, location, "location", sheet.id)
 
         return df, field_types, sheet
 
     # %%
-    sync_model("company", "A1:U282", Company, companyPreprocess)
+    sync_model("company", "A1:R282", Company, companyPreprocess)
     # %%
     sync_model(
         "company_performance",
@@ -188,7 +182,7 @@ if __name__ == "__main__":
     # %%
     sync_model("commodities_production_id", "A1:E32", TotalCommoditiesProduction)
     # %%
-    sync_model("export_destination", "A1:G122", ExportDestination)
+    sync_model("export_destination", "A1:G273", ExportDestination)
     # %%
     sync_model("global_commodity_data", "A1:F104", GlobalCommodityData)
 

@@ -59,6 +59,53 @@ MINERAL_STATS = [
     ("*sales_volume", float),
 ]
 
+# Columns for Gold Mines
+GOLD_RSRV = [
+    ("gold rsrv material (mt)", float),
+    ("gold rsrv g/ton Au", float),
+    ("gold rsrv Au (koz)", float),
+    ("gold rsrv % Cu", float),
+    ("gold rsrv Cu (mt)", float)
+]
+GOLD_RSRO = [
+    ("gold rsro material (mt)", float),
+    ("gold rsro g/t Au", float),
+    ("gold rsro Au (koz)", float),
+    ("gold rsro % Cu", float),
+    ("gold rsro Cu (mt)", float)
+]
+
+# Columns for Coal Mines
+COAL_MINE = [
+    ("coal year_measured", int),
+    ("coal calorific_value", str),
+    ("coal total_reserve", float),
+    ("coal total_resource", float),
+    ("coal resources_inferred", float),
+    ("coal resources_indicated", float),
+    ("coal resources_measured", float),
+    ("coalreserves_proved", float),
+    ("coal reserves_probable", float),
+]
+
+# Columns for Nickel Mines
+NICKEL_MINE = [
+    ("wet tonnes (mt)", float),
+    ("dry tonnes (mt)", float),
+    ("% Ni", float),
+    ("Ni (Kt)", float),
+    ("% Co", float),
+    ("Co (Kt)", float),
+    ("% Fe", float),
+    ("% SiO₂", float),
+    ("% MgO", float),
+    ("% Al₂O₃", float),
+]
+LIM_RSRV = [(f"lim rsrv {col}", typ) for col, typ in NICKEL_MINE]
+LIM_RSRO = [(f"lim rsro {col}", typ) for col, typ in NICKEL_MINE]
+SAP_RSRV = [(f"sap rsrv {col}", typ) for col, typ in NICKEL_MINE]
+SAP_RSRO = [(f"sap rsro {col}", typ) for col, typ in NICKEL_MINE]
+
 def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=0):
     col_id = df.columns.get_loc(target_col)
 
@@ -144,6 +191,82 @@ def jsonifyCommodityStats(df: pd.DataFrame, sheet_id: int, starts_from: int = 0)
             data_dict = renderMineralStats(row)
         else:
             data_dict = renderCoalStats(row)
+            
+        rr_cols_json = json.dumps(data_dict)
+        to_use_value = {'stringValue':f'{rr_cols_json}'}
+
+        rows.append(
+            {
+                'values': 
+                    [
+                        {'userEnteredValue': to_use_value}
+                    ]
+            }
+        )
+
+    requests = [
+        {
+            'updateCells': {
+                'range': {
+                    'sheetId': sheet_id,
+                    'startRowIndex': starts_from + 1,
+                    'endRowIndex': len(df) + 1,
+                    'startColumnIndex': col_id,
+                    'endColumnIndex': col_id + 1
+                },
+                'rows': rows,
+                'fields': 'userEnteredValue'
+            }
+        }
+    ]
+
+    response = SERVICE.spreadsheets().batchUpdate(
+        spreadsheetId=SPREADSHEET_ID,
+        body={'requests': requests}
+    ).execute()
+
+    print(f"Batch update response: {response}")
+
+
+def renderGoldMine(row):
+    data_dict = {'year_measured': safeCast(row['gold year_measured'], int)}
+    data_dict['reserve'] = renderDict(row, GOLD_RSRV, lambda col: col.replace("gold rsrv ", ""))
+    data_dict['resource'] = renderDict(row, GOLD_RSRO, lambda col: col.replace("gold rsro ", ""))
+    return data_dict
+
+def renderCoalMine(row):
+    return renderDict(row, COAL_MINE, lambda col: col.replace("coal ", ""))
+
+def renderNickelMine(row):
+    data_dict = {'year_measured': safeCast(row['nckl year_measured'], int)}
+    data_dict['limonite'] = {
+        'reserve': renderDict(row, LIM_RSRV, lambda col: col.replace("lim rsrv ", "")),
+        'resource': renderDict(row, LIM_RSRO, lambda col: col.replace("lim rsro ", ""))
+    }
+    data_dict['saprolite'] = {
+        'reserve': renderDict(row, SAP_RSRV, lambda col: col.replace("sap rsrv ", "")),
+        'resource': renderDict(row, SAP_RSRO, lambda col: col.replace("sap rsro ", ""))
+    }
+    return data_dict
+
+def jsonifyMineRsrvRsro(df: pd.DataFrame, sheet_id: int, starts_from: int = 0):
+    col_id = df.columns.get_loc("resources_reserves")
+    rows = []
+
+    renderMap = {
+        'Gold': renderGoldMine,
+        'Coal': renderCoalMine,
+        'Nickel': renderNickelMine
+    }
+
+
+    for row_id, row in df.iterrows():
+
+        if row_id < starts_from:
+            continue
+
+        renderFunction = renderMap.get(row['mineral_type'], renderCoalMine)
+        data_dict = renderFunction(row)
             
         rr_cols_json = json.dumps(data_dict)
         to_use_value = {'stringValue':f'{rr_cols_json}'}

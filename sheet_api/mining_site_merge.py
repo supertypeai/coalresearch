@@ -15,29 +15,29 @@ client, spreadsheet_id = createClient()
 service = createService()
 ms_sheet = client.open_by_key(spreadsheet_id).worksheet('mining_site')
 
-ms_data = ms_sheet.get('A1:Y133')
-ms_df = pd.DataFrame(ms_data[1:], columns=ms_data[0])
+ms_data = ms_sheet.get('A1:L29')
+ms_df = pd.DataFrame(ms_data[2:], columns=ms_data[1])
 
 # esdm_coal_df = pd.read_csv("coal_db - ESDM_coal.csv")
-esdm_coal_df = pd.read_csv("primary_gold - ESDM.csv")
+esdm_coal_df = pd.read_csv("nickel.csv")
 # esdm_coal_df['mineral_grade'] = esdm_coal_df['mineral_grade'].apply(lambda x: re.search(r"\(([^)]+)\)", x).group(1))
 esdm_coal_df['object_name_strip'] = esdm_coal_df['object_name'].str.replace(r'\b[B]atubara\b', '', regex=True).str.strip()
 
 # %%
 merge_columns = [
-    # ("province", "*province"),
-    # ("city", "*city"),
-    # ("latitude", "*latitude"),
-    # ("longitude", "*longitude"),
-    ("year_measured", "*year_measured"),
+    ("province", "*province"),
+    ("city", "*city"),
+    ("latitude", "*latitude"),
+    ("longitude", "*longitude"),
+    # ("year_measured", "*year_measured"),
     # ("mineral_grade", "*calorific_value"),
     # ("inferred_resource", "*resources_inferred"),
     # ("indicated_resource", "*resources_indicated"),
     # ("measured_resource", "*resources_measured"),
-    ("total_resource", "*total_resource"),
+    # ("total_resource", "*total_resource"),
     # ("probable_reserve", "*reserves_probable"),
     # ("proven_reserve", "*reserves_proved"),
-    ("total_reserve", "*total_reserve"),
+    # ("total_reserve", "*total_reserve"),
 ]
 merge_columns_hash = {val:key for key, val in merge_columns}
 
@@ -70,7 +70,7 @@ def updateSheet(starts_from=0):
 
                 to_use_value = new_value
 
-                ms_sheet.update_cell(2 + row_id, col_id + 1, to_use_value)
+                ms_sheet.update_cell(3 + row_id, col_id + 1, to_use_value)
 
                 print("Updating row number, col number, value:", row_id, col_id, to_use_value)
 
@@ -125,5 +125,5 @@ def batchUpdateSheet(starts_from=0):
 # batchUpdateSheet(starts_from=90)
 
 # %%
-updateSheet(starts_from=111)
+updateSheet(starts_from=18)
 # %%
