@@ -51,6 +51,7 @@ company_type_constraints = (
     "Consultant",
     "Contractor",
     "Trader",
+    "Manufacturer"
 )
 key_operation_constraints = (
     "Mining",
@@ -62,6 +63,8 @@ key_operation_constraints = (
     "Coal Trading",
     "Barging, Port & Transshipment",
     "Investment",
+    "Mineral Refining",
+    "Construction"
 )
 commodity_type_constraints = (
     "Coal",
