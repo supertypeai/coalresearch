@@ -315,17 +315,45 @@ def jsonifyMineRsrvRsro(df: pd.DataFrame, sheet_id: int, starts_from: int = 0):
 
     print(f"Batch update response: {response}")
 
+def matchingSequence(license_df: pd.DataFrame, clean_list: list, key: str, key_no_space: str, 
+                     threshold: int = 93, is_debug: bool = False
+                     ) -> pd.DataFrame:
+    matches = license_df[license_df['name_cleaned'] == key]
+    if is_debug:
+        if not matches.empty: 
+            print(f"[EXACT] '{key}' matched '{matches.iloc[0]['name_cleaned']}'")
+    
+    # No space matching
+    if matches.empty:
+        matches = license_df[license_df['name_cleaned_no_space'] == key_no_space]
+        if is_debug:
+            if not matches.empty: 
+                print(f"[NOSPACE] '{key}' matched '{matches.iloc[0]['name_cleaned']}'")
+
+    # Fuzzy matching
+    if matches.empty: 
+        match, score, idx = process.extractOne(key, clean_list, scorer=fuzz.token_sort_ratio)
+        if score >= threshold:
+            matches = license_df.iloc[[idx]]
+            if is_debug:
+                print(f"[FUZZY] '{key}' → '{match}' (score: {score})")
+
+    return matches
+
 def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
                       starts_from: int = 0, threshold: int = 93
                     ) -> None:
     # Load and clean reference DataFrame
     minerba_df, included_columns = prepareMinerbaDf()
+    minerba_df2, _ = prepareMinerbaDf("coal_db - minerba (cleansed).csv")
     
     df_company = clean_company_df(df, 'name')
     df_minerba = clean_company_df(minerba_df,'company_name')
+    df_minerba2 = clean_company_df(minerba_df2,'company_name')
 
     # Pre-extract the list of normalized names for fuzzy matching
     clean_list = df_minerba['name_cleaned'].tolist()
+    clean_list2 = df_minerba2['name_cleaned'].tolist()
     
     col_id = df.columns.get_loc("mining_license")
 
@@ -338,25 +366,9 @@ def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
         key_no_space = row['name_cleaned_no_space'] 
 
         # Exact matching
-        matches = df_minerba[df_minerba['name_cleaned'] == key]
-        if is_debug:
-            if not matches.empty: 
-                print(f"[EXACT] '{key}' matched '{matches.iloc[0]['name_cleaned']}'")
-        
-        # No space matching
+        matches = matchingSequence(df_minerba, clean_list, key, key_no_space, threshold, is_debug)
         if matches.empty:
-            matches = df_minerba[df_minerba['name_cleaned_no_space'] == key_no_space]
-            if is_debug:
-                if not matches.empty: 
-                    print(f"[NOSPACE] '{key}' matched '{matches.iloc[0]['name_cleaned']}'")
-
-        # Fuzzy matching
-        if matches.empty: 
-            match, score, idx = process.extractOne(key, clean_list, scorer=fuzz.token_sort_ratio)
-            if score >= threshold:
-                matches = df_minerba.iloc[[idx]]
-                if is_debug:
-                    print(f"[FUZZY] '{key}' → '{match}' (score: {score})")
+            matches = matchingSequence(df_minerba2, clean_list2, key, key_no_space, threshold, is_debug)
 
         if not matches.empty:
             records = matches[included_columns].to_dict(orient="records")

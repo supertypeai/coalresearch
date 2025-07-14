@@ -1,8 +1,8 @@
 import pandas as pd
 
 
-def prepareMinerbaDf():
-    minerba_df = pd.read_csv("esdm_minerba_all.csv")
+def prepareMinerbaDf(filename: str = "esdm_minerba_all.csv"):
+    minerba_df = pd.read_csv(filename)
     minerba_df.columns = [
         "row_id",  # 'Unnamed: 0'
         "object_id",  # 'objectid'
@@ -57,7 +57,7 @@ def prepareMinerbaDf():
     minerba_df["province"] = minerba_df["provinsi_norm"]
     minerba_df["city"] = minerba_df["kabupaten_norm"]
     minerba_df["activity"] = minerba_df["kegiatan_norm"]
-    minerba_df["location"] = minerba_df["lokasi_norm"]
+    minerba_df["location"] = minerba_df["lokasi_norm"].fillna("-")
     # minerba_df["company_name"] = minerba_df["company_name"].str.title()
     # minerba_df["city"] = (
     #     minerba_df["city"].str.replace(r"^KAB\.\s*", "", regex=True).str.title()

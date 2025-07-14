@@ -231,7 +231,7 @@ def cleanse_df(df: pd.DataFrame) -> pd.DataFrame:
     - Dropping rows where 'tgl_berlaku' equals 'tgl_akhir'
     - Normalizing administrative names and locations
     """
-    exemptions = {"generasi", "kode_wil"}
+    exemptions = {"generasi", "kode_wil", "cnc", "lokasi"}
 
     # Internal helper: normalize province or city names
     def normalize_admin(name: str) -> str:
