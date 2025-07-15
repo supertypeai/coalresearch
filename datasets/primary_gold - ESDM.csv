@@ -1,0 +1,390 @@
+,longitude,latitude,id,potential,commodity,group,location,city,province,object_name,total_reserve,total_resource,unit,year_measured
+0,96.654,4.526,aEtJWUd3REFJN1FWRjdnS21KZWRwUT09,Mineral Logam,Emas Primer,Logam Mulia,Miwah,Nagan Raya,Aceh,Emas Primer Miwah,103900000.0,0.0,Ton,2022
+1,99.072894,1.549548,NlFMdjFmQkdnS0NQQ3dCYm1pR01KUT09,Mineral Logam,Emas Primer,Logam Mulia,Uluala Hulu,Tapanuli Selatan,Sumatera Utara,Emas Primer Uluala Hulu,3500000.0,0.0,Ton,2022
+2,99.0652,1.533847,Smd6czk0WGc1OUwxM3dQRFZMT2xxdz09,Mineral Logam,Emas Primer,Logam Mulia,Tor Uluala,Tapanuli Selatan,Sumatera Utara,Emas Primer Tor Uluala,36000000.0,17600000.0,Ton,2022
+3,99.066059,1.525358,alRuUUFWL2xOZjQ1Z0hFTkxSTVludz09,Mineral Logam,Emas Primer,Logam Mulia,Ramba Joring,Tapanuli Selatan,Sumatera Utara,Emas Primer Ramba Joring,28900000.0,18800000.0,Ton,2022
+4,99.063706,1.512728,blVtNXBkbThNMEN4NlhoNlYxU2QxUT09,Mineral Logam,Emas Primer,Logam Mulia,Purnama,Tapanuli Selatan,Sumatera Utara,Emas Primer Purnama,123500000.0,42300000.0,Ton,2022
+5,99.067297,1.515069,V2IvSVFSZGI1TThFU3F0QXo1dFczdz09,Mineral Logam,Emas Primer,Logam Mulia,Mine Stockpiles,Tapanuli Selatan,Sumatera Utara,Emas Primer Mine Stockpiles,2300000.0,2300000.0,Ton,2022
+6,99.075806,1.503901,YjB6a1lRRktzOVR6N2FqeEJjMWJCQT09,Mineral Logam,Emas Primer,Logam Mulia,Barani,Tapanuli Selatan,Sumatera Utara,Emas Primer Barani,15100000.0,4900000.0,Ton,2022
+7,99.081543,1.491848,Q2hTVVJFTzFrS0Z6YlhjNkQ5NTF1UT09,Mineral Logam,Emas Primer,Logam Mulia,Horas,Tapanuli Selatan,Sumatera Utara,Emas Primer Horas,1900000.0,0.0,Ton,2022
+8,99.416667,0.916667,anZYMUM3cHEvV3NIVURVbk16d0s5UT09,Mineral Logam,Emas Primer,Logam Mulia,Sihayo,Mandailing Natal,Sumatera Utara,Emas Primer Sihayo,19927100.0,10804000.0,Ton,2022
+9,99.450384,0.918803,aktqYlg5L1lNRlhzUGtQKzBacXhvdz09,Mineral Logam,Emas Primer,Logam Mulia,Sambung,Mandailing Natal,Sumatera Utara,Emas Primer Sambung,2857000.0,1499000.0,Ton,2022
+10,99.775,0.651,cWNRTGUzemQwVnI3MUFsblZmaS8wdz09,Mineral Logam,Emas Primer,Logam Mulia,Pagaran Siayu,Mandailing Natal,Sumatera Utara,Emas Primer Pagaran Siayu,65000.0,0.0,Ton,2022
+11,99.764,0.346,QzV6dTZwandmRGRFRElqK3lKSUxxdz09,Mineral Logam,Emas Primer,Logam Mulia,Balimbing,Pasaman Barat,Sumatera Barat,Emas Primer Balimbing,75000.0,0.0,Ton,2022
+12,100.352,0.014,QkV4Q2NyNEd4Z1h1SzZlSy9pVS9LZz09,Mineral Logam,Emas Primer,Logam Mulia,Mangani,Lima Puluh Kota,Sumatera Barat,Emas Primer Mangani,75473.0,0.0,Ton,2022
+13,101.512,-0.853,a3dSd04vbSsxRlBRZy94OGF4M1MrUT09,Mineral Logam,Emas Primer,Logam Mulia,Pulau Punjung,Dharmasraya,Sumatera Barat,Emas Primer Pulau Punjung,18697.0,0.0,Ton,2022
+14,100.763,-1.276,RVRpSnVsMEx2eUkydG5QMVdDSm4rZz09,Mineral Logam,Emas Primer,Logam Mulia,Kinandam,Pesisir Selatan,Sumatera Barat,Emas Primer Kinandam,6000.0,0.0,Ton,2022
+15,100.772,-1.303,VWxLNUVsZ0Vacmc3SlFXY2xTRWNvUT09,Mineral Logam,Emas Primer,Logam Mulia,Salida,Pesisir Selatan,Sumatera Barat,Emas Primer Salida,579000.0,0.0,Ton,2022
+16,100.683,-1.428,Mk1BcnlSVHNmU0ljazJQTUJYbDltQT09,Mineral Logam,Emas Primer,Logam Mulia,Daerah Batangkapas,Pesisir Selatan,Sumatera Barat,Emas Primer Daerah Batangkapas,106000.0,0.0,Ton,2022
+17,102.187,-1.535,amlhNjl0L0p4ditvTXd4aXlPeUpYQT09,Mineral Logam,Emas Primer,Logam Mulia,"Sungai Gembir, Sungai Mengkuang Tambangcucur, Sungai Benit",Bungo,Jambi,"Emas Primer Sungai Gembir, Sungai Mengkuang Tambangcucur, Sungai Benit",0.0,0.0,Ton,2022
+18,102.018,-2.604,R1loU1NMQyt3V1Qrc2ZQQ2pWWHBwQT09,Mineral Logam,Emas Primer,Logam Mulia,Ampar Tengah,Merangin,Jambi,Emas Primer Ampar Tengah,3000000.0,0.0,Ton,2022
+19,101.954,-2.636,UzJzaXVJK0hmUitJWk5FNFJmSC91dz09,Mineral Logam,Emas Primer,Logam Mulia,Mentenang Tengah,Merangin,Jambi,Emas Primer Mentenang Tengah,453643.0,0.0,Ton,2022
+20,102.001,-2.707,UVdhS1dST3pVUXYwT3pDeVZxdm5yZz09,Mineral Logam,Emas Primer,Logam Mulia,Kesisih Kiri,Merangin,Jambi,Emas Primer Kesisih Kiri,21000000.0,0.0,Ton,2022
+21,102.749,-2.719,TEZEaURwdUFZMVZKSFRsOW5XNUhSQT09,Mineral Logam,Emas Primer,Logam Mulia,"Sungai Tuboh, Musi Rawas",Musi Rawas Utara,Sumatera Selatan,"Emas Primer Sungai Tuboh, Musi Rawas",1760000.0,0.0,Ton,2022
+22,102.516,-2.81,VFJrYU1SdDVKclZBMDY1Q0JQK2tJZz09,Mineral Logam,Emas Primer,Logam Mulia,"Utara Soil North Ext (Desa Muara Tiku, Desa Pulau Kidak)",Musi Rawas Utara,Sumatera Selatan,"Emas Primer Utara Soil North Ext (Desa Muara Tiku, Desa Pulau Kidak)",0.0,0.0,Ton,2022
+23,102.523,-2.819,MzM4Qm5RcmRHZDY4VC9ZUWdLaUtiQT09,Mineral Logam,Emas Primer,Logam Mulia,"C9 T 5 (Desa Muara Tiku, Desa Pulau Kidak)",Musi Rawas Utara,Sumatera Selatan,"Emas Primer C9 T 5 (Desa Muara Tiku, Desa Pulau Kidak)",0.0,0.0,Ton,2022
+24,102.511,-2.816,NWhnQXFKclVKaFFSM0p5MTNiMDNVZz09,Mineral Logam,Emas Primer,Logam Mulia,"Utara Soil Anomaly Main Zone (Desa Muara Tiku, Desa Pulau Kidak)",Musi Rawas Utara,Sumatera Selatan,"Emas Primer Utara Soil Anomaly Main Zone (Desa Muara Tiku, Desa Pulau Kidak)",0.0,0.0,Ton,2022
+25,102.494,-2.82,ZHFobzlqNmlKNnFobjhXRVhpaDg3dz09,Mineral Logam,Emas Primer,Logam Mulia,"IND SW Extension (Desa Muara Tiku, Desa Pulau Kidak)",Musi Rawas Utara,Sumatera Selatan,"Emas Primer IND SW Extension (Desa Muara Tiku, Desa Pulau Kidak)",0.0,0.0,Ton,2022
+26,102.503,-2.83,akMyZHp4WC9tbUd2bXB3VDZTSVVCZz09,Mineral Logam,Emas Primer,Logam Mulia,"Zona Oksida C9 Tiris (Desa Muara Tiku, Desa Pulau Kidak)",Musi Rawas Utara,Sumatera Selatan,"Emas Primer Zona Oksida C9 Tiris (Desa Muara Tiku, Desa Pulau Kidak)",0.0,7740000.0,Ton,2022
+27,102.509,-2.829,TFpaQWQ1K25EU3NyYmxVZHJDZ0pQUT09,Mineral Logam,Emas Primer,Logam Mulia,"INF 1 Extension (Desa Muara Tiku, Desa Pulau Kidak)",Musi Rawas Utara,Sumatera Selatan,"Emas Primer INF 1 Extension (Desa Muara Tiku, Desa Pulau Kidak)",0.0,0.0,Ton,2022
+28,102.507,-2.832,SzBiMklLdkNyVlFCZEliQnJqZm1YZz09,Mineral Logam,Emas Primer,Logam Mulia,"IND S Extension (Desa Muara Tiku, Desa Pulau Kidak)",Musi Rawas Utara,Sumatera Selatan,"Emas Primer IND S Extension (Desa Muara Tiku, Desa Pulau Kidak)",0.0,0.0,Ton,2022
+29,101.927,-2.988,R2lsOEN4d1hRUDZxTzJoODA5REJXQT09,Mineral Logam,Emas Primer,Logam Mulia,Lebong Tandai,Bengkulu Utara,Bengkulu,Emas Primer Lebong Tandai,310900.0,0.0,Ton,2022
+30,101.917,-3.044,VnZEaFhSUDFmcVNJNVIwU0lkOGRqQT09,Mineral Logam,Emas Primer,Logam Mulia,Air Nora,Bengkulu Utara,Bengkulu,Emas Primer Air Nora,400000.0,0.0,Ton,2022
+31,101.94,-3.056,NG9mMTdsTmxUazVoU0NZMlVDcUVGQT09,Mineral Logam,Emas Primer,Logam Mulia,Karang Suluh,Bengkulu Utara,Bengkulu,Emas Primer Karang Suluh,300000.0,0.0,Ton,2022
+32,102.108,-3.039,dVR2WlIvVTNibldQUVkxOHlwUE9pZz09,Mineral Logam,Emas Primer,Logam Mulia,Lebong Simau,Lebong,Bengkulu,Emas Primer Lebong Simau,260000.0,0.0,Ton,2022
+33,102.175,-3.066,RU9nZit5dGFYWlFHVGdiNHhpM2NmUT09,Mineral Logam,Emas Primer,Logam Mulia,Lebong Donok,Lebong,Bengkulu,Emas Primer Lebong Donok,3243000.0,0.0,Ton,2022
+34,102.170995,-3.093494,bUhYSlRwcEVMc1drRDFHNmhDQmp0Zz09,Mineral Logam,Emas Primer,Logam Mulia,Tambang Sawah,Lebong,Bengkulu,Emas Primer Tambang Sawah,2758528.0,1314440.0,Ton,2022
+35,102.206,-3.146,WUZtQm1nUVBtQTZQV1IyR1ZIM2xmdz09,Mineral Logam,Emas Primer,Logam Mulia,Lebong Sulit,Lebong,Bengkulu,Emas Primer Lebong Sulit,8733438.0,0.0,Ton,2022
+36,102.269,-3.371,bGx6QkRRQy9jQStjZHZiREltcUxsZz09,Mineral Logam,Emas Primer,Logam Mulia,Lebong Simpang,Bengkulu Utara,Bengkulu,Emas Primer Lebong Simpang,228375.0,0.0,Ton,2022
+37,103.157,-4.149,ZTh6czBTMVJabldjamptUG5Rb25uQT09,Mineral Logam,Emas Primer,Logam Mulia,Daerah Kecamatan Pino,Empat Lawang,Sumatera Selatan,Emas Primer Daerah Kecamatan Pino,100000.0,0.0,Ton,2022
+38,104.497,-4.755,c0NhSlF6RUJxTmpwczNjblI4YkJEUT09,Mineral Logam,Emas Primer,Logam Mulia,Desa Donomulyo,Way Kanan,Lampung,Emas Primer Desa Donomulyo,0.0,870309.0,Ton,2022
+39,104.861,-5.177,bWNTNU9LeDZrK05tNmdFUDdKT2h3QT09,Mineral Logam,Emas Primer,Logam Mulia,Desa Sendang baru,Lampung Tengah,Lampung,Emas Primer Desa Sendang baru,26145.0,0.0,Ton,2022
+40,104.413298,-5.284991,ZHhvdW9KcjFZNFZhaHBBTEc0ZTF5dz09,Mineral Logam,Emas Primer,Logam Mulia,"Way Linggo - Way Semung, North vein",Tanggamus,Lampung,"Emas Primer Way Linggo - Way Semung, North vein",614000.0,36278.0,Ton,2022
+41,104.397879,-5.199655,T1NuTC9abDRROGdTMlZBY1VUQ2lSZz09,Mineral Logam,Emas Primer,Logam Mulia,Prospek Talang Santo (Block Talang Cluster),Tanggamus,Lampung,Emas Primer Prospek Talang Santo (Block Talang Cluster),2710000.0,126000.0,Ton,2022
+42,104.418,-5.294,UUFNR2pFWCttR1J3czRrRllrL0k5UT09,Mineral Logam,Emas Primer,Logam Mulia,Prospek Way Sapta (Block Central Vein),Tanggamus,Lampung,Emas Primer Prospek Way Sapta (Block Central Vein),651001.0,0.0,Ton,2022
+43,104.418,-5.294,VGtvYzRQajdod2VFNWFyOTVHa1Ntdz09,Mineral Logam,Emas Primer,Logam Mulia,B Vein Extension,Tanggamus,Lampung,Emas Primer B Vein Extension,497000.0,0.0,Ton,2022
+44,104.408,-5.276,bGhNYysrM041TncxQUI4L2JmS3hEUT09,Mineral Logam,Emas Primer,Logam Mulia,Talang Kecap,Tanggamus,Lampung,Emas Primer Talang Kecap,22875.0,0.0,Ton,2022
+45,104.996,-5.478,NDZEZTNCeHlXb3lFV05WRUhCRVJKdz09,Mineral Logam,Emas Primer,Logam Mulia,"Babakan Loa, Desa Kedondong",Pesawaran,Lampung,"Emas Primer Babakan Loa, Desa Kedondong",146250.21,0.0,Ton,2022
+46,105.009,-5.533,NCsra1RsUDBVaCtBenlnV2lPT0xjZz09,Mineral Logam,Emas Primer,Logam Mulia,Napal,Pesawaran,Lampung,Emas Primer Napal,0.0,87571.0,Ton,2022
+47,104.832,-5.612,SVU0bUxka2hiVWd0bTVMMGczRmVZZz09,Mineral Logam,Emas Primer,Logam Mulia,"Putih Doh, Cukuh Balak",Tanggamus,Lampung,"Emas Primer Putih Doh, Cukuh Balak",326382.5,0.0,Ton,2022
+48,105.636817,-6.753645,OUIvTkpSZklqSXIrcXlZZWNOa0tUdz09,Mineral Logam,Emas Primer,Logam Mulia,Cikoneng-Cibitung (Cibaliung),Pandeglang,Banten,Emas Primer Cikoneng-Cibitung (Cibaliung),1924000.0,0.0,Ton,2022
+49,106.289,-6.837,akdFMWdYcnJFNjBHVktSUEw1czltdz09,Mineral Logam,Emas Primer,Logam Mulia,Cipicung,Lebak,Banten,Emas Primer Cipicung,0.0,0.0,Ton,2022
+50,106.31,-6.801,aGJnREdoS2V3Q3ZrQmJPZjE3ZGlodz09,Mineral Logam,Emas Primer,Logam Mulia,"Ciawitali, Citorek Selatan",Lebak,Banten,"Emas Primer Ciawitali, Citorek Selatan",621000.0,0.0,Ton,2022
+51,106.443,-6.754,N2VjUnZneEtGZUxiSWc1cVAxakJzQT09,Mineral Logam,Emas Primer,Logam Mulia,"Cikidang, Cikotok dan Sekitarnya",Lebak,Banten,"Emas Primer Cikidang, Cikotok dan Sekitarnya",0.0,189100.0,Ton,2022
+52,106.560711,-6.664209,eDZnRkJuN0JIeWFBMGU3RmoyZXBydz09,Mineral Logam,Emas Primer,Logam Mulia,Gunung Pongkor,Bogor,Jawa Barat,Emas Primer Gunung Pongkor,2322352.9412,1203529.4117,Ton,2022
+53,106.445,-6.587,NmFVVDA0Nk55bXF1OWR0YzIzKzI1UT09,Mineral Logam,Emas Primer,Logam Mulia,Gunung Limbung,Bogor,Jawa Barat,Emas Primer Gunung Limbung,3500000.0,0.0,Ton,2022
+54,106.453,-6.544,RjBvRCtsWUVTYVRRUlFRSW1iOVBVQT09,Mineral Logam,Emas Primer,Logam Mulia,Gunung Gede,Bogor,Jawa Barat,Emas Primer Gunung Gede,1460935.0,0.0,Ton,2022
+55,106.51,-7.241,UFV5MzlUUHVTNk1BeVV0eVNLS2xKZz09,Mineral Logam,Emas Primer,Logam Mulia,"Kebonkacang, Cigaru",Sukabumi,Jawa Barat,"Emas Primer Kebonkacang, Cigaru",28441.0,0.0,Ton,2022
+56,106.531,-7.149,Y09PaVd1SkhqVjJIQ0RCcDFjemd3Zz09,Mineral Logam,Emas Primer,Logam Mulia,Ciracap,Sukabumi,Jawa Barat,Emas Primer Ciracap,1631400.0,0.0,Ton,2022
+57,106.482,-7.142,MG1Jb2JweXQ1SUpsV3R5QmVBOTZldz09,Mineral Logam,Emas Primer,Logam Mulia,Desa MekarJaya,Sukabumi,Jawa Barat,Emas Primer Desa MekarJaya,2024238.0,0.0,Ton,2022
+58,106.614,-7.11,SnlmdEx4WVk3TTlCakxKOW8xNDk2QT09,Mineral Logam,Emas Primer,Logam Mulia,Cijiwa,Sukabumi,Jawa Barat,Emas Primer Cijiwa,0.0,0.0,Ton,2022
+59,106.555,-7.089,bjlud0ozQWcvQm4remF1QzhONmcyZz09,Mineral Logam,Emas Primer,Logam Mulia,Kampung Cibutun,Sukabumi,Jawa Barat,Emas Primer Kampung Cibutun,84000.0,0.0,Ton,2022
+60,106.615,-6.945,TnFBcjNHZ3JmcTFqSDN0RFdEaTdNdz09,Mineral Logam,Emas Primer,Logam Mulia,Pelabuhan Ratu,Sukabumi,Jawa Barat,Emas Primer Pelabuhan Ratu,25000.0,0.0,Ton,2022
+61,107.134,-6.997,eEhKNG5EYllEN0kvdC9EV3BBYitidz09,Mineral Logam,Emas Primer,Logam Mulia,"Cikondang, Cibeber Tenggara",Cianjur,Jawa Barat,"Emas Primer Cikondang, Cibeber Tenggara",2202.0,0.0,Ton,2022
+62,107.475,-6.509,VExaRVV3WVNMd3dKREw4MWJXQlNuQT09,Mineral Logam,Emas Primer,Logam Mulia,Gunung Subang,Purwakarta,Jawa Barat,Emas Primer Gunung Subang,59523.0,0.0,Ton,2022
+63,107.418,-6.598,UldmY0xHb3RlbzBYUW9zT0tKSitoUT09,Mineral Logam,Emas Primer,Logam Mulia,Daerah Jatiluhur,Purwakarta,Jawa Barat,Emas Primer Daerah Jatiluhur,13551920.0,0.0,Ton,2022
+64,107.695561,-7.407295,ZTMrL1JXeUF1Vnd5UktoOC9tV1M3dz09,Mineral Logam,Emas Primer,Logam Mulia,Prospek Papandayan (Arinem - Cijaringo),Garut,Jawa Barat,Emas Primer Prospek Papandayan (Arinem - Cijaringo),4292941.1765,0.0,Ton,2022
+65,108.35,-7.383,MkgrUERZMHdKTENRZXZsSEkzQmhrZz09,Mineral Logam,Emas Primer,Logam Mulia,Cineam,Tasikmalaya,Jawa Barat,Emas Primer Cineam,64071.22,0.0,Ton,2022
+66,109.237,-7.55,endZRDZRTW83cXZZTEJZazlNM2ZlZz09,Mineral Logam,Emas Primer,Logam Mulia,Karang Alang,Banyumas,Jawa Tengah,Emas Primer Karang Alang,9000000.0,0.0,Ton,2022
+67,111.115,-7.525,VlNFRFFSbnN4QjZFUjA5VmJKZXBTUT09,Mineral Logam,Emas Primer,Logam Mulia,Prospek Noyu - Ngrandon,Karanganyar,Jawa Tengah,Emas Primer Prospek Noyu - Ngrandon,5025000.0,0.0,Ton,2022
+68,111.312,-8.09,TE1ibUhMaXhhNDBEY2ZVeVljTmNGdz09,Mineral Logam,Emas Primer,Logam Mulia,Kasihan,Pacitan,Jawa Timur,Emas Primer Kasihan,10000.0,0.0,Ton,2022
+69,111.675,-7.917,aG84R29DT3lDV3hMdFdkVEhhNWw3UT09,Mineral Logam,Emas Primer,Logam Mulia,Prospek Sombro,Ponorogo,Jawa Timur,Emas Primer Prospek Sombro,142500000.0,0.0,Ton,2022
+70,111.671,-7.883,ZnBMbTJpRTRzUmlRcmxnTmVxMnoxUT09,Mineral Logam,Emas Primer,Logam Mulia,Prospek Serayu,Ponorogo,Jawa Timur,Emas Primer Prospek Serayu,1500000.0,0.0,Ton,2022
+71,115.952,-8.786,bkNsZlFWUnpTc3Z6Y3AzejROZ1FnUT09,Mineral Logam,Emas Primer,Logam Mulia,Pelangan (Raja),Lombok Barat,Nusa Tenggara Barat,Emas Primer Pelangan (Raja),9810554.0,4403889.0,Ton,2022
+72,116.882594,-8.962866,M2FhNlFQSVA1cTF4dnRhZGtqNk5YZz09,Mineral Logam,Emas Primer,Logam Mulia,Batuhijau (Open Pit),Sumbawa Barat,Nusa Tenggara Barat,Emas Primer Batuhijau (Open Pit),185000000.0,782000000.0,Ton,2022
+73,117.381,-8.957,YlRsYVYxTWovMW5EZTllcElFeFl6UT09,Mineral Logam,Emas Primer,Logam Mulia,"Dodo, Desa Ledang",Sumbawa,Nusa Tenggara Barat,"Emas Primer Dodo, Desa Ledang",32340000.0,0.0,Ton,2022
+74,118.83,-8.564,ZmJhMVE5ZTBOcXo1R0dBK0VnQmlMZz09,Mineral Logam,Emas Primer,Logam Mulia,"Ringin, Jambuair, Desa Pesa",Bima,Nusa Tenggara Barat,"Emas Primer Ringin, Jambuair, Desa Pesa",2160000.0,0.0,Ton,2022
+75,119.87,-8.43,R1g5akFkaHhhbWgwRVdSZG90SXFvQT09,Mineral Logam,Emas Primer,Logam Mulia,Watu Asah,Manggarai Barat,Nusa Tenggara Timur,Emas Primer Watu Asah,3666000.0,0.0,Ton,2022
+76,119.93,-8.47,cWo0MGFJTTlPRnpUWWFmdlJCL2RjQT09,Mineral Logam,Emas Primer,Logam Mulia,Tebedo,Manggarai Barat,Nusa Tenggara Timur,Emas Primer Tebedo,0.0,0.0,Ton,2022
+77,120.413,-8.394,clpWNzRHbEJKMG9SU0pvWjFZVGRnZz09,Mineral Logam,Emas Primer,Logam Mulia,Wae Dara,Manggarai,Nusa Tenggara Timur,Emas Primer Wae Dara,1200000.0,0.0,Ton,2022
+78,123.662,-8.382,Wm1jbHJWS05tdWh3VkZxNDZiNmxKQT09,Mineral Logam,Emas Primer,Logam Mulia,Buyasuri,Lembata,Nusa Tenggara Timur,Emas Primer Buyasuri,0.0,0.0,Ton,2022
+79,110.421,0.83,dnd3Tm1VeURvbTRzQUJLTXJ3UWZKdz09,Mineral Logam,Emas Primer,Logam Mulia,Tekalong,Sanggau,Kalimantan Barat,Emas Primer Tekalong,0.0,266667.0,Ton,2022
+80,111.946,-2.198,aWk5VC9sQjhvZ3FyQWM5ZysweFhwdz09,Mineral Logam,Emas Primer,Logam Mulia,Pangkut,Kotawaringin Barat,Kalimantan Tengah,Emas Primer Pangkut,91000.0,0.0,Ton,2022
+81,112.255,-1.963,NkJBU2pEalg4dHJTcFE0bE5Nc201UT09,Mineral Logam,Emas Primer,Logam Mulia,Udui,Seruyan,Kalimantan Tengah,Emas Primer Udui,1265000.0,0.0,Ton,2022
+82,112.036,-2.061,NFQwS2NXMXZnY3NZZC9WSVJtRks5UT09,Mineral Logam,Emas Primer,Logam Mulia,Monton,Kotawaringin Barat,Kalimantan Tengah,Emas Primer Monton,7093507.0,0.0,Ton,2022
+83,112.951,-2.524,c2RFcXJsMFNkT0lYRmdxQUpqMTJPZz09,Mineral Logam,Emas Primer,Logam Mulia,Sampit dan sekitarnya,Kotawaringin Timur,Kalimantan Tengah,Emas Primer Sampit dan sekitarnya,1211450.34,0.0,Ton,2022
+84,112.127,-2.087,VnZaYWhsSVovSmxIa2FvTjB3S2J1Zz09,Mineral Logam,Emas Primer,Logam Mulia,Sayu,Seruyan,Kalimantan Tengah,Emas Primer Sayu,164372.0,0.0,Ton,2022
+85,112.324,-1.867,ZlRUUUkyUXg1TDhHdjh6MDlDUGdGUT09,Mineral Logam,Emas Primer,Logam Mulia,Pasir Putih,Kotawaringin Timur,Kalimantan Tengah,Emas Primer Pasir Putih,0.0,0.0,Ton,2022
+86,112.931947,-1.548516,Qmp0QzN0d0xpQ0pKSy9yV3k2a25wUT09,Mineral Logam,Emas Primer,Logam Mulia,Bakam,Katingan,Kalimantan Tengah,Emas Primer Bakam,1348400.0,117400.0,Ton,2022
+87,112.925,-1.551,SS9UMXV2QjY0T0FXZE91eHBmMGNPZz09,Mineral Logam,Emas Primer,Logam Mulia,Biru,Katingan,Kalimantan Tengah,Emas Primer Biru,220000.0,0.0,Ton,2022
+88,112.942,-1.551,WERXQnhGM0g3KzZna1NPN0Zyd3NDQT09,Mineral Logam,Emas Primer,Logam Mulia,Lebar,Katingan,Kalimantan Tengah,Emas Primer Lebar,1910000.0,0.0,Ton,2022
+89,112.91345,-1.518085,Ykk2VVpzUXRSc2tsbWZKRnhEMGNzZz09,Mineral Logam,Emas Primer,Logam Mulia,North Kuning,Katingan,Kalimantan Tengah,Emas Primer North Kuning,1200000.0,0.0,Ton,2022
+90,112.913065,-1.543123,aGNUdjVmQXNSZ0NTMkNJWTRSSFRhQT09,Mineral Logam,Emas Primer,Logam Mulia,South Kuning,Katingan,Kalimantan Tengah,Emas Primer South Kuning,0.0,0.0,Ton,2022
+91,112.914221,-1.534649,TkkrYXRmU2RjSG1zRFQ1V2JGTXFjQT09,Mineral Logam,Emas Primer,Logam Mulia,Central Kuning,Katingan,Kalimantan Tengah,Emas Primer Central Kuning,0.0,0.0,Ton,2022
+92,112.926,-1.534,alhZYWx3RW16OVloOFU4Rnp0WEdxdz09,Mineral Logam,Emas Primer,Logam Mulia,Gundul,Katingan,Kalimantan Tengah,Emas Primer Gundul,170000.0,0.0,Ton,2022
+93,112.919,-1.541,MFhteDQwTTM5bEFWcXpXRmxXT3Rhdz09,Mineral Logam,Emas Primer,Logam Mulia,Gundul Ekstension,Katingan,Kalimantan Tengah,Emas Primer Gundul Ekstension,40000.0,0.0,Ton,2022
+94,112.941581,-1.533493,aXhLTUNtdFNaNEFIcXlHL3VMZlhnUT09,Mineral Logam,Emas Primer,Logam Mulia,Central Putih,Katingan,Kalimantan Tengah,Emas Primer Central Putih,150000.0,0.0,Ton,2022
+95,112.950444,-1.535419,S2wwNlJVekptMDdld1RjKzZiSk44Zz09,Mineral Logam,Emas Primer,Logam Mulia,South Putih,Katingan,Kalimantan Tengah,Emas Primer South Putih,0.0,0.0,Ton,2022
+96,112.921,-1.525,djdMQWxMa0FvRHpvenpKdzZHajFWUT09,Mineral Logam,Emas Primer,Logam Mulia,Kalanaman,Katingan,Kalimantan Tengah,Emas Primer Kalanaman,100000.0,70000.0,Ton,2022
+97,112.936,-1.514,Tmo0RWoxR25ZRm1TMWV1bFpPKzBDQT09,Mineral Logam,Emas Primer,Logam Mulia,Cabang,Katingan,Kalimantan Tengah,Emas Primer Cabang,54000.0,0.0,Ton,2022
+98,112.931,-1.494,UHpwcTk0SERTSTdVQ244M3BsbXdndz09,Mineral Logam,Emas Primer,Logam Mulia,Merah,Katingan,Kalimantan Tengah,Emas Primer Merah,88000.0,456000.0,Ton,2022
+99,112.918,-1.436,bmZadUk0ZWs1Q05FOVpiaFdieVBqQT09,Mineral Logam,Emas Primer,Logam Mulia,Pandu,Katingan,Kalimantan Tengah,Emas Primer Pandu,3600000.0,0.0,Ton,2022
+100,113.632,-1.048,aTVCaGhUL0ZueGJreEdlYllkUWkrQT09,Mineral Logam,Emas Primer,Logam Mulia,"Gunung Mas, Hulu Sungai Jalungin",Gunung Mas,Kalimantan Tengah,"Emas Primer Gunung Mas, Hulu Sungai Jalungin",3604485.0,0.0,Ton,2022
+101,113.237,-0.58,dm1kd010OU5ENjMwSllyYjkyaldaUT09,Mineral Logam,Emas Primer,Logam Mulia,Baroi,Gunung Mas,Kalimantan Tengah,Emas Primer Baroi,5840000.0,0.0,Ton,2022
+102,113.431,-0.532,L3k4RldaOGRjdTR1ZUdQTkpJSGQ1QT09,Mineral Logam,Emas Primer,Logam Mulia,Focus 1,Gunung Mas,Kalimantan Tengah,Emas Primer Focus 1,45000000.0,0.0,Ton,2022
+103,114.036,-0.556,VmV6bWE3NVRUakJZaW9DVWFCRzFiQT09,Mineral Logam,Emas Primer,Logam Mulia,Bunga Desa,Kapuas,Kalimantan Tengah,Emas Primer Bunga Desa,12650000.0,0.0,Ton,2022
+104,114.04,-0.542,bVVxOE1mZ0JDYmJLRmp3WnhqeFc3dz09,Mineral Logam,Emas Primer,Logam Mulia,Batu Putih,Kapuas,Kalimantan Tengah,Emas Primer Batu Putih,607500.0,0.0,Ton,2022
+105,114.045,-0.548,MVNTS3djMk1TMjlxeEFCUEl5QUdjQT09,Mineral Logam,Emas Primer,Logam Mulia,Ongkang,Kapuas,Kalimantan Tengah,Emas Primer Ongkang,1461796.0,788546.0,Ton,2022
+106,114.053,-0.567,NUtwUXB3SXRwSXFTTVhhWmd6OXFvQT09,Mineral Logam,Emas Primer,Logam Mulia,Rina,Kapuas,Kalimantan Tengah,Emas Primer Rina,200000000.0,0.0,Ton,2022
+107,114.292,-0.653,TlJPNzloY3lnTDNhNkhrMlF4cjBLQT09,Mineral Logam,Emas Primer,Logam Mulia,Botol Tagepe,Murung Raya,Kalimantan Tengah,Emas Primer Botol Tagepe,20000.0,0.0,Ton,2022
+108,114.298,-0.662,amRzazBmbTdNRGFCeWFTZWdBUWRqdz09,Mineral Logam,Emas Primer,Logam Mulia,Icah,Murung Raya,Kalimantan Tengah,Emas Primer Icah,64000.0,0.0,Ton,2022
+109,114.308,-0.649,QjlVY0huU2NOMStSeUpDb09LaVZXZz09,Mineral Logam,Emas Primer,Logam Mulia,Sukang Curam,Murung Raya,Kalimantan Tengah,Emas Primer Sukang Curam,14000.0,0.0,Ton,2022
+110,114.385,-0.629,S05tUmpGZ0NKTzUyRHhVOUVQU00wUT09,Mineral Logam,Emas Primer,Logam Mulia,Gerantung,Murung Raya,Kalimantan Tengah,Emas Primer Gerantung,570000.0,0.0,Ton,2022
+111,114.349,-0.643,Q0llV3g2eVB3MnhlZzRiZFd2WC9kUT09,Mineral Logam,Emas Primer,Logam Mulia,Arong Maan Timur,Murung Raya,Kalimantan Tengah,Emas Primer Arong Maan Timur,75000.0,43000.0,Ton,2022
+112,114.308,-0.657,bDZFZmsxVHBjTnJRYmJxcS9FeXRvZz09,Mineral Logam,Emas Primer,Logam Mulia,Soan,Murung Raya,Kalimantan Tengah,Emas Primer Soan,775000.0,0.0,Ton,2022
+113,114.382,-0.633,eEE3NEVYcUVPNjhOY0NoZ3MvUlNBZz09,Mineral Logam,Emas Primer,Logam Mulia,Tasat Rabu,Murung Raya,Kalimantan Tengah,Emas Primer Tasat Rabu,634000.0,319000.0,Ton,2022
+114,114.422,-0.621,VzM2ZzZvbkZvcmhHQ2lBQXpnSHAzQT09,Mineral Logam,Emas Primer,Logam Mulia,Dua Lagi (Seruyan 11),Murung Raya,Kalimantan Tengah,Emas Primer Dua Lagi (Seruyan 11),49000.0,0.0,Ton,2022
+115,114.407,-0.623,V09Ma09tK0VlN3ZUZXdGdkRvS0VYQT09,Mineral Logam,Emas Primer,Logam Mulia,Jalan Bukit,Murung Raya,Kalimantan Tengah,Emas Primer Jalan Bukit,300000.0,53000.0,Ton,2022
+116,114.414,-0.647,QTltdnFOZ3U4aURJQTh0MHo1a0Q0QT09,Mineral Logam,Emas Primer,Logam Mulia,Anak Dua (Seruyan 6) dan Seruyan 7,Murung Raya,Kalimantan Tengah,Emas Primer Anak Dua (Seruyan 6) dan Seruyan 7,334000.0,69000.0,Ton,2022
+117,114.42,-0.669,dXFTUHFYdlFXSmo1MVpySTJlSGIvQT09,Mineral Logam,Emas Primer,Logam Mulia,Seruyan Central (Seruyan 2),Murung Raya,Kalimantan Tengah,Emas Primer Seruyan Central (Seruyan 2),2485000.0,199000.0,Ton,2022
+118,114.421,-0.662,a1J6Y29oY3lJeHJpQ3djVk1KZm5DZz09,Mineral Logam,Emas Primer,Logam Mulia,Seruyan 4,Murung Raya,Kalimantan Tengah,Emas Primer Seruyan 4,338000.0,0.0,Ton,2022
+119,114.475,-0.708,TEF3MXp2VVZYcEUzc2NNVXNua3Z5QT09,Mineral Logam,Emas Primer,Logam Mulia,Tewe Baru,Murung Raya,Kalimantan Tengah,Emas Primer Tewe Baru,5300000.0,1489000.0,Ton,2022
+120,114.483,-0.608,N1BZcWtsaTFIZXgxc014L2ZoM3lrUT09,Mineral Logam,Emas Primer,Logam Mulia,Langantihan,Murung Raya,Kalimantan Tengah,Emas Primer Langantihan,3750000.0,454000.0,Ton,2022
+121,114.392,-0.62,VVpCVkFaWHhubVdIMFlHZHR3YmFzQT09,Mineral Logam,Emas Primer,Logam Mulia,Bantian,Murung Raya,Kalimantan Tengah,Emas Primer Bantian,8477000.0,3315000.0,Ton,2022
+122,114.397,-0.611,cDJoY2hDOWwwaFpjMnZSMmxnUkd5UT09,Mineral Logam,Emas Primer,Logam Mulia,Hulubai,Murung Raya,Kalimantan Tengah,Emas Primer Hulubai,630000.0,0.0,Ton,2022
+123,114.401,-0.626,eFVaT3FmU2s3cENaZ0kxM3BKeTlYQT09,Mineral Logam,Emas Primer,Logam Mulia,Permata,Murung Raya,Kalimantan Tengah,Emas Primer Permata,590000.0,0.0,Ton,2022
+124,114.482,-0.626,S3Q5QnRoM1JXczVjMmlNRUNCT2dVZz09,Mineral Logam,Emas Primer,Logam Mulia,Kerikil,Murung Raya,Kalimantan Tengah,Emas Primer Kerikil,2987000.0,0.0,Ton,2022
+125,114.42,-0.634,Y1oremh6WUFoeW83ZTgvNzVxMVpDdz09,Mineral Logam,Emas Primer,Logam Mulia,Sinbar Sinter,Murung Raya,Kalimantan Tengah,Emas Primer Sinbar Sinter,1880000.0,0.0,Ton,2022
+126,115.19,-3.641,b0JubS9LemJxVXlxYzM5aXZ0Z05vUT09,Mineral Logam,Emas Primer,Logam Mulia,Sungai Keruh (Oksida),Tanah Laut,Kalimantan Selatan,Emas Primer Sungai Keruh (Oksida),761000.0,0.0,Ton,2022
+127,115.19,-3.641,R2FBMFFJdndPZkVtV2xPYzJkMk1KZz09,Mineral Logam,Emas Primer,Logam Mulia,Sungai Keruh (Primer),Tanah Laut,Kalimantan Selatan,Emas Primer Sungai Keruh (Primer),7068000.0,0.0,Ton,2022
+128,115.873,-2.56,NWhjM1BqTlYzbzNpcWZZZHNoRHNMUT09,Mineral Logam,Emas Primer,Logam Mulia,East Anjaluang,Kotabaru,Kalimantan Selatan,Emas Primer East Anjaluang,28000.0,0.0,Ton,2022
+129,115.876,-2.537,U3V2ZjNxWWd3c1ZHYWptWml3OE8vQT09,Mineral Logam,Emas Primer,Logam Mulia,Meunteu,Kotabaru,Kalimantan Selatan,Emas Primer Meunteu,6800000.0,0.0,Ton,2022
+130,115.884,-2.507,NElycVhzN21nYlRuREI0K0JUdDcxUT09,Mineral Logam,Emas Primer,Logam Mulia,Haraan,Kotabaru,Kalimantan Selatan,Emas Primer Haraan,3093028.0,1811000.0,Ton,2022
+131,115.915,-2.504,K1FYeURrbWlSVTl6N01mMFJLa2FiUT09,Mineral Logam,Emas Primer,Logam Mulia,Kembatang Kecil,Kotabaru,Kalimantan Selatan,Emas Primer Kembatang Kecil,4331021.0,3109000.0,Ton,2022
+132,115.902,-2.472,QmtuZUp3YURoNktIOGJZVVBLSnhVQT09,Mineral Logam,Emas Primer,Logam Mulia,Siwalang,Kotabaru,Kalimantan Selatan,Emas Primer Siwalang,431000.0,0.0,Ton,2022
+133,115.748,0.005,U1BJMTlrL3NzQVZ6TUZwbE1JOFppQT09,Mineral Logam,Emas Primer,Logam Mulia,Muyup,Kutai Barat,Kalimantan Timur,Emas Primer Muyup,300000000.0,0.0,Ton,2022
+134,119.12,-3.307,Y0dJVlR3WEdOZWpEUTk3V040UHQzUT09,Mineral Logam,Emas Primer,Logam Mulia,Sattoko,Polewali Mandar,Sulawesi Barat,Emas Primer Sattoko,0.0,0.0,Ton,2022
+135,120.118,-3.367,Yjk0TDEvbmRBRlNVUUV4S1k2aGwvdz09,Mineral Logam,Emas Primer,Logam Mulia,Awak Mas,Luwu,Sulawesi Selatan,Emas Primer Awak Mas,47140000.0,16400000.0,Ton,2022
+136,120.138,-3.372,bENxYk43SHhkbEljUy9QZ1NxVEVXZz09,Mineral Logam,Emas Primer,Logam Mulia,Salo Bulo,Luwu,Sulawesi Selatan,Emas Primer Salo Bulo,6100000.0,3800000.0,Ton,2022
+137,120.096,-3.297,QkNKeE1ZcnRzRTVMMlRZK1JXR3ZVZz09,Mineral Logam,Emas Primer,Logam Mulia,Tarra,Luwu,Sulawesi Selatan,Emas Primer Tarra,2300000.0,0.0,Ton,2022
+138,119.712,-3.005,eVdVcE9VZFdtc2Q1cmtpZmFyRHpTZz09,Mineral Logam,Emas Primer,Logam Mulia,Sassak,Tana Toraja,Sulawesi Selatan,Emas Primer Sassak,1360.0,0.0,Ton,2022
+139,119.949,-2.864,MzRLTWNwT1NEM0JIS1Jmc2V3YTBTdz09,Mineral Logam,Emas Primer,Logam Mulia,Sangkaropi,Toraja Utara,Sulawesi Selatan,Emas Primer Sangkaropi,2500000.0,0.0,Ton,2022
+140,119.93,-0.836,eXpFMjJQMlRHL3N6N01BcG5XWTh4Zz09,Mineral Logam,Emas Primer,Logam Mulia,Poboya,Kota Palu,Sulawesi Tengah,Emas Primer Poboya,9110000.0,4240000.0,Ton,2022
+141,121.786,0.963,RnZSQkQ5N01WamJaYjdwZjVIOWR4dz09,Mineral Logam,Emas Primer,Logam Mulia,Bulagidun B-Zone,Buol,Sulawesi Tengah,Emas Primer Bulagidun B-Zone,0.0,0.0,Ton,2022
+142,121.759,0.938,eXg5WEdId0JrNnljenRTZ3VPUWJlUT09,Mineral Logam,Emas Primer,Logam Mulia,Matinan,Buol,Sulawesi Tengah,Emas Primer Matinan,0.0,0.0,Ton,2022
+143,122.009,0.733,VzcwWThQQjZ6V3FWdGk1SElsT09iQT09,Mineral Logam,Emas Primer,Logam Mulia,Baganit,Pohuwato,Gorontalo,Emas Primer Baganit,50000000.0,0.0,Ton,2022
+144,122.496,0.958,MUt1OWJzTlVaMWpUdGpTOFlldHNldz09,Mineral Logam,Emas Primer,Logam Mulia,Tambang tua,Gorontalo Utara,Gorontalo,Emas Primer Tambang tua,0.0,2989202.0,Ton,2022
+145,122.5,0.957,SnhnQjBxQXZTcjNwU21hek1kcVdSUT09,Mineral Logam,Emas Primer,Logam Mulia,Kelapa Dua,Gorontalo Utara,Gorontalo,Emas Primer Kelapa Dua,0.0,6483348.0,Ton,2022
+146,122.504,0.956,U0k0NE1VZU5jZDhDTjZiZnpMbllrUT09,Mineral Logam,Emas Primer,Logam Mulia,Padengo I,Gorontalo Utara,Gorontalo,Emas Primer Padengo I,0.0,12010308.0,Ton,2022
+147,122.506,0.958,SnViNEVha1pWWnB1cnRJNC9UQ0Vtdz09,Mineral Logam,Emas Primer,Logam Mulia,Padengo II,Gorontalo Utara,Gorontalo,Emas Primer Padengo II,0.0,5268916.0,Ton,2022
+148,122.624,0.585,RmxieU93YVhZa3NacmJjN2NMMWVZQT09,Mineral Logam,Emas Primer,Logam Mulia,Gunung Mataputi,Boalemo,Gorontalo,Emas Primer Gunung Mataputi,9150000.0,0.0,Ton,2022
+149,122.526,0.615,VmpuRXBWbVFhNmNKelZxcWdHWTI3UT09,Mineral Logam,Emas Primer,Logam Mulia,Totopo,Boalemo,Gorontalo,Emas Primer Totopo,4000000.0,0.0,Ton,2022
+150,123.182,0.472,SytLYXlSWXo2MU9IZmNGMFB3ZmwyUT09,Mineral Logam,Emas Primer,Logam Mulia,Tulabolo,Bone Bolango,Gorontalo,Emas Primer Tulabolo,3500000.0,0.0,Ton,2022
+151,123.221,0.552,V0xBTjRLdWd3dGRaaGd5QkRNaTUrZz09,Mineral Logam,Emas Primer,Logam Mulia,Tapadaa,Bone Bolango,Gorontalo,Emas Primer Tapadaa,45000000.0,0.0,Ton,2022
+152,123.254,0.479,UDlFcncrQ1g0YmxWV1VuR3B5dW55dz09,Mineral Logam,Emas Primer,Logam Mulia,Motomboto North,Bone Bolango,Gorontalo,Emas Primer Motomboto North,3990000.0,0.0,Ton,2022
+153,123.351,0.446,NVRncG5LMVVzOW4reDVDa2NqZHZlQT09,Mineral Logam,Emas Primer,Logam Mulia,Sungai Mak,Bone Bolango,Gorontalo,Emas Primer Sungai Mak,173466623.0,105400000.0,Ton,2022
+154,123.311,0.439,OHhDQ3RhOFNGMXAzWWkzQzlZaEs0dz09,Mineral Logam,Emas Primer,Logam Mulia,Kayubulan,Bone Bolango,Gorontalo,Emas Primer Kayubulan,28150000.0,0.0,Ton,2022
+155,123.332,0.397,WFRqQTVaWkR4L25KR0c3TnhxUkQ1dz09,Mineral Logam,Emas Primer,Logam Mulia,Cabang Kiri (Tombulilato),Bone Bolango,Gorontalo,Emas Primer Cabang Kiri (Tombulilato),150950000.0,0.0,Ton,2022
+156,123.35,0.766,djMyTzNvSEJLenltUVIwZ0Fad01XUT09,Mineral Logam,Emas Primer,Logam Mulia,Bolangitang,Bolaang Mongondow Utara,Sulawesi Utara,Emas Primer Bolangitang,12400000.0,0.0,Ton,2022
+157,124.073,0.752,b2I5UGZWalk0Y3VNNzlyOGNsMGtUQT09,Mineral Logam,Emas Primer,Logam Mulia,Nibiong,Bolaang Mongondow,Sulawesi Utara,Emas Primer Nibiong,0.0,0.0,Ton,2022
+158,124.304523,0.564161,VGErWStOQllsNGtuZjBjTldVZzF5Zz09,Mineral Logam,Emas Primer,Logam Mulia,Durian (Bakan),Bolaang Mongondow Selatan,Sulawesi Utara,Emas Primer Durian (Bakan),12200000.0,0.0,Ton,2022
+159,124.321,0.584,RU1QcUZrZDAxWXdncEsraXhuSEUxdz09,Mineral Logam,Emas Primer,Logam Mulia,Osela (Bakan),Bolaang Mongondow,Sulawesi Utara,Emas Primer Osela (Bakan),6700000.0,2287791.0,Ton,2022
+160,124.455,0.672,SDM4S3NVMDJ4R2JBSEg5eFRGdHlTQT09,Mineral Logam,Emas Primer,Logam Mulia,Effendi Prospek,Bolaang Mongondow Timur,Sulawesi Utara,Emas Primer Effendi Prospek,3250000.0,1815730.0,Ton,2022
+161,124.461,0.67,V0JXQU1PT1F3K09aelYraEpvOVMyZz09,Mineral Logam,Emas Primer,Logam Mulia,Ayam Putih,Bolaang Mongondow Timur,Sulawesi Utara,Emas Primer Ayam Putih,0.0,0.0,Ton,2022
+162,124.472,0.671,NG9hNzFxVi94d2I2UXZzcFV0VDN1Zz09,Mineral Logam,Emas Primer,Logam Mulia,Talugon,Bolaang Mongondow Timur,Sulawesi Utara,Emas Primer Talugon,0.0,0.0,Ton,2022
+163,124.459,0.679,N3FNOXZ5MG1BUVozNnFoSzczcnNXUT09,Mineral Logam,Emas Primer,Logam Mulia,Riska (North Lanut),Bolaang Mongondow Timur,Sulawesi Utara,Emas Primer Riska (North Lanut),7500000.0,3483980.0,Ton,2022
+164,124.463,0.679,ZkpZNFF3WnZTcWFSYWoybTdFcXFiQT09,Mineral Logam,Emas Primer,Logam Mulia,Riska Beringin (North Lanut),Bolaang Mongondow Timur,Sulawesi Utara,Emas Primer Riska Beringin (North Lanut),0.0,0.0,Ton,2022
+165,124.501,0.646,Y2hoSE5PRWRUYVJ0Vi9iQS8yMUpFdz09,Mineral Logam,Emas Primer,Logam Mulia,Stockpile Bakan,Bolaang Mongondow Timur,Sulawesi Utara,Emas Primer Stockpile Bakan,0.0,729742.0,Ton,2022
+166,124.641,0.824,THJ0SW1LNldmLysvLzRwbnZKbG1SQT09,Mineral Logam,Emas Primer,Logam Mulia,Benteng (Doup),Bolaang Mongondow Timur,Sulawesi Utara,Emas Primer Benteng (Doup),44980000.0,22585437.0,Ton,2022
+167,124.643,0.826,bTVTMnFqeGpMNkFRRzdia3IzMnYydz09,Mineral Logam,Emas Primer,Logam Mulia,Panang (Doup),Bolaang Mongondow Timur,Sulawesi Utara,Emas Primer Panang (Doup),44320000.0,25214173.0,Ton,2022
+168,124.679,0.908,UUhvVE1HeEpraFA3c3lOditKcnpwUT09,Mineral Logam,Emas Primer,Logam Mulia,Limpoga,Minahasa Tenggara,Sulawesi Utara,Emas Primer Limpoga,3347500.0,495000.0,Ton,2022
+169,124.685,0.913,NTIyOW5vUHlTSVdHYWpBODVseTNjUT09,Mineral Logam,Emas Primer,Logam Mulia,Nona Hoa,Minahasa Tenggara,Sulawesi Utara,Emas Primer Nona Hoa,2415733.6,1992387.6,Ton,2022
+170,124.705,0.926,ZXV6bGduYWVQaXlvbHFzLzE0ZTRQZz09,Mineral Logam,Emas Primer,Logam Mulia,Buku,Minahasa Tenggara,Sulawesi Utara,Emas Primer Buku,0.0,0.0,Ton,2022
+171,124.697,0.955,MFZSbkswYnl6TzRTVjZmVytscUkwUT09,Mineral Logam,Emas Primer,Logam Mulia,Lobongan,Minahasa Tenggara,Sulawesi Utara,Emas Primer Lobongan,7913780.0,5719106.0,Ton,2022
+172,124.717,0.967,ekRUWHN1K2xuem5Zd1FuT25lN1drUT09,Mineral Logam,Emas Primer,Logam Mulia,Alason,Minahasa Tenggara,Sulawesi Utara,Emas Primer Alason,200000.0,0.0,Ton,2022
+173,124.772,0.971,VXQwS2JHcVB0RFdDQUdnZXJEeUZodz09,Mineral Logam,Emas Primer,Logam Mulia,Ratatotok,Minahasa Tenggara,Sulawesi Utara,Emas Primer Ratatotok,74000.0,74000.0,Ton,2022
+174,124.979,1.532,ZlJXUWkrNWRzQTM1VU1CdDVDMGJpZz09,Mineral Logam,Emas Primer,Logam Mulia,Bima,Minahasa Utara,Sulawesi Utara,Emas Primer Bima,1450000.0,0.0,Ton,2022
+175,125.088,1.615,YlRMUHNMOW1aOUhKMU9BY0FXR3VCQT09,Mineral Logam,Emas Primer,Logam Mulia,Toka Tindung,Minahasa Utara,Sulawesi Utara,Emas Primer Toka Tindung,20522000.0,9129000.0,Ton,2022
+176,125.125,1.549,SWs1UldQQlIyVEdpdEk4bnpHZzVxZz09,Mineral Logam,Emas Primer,Logam Mulia,Alaskar,Kota Bitung,Sulawesi Utara,Emas Primer Alaskar,973000.0,90000.0,Ton,2022
+177,125.106,1.565,LzdrclJnNzhFbTYwTlFlMkd5MlV3QT09,Mineral Logam,Emas Primer,Logam Mulia,Pajajaran,Kota Bitung,Sulawesi Utara,Emas Primer Pajajaran,1040000.0,0.0,Ton,2022
+178,125.114,1.563,WXNEQmZqT3pHVE9TSEVtcGlNVHpCQT09,Mineral Logam,Emas Primer,Logam Mulia,Araren South,Kota Bitung,Sulawesi Utara,Emas Primer Araren South,6783000.0,3540000.0,Ton,2022
+179,125.103,1.557,cEo5MnM2SzFLbHpiTEFXVGJaVWFUdz09,Mineral Logam,Emas Primer,Logam Mulia,Kopra 2,Kota Bitung,Sulawesi Utara,Emas Primer Kopra 2,4722000.0,840000.0,Ton,2022
+180,125.109,1.558,bEtzWjhIWjJrTE11cm5hMTUxclFMdz09,Mineral Logam,Emas Primer,Logam Mulia,Blambangan,Kota Bitung,Sulawesi Utara,Emas Primer Blambangan,995000.0,0.0,Ton,2022
+181,125.579,3.486,TkFjT25meCtJN1VYZlJ1MDl1NUo4UT09,Mineral Logam,Emas Primer,Logam Mulia,Bukit Dareng Bangka,Kepulauan Sangihe,Sulawesi Utara,Emas Primer Bukit Dareng Bangka,372000.0,0.0,Ton,2022
+182,125.654,3.423,aUJHejdxejh2TkRwbE82djFFNk9adz09,Mineral Logam,Emas Primer,Logam Mulia,Dareng Bangka - Bangele,Kepulauan Sangihe,Sulawesi Utara,Emas Primer Dareng Bangka - Bangele,2700000.0,0.0,Ton,2022
+183,125.648,3.488,TElaQTU2UVh5dHlSWjlpTFlMc0U2QT09,Mineral Logam,Emas Primer,Logam Mulia,Binebase,Kepulauan Sangihe,Sulawesi Utara,Emas Primer Binebase,3465100.0,850446.0,Ton,2022
+184,125.654,3.482,UXZVSjZHcEJ5WmFWUjZGa2I2RExRQT09,Mineral Logam,Emas Primer,Logam Mulia,Bawone,Kepulauan Sangihe,Sulawesi Utara,Emas Primer Bawone,2228600.0,0.0,Ton,2022
+185,127.695,1.138,WUZ0WS85cWY4SDZjb3VWajgzL0Yydz09,Mineral Logam,Emas Primer,Logam Mulia,Toguraci UG,Halmahera Utara,Maluku Utara,Emas Primer Toguraci UG,1215174.0,1295015.0,Ton,2022
+186,127.7,1.147,QmFMTUlNUmtFWUpXZHM3cmJ1cnpHUT09,Mineral Logam,Emas Primer,Logam Mulia,Gosowong,Halmahera Utara,Maluku Utara,Emas Primer Gosowong,673066.0758,473755.0,Ton,2022
+187,127.704,1.148,MTQ5QzNReUZxYjBRb3lsdWIxSmQxQT09,Mineral Logam,Emas Primer,Logam Mulia,Stockpile NHM,Halmahera Utara,Maluku Utara,Emas Primer Stockpile NHM,62991.0,0.0,Ton,2022
+188,127.701,1.138,V1VkV3FvT0oyN1hFcklNL01qd3V0dz09,Mineral Logam,Emas Primer,Logam Mulia,Kencana 2 dan Kencana Link,Halmahera Utara,Maluku Utara,Emas Primer Kencana 2 dan Kencana Link,1992662.0,1061174.0,Ton,2022
+189,127.703,1.139,UGZrbDR5alZLQXhiRkFodUdpUmZVZz09,Mineral Logam,Emas Primer,Logam Mulia,Kencana 1,Halmahera Utara,Maluku Utara,Emas Primer Kencana 1,163863.0,0.0,Ton,2022
+190,127.714,1.121,a1VBK09VdEE4RGRxQ2dKU3R4ZEUzQT09,Mineral Logam,Emas Primer,Logam Mulia,Tailing NHM,Halmahera Utara,Maluku Utara,Emas Primer Tailing NHM,2082510.0,1965715.0,Ton,2022
+191,127.675,1.14,VktKRHZPV09uNmR4QzJDQnBYYklyQT09,Mineral Logam,Emas Primer,Logam Mulia,Tobobo,Halmahera Utara,Maluku Utara,Emas Primer Tobobo,230000.0,0.0,Ton,2022
+192,127.456,-0.76,VzY0TkhKS3hRSEJFOFhkbzJjZDdsUT09,Mineral Logam,Emas Primer,Logam Mulia,Kaputusan,Halmahera Selatan,Maluku Utara,Emas Primer Kaputusan,115656250.0,0.0,Ton,2022
+193,127.772,-1.39,aGhJVzY1QUVOcW1yQk5WUVBqRU1SQT09,Mineral Logam,Emas Primer,Logam Mulia,Ambon - Anggai (Pulau Obi),Halmahera Selatan,Maluku Utara,Emas Primer Ambon - Anggai (Pulau Obi),6800000.0,0.0,Ton,2022
+194,128.608,-3.641,bWJuVGljV2tacm1aVUZRcFBTOVB2dz09,Mineral Logam,Emas Primer,Logam Mulia,Haruku,Maluku Tengah,Maluku,Emas Primer Haruku,610000.0,0.0,Ton,2022
+195,136.195,-3.824,MmhlZ0JOZElERWVKcHVhT1l5akZZQT09,Mineral Logam,Emas Primer,Logam Mulia,Komopa,Paniai,Papua,Emas Primer Komopa,300000000.0,0.0,Ton,2022
+196,136.996,-3.668,eE1SU3RxZVljdHYyaWwvQVhCa0xSZz09,Mineral Logam,Emas Primer,Logam Mulia,Wabu,Puncak Jaya,Papua,Emas Primer Wabu,117000000.0,0.0,Ton,2022
+197,137.111762,-4.054553,N0JOSW56Y0UvSzRyMkVjejhKaHAzZz09,Mineral Logam,Emas Primer,Logam Mulia,Grasberg open pit,Puncak Jaya,Papua,Emas Primer Grasberg open pit,0.0,0.0,Ton,2022
+198,137.11864,-4.051938,YTltWGp3bFNpeFFuK2VBK1Z2K3U3Zz09,Mineral Logam,Emas Primer,Logam Mulia,Grasberg stockpile,Puncak Jaya,Papua,Emas Primer Grasberg stockpile,0.0,0.0,Ton,2022
+199,137.117101,-4.063491,U2cwY0FyVExya1YwTVk2UFRkK2dZQT09,Mineral Logam,Emas Primer,Logam Mulia,Grasberg block cave 2800,Puncak Jaya,Papua,Emas Primer Grasberg block cave 2800,734167540.7908,874000000.0,Ton,2022
+200,137.118,-4.058,NlpPdVJoWWxvWW81NHJqVjlSOEJLQT09,Mineral Logam,Emas Primer,Logam Mulia,Grasberg block cave deep,Puncak Jaya,Papua,Emas Primer Grasberg block cave deep,0.0,0.0,Ton,2022
+201,137.111723,-4.065996,Y2JueXpYNzZDWVJkMmdkUHZYeGNVZz09,Mineral Logam,Emas Primer,Logam Mulia,Kucing Liar,Puncak Jaya,Papua,Emas Primer Kucing Liar,988894547.2902,351000000.0,Ton,2022
+202,137.134,-4.078,VlJ5VWhQY29GeDZSaUN1ZklCL285dz09,Mineral Logam,Emas Primer,Logam Mulia,Ertsberg Stockwork Zone,Puncak Jaya,Papua,Emas Primer Ertsberg Stockwork Zone,13753006.0,0.0,Ton,2022
+203,137.139336,-4.079074,Q1EyblF6MXp5ZGxGb1lRalRsTzE4UT09,Mineral Logam,Emas Primer,Logam Mulia,DOZ Block Cave,Puncak Jaya,Papua,Emas Primer DOZ Block Cave,224713395.831,8000000.0,Ton,2022
+204,137.142744,-4.082879,Q0RLZlU0V21DcVBCT1Z3V3NmRTAydz09,Mineral Logam,Emas Primer,Logam Mulia,Mill Level Zone Deep Block Cave,Puncak Jaya,Papua,Emas Primer Mill Level Zone Deep Block Cave,616038689.8601,439000000.0,Ton,2022
+205,137.113728,-4.081054,d2gwZklwQ2hLNDUwQ1NaTThSdjN0UT09,Mineral Logam,Emas Primer,Logam Mulia,Big Gossan,Puncak Jaya,Papua,Emas Primer Big Gossan,16409672.8689,53000000.0,Ton,2022
+206,136.882,-4.65,OWRjWVFDRjFDc01ES1JXdTk3NHBkZz09,Mineral Logam,Emas Primer,Logam Mulia,DOM block cave overdraw,Mimika,Papua,Emas Primer DOM block cave overdraw,0.0,0.0,Ton,2022
+207,136.878,-4.671,ejNmTjhHLzBOd3RsRTFGR2FrdXYzQT09,Mineral Logam,Emas Primer,Logam Mulia,DOM block cave,Mimika,Papua,Emas Primer DOM block cave,0.0,0.0,Ton,2022
+208,137.136,-4.087,enJLQTMvdzV1V1BQUzZENXh0K0pHUT09,Mineral Logam,Emas Primer,Logam Mulia,DOM open pit,Puncak Jaya,Papua,Emas Primer DOM open pit,61485567.5728,0.0,Ton,2022
+209,136.883,-4.661,Rm90bUkvRG1uK2gzU3RqVEcrM3NjQT09,Mineral Logam,Emas Primer,Logam Mulia,DOM open pit lower grade,Mimika,Papua,Emas Primer DOM open pit lower grade,9102000.0,0.0,Ton,2022
+210,140.522,-3.676,U1FHcTV0RllFWG1aUDk1Z25McVUzUT09,Mineral Logam,Emas Primer,Logam Mulia,Sua,Keerom,Papua,Emas Primer Sua,2600000.0,0.0,Ton,2022
+211,140.659,-3.737,ZzF6RG9uTmlUV0dkcDlTbmp4Vm1DZz09,Mineral Logam,Emas Primer,Logam Mulia,Bermol,Keerom,Papua,Emas Primer Bermol,1800000.0,0.0,Ton,2022
+212,140.649,-3.641,UXlueHRVcmdrOG5xc2FxZ0FHb3lBZz09,Mineral Logam,Emas Primer,Logam Mulia,Mafi,Keerom,Papua,Emas Primer Mafi,1000000.0,0.0,Ton,2022
+213,127.353067,-7.617772,SWJFRzh2c05Cckxxd28rQ0tPOXlHZz09,Mineral Logam,Emas Primer,Logam Mulia,Lakuwahi,Maluku Barat Daya,Maluku,Emas Primer Lakuwahi,81717000.0,5330000.0,Ton,2022
+214,117.533,-8.953,RnNuN21BMHl2bVRYeTJTUS9oZW5jdz09,Mineral Logam,Emas Primer,Logam Mulia,Pangulir (Z123),Sumbawa,Nusa Tenggara Barat,Emas Primer Pangulir (Z123),24200000.0,10400000.0,Ton,2022
+215,117.229,3.918,dWxmZGxmYVFXa3pxcFZCV0w3QWhqZz09,Mineral Logam,Emas Primer,Logam Mulia,Seruyung,Nunukan,Kalimantan Utara,Emas Primer Seruyung,17080934.0,3258993.0,Ton,2022
+216,110.875,-7.81,bVQveEpUSFcwc2p3ZXBXM091R3Bpdz09,Mineral Logam,Emas Primer,Logam Mulia,Randu Kuning,Wonogiri,Jawa Tengah,Emas Primer Randu Kuning,18100000.0,8600000.0,Ton,2022
+217,96.569,4.481,QTNwVWt4czVuc1hEdTR4ZGVIRjRiZz09,Mineral Logam,Emas Primer,Logam Mulia,Skarn (Beutong),Nagan Raya,Aceh,Emas Primer Skarn (Beutong),11300000.0,4500000.0,Ton,2022
+218,97.161,4.337,S0VPNU12TGpDc1hDekMwMkNKZThzZz09,Mineral Logam,Emas Primer,Logam Mulia,Abong,Aceh Tengah,Aceh,Emas Primer Abong,6810000.0,2320485.0,Ton,2022
+219,102.651,-2.859,dDhzSWxqL1Jxd3d1N3dic0U5dkNwdz09,Mineral Logam,Emas Primer,Logam Mulia,Siamang,Musi Rawas Utara,Sumatera Selatan,Emas Primer Siamang,278000.0,0.0,Ton,2022
+220,124.64,0.822,QXhQSnoxYTJDcW93QXQzOUNLYzk0UT09,Mineral Logam,Emas Primer,Logam Mulia,Tanoyan,Bolaang Mongondow Timur,Sulawesi Utara,Emas Primer Tanoyan,234007.0,0.0,Ton,2022
+221,123.309,0.436,NVJIdkZ4TDFFeXIvZ0FvK0wrOUhMQT09,Mineral Logam,Emas Primer,Logam Mulia,Motomboto East,Bone Bolango,Gorontalo,Emas Primer Motomboto East,6110000.0,0.0,Ton,2022
+222,113.47,-0.496,bXlEV1E3cU1LTEdIR1RUQnJTU3dxdz09,Mineral Logam,Emas Primer,Logam Mulia,Waterfall,Gunung Mas,Kalimantan Tengah,Emas Primer Waterfall,11500000.0,0.0,Ton,2022
+223,113.477,-0.501,SGdMVHFBTzROMWd6MVdOeEdoSG9rdz09,Mineral Logam,Emas Primer,Logam Mulia,Tokatoi,Gunung Mas,Kalimantan Tengah,Emas Primer Tokatoi,410000.0,0.0,Ton,2022
+224,113.214,-0.532,UlhHSG5oOHlRazdjN2VhdnAxSVZPdz09,Mineral Logam,Emas Primer,Logam Mulia,Sungai Mansur,Gunung Mas,Kalimantan Tengah,Emas Primer Sungai Mansur,3970000.0,0.0,Ton,2022
+225,117.378873,-8.959301,VVl3QkFUNFRwRERmREMrZ0pEVGJmUT09,Mineral Logam,Emas Primer,Logam Mulia,Elang,Sumbawa,Nusa Tenggara Barat,Emas Primer Elang,3096000000.0,0.0,Ton,2022
+226,107.133,-7.004,SW55bnhaTjZRUWtDT0RlV1NoY1JWUT09,Mineral Logam,Emas Primer,Logam Mulia,Gunung Rosa,Cianjur,Jawa Barat,Emas Primer Gunung Rosa,840000.0,144000.0,Ton,2022
+227,121.991,0.559,ZXltVzM4REI3SkxIL3JCMHUvVHpDUT09,Mineral Logam,Emas Primer,Logam Mulia,Ilota (Blok Pani),Pohuwato,Gorontalo,Emas Primer Ilota (Blok Pani),102120000.0,36884195.0,Ton,2022
+228,121.991,0.567,a2tGUW1vNFNXNVBucXZNaC81RzFCZz09,Mineral Logam,Emas Primer,Logam Mulia,Nanasi (Blok Pani),Pohuwato,Gorontalo,Emas Primer Nanasi (Blok Pani),0.0,0.0,Ton,2022
+229,102.666,-2.862,S3FSekJZbHVDcmRPOTd2Z2JPNnNLdz09,Mineral Logam,Emas Primer,Logam Mulia,Tembang Anang,Musi Rawas Utara,Sumatera Selatan,Emas Primer Tembang Anang,225000.0,63000.0,Ton,2022
+230,102.657,-2.867,ZTR5dGVIRmwrdi8yczhwa29PN3VUdz09,Mineral Logam,Emas Primer,Logam Mulia,Berenai,Musi Rawas Utara,Sumatera Selatan,Emas Primer Berenai,1998000.0,444000.0,Ton,2022
+231,102.674,-2.873,YVFCU1dodkdsdzRud1JEa3RRQXJFUT09,Mineral Logam,Emas Primer,Logam Mulia,Belinau (Underground),Musi Rawas Utara,Sumatera Selatan,Emas Primer Belinau (Underground),279000.0,387000.0,Ton,2022
+232,106.738,-6.985,N1NDdFFiMnVrQUlJUmJvYndHQlBKZz09,Mineral Logam,Emas Primer,Logam Mulia,Cijulang,Sukabumi,Jawa Barat,Emas Primer Cijulang,0.0,0.0,Ton,2022
+233,106.738,-6.985,a0x1eEgrSDYrRytrNUN1RTRDT3plQT09,Mineral Logam,Emas Primer,Logam Mulia,Cimandiri,Sukabumi,Jawa Barat,Emas Primer Cimandiri,0.0,0.0,Ton,2022
+234,114.039745,-8.614136,eDVBdHl2eG01c25nQUsycTRyd2dzdz09,Mineral Logam,Emas Primer,Logam Mulia,Pit A (Tumpangpitu),Banyuwangi,Jawa Timur,Emas Primer Pit A (Tumpangpitu),82100000.0,14756000.0,Ton,2022
+235,112.019,-2.248,WGJoYlh5YUZuaks3WEVnWmJTK0hWZz09,Mineral Logam,Emas Primer,Logam Mulia,Parit Cina,Kotawaringin Barat,Kalimantan Tengah,Emas Primer Parit Cina,671719.0,0.0,Ton,2022
+236,102.659,-2.863,eExyTFg0cjg3akFhS0NFa2ZUMENFQT09,Mineral Logam,Emas Primer,Logam Mulia,Asmar,Musi Rawas Utara,Sumatera Selatan,Emas Primer Asmar,3017000.0,644000.0,Ton,2022
+237,102.651,-2.859,ZG5oeW52ZDV1dnJqWFQ1QjlZdy9oUT09,Mineral Logam,Emas Primer,Logam Mulia,Buluh,Musi Rawas Utara,Sumatera Selatan,Emas Primer Buluh,27000.0,47000.0,Ton,2022
+238,106.550339,-7.182009,THpPTVY3UkVtZnBEbENpNUUwT2tDUT09,Mineral Logam,Emas Primer,Logam Mulia,Pasir Manggu (Prospek Ciemas),Sukabumi,Jawa Barat,Emas Primer Pasir Manggu (Prospek Ciemas),489000.0,587000.0,Ton,2022
+239,106.548471,-7.190505,MXRnaDI5SWd0OGlzVWV3R3VyZ0xVZz09,Mineral Logam,Emas Primer,Logam Mulia,Cikadu (Prospek Ciemas),Sukabumi,Jawa Barat,Emas Primer Cikadu (Prospek Ciemas),1036000.0,1008000.0,Ton,2022
+240,106.556741,-7.182392,SDJldUNjcTZlUDlITUVmL2V1b2doUT09,Mineral Logam,Emas Primer,Logam Mulia,Sekolah (Prospek Ciemas),Sukabumi,Jawa Barat,Emas Primer Sekolah (Prospek Ciemas),700000.0,679000.0,Ton,2022
+241,106.565557,-7.180938,eFJybnNsOTNlYXpvbm4wQWh0WFg4dz09,Mineral Logam,Emas Primer,Logam Mulia,Cibatu (Prospek Ciemas),Sukabumi,Jawa Barat,Emas Primer Cibatu (Prospek Ciemas),1036000.0,1008000.0,Ton,2022
+242,96.569,4.478,ZmIxNklha0lPdG8wclIwTTM2Yi9IZz09,Mineral Logam,Emas Primer,Logam Mulia,East and Outer East Porphyry (Beutong),Nagan Raya,Aceh,Emas Primer East and Outer East Porphyry (Beutong),161000000.0,48800000.0,Ton,2022
+243,102.667,-2.867,U25kY1RJbGNxbExDM0haTkU4MEdQZz09,Mineral Logam,Emas Primer,Logam Mulia,Bujang,Musi Rawas Utara,Sumatera Selatan,Emas Primer Bujang,276000.0,47000.0,Ton,2022
+244,114.332,-0.644,anR3Y1NSUHBpWi9WQ3dsOXUyYXMvdz09,Mineral Logam,Emas Primer,Logam Mulia,Luit Bawah,Murung Raya,Kalimantan Tengah,Emas Primer Luit Bawah,390000.0,0.0,Ton,2022
+245,116.982,3.225,RnBKME5JRXZ2MlBqNU83WWthOWJ6dz09,Mineral Logam,Emas Primer,Logam Mulia,Mewet,Bulungan,Kalimantan Utara,Emas Primer Mewet,2170000.0,370000.0,Ton,2022
+246,116.987,3.223,clh4WGE5NWhmZEJtcWV1cmlIWFREUT09,Mineral Logam,Emas Primer,Logam Mulia,Sembawang Balangan,Bulungan,Kalimantan Utara,Emas Primer Sembawang Balangan,770000.0,0.0,Ton,2022
+247,106.052,-6.647,YWVEL3dOVzdpY2F6bkE1a2RHS0xMZz09,Mineral Logam,Emas Primer,Logam Mulia,Cisadang Central,Lebak,Banten,Emas Primer Cisadang Central,44000000.0,11825783.0,Ton,2022
+248,106.03,-6.656,ZWtPZ3dGVFFwMWhvWUliVThUWDN5UT09,Mineral Logam,Emas Primer,Logam Mulia,Cisadang West,Lebak,Banten,Emas Primer Cisadang West,31300000.0,6614998.0,Ton,2022
+249,110.708,0.835,YnZtM2U5RVpVVmR0cjVkcnkyOEJtQT09,Mineral Logam,Emas Primer,Logam Mulia,Kebangelay,Sanggau,Kalimantan Barat,Emas Primer Kebangelay,10089.0,0.0,Ton,2022
+250,114.046444,-8.62625,NlRnaFljclQ1OUx5VjFHLy9rcG1Xdz09,Mineral Logam,Emas Primer,Logam Mulia,Pit B East (Tumpangpitu),Banyuwangi,Jawa Timur,Emas Primer Pit B East (Tumpangpitu),0.0,0.0,Ton,2022
+251,114.043282,-8.624893,UXJvdzJZTWRlNUZkcmhPVmR5TE5vdz09,Mineral Logam,Emas Primer,Logam Mulia,Pit B West (Tumpangpitu),Banyuwangi,Jawa Timur,Emas Primer Pit B West (Tumpangpitu),0.0,1520000.0,Ton,2022
+252,114.035952,-8.620088,V1N4eUQ1UzN0Ly9rYWlneDd6L2ZwQT09,Mineral Logam,Emas Primer,Logam Mulia,Pit C (Tumpangpitu),Banyuwangi,Jawa Timur,Emas Primer Pit C (Tumpangpitu),1784100000.0,15266000.0,Ton,2022
+253,114.043216,-8.619172,VGdEanpSbnJxcXFWaGUvV3RXcmJKQT09,Mineral Logam,Emas Primer,Logam Mulia,Pit E (Tumpangpitu),Banyuwangi,Jawa Timur,Emas Primer Pit E (Tumpangpitu),0.0,1029000.0,Ton,2022
+254,96.563,4.477,bGc3TTVzSTZaeno1eFFwdHRiUVc5dz09,Mineral Logam,Emas Primer,Logam Mulia,West and Outer West Porphyry (Beutong),Nagan Raya,Aceh,Emas Primer West and Outer West Porphyry (Beutong),332400000.0,0.0,Ton,2022
+255,111.655,-8.243,Z0RGMFhVMVhrMDFlTnBRVG9USGZnZz09,Mineral Logam,Emas Primer,Logam Mulia,West Sentul,Trenggalek,Jawa Timur,Emas Primer West Sentul,2368993.0,598010.26,Ton,2022
+256,111.66,-8.243,TllBaWw3YjBxbktlbk5RTE9vd2IwUT09,Mineral Logam,Emas Primer,Logam Mulia,East Sentul,Trenggalek,Jawa Timur,Emas Primer East Sentul,664688.0,92349.21,Ton,2022
+257,111.649,-8.24,OTZRNGp5Unk5RzNqZC9WRWh6NHBLQT09,Mineral Logam,Emas Primer,Logam Mulia,South Buluroto,Trenggalek,Jawa Timur,Emas Primer South Buluroto,621470.0,123180.11,Ton,2022
+258,106.543,-7.168,K0gzU0NwaEY5MldVQzZ2eVpXeVVndz09,Mineral Logam,Emas Primer,Logam Mulia,Cibak dan Cipancar,Sukabumi,Jawa Barat,Emas Primer Cibak dan Cipancar,1110000.0,0.0,Ton,2022
+259,101.917,-3.044,ajg4bTIvUTgvV2N3WW01Z2VMSksrZz09,Mineral Logam,Emas Primer,Logam Mulia,Lusang North,Bengkulu Utara,Bengkulu,Emas Primer Lusang North,1791123.0,1791123.0,Ton,2022
+260,97.259,4.057,VGthMFREY25HU3dCYzNpRnIvN3ZQdz09,Mineral Logam,Emas Primer,Logam Mulia,Tengkereng Hulu,Gayo Lues,Aceh,Emas Primer Tengkereng Hulu,264000000.0,0.0,Ton,2022
+261,102.749,-2.719,eWhaL29Zd1ExNXpQdGhaTnI3K3ZnZz09,Mineral Logam,Emas Primer,Logam Mulia,Pusan Bawah,Musi Rawas Utara,Sumatera Selatan,Emas Primer Pusan Bawah,2100000.0,0.0,Ton,2022
+262,110.499,-1.912,eGFMZnY4RkxHSWh4RVBVRjJSSFE0UT09,Mineral Logam,Emas Primer,Logam Mulia,Batu - Nanga Kelampay,Ketapang,Kalimantan Barat,Emas Primer Batu - Nanga Kelampay,7604113.4,7604113.4,Ton,2022
+263,109.188,1.223,QU8xaGZKYTFuVWRQVHd6Mi9GV2w1Zz09,Mineral Logam,Emas Primer,Logam Mulia,Kho San Poi (Buduk),Sambas,Kalimantan Barat,Emas Primer Kho San Poi (Buduk),650000.0,0.0,Ton,2022
+264,104.387,-5.203,aWFhbTBTLzlGZXAxdGt0UTFkTDNTdz09,Mineral Logam,Emas Primer,Logam Mulia,Prospek Talang Toha (Block Talang Cluster),Tanggamus,Lampung,Emas Primer Prospek Talang Toha (Block Talang Cluster),102400.0,0.0,Ton,2022
+265,104.387,-5.201,YVVUMllMclpVNU5Td1pSUmhHYk1Wdz09,Mineral Logam,Emas Primer,Logam Mulia,Prospek Talang Samin (Block Talang Cluster),Tanggamus,Lampung,Emas Primer Prospek Talang Samin (Block Talang Cluster),543900.0,0.0,Ton,2022
+266,104.408833,-5.296641,WERweW45YkVkUVpZZUhya3NRRWhwZz09,Mineral Logam,Emas Primer,Logam Mulia,Tailing Talang Topa,Tanggamus,Lampung,Emas Primer Tailing Talang Topa,636758.0,0.0,Ton,2022
+267,121.994,0.56,M2lWdHFJcW01VEVmSFA4VkVWbEd4QT09,Mineral Logam,Emas Primer,Logam Mulia,Gunung Pani,Pohuwato,Gorontalo,Emas Primer Gunung Pani,162110000.0,35800000.0,Ton,2022
+268,123.281,0.332,RFFrMjRmS3lnM3NZVnFhS3ZiNmJXQT09,Mineral Logam,Emas Primer,Logam Mulia,Urat Kiri,Bone Bolango,Gorontalo,Emas Primer Urat Kiri,44520.0,0.0,Ton,2022
+269,123.283,0.339,MWxuaGhka3NPK1VjUEQzbDZqYVRDUT09,Mineral Logam,Emas Primer,Logam Mulia,Urat Umum,Bone Bolango,Gorontalo,Emas Primer Urat Umum,90100.0,0.0,Ton,2022
+270,123.286,0.34,QnBGNmNveHhMRDJWZnFGRVNTTEJmUT09,Mineral Logam,Emas Primer,Logam Mulia,Urat Tengkorak,Bone Bolango,Gorontalo,Emas Primer Urat Tengkorak,50350.0,0.0,Ton,2022
+271,123.288,0.341,QXgvbmNmMVhESFNpYTBWbFF2OXVHdz09,Mineral Logam,Emas Primer,Logam Mulia,Urat Beringin,Bone Bolango,Gorontalo,Emas Primer Urat Beringin,92750.0,0.0,Ton,2022
+272,123.285,0.336,cGZCUVA4cjd0ejBDRmZMWEIwRzQvQT09,Mineral Logam,Emas Primer,Logam Mulia,Urat Mundur,Bone Bolango,Gorontalo,Emas Primer Urat Mundur,43725.0,0.0,Ton,2022
+273,117.9,-8.741,TlE1Wkg4QnF6LzE2bjVjVUppWWQvZz09,Mineral Logam,Emas Primer,Logam Mulia,Teluk Santong dan Olat Tanah Merah,Sumbawa,Nusa Tenggara Barat,Emas Primer Teluk Santong dan Olat Tanah Merah,230000.0,0.0,Ton,2022
+274,118.483,-8.834,UTRzWHNCTzU1YVNWQS9CVXRVQjVzQT09,Mineral Logam,Emas Primer,Logam Mulia,Humpaleu East,Bima,Nusa Tenggara Barat,Emas Primer Humpaleu East,257000000.0,0.0,Ton,2022
+275,127.056,-3.418,dkUwNnp6K2RsbndoSTlxY25qR2VWQT09,Mineral Logam,Emas Primer,Logam Mulia,Gunung Botak,Buru,Maluku,Emas Primer Gunung Botak,5.7,0.0,Ton,2022
+276,127.0,-3.308,dnkzQ0Q4NDFqS3NsMGtyd3JNaHcwQT09,Mineral Logam,Emas Primer,Logam Mulia,Gogrea,Buru,Maluku,Emas Primer Gogrea,4.4,0.0,Ton,2022
+277,121.903,-4.654,eG9oZVVHSTBlYnJYZS93SDBaZ2k2dz09,Mineral Logam,Emas Primer,Logam Mulia,Talibu-Mataair,Bombana,Sulawesi Tenggara,Emas Primer Talibu-Mataair,539750.0,0.0,Ton,2022
+278,121.899,-4.656,aXd2ekZvMTFaRnNFd0NRTXhTM3p4dz09,Mineral Logam,Emas Primer,Logam Mulia,Talibu-Goa Kelelawar,Bombana,Sulawesi Tenggara,Emas Primer Talibu-Goa Kelelawar,507000.0,0.0,Ton,2022
+279,115.984,-8.83,RFJHREpqaUtnSE9CUnRtWjFPR1kzUT09,Mineral Logam,Emas Primer,Logam Mulia,Bising,Lombok Barat,Nusa Tenggara Barat,Emas Primer Bising,6908000.0,0.0,Ton,2022
+280,115.989,-8.821,c1JMeWNVYk1Xd2ZDbU4vc1pTcVFYdz09,Mineral Logam,Emas Primer,Logam Mulia,Tibu Sirai,Lombok Barat,Nusa Tenggara Barat,Emas Primer Tibu Sirai,977000.0,0.0,Ton,2022
+281,116.008,-8.854,WU5kWjUzTWlhUG1FWXdMQTJ0cy9IQT09,Mineral Logam,Emas Primer,Logam Mulia,Selodong,Lombok Barat,Nusa Tenggara Barat,Emas Primer Selodong,66750000.0,0.0,Ton,2022
+282,125.102,1.606,bFc5K1Zicm5kMlNCM3NYdytMcXU1QT09,Mineral Logam,Emas Primer,Logam Mulia,Marawuwung,Minahasa Utara,Sulawesi Utara,Emas Primer Marawuwung,6800000.0,0.0,Ton,2022
+283,113.416,-0.6,U2ltb2ZIWnpBSlUyenl0OTRHUmVPUT09,Mineral Logam,Emas Primer,Logam Mulia,Beruang Kanan Zinc (BKZ),Gunung Mas,Kalimantan Tengah,Emas Primer Beruang Kanan Zinc (BKZ),1340000.0,0.0,Ton,2022
+284,125.094,1.564,UC9NQzBHbkFrT1dIWGRPOWpPem15UT09,Mineral Logam,Emas Primer,Logam Mulia,Kopra 4 South,Kota Bitung,Sulawesi Utara,Emas Primer Kopra 4 South,3181000.0,0.0,Ton,2022
+285,125.112,1.565,SndnSStnd1ZnRGJrQWR2bEI5QnFSUT09,Mineral Logam,Emas Primer,Logam Mulia,Stockpile TTN,Kota Bitung,Sulawesi Utara,Emas Primer Stockpile TTN,0.0,110000.0,Ton,2022
+286,119.911,-9.623,YVNRbEZ1NC9RV25rbWp2RlNOTEwrZz09,Mineral Logam,Emas Primer,Logam Mulia,Karipi,Sumba Timur,Nusa Tenggara Timur,Emas Primer Karipi,1655115.0,0.0,Ton,2022
+287,124.576,0.821,Q0VYMWJ4MmsvSkNySmt6YUlnMFp2UT09,Mineral Logam,Emas Primer,Logam Mulia,Bolmong Timur Zona Timur,Bolaang Mongondow Timur,Sulawesi Utara,Emas Primer Bolmong Timur Zona Timur,1647000.0,0.0,Ton,2022
+288,124.539,0.814,MXVaVjJOcUh4NTk1TUZvbGJidGNPdz09,Mineral Logam,Emas Primer,Logam Mulia,Pani,Bolaang Mongondow Timur,Sulawesi Utara,Emas Primer Pani,88000.0,0.0,Ton,2022
+289,127.693,1.134,MVFQMkdyNlU4TjY4RmREM0h3dDNUUT09,Mineral Logam,Emas Primer,Logam Mulia,Wokala,Halmahera Utara,Maluku Utara,Emas Primer Wokala,1326.0,0.0,Ton,2022
+290,127.707,1.133,SjJVczYyQzFHV3NBUEJabkJqRDhLdz09,Mineral Logam,Emas Primer,Logam Mulia,T Fault,Halmahera Utara,Maluku Utara,Emas Primer T Fault,78598.0,0.0,Ton,2022
+291,96.028,4.918,UU0zMmRrUDFOUU9rVk8rLzQ5d3hPQT09,Mineral Logam,Emas Primer,Logam Mulia,Mane,Pidie,Aceh,Emas Primer Mane,46096286.0,42790000.0,Ton,2022
+292,96.038,4.504,eWRqR0FSSTVRTVUwd0cwTGpkOG1wZz09,Mineral Logam,Emas Primer,Logam Mulia,Sakoy,Aceh Barat,Aceh,Emas Primer Sakoy,5504.889,5.85,Ton,2022
+293,96.583,4.787,WWRPT1BnaDJNUzA4VmhQcThsSG9rZz09,Mineral Logam,Emas Primer,Logam Mulia,Karangampar,Aceh Tengah,Aceh,Emas Primer Karangampar,50000.0,0.0,Ton,2022
+294,99.888,0.346,YjN0alpTd1A2T3MrcmFoUnU0QUZ3UT09,Mineral Logam,Emas Primer,Logam Mulia,Simpang Tonang dan Cubadak,Pasaman Barat,Sumatera Barat,Emas Primer Simpang Tonang dan Cubadak,5204750.0,6482750.0,Ton,2022
+295,100.625,-1.316,V0orNDVZaGI0bkVubkR6QjAzSWlsUT09,Mineral Logam,Emas Primer,Logam Mulia,Nagari Salido Tambang,Pesisir Selatan,Sumatera Barat,Emas Primer Nagari Salido Tambang,421500.0,203400.0,Ton,2022
+296,104.515929,-4.675937,QjFNL1Z4bjJzbmcwd3BxMzE3SVFRUT09,Mineral Logam,Emas Primer,Logam Mulia,Bukit Jambi,Way Kanan,Lampung,Emas Primer Bukit Jambi,9400000.0,5300000.0,Ton,2022
+297,107.353,-6.599,cnBYOWtOSlpQemdTZG5DT3QydVFZQT09,Mineral Logam,Emas Primer,Logam Mulia,Sindanglaya,Purwakarta,Jawa Barat,Emas Primer Sindanglaya,1547700.0,1238160.0,Ton,2022
+298,109.399,0.914,cVlaNG9nbFlGMEdJRWxNT1d2anUvUT09,Mineral Logam,Emas Primer,Logam Mulia,Tiga Berkat,Bengkayang,Kalimantan Barat,Emas Primer Tiga Berkat,0.0,10.5002,Ton,2022
+299,110.689,0.823,T1BYYURzbU9SRExTM1dLMnN5b1BCdz09,Mineral Logam,Emas Primer,Logam Mulia,Malenggang,Sanggau,Kalimantan Barat,Emas Primer Malenggang,2.493,2.49,Ton,2022
+300,111.14338,-0.362578,RGo4eUQ2NDJTWUpPOExTS0pXN2RZUT09,Mineral Logam,Emas Primer,Logam Mulia,Bemayau,Sintang,Kalimantan Barat,Emas Primer Bemayau,1115650.76,875650.76,Ton,2022
+301,111.145,-0.24,QjkwOWFkT2hwMklEOHpsZTNtd0hTUT09,Mineral Logam,Emas Primer,Logam Mulia,Sirang Setabang,Sintang,Kalimantan Barat,Emas Primer Sirang Setabang,8.155,0.0,Ton,2022
+302,114.559,-0.553,cVBycmhrZmxhb1hZdW5kajFaM3JoZz09,Mineral Logam,Emas Primer,Logam Mulia,Olung Siron,Murung Raya,Kalimantan Tengah,Emas Primer Olung Siron,3595800.0,0.0,Ton,2022
+303,114.212,-0.257,UXNBTlIwZVZtSlBBN1YvTDQxWkVLdz09,Mineral Logam,Emas Primer,Logam Mulia,Takajung,Murung Raya,Kalimantan Tengah,Emas Primer Takajung,1829.22,0.0,Ton,2022
+304,113.627,-0.579,WG1KUHVJa1g1c3RDTkd0dWNoZFQ4QT09,Mineral Logam,Emas Primer,Logam Mulia,Rangan Hiran dan Harowu,Gunung Mas,Kalimantan Tengah,Emas Primer Rangan Hiran dan Harowu,0.0,2020000.0,Ton,2022
+305,124.319,0.579,RW1ReFJ2dW1TMTRjVEJSWkh1ZHJDZz09,Mineral Logam,Emas Primer,Logam Mulia,South Osela (Bakan),Bolaang Mongondow Selatan,Sulawesi Utara,Emas Primer South Osela (Bakan),1800000.0,0.0,Ton,2022
+306,124.3,0.571,STU5Q0NUTEREU1RMTU4wMXdIYkxkUT09,Mineral Logam,Emas Primer,Logam Mulia,Main Ridge,Bolaang Mongondow,Sulawesi Utara,Emas Primer Main Ridge,35800000.0,10566454.0,Ton,2022
+307,124.296,0.565,VDNBRTMzMGwrRUZIYTBMaU4wK0tuZz09,Mineral Logam,Emas Primer,Logam Mulia,Camp Site,Bolaang Mongondow,Sulawesi Utara,Emas Primer Camp Site,15700000.0,4109318.0,Ton,2022
+308,102.847,-4.17,eXBqN3pPbWVsVG15QnJKQnRCMkh4UT09,Mineral Logam,Emas Primer,Logam Mulia,Kayu Elang,Seluma,Bengkulu,Emas Primer Kayu Elang,51000000.0,0.0,Ton,2022
+309,127.723,-1.395,NXNxNzVkR2FGdWVaa3pIbGx3eWV0UT09,Mineral Logam,Emas Primer,Logam Mulia,Sambiki,Halmahera Selatan,Maluku Utara,Emas Primer Sambiki,28014091.0,0.0,Ton,2022
+310,127.765,1.864,SDJPNkliMVJiZzZKcFFpYlNoSjJ6dz09,Mineral Logam,Emas Primer,Logam Mulia,Roko,Halmahera Utara,Maluku Utara,Emas Primer Roko,1930000.0,786200.0,Ton,2022
+311,127.542,-0.35,TUw2c05WQmFsSU50c2hCM0M3dXNLQT09,Mineral Logam,Emas Primer,Logam Mulia,Jojaro,Halmahera Selatan,Maluku Utara,Emas Primer Jojaro,5875267.3,0.0,Ton,2022
+312,127.50312,-0.429441,WTdBVHVJZVpSMURva1EwZzFRM3VpUT09,Mineral Logam,Emas Primer,Logam Mulia,Yaba,Halmahera Selatan,Maluku Utara,Emas Primer Yaba,2080444.0,2080444.0,Ton,2022
+313,127.862,-0.797,RDNDc0lKZmtFN0lYTEgyRzhzeUw5dz09,Mineral Logam,Emas Primer,Logam Mulia,Pigaraja,Halmahera Selatan,Maluku Utara,Emas Primer Pigaraja,215050.0,0.0,Ton,2022
+314,127.801,-0.799,VDNuU1JBV2ZwMDkvRXRuZkNtSHEyUT09,Mineral Logam,Emas Primer,Logam Mulia,Sungai Dayat,Halmahera Selatan,Maluku Utara,Emas Primer Sungai Dayat,71392000.0,0.0,Ton,2022
+315,127.863,-0.822,WnBVbjZERnd1R3JCYmhqbDg5VDhXUT09,Mineral Logam,Emas Primer,Logam Mulia,Lumpang,Halmahera Selatan,Maluku Utara,Emas Primer Lumpang,18540.0,0.0,Ton,2022
+316,127.858,-0.791,S2swaEVxR0lPUWdXTEVXbklpRU4wQT09,Mineral Logam,Emas Primer,Logam Mulia,Semarang,Halmahera Selatan,Maluku Utara,Emas Primer Semarang,6500.0,0.0,Ton,2022
+317,117.396,-8.794,cWhNN2c4YncwQnJVQzhDR05yT09RQT09,Mineral Logam,Emas Primer,Logam Mulia,Lantung,Sumbawa,Nusa Tenggara Barat,Emas Primer Lantung,17082917.0,3582833.5,Ton,2022
+318,116.862,-8.754,Z1FvTHJDQ1p5cy9hd3NIQ2p2WnpTUT09,Mineral Logam,Emas Primer,Logam Mulia,Lemonga Barat,Sumbawa Barat,Nusa Tenggara Barat,Emas Primer Lemonga Barat,4935554.0,2267666.0,Ton,2022
+319,116.904,-8.678,OVNJZXh3MkE5K1NHN3hoVnNWMzFKUT09,Mineral Logam,Emas Primer,Logam Mulia,Lemonga Timur,Sumbawa Barat,Nusa Tenggara Barat,Emas Primer Lemonga Timur,4875000.0,2136225.0,Ton,2022
+320,116.865,-8.856,V2FxQ2h2MENqRkpGMDdFRTFManY0QT09,Mineral Logam,Emas Primer,Logam Mulia,Seloto-Lemuntet,Sumbawa Barat,Nusa Tenggara Barat,Emas Primer Seloto-Lemuntet,8125000.0,2700000.0,Ton,2022
+321,116.8,-8.714,SXpvNitZaUZlbi9ESXpLZTBWVldCdz09,Mineral Logam,Emas Primer,Logam Mulia,Jereweh,Sumbawa Barat,Nusa Tenggara Barat,Emas Primer Jereweh,799954.0,347966.0,Ton,2022
+322,115.901578,-8.782274,MkEveWR6SXhJSEptSGVkblNab3lTQT09,Mineral Logam,Emas Primer,Logam Mulia,Brambang,Lombok Barat,Nusa Tenggara Barat,Emas Primer Brambang,242884661.0,0.0,Ton,2022
+323,115.923025,-8.784395,UTdmeWp1Yk02S1NySm42V2l2RCthZz09,Mineral Logam,Emas Primer,Logam Mulia,Permula,Lombok Barat,Nusa Tenggara Barat,Emas Primer Permula,158219947.0,0.0,Ton,2022
+324,124.651,0.889,RnFLMTc5WXlGazZpYWJOQ0ZNNkhFdz09,Mineral Logam,Emas Primer,Logam Mulia,Yance,Minahasa Tenggara,Sulawesi Utara,Emas Primer Yance,5002547.0,1259071.0,Ton,2022
+325,124.568,1.054,cjdneHRWcjZXdk1JSUVpVVZFNWYxZz09,Mineral Logam,Emas Primer,Logam Mulia,Prospek Areef,Minahasa Tenggara,Sulawesi Utara,Emas Primer Prospek Areef,1056389.0,369737.0,Ton,2022
+326,124.57,1.106,OXVPSHVaQXhFL2NlbVBYcW5VOGFzUT09,Mineral Logam,Emas Primer,Logam Mulia,Karimbow,Minahasa Selatan,Sulawesi Utara,Emas Primer Karimbow,1717046.0,1178243.0,Ton,2022
+327,113.647,-1.08,TUpRMVNHSU42Qi9hb0NuMWZyODlQUT09,Mineral Logam,Emas Primer,Logam Mulia,Tumbang Pajangei,Gunung Mas,Kalimantan Tengah,Emas Primer Tumbang Pajangei,9517868.0,1831178.0,Ton,2022
+328,115.220158,0.708941,T004U1lJU2xDSk1HTm5KaGg5V05sdz09,Mineral Logam,Emas Primer,Logam Mulia,Long Bagun Ulu,Mahakam Ulu,Kalimantan Timur,Emas Primer Long Bagun Ulu,15.0,15.0,Ton,2022
+329,106.349,-6.824,MVBXQmpwZkVIQ3d6MVVqRjVBR291QT09,Mineral Logam,Emas Primer,Logam Mulia,Neglasari,Lebak,Banten,Emas Primer Neglasari,10298245.0,6367617.0,Ton,2022
+330,106.273,-6.833,WTN5Nk9UbHgxU1M0emhtWmZzeFMwUT09,Mineral Logam,Emas Primer,Logam Mulia,Cadas Gantung,Lebak,Banten,Emas Primer Cadas Gantung,150000000.0,0.0,Ton,2022
+331,106.18,-6.824,Rm9jQ0hOOHY4ZWQ0ZE9xajhnaklQdz09,Mineral Logam,Emas Primer,Logam Mulia,Mekarsari,Lebak,Banten,Emas Primer Mekarsari,0.0,1113000.0,Ton,2022
+332,106.431,-6.813,VzRvb0tLUCs0QndBOWFEOElGbDNUQT09,Mineral Logam,Emas Primer,Logam Mulia,Girimukti,Lebak,Banten,Emas Primer Girimukti,0.0,168000000.0,Ton,2022
+333,106.341,-6.858,cExleHp1SzdQUExtNmVSNzBMMmxMUT09,Mineral Logam,Emas Primer,Logam Mulia,Cidikit,Lebak,Banten,Emas Primer Cidikit,624000000.0,54864000.0,Ton,2022
+334,106.347,-6.791,QUxGejNoOXVQaUl0SnlkN3lIL21pQT09,Mineral Logam,Emas Primer,Logam Mulia,Hegarmanah,Lebak,Banten,Emas Primer Hegarmanah,0.0,93750000.0,Ton,2022
+335,120.288,-2.13,UjA1cWZhYVMrdDdseGFsSGJwYmJaUT09,Mineral Logam,Emas Primer,Logam Mulia,Onondwoa,Luwu Utara,Sulawesi Selatan,Emas Primer Onondwoa,650349452.0,244913445.0,Ton,2022
+336,135.821,-4.365,Wm1JMjNxSmlJWDhUNUJQWksycDcvZz09,Mineral Logam,Emas Primer,Logam Mulia,Blok Kipia,Mimika,Papua,Emas Primer Blok Kipia,933.991,0.0,Ton,2022
+337,136.023,-4.367,VTgwN1FEYmpEQ1pjV0NvL3lxKzJPZz09,Mineral Logam,Emas Primer,Logam Mulia,Blok Kapiraya Wakia,Mimika,Papua,Emas Primer Blok Kapiraya Wakia,14425423.218,0.0,Ton,2022
+338,122.542,0.801,M290djFDTjlENisxUEFFR1d5Y3lQQT09,Mineral Logam,Emas Primer,Logam Mulia,Lomoli,Gorontalo,Gorontalo,Emas Primer Lomoli,29400000.0,0.0,Ton,2022
+339,122.59,0.785,OVMyU1BNekVBVDFvWHFka0NzZEhsdz09,Mineral Logam,Emas Primer,Logam Mulia,Bongo-Serayu,Gorontalo,Gorontalo,Emas Primer Bongo-Serayu,76720000.0,0.0,Ton,2022
+340,122.571,0.794,N09mbWlCTWJHOFpIVGdHbWt4L0FhZz09,Mineral Logam,Emas Primer,Logam Mulia,Moholu,Gorontalo,Gorontalo,Emas Primer Moholu,3500000.0,0.0,Ton,2022
+341,123.424,0.344,YVNNdHhzSm0vZE5NOFVuNUp4SmJmdz09,Mineral Logam,Emas Primer,Logam Mulia,Sogitia,Bone Bolango,Gorontalo,Emas Primer Sogitia,65500000.0,0.0,Ton,2022
+342,110.724,0.564,VThhcFRkZXdVOWo3M2VkTkp3QnJqUT09,Mineral Logam,Emas Primer,Logam Mulia,Empiyang,Sanggau,Kalimantan Barat,Emas Primer Empiyang,17.9,0.0,Ton,2022
+343,109.106,0.658,NFRONkJ2Ky9uWXlSaDczQ2puY015UT09,Mineral Logam,Emas Primer,Logam Mulia,Serindu,Bengkayang,Kalimantan Barat,Emas Primer Serindu,0.0,780.1036,Ton,2022
+344,109.182,0.761,Vi9meFBGMmo1b1BCTzR4Z0c5Umd4QT09,Mineral Logam,Emas Primer,Logam Mulia,Benawa Bakti,Bengkayang,Kalimantan Barat,Emas Primer Benawa Bakti,0.0,0.8496,Ton,2022
+345,110.332,0.905,aXpJSFhyNDNDeDhyQ2tGdFpJbXFsUT09,Mineral Logam,Emas Primer,Logam Mulia,Senyang,Sanggau,Kalimantan Barat,Emas Primer Senyang,0.0,5.59,Ton,2022
+346,110.617,-1.155,eU1yYzVqT3h3c1ZjK0VPd3ZtWmtWQT09,Mineral Logam,Emas Primer,Logam Mulia,Muara Jekak,Ketapang,Kalimantan Barat,Emas Primer Muara Jekak,6207063.03,3844033.53,Ton,2022
+347,110.685,0.83,THZyRFZuTzFZeTJ6SUxmcVZPVWRiQT09,Mineral Logam,Emas Primer,Logam Mulia,Malenggang 1,Sanggau,Kalimantan Barat,Emas Primer Malenggang 1,875236.0,327288.0,Ton,2022
+348,105.062,-5.673,QnhpSXJOMXZMK2d6bWVYd3lWbHNDdz09,Mineral Logam,Emas Primer,Logam Mulia,Pekon Sidoharjo,Tanggamus,Lampung,Emas Primer Pekon Sidoharjo,153037.0,2.0277,Ton,2022
+349,99.827,0.624,UFFkQ1c4ZlZiQS9jZXFSKytoSzY2Zz09,Mineral Logam,Emas Primer,Logam Mulia,Muaro Botung,Mandailing Natal,Sumatera Utara,Emas Primer Muaro Botung,28763975.0,7223930.0,Ton,2022
+350,127.686028,1.83118,Ui9rYkdRcy9CNW1JWHFnR3J4WHBTQT09,Mineral Logam,Emas Primer,Logam Mulia,Dokodokoto,Halmahera Barat,Maluku Utara,Emas Primer Dokodokoto,5045000.0,1322510.0,Ton,2022
+351,124.557,1.093,U2loSzQySVhkOEI1TkE5anNjNzF2UT09,Mineral Logam,Emas Primer,Logam Mulia,Tokin,Minahasa Selatan,Sulawesi Utara,Emas Primer Tokin,333949.0,481126.0,Ton,2022
+352,124.548,1.066,SENTTmxZOXVONklGOUM5d2QvdTM5UT09,Mineral Logam,Emas Primer,Logam Mulia,Picuan,Minahasa Selatan,Sulawesi Utara,Emas Primer Picuan,1720682.0,519053.0,Ton,2022
+353,124.66,0.896,ck9ZVUhEZnFyd2VoQitnejZmSnVuQT09,Mineral Logam,Emas Primer,Logam Mulia,Leon,Minahasa Tenggara,Sulawesi Utara,Emas Primer Leon,3432500.0,731979.0,Ton,2022
+354,116.989,3.227,ZnRGZTh1YzA4MW1LcHFkQUlEUWFoQT09,Mineral Logam,Emas Primer,Logam Mulia,Nyabi/Adau,Bulungan,Kalimantan Utara,Emas Primer Nyabi/Adau,410000.0,0.0,Ton,2022
+355,116.985,3.227,Ni9RTnNDU2VUYjJON1R1WEI1NGEvQT09,Mineral Logam,Emas Primer,Logam Mulia,Lipan,Bulungan,Kalimantan Utara,Emas Primer Lipan,210000.0,0.0,Ton,2022
+356,117.543,-8.955,MmRUMU9LcnV2c1pLS3FHeWVjcDhyUT09,Mineral Logam,Emas Primer,Logam Mulia,Sebunga,Sumbawa,Nusa Tenggara Barat,Emas Primer Sebunga,3189808.0,1449253.0,Ton,2022
+357,117.531,-8.96,TUlYcFFUczRYSHRERzJFVXhGaENhZz09,Mineral Logam,Emas Primer,Logam Mulia,Rambo Joe,Sumbawa,Nusa Tenggara Barat,Emas Primer Rambo Joe,1940687.0,1203205.0,Ton,2022
+358,97.322,3.199,dlQ4T2JyRHU5SUZ0bHV0bTNSUExYUT09,Mineral Logam,Emas Primer,Logam Mulia,Pala-Jelatang,Aceh Selatan,Aceh,Emas Primer Pala-Jelatang,523408.0,523408.0,Ton,2022
+359,119.504,-2.5,Mk84VDFCV1JIbEU5R0krU29iNkpOQT09,Mineral Logam,Emas Primer,Logam Mulia,Karataun,Mamuju,Sulawesi Barat,Emas Primer Karataun,0.0,3278429.0,Ton,2022
+360,106.386,-6.888,c3lnYjBWU0IrbjBjYVMrdHV2c0JmQT09,Mineral Logam,Emas Primer,Logam Mulia,Cijengkol,Lebak,Banten,Emas Primer Cijengkol,0.0,95000.0,Ton,2022
+361,122.776,0.842,NjVzeFZjbEFqWlpKYnJ4bGpZYVVHZz09,Mineral Logam,Emas Primer,Logam Mulia,Ilangata,Gorontalo Utara,Gorontalo,Emas Primer Ilangata,2415431.0,0.0,Ton,2022
+362,105.046,-5.541,MEFtWi9Ta3V4elE3NnVvQjdSakVOZz09,Mineral Logam,Emas Primer,Logam Mulia,Gunung Rejo,Pesawaran,Lampung,Emas Primer Gunung Rejo,2808000.0,0.0,Ton,2022
+363,125.114,1.56275,RmFTcmFwSEd2b1M2cUdzTng1YisrZz09,Mineral Logam,Emas Primer,Logam Mulia,Stockpile MSM,Minahasa Utara,Sulawesi Utara,Emas Primer Stockpile MSM,0.0,6967000.0,Ton,2022
+364,126.326,-7.71105,RG9PSU91bk9JdStnTXJFeUxVYldDdz09,Mineral Logam,Emas Primer,Logam Mulia,Partolang,Maluku Barat Daya,Maluku,Emas Primer Partolang,200000.0,0.0,Ton,2022
+365,121.953573,-4.701237,bFlXMG9qR1RTQmdmcE4rWUlsckt6UT09,Mineral Logam,Emas Primer,Logam Mulia,Rarowatu,Bombana,Sulawesi Tenggara,Emas Primer Rarowatu,1510613.0,982246.0,Ton,2022
+366,122.773901,0.832993,cFJxMUpscEhubXZETGpLZml4UEdRZz09,Mineral Logam,Emas Primer,Logam Mulia,Nabila,Gorontalo Utara,Gorontalo,Emas Primer Nabila,735256.1,0.0,Ton,2022
+367,125.114,1.56275,emh2eWQzam1nR0h4U3dnbTIxbytzdz09,Mineral Logam,Emas Primer,Logam Mulia,Araren North,Minahasa Utara,Sulawesi Utara,Emas Primer Araren North,3508000.0,104000.0,Ton,2022
+368,125.094,1.56377,cHQ2dVpUaWU5Vi9LZFE2Y2NjOTVxQT09,Mineral Logam,Emas Primer,Logam Mulia,Kopra 4 North,Minahasa Utara,Sulawesi Utara,Emas Primer Kopra 4 North,330000.0,0.0,Ton,2022
+369,124.49,0.628462,S0t1RFlLVkp1bHE2bm5JVncxYys4dz09,Mineral Logam,Emas Primer,Logam Mulia,Lanut,Bolaang Mongondow Timur,Sulawesi Utara,Emas Primer Lanut,6407000.0,2711000.0,Ton,2022
+370,124.685,0.912972,YTJ0b3hmbHFwKzFNcGc1TndKaEU0QT09,Mineral Logam,Emas Primer,Logam Mulia,Pasolo,Minahasa Tenggara,Sulawesi Utara,Emas Primer Pasolo,3000000.0,5700000.0,Ton,2022
+371,113.513,-1.088,a003UG9lUXNXME1KeUttTmExNG0vUT09,Mineral Logam,Emas Primer,Logam Mulia,Sei Antai,Gunung Mas,Kalimantan Tengah,Emas Primer Sei Antai,14844211.0,5758400.0,Ton,2022
+372,113.62,-1.163,MVY0V08rK2ZrRGVPbUdOdGZwVkx0QT09,Mineral Logam,Emas Primer,Logam Mulia,Jangkit,Gunung Mas,Kalimantan Tengah,Emas Primer Jangkit,671000.0,671000.0,Ton,2022
+373,117.531,-8.95955,bVozS0Z2RERid2NXZmlCNDRjOHVkZz09,Mineral Logam,Emas Primer,Logam Mulia,Blok Z7 Z9 dan Blok Z7 Z10,Sumbawa,Nusa Tenggara Barat,Emas Primer Blok Z7 Z9 dan Blok Z7 Z10,0.0,0.0,Ton,2022
+374,116.989,3.22667,ckhBanNqczJYUHZFU0xJem5HNU8vUT09,Mineral Logam,Emas Primer,Logam Mulia,Sekatak,Bulungan,Kalimantan Utara,Emas Primer Sekatak,55321606.0,47631635.0,Ton,2022
+375,121.868,-4.59167,enh4MnBRRFF3TGd3NllURCtNUDRTQT09,Mineral Logam,Emas Primer,Logam Mulia,Wanuambutea,Kolaka Timur,Sulawesi Tenggara,Emas Primer Wanuambutea,529349.246,0.0,Ton,2022
+376,118.455423,-8.840789,YTRlajNMRFJKRWJBQjUxcHFBK1llQT09,Mineral Logam,Emas Primer,Logam Mulia,Onto,Bima,Nusa Tenggara Barat,Emas Primer Onto,1720000000.0,0.0,Ton,2022
+377,117.390427,-8.982532,WUtHTWNoY2dQTjB6eVVZUktyajJTQT09,Mineral Logam,Emas Primer,Logam Mulia,Ladam,Sumbawa,Nusa Tenggara Barat,Emas Primer Ladam,7110000.0,0.0,Ton,2022
+378,116.000991,-1.796077,VUE2THp3cDNsa29KYjR4Q1hEZE0wUT09,Mineral Logam,Emas Primer,Logam Mulia,Tudak,Paser,Kalimantan Timur,Emas Primer Tudak,3850068.3962,1572949.5213,Ton,2022
+379,115.977337,-1.880002,VVBHYzQwaXd2YnViR3plM0F0d1BoQT09,Mineral Logam,Emas Primer,Logam Mulia,Kelian,Paser,Kalimantan Timur,Emas Primer Kelian,9283026.8199,1955581.2486,Ton,2022
+380,115.982068,-1.928465,akJ5MzlsQW9YeTFwMjg4bUJ5MVN4QT09,Mineral Logam,Emas Primer,Logam Mulia,Sampi,Paser,Kalimantan Timur,Emas Primer Sampi,499782.9973,329491.5818,Ton,2022
+381,106.585639,-7.100657,OTJhYlFiNVVCMmV5dE1rczhuT0VEUT09,Mineral Logam,Emas Primer,Logam Mulia,Kertajaya,Sukabumi,Jawa Barat,Emas Primer Kertajaya,3700000.0,2440528.0,Ton,2022
+382,127.630053,1.015915,d2ZXOEsrU1JWa0YrNzVuYnpTaCtvQT09,Mineral Logam,Emas Primer,Logam Mulia,Akelamo Kao,Halmahera Utara,Maluku Utara,Emas Primer Akelamo Kao,3753520.0,1625361.0,Ton,2022
+383,127.60166,0.546637,M3dNWnlFemFKeWptWFVXR3BsMXZCdz09,Mineral Logam,Emas Primer,Logam Mulia,Akelamo,Kota Tidore Kepulauan,Maluku Utara,Emas Primer Akelamo,119986000.0,4007609.0,Ton,2022
+384,127.388779,-7.528211,T243THZUR3E0Y3dSY2xPYXRmbDdEUT09,Mineral Logam,Emas Primer,Logam Mulia,North Romang,Maluku Barat Daya,Maluku,Emas Primer North Romang,31930000.0,0.0,Ton,2022
+385,127.770005,1.15683,bmVqNzgxY0FjeU8zbFYxTFVDSVFPdz09,Mineral Logam,Emas Primer,Logam Mulia,Tabobo,Halmahera Utara,Maluku Utara,Emas Primer Tabobo,13700000.0,0.0,Ton,2022
+386,99.081,1.535,T1VzanFnUE4zNXJYSEc3a1E1bVpyZz09,Mineral Logam,Emas Primer,Logam Mulia,Coluvium,Tapanuli Selatan,Sumatera Utara,Emas Primer Coluvium,3000000.0,1700000.0,Ton,2022
+387,126.343817,-7.709315,WnZORmVrUHBnaW43QTZ3NXVlVGltQT09,Mineral Logam,Emas Primer,Logam Mulia,Partolang Barat,Maluku Barat Daya,Maluku,Emas Primer Partolang Barat,11800000.0,0.0,Ton,2022
+388,126.326,-7.71105,OTNVUkhDVjg5b3VXVWc1NjRTZng3UT09,Mineral Logam,Emas Primer,Logam Mulia,Wetar (AIM),Maluku Barat Daya,Maluku,Emas Primer Wetar (AIM),7800000.0,7700000.0,Ton,2022

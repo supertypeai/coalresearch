@@ -1,0 +1,377 @@
+,longitude,latitude,id,potential,commodity,group,location,city,province,object_name,total_reserve,total_resource,unit,year_measured
+0,115.766,-2.023,TDJHNzBqd21mWGJZeHQ0RlFCVmZQUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Gunung Nuih,Paser,Kalimantan Timur,Nikel Gunung Nuih,0.0,1202428.0,Ton,2022
+1,121.341,-1.861,anN1bEtVWXptUFRkc1RRUjI4bGZmQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Kolonedale,Morowali Utara,Sulawesi Tengah,Nikel Kolonedale,0.0,0.0,Ton,2022
+2,121.881,-2.691,Z0FpM3pGSEY0d3JuekFmT1NMRk05QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Bahodopi Block 1,Morowali,Sulawesi Tengah,Nikel Bahodopi Block 1,80800000.0,24400000.0,Ton,2022
+3,121.91,-2.694,ZnorNXNpcUN0TWQxUFUxRDVKMFgrZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,"Bahodopi Block 2,3 & 4",Morowali,Sulawesi Tengah,"Nikel Bahodopi Block 2,3 & 4",100000000.0,0.0,Ton,2022
+4,122.056,-2.901,djVZTElod1BWb0hTWW9ZdnVBUzQxUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Bohomakmur,Morowali,Sulawesi Tengah,Nikel Bahomoahi,14366529.0,20271911.0,Ton,2022
+5,121.479,-2.149,QXBSWHNMejc4S3VPdGIzREs1ajN0Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Molino,Morowali Utara,Sulawesi Tengah,Nikel Molino,7050000.0,3900000.0,Ton,2022
+6,122.315,-3.216,WjJaVEt3YkUvVExaZGNQUExHQmNYQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Maratape,Morowali,Sulawesi Tengah,Nikel Maratape,0.0,29800000.0,Ton,2022
+7,121.355,-2.56,VGg1UjMwd0YvQkpBd2IxY1ozQTdVdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Soroako West Block,Luwu Timur,Sulawesi Selatan,Nikel Soroako West Block,72800000.0,297000000.0,Ton,2022
+8,121.393,-2.56,eWMwc0ZyZ3l4YTRINkZsNmc3M1Uwdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Soroako East Block,Luwu Timur,Sulawesi Selatan,Nikel Soroako East Block,0.0,0.0,Ton,2022
+9,121.535,-2.518,bHRFaGNtbWFSU1NrWWVlZCtEYTBQZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Petea,Luwu Timur,Sulawesi Selatan,Nikel Petea,0.0,0.0,Ton,2022
+10,121.386,-2.617,TG9OUmdhbUV6R2phWGFFa1NNOW8zdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Limonite Sorowako,Luwu Timur,Sulawesi Selatan,Nikel Limonite Sorowako,700000.0,0.0,Ton,2022
+11,121.715,-2.675,NlY0eVNDTExaazR1VDA5Q25velJYdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Soroako Outer SOA,Luwu Timur,Sulawesi Selatan,Nikel Soroako Outer SOA,129600000.0,10200000.0,Ton,2022
+12,121.153,-2.788,NkVCSGZrQW1sbVdSQThpaUJYWmxpUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Desa Harapan dan Desa Pongkeru,Luwu Timur,Sulawesi Selatan,Nikel Desa Harapan dan Desa Pongkeru,15550000.0,9408000.0,Ton,2022
+13,121.899,-2.583,ZWJvR20rVkxjWGUvVitiQ2JaWkcrUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sampala,Morowali,Sulawesi Tengah,Nikel Sampala,162000000.0,0.0,Ton,2022
+14,122.258,-3.315,TWZvbm9SRys1Vms0c2h6S3BLVWh5QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Matarape,Konawe Utara,Sulawesi Tenggara,Nikel Matarape,0.0,0.0,Ton,2022
+15,122.259,-3.068,cmFnVXRTVWVWaVpSNVBVbU9PWDRtQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sambalagi,Morowali,Sulawesi Tengah,Nikel Sambalagi,0.0,20830000.0,Ton,2022
+16,122.155,-3.304,aEZwb2VNSTY0Rmt4OCs4OGh0UUtCZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tambakua,Konawe Utara,Sulawesi Tenggara,Nikel Tambakua,83220570.0,30110000.0,Ton,2022
+17,122.21,-3.446,VGVVR0hFSWhvRDdNcjJXMjBrY21Kdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lasolo,Konawe Utara,Sulawesi Tenggara,Nikel Lasolo,0.0,0.0,Ton,2022
+18,122.253,-3.502,OGM5WTV2R1VPblpxY21vVnFEZ0NWUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tapunopaka,Konawe Utara,Sulawesi Tenggara,Nikel Tapunopaka,56710000.0,18080000.0,Ton,2022
+19,122.246,-3.537,N3JFcHUwbk0rSUFHTzJlY0dGVmR0QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Mandiodo,Konawe Utara,Sulawesi Tenggara,Nikel Mandiodo,46270000.0,7790000.0,Ton,2022
+20,122.325,-3.567,MVZkNkhJWHZmNklzV1hNbVdDeXdGQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Bahubulu,Konawe Utara,Sulawesi Tenggara,Nikel Bahubulu,79450000.0,23600000.0,Ton,2022
+21,121.083,-2.833,NHBIaHYwTlAycFlXbmlBMGF4WTV0QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok A Tolala,Kolaka Utara,Sulawesi Tenggara,Nikel Blok A Tolala,12300000.0,7900000.0,Ton,2022
+22,121.153,-2.902,Ym8rVmpSYVFkcGV3aVNDOFpheDhZdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Patikala,Kolaka Utara,Sulawesi Tenggara,Nikel Patikala,0.0,44000000.0,Ton,2022
+23,121.1,-2.91,OWxlbXFNbmdMSW5ocTBlYWtXeXVSZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tolala,Kolaka Utara,Sulawesi Tenggara,Nikel Tolala,0.0,30643000.0,Ton,2022
+24,120.965,-3.617,cjd4cWJWVXc2ZlQ1NjZqdzJ4N0R2QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sua-Sua,Kolaka Utara,Sulawesi Tenggara,Nikel Sua-Sua,0.0,0.0,Ton,2022
+25,121.289,-3.852,dnM4TlB2b1ByRE85L2c4ZkU4NEhnZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pit Pao pao,Kolaka,Sulawesi Tenggara,Nikel Pit Pao pao,96200000.0,41820000.0,Ton,2022
+26,121.479,-4.203,bmxac3l5K3JOOE5sbVo0dHpTWlArQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Maniang,Kolaka Timur,Sulawesi Tenggara,Nikel Maniang,0.0,0.0,Ton,2022
+27,128.409,0.948,YmF4L2R6R2hUZWhuQkI5YmdLYXBSQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pakaulan,Halmahera Timur,Maluku Utara,Nikel Pakaulan,46371200.0,11596800.0,Ton,2022
+28,121.668,-4.227,b01vSlBMWkdEbmE2SXRWSEM0S29WZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok 1 Pomalaa HPAL,Kolaka,Sulawesi Tenggara,Nikel Pomalaa HPAL,343300000.0,0.0,Ton,2022
+29,127.527,-1.431,bEZ0UXQ5SkdTazNzdVRRTGxmL3lNQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Baru,Halmahera Selatan,Maluku Utara,Nikel Baru,1696000.0,10770000.0,Ton,2022
+30,121.701,-4.334,V3RtbzJKellhcUlmUno3c205clVmZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sopura,Kolaka,Sulawesi Tenggara,Nikel Sopura,80847226.0,38973681.0,Ton,2022
+31,122.085,-4.067,akZHZWZhRDROUnN3T2NJZktaZjVTQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Iwoikondo,Konawe Selatan,Sulawesi Tenggara,Nikel Iwoikondo,0.0,0.0,Ton,2022
+32,122.459,-4.424,RVJhT0Jscml5WEVTbW5hUHlNeGlGZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Torobulu,Konawe Selatan,Sulawesi Tenggara,Nikel Torobulu,100454755.0,63026940.0,Ton,2022
+33,121.934,-5.413,ektkRTVyRi9ERWt6VElEMFlIakxWZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,"Salgado, Purano, Bangko",Bombana,Sulawesi Tenggara,"Nikel Salgado, Purano, Bangko",12608000.0,6037000.0,Ton,2022
+34,128.08,1.113,RWJVekE3TlYvYUkrdU0zN2FidmtYZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wasile,Halmahera Timur,Maluku Utara,Nikel Wasile,7850000.0,5100000.0,Ton,2022
+35,128.037,0.812,dDhOL0x1MkJoSG9wV2wrWnJNZ3lKZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tofu Blewen,Halmahera Timur,Maluku Utara,Nikel Tofu Blewen,81880000.0,65030000.0,Ton,2022
+36,128.035,0.712,dnQ2QVNBUHZIMlIrT2ZWZUdyd3Uydz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blikep Nuw,Halmahera Timur,Maluku Utara,Nikel Blikep Nuw,153700000.0,0.0,Ton,2022
+37,128.167,0.757,L1NKb3RUNWZxSVJRdUs3UkhlL3Urdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sangaji,Halmahera Timur,Maluku Utara,Nikel Sangaji,579390000.0,159570000.0,Ton,2022
+38,128.206,0.775,cU9lUVdvUjZIRkJ5bnRzMGNFdElVdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,P4P5,Halmahera Timur,Maluku Utara,Nikel P4P5,0.0,0.0,Ton,2022
+39,128.205,0.811,UmhuWkFubGlUWE5HeU91WlZxSi83Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,P1,Halmahera Timur,Maluku Utara,Nikel P1,5440000.0,0.0,Ton,2022
+40,128.242,0.845,NU0yV1ZtZC9xelBvekRDUmxRUUZDdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,P8,Halmahera Timur,Maluku Utara,Nikel P8,2700000.0,0.0,Ton,2022
+41,128.286,0.832,czh3Tm94bEgwVVpxRElXb2VCb203Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tanjung Buli,Halmahera Timur,Maluku Utara,Nikel Tanjung Buli,41210000.0,9940000.0,Ton,2022
+42,128.328,0.83,Yk1EbzlCK21SNEtUUkhrQm5MdU1RQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pulau Gee,Halmahera Timur,Maluku Utara,Nikel Pulau Gee,0.0,1500000.0,Ton,2022
+43,128.34,0.786,M2t3c1RoR1NqcEl5MTNrVSt6RExzZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pulau Pakal,Halmahera Timur,Maluku Utara,Nikel Pulau Pakal,52160000.0,26010000.0,Ton,2022
+44,127.898,0.666,UXlZeUVGY253S0pjdHBpOFh0K2E1dz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Fonli-Big Kahuna,Halmahera Timur,Maluku Utara,Nikel Fonli-Big Kahuna,37670000.0,0.0,Ton,2022
+45,127.933,0.648,QjNiWVRTRWMxREVCZWwrK1VmaW8xdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Ake Jira,Halmahera Timur,Maluku Utara,Nikel Ake Jira,30320000.0,52560000.0,Ton,2022
+46,128.045,0.606,a1hWS1hYT1dMSVBHSEFlOEplRHd5Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Boki Mekot,Halmahera Tengah,Maluku Utara,Nikel Boki Mekot,37790000.0,0.0,Ton,2022
+47,127.968,0.542,TXNFelhvQy9nQVpxZ2RodEV2NSthUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Bukit Limber Barat,Halmahera Tengah,Maluku Utara,Nikel Bukit Limber Barat,131710000.0,81740000.0,Ton,2022
+48,128.079,0.564,TU1Nd2NhYm8wc3AxSjRYaFRNMEpnZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pintu,Halmahera Tengah,Maluku Utara,Nikel Pintu,72920000.0,0.0,Ton,2022
+49,127.932,0.516,K1RqQ21CbHpHRXQxeW1Zb3BOek1PQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tarsan Barat,Halmahera Tengah,Maluku Utara,Nikel Tarsan Barat,0.0,3363000.0,Ton,2022
+50,127.949,0.519,dmdIRCtxektVVC8yVWxWaEJ4VTRMZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tarsan Timur,Halmahera Tengah,Maluku Utara,Nikel Tarsan Timur,0.0,3126000.0,Ton,2022
+51,127.939,0.49,SGltU25rWGpHYm1YRzMrSmZHdUQ2UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Uni-Uni,Halmahera Tengah,Maluku Utara,Nikel Uni-Uni,5910000.0,3830000.0,Ton,2022
+52,127.962,0.493,QXJHUlp5YnFRc2E1VzArNGh6Zk9RQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sake Barat,Halmahera Tengah,Maluku Utara,Nikel Sake Barat,5161630.0,2629000.0,Ton,2022
+53,127.973,0.495,N2FUTWpzeVF0QTBGZm1KMDU4RUwxQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Ake Sake,Halmahera Tengah,Maluku Utara,Nikel Ake Sake,10538119.0,4740000.0,Ton,2022
+54,127.947,0.472,WHRlTUQzbDFyTHd4SGZqc0RLOUFaQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Nuspera,Halmahera Tengah,Maluku Utara,Nikel Nuspera,2095703.0,1035000.0,Ton,2022
+55,129.392,-0.068,WVQ1N2h1ZXNpQVk2YTlBbklsTmpEQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pulau Gebe,Halmahera Tengah,Maluku Utara,Nikel Pulau Gebe,102516000.0,73087518.96,Ton,2022
+56,127.601,-1.659,OGh0YjVubzhtSnJXNXNWbGpMNy9jZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Malamala Selatan,Halmahera Selatan,Maluku Utara,Nikel Malamala Selatan,26100000.0,23600000.0,Ton,2022
+57,127.412,-1.586,RlN5bUk5d2ZKZTh2TmlSV2cxcWZDZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Kawasi,Halmahera Selatan,Maluku Utara,Nikel Kawasi,47900000.0,15300000.0,Ton,2022
+58,121.102,-3.074,WG1ac2FTL2tKVUcyQlJ0YXE5aHAxUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Latou,Kolaka Utara,Sulawesi Tenggara,Nikel Latou,33445189.0,2892978.0,Ton,2022
+59,129.878,-0.491,c0tZNjljNGZNaDgxVlpYOWt3dS94Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pulau Gag (Zona Tengah),Raja Ampat,Papua Barat,Nikel Pulau Gag (Zona Tengah),321680000.0,69670000.0,Ton,2022
+60,130.117,-0.05,YnpRTXQvTVpJc05MQng0cUlORCtSdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Kawe,Raja Ampat,Papua Barat,Nikel Kawe,55000000.0,7200000.0,Ton,2022
+61,130.131,-0.071,YU8weUlVM2NzZVVZcmVINHVlUTM0dz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Batangpele,Raja Ampat,Papua Barat,Nikel Batangpele,5378000.0,0.0,Ton,2022
+62,130.217,-0.333,MEhRMTJkSzgzaWpyZVlzdkZiR29Edz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Minjaifuin,Raja Ampat,Papua Barat,Nikel Minjaifuin,5406000.0,0.0,Ton,2022
+63,131.03,-0.092,NEFYSUU5M3ZCb3ZJd3NpV0MwMS84Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Kapias Kamboloi,Raja Ampat,Papua Barat,Nikel Kapias Kamboloi,12470400.0,0.0,Ton,2022
+64,130.345,-0.216,RUdUcE1hNjNFZ3RFeS9JU1NYSkpJUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Waimisi,Raja Ampat,Papua Barat,Nikel Waimisi,9699200.0,0.0,Ton,2022
+65,130.703,-0.047,YWwyS016d0RBcFlvbUlCeWdzNGd3dz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,West Fofak,Raja Ampat,Papua Barat,Nikel West Fofak,2362000.0,0.0,Ton,2022
+66,130.722,-0.036,V0FtYXZOaDFHcFdaRlVBU1lyRWRFZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,East Fofak,Raja Ampat,Papua Barat,Nikel East Fofak,5970000.0,0.0,Ton,2022
+67,130.887,0.021,ckN2MC9raThoRUJESE81S2diZUZ5dz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Manuran,Raja Ampat,Papua Barat,Nikel Manuran,0.0,9220000.0,Ton,2022
+68,131.029,-0.092,TEpaYXllUFA0RXVIM3kvNG1ZUWpBQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sarenbon,Raja Ampat,Papua Barat,Nikel Sarenbon,20784000.0,0.0,Ton,2022
+69,135.689,-3.503,cEpRbWZGM3RXU3RBaVdoWVdEK0lDUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Topo,Nabire,Papua,Nikel Topo,0.0,0.0,Ton,2022
+70,139.08,-2.28,Q2lIM2N0dEhNZVdJcVRCbFZWMyt3Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Siduarsi,Sarmi,Papua,Nikel Siduarsi,81000000.0,0.0,Ton,2022
+71,140.345,-2.403,UU05UVE3eTVWUFd0MDVkR2VuOEZIZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tanah Merah,Jayapura,Papua,Nikel Tanah Merah,7580000.0,0.0,Ton,2022
+72,140.366,-2.412,RVd0d01ZVkxJMUx0TEwrL25DZ3J3QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tablasufa,Jayapura,Papua,Nikel Tablasufa,25250000.0,0.0,Ton,2022
+73,140.379,-2.426,VDVUOHlCYXJ5WXFiNFRkcGVXYTZ2UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Amaybu,Jayapura,Papua,Nikel Amaybu,1690000.0,0.0,Ton,2022
+74,140.368,-2.444,UjFXclVkTmZLa1FoNVFkdC8xZnJHQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Kirpon,Jayapura,Papua,Nikel Kirpon,2720000.0,0.0,Ton,2022
+75,140.521,-2.576,VU5CVTEwUThGK3BoeG1rQ3pZbXd2Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sentani,Jayapura,Papua,Nikel Sentani,240000000.0,0.0,Ton,2022
+76,121.971,-2.914,N0EzUjJrZ0xHUExvVnlTeVZQeE5uQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Bahodopi (PT PAS),Morowali,Sulawesi Tengah,Nikel Bahodopi (PT PAS),0.0,36400000.0,Ton,2022
+77,121.975,-2.698,VjF3SGlSQnRuS0pEenhibElOb1hRUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Bahomoahi,Morowali,Sulawesi Tengah,Nikel Bahomoahi,10000000.0,0.0,Ton,2022
+78,122.179,-4.382,Y3BNN2k2UWl3OXJqVTdXUnhXUFp2Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok Utara Ngapaaha,Konawe Selatan,Sulawesi Tenggara,Nikel Blok Utara Ngapaaha,15160702.78,12593942.0,Ton,2022
+79,122.368,-3.418,UUNvZmpiS092dS82WlpGc1pibDk1UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Langgikima,Konawe Utara,Sulawesi Tenggara,Nikel Langgikima,334240000.0,0.0,Ton,2022
+80,122.201,-3.378,RFJtUVJiZVdwdE5Kc1BQUElHMlVEUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Morombo (Bososi),Konawe Utara,Sulawesi Tenggara,Nikel Morombo (Bososi),13639000.0,692000.0,Ton,2022
+81,122.603,-0.812,MVNyb0Z3QUpCaVdhWlB1ZndWbC9zdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Naim,Banggai,Sulawesi Tengah,Nikel Naim,12264263.0,0.0,Ton,2022
+82,127.972,0.662,bjBLMG5UQnZudy9ac2Zzd1lvajlsQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Kao Rahai Barat,Halmahera Timur,Maluku Utara,Nikel Kao Rahai Barat,42267556.0,28161000.0,Ton,2022
+83,127.99,0.695,VURsNDBleFgrbDZOamdUSDA1Z3RlZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Kao Rahai Timur,Halmahera Timur,Maluku Utara,Nikel Kao Rahai Timur,31470000.0,0.0,Ton,2022
+84,121.05,-3.214,RU5wcEJyUFRBMjNrWTlQNHAvclpKQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Olo-Oloho,Kolaka Utara,Sulawesi Tenggara,Nikel Olo-Oloho,3786070.0,0.0,Ton,2022
+85,122.283,-3.349,UTdlek13Mmt4U0lxdzlvRlQ1alVQUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Morombo (DMS),Konawe Utara,Sulawesi Tenggara,Nikel Morombo (DMS),13541000.0,0.0,Ton,2022
+86,122.452,-3.814,TVhOVUxjaHNrWkJOMkZjc1BoU3FSdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sawa,Konawe Utara,Sulawesi Tenggara,Nikel Sawa,17124000.0,0.0,Ton,2022
+87,122.258,-3.672,NEpneWpLS0dKaE9wdjIzT0tLdThJQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lasolo (DMS),Konawe Utara,Sulawesi Tenggara,Nikel Lasolo (DMS),88920000.0,8738675.0,Ton,2022
+88,122.3,-3.281,MnFqNjcyZVdENVZPUFVheEFlV09Ldz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lameluru,Konawe Utara,Sulawesi Tenggara,Nikel Lameluru,9000000.0,0.0,Ton,2022
+89,127.921,0.538,eEZJNUlGaVpnQjZ2U0NqcWR2ZG4xZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Jiguru,Halmahera Tengah,Maluku Utara,Nikel Jiguru,6440000.0,0.0,Ton,2022
+90,127.955,0.584,L0lMQ0hpak8wNUtOKzVNZ2tPNjNHUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok Sagantel dan Sakaulen,Halmahera Tengah,Maluku Utara,Nikel Blok Sagantel dan Sakaulen,74902309.0,38037330.0,Ton,2022
+91,128.16,0.542,NUUxUmhOaUtKcEJrSVNIbWxscUI0UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Messa,Halmahera Tengah,Maluku Utara,Nikel Messa,11863000.0,1189000.0,Ton,2022
+92,128.576,1.481,MTJnYUxubFpSdDFDNDlWTDZ2a1pCZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Bololo,Halmahera Timur,Maluku Utara,Nikel Bololo,0.0,35640000.0,Ton,2022
+93,128.065,0.621,R2EydVlsOWc3YzJobmh6S0xzbU1ZQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Bukit Limber Timurlaut,Halmahera Timur,Maluku Utara,Nikel Bukit Limber Timurlaut,144210000.0,32170000.0,Ton,2022
+94,123.117,-4.217,RW8vWm1BTEphVzFxOHowWDFmL3Nmdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Roko roko,Konawe Kepulauan,Sulawesi Tenggara,Nikel Roko roko,281500.0,8700000.0,Ton,2022
+95,121.102,-2.762,emdOaWllSmtXTEtMcFFvVFVxK1ovQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Desa Harapan,Luwu Timur,Sulawesi Selatan,Nikel Desa Harapan,67800000.0,0.0,Ton,2022
+96,122.605,-0.812,TU9qQUVMY3pRUG14dnlHUUlQZFNhQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Longgona Barat,Banggai,Sulawesi Tengah,Nikel Longgona Barat,5148000.0,3960000.0,Ton,2022
+97,122.99,-0.735,WFU1anJweDZSRFp1ckQ0b3ViaExRZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Siuna,Banggai,Sulawesi Tengah,Nikel Siuna,21279063.0,787500.0,Ton,2022
+98,122.603,-0.812,bFdOVzArS2dZRFlVUUR3TzRJc0hRUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Koninis,Banggai,Sulawesi Tengah,Nikel Koninis,27019500.0,4040000.0,Ton,2022
+99,122.085,-1.571,d2hlTDBWcGlGbmlQWmo0VVNyb3d1QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lembah Kramat,Banggai,Sulawesi Tengah,Nikel Lembah Kramat,7200000.0,4464000.0,Ton,2022
+100,121.385,-2.162,VnZmVEdOV25aUlZ5V2xkVkRPcW8yUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Molino 1,Morowali Utara,Sulawesi Tengah,Nikel Molino 1,72254587.0,28446417.0,Ton,2022
+101,121.281,-1.801,b1QvQTN1bGg0eXA1elhLOTN2eEp4dz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tamainusu,Morowali Utara,Sulawesi Tengah,Nikel Tamainusu,12212640.0,0.0,Ton,2022
+102,121.318,-1.879,dmE2YnBrUnhtYW9OSEpnZ2drNW1IQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Ungkaya,Morowali Utara,Sulawesi Tengah,Nikel Ungkaya,25620000.0,17753381.0,Ton,2022
+103,121.316,-1.983,VmhiY0V1clJmRVdMQkVTUmF4ZGEwdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lambolo,Morowali Utara,Sulawesi Tengah,Nikel Lambolo,11546410.0,10878832.0,Ton,2022
+104,121.346727,-1.892147,RlIyS1R2OExvdWU2bm1pcWgrUjh6dz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Ganda ganda,Morowali Utara,Sulawesi Tengah,Nikel Ganda ganda,1430000.0,0.0,Ton,2022
+105,121.317,-1.946,T3dGNms0dnNLN0phK05iY3pxY2xLQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Torete,Morowali Utara,Sulawesi Tengah,Nikel Torete,3100000.0,2350000.0,Ton,2022
+106,122.275,-3.131,N2wwUHUvSUJnNkdwTWw5L2tRQ1Zidz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Matarape,Morowali,Sulawesi Tengah,Nikel Matarape,32420000.0,10720000.0,Ton,2022
+107,121.810746,-2.711087,MXkwNXF3VUZ6VXZObThEdmlnbUVvQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Ululere,Morowali,Sulawesi Tengah,Nikel Ululere,8789444.0,13830000.0,Ton,2022
+108,122.168623,-2.939098,WnUyV29mczR1cm5LNXltZW05Uk1EUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tangofa,Morowali,Sulawesi Tengah,Nikel Tangofa,45170000.0,10780000.0,Ton,2022
+109,122.302993,-2.940985,YnMzaFJodkpKb211cW90M0RoMUlQUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,One Ete,Morowali,Sulawesi Tengah,Nikel One Ete,35884831.0,24325703.0,Ton,2022
+110,122.065,-2.767,WldFWmFpaGQ4LzV0OFBSSTZFMFZGZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lalampu,Morowali,Sulawesi Tengah,Nikel Lalampu,2688000.0,20189440.0,Ton,2022
+111,122.102,-2.795,aTA3allBbFloVWthWUNnV2ExR1Rndz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Keurea,Morowali,Sulawesi Tengah,Nikel Keurea,21542400.0,16640000.0,Ton,2022
+112,122.056,-2.901,TytTN28vd2V5TGVmdTQveC9rQWZBZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Padabaho,Morowali,Sulawesi Tengah,Nikel Padabaho,0.0,18545757.0,Ton,2022
+113,122.245,-3.055,ZGs3T0J0cHQ0WkJBOXJNQTNMNXFhUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Laro Enai 1,Morowali,Sulawesi Tengah,Nikel Laro Enai 1,3100000.0,4700000.0,Ton,2022
+114,121.021,-2.827,TmJWcFp1bGF5d3Y5UWhJZGpTU2MyQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Patikala 1,Kolaka Utara,Sulawesi Tenggara,Nikel Patikala 1,46500000.0,24300000.0,Ton,2022
+115,121.01,-2.866,aE90ajc3bTVWaEhSSmdoUFRBcHpzUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Patikala 2,Kolaka Utara,Sulawesi Tenggara,Nikel Patikala 2,10794062.0,6100581.0,Ton,2022
+116,121.076,-2.853,aUJoejhOUXl3UU1nVmhuakx1MG1HQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Patikala 3,Kolaka Utara,Sulawesi Tenggara,Nikel Patikala 3,10793520.0,11992800.0,Ton,2022
+117,121.153,-2.902,SVlJL1R6cUJ2ZkxFeGptR1JYZjRVdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Larui,Kolaka Utara,Sulawesi Tenggara,Nikel Larui,10150000.0,2150000.0,Ton,2022
+118,121.639303,-4.203552,TXVtMWl2M0ZhL0lxK1QrQ2s4T1NTdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pesohua,Kolaka,Sulawesi Tenggara,Nikel Pesohua,53235600.0,4733397.0,Ton,2022
+119,121.695,-4.312,am12RTJQRWJiZFV3MmpmVzFoUlZjZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lamendai,Kolaka,Sulawesi Tenggara,Nikel Lamendai,60636000.0,12000000.0,Ton,2022
+120,122.241,-3.28,OGVGWTF4cVdKV09ha0hybnp3Z0hZUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lamonae 1,Konawe Utara,Sulawesi Tenggara,Nikel Lamonae 1,0.0,3150000.0,Ton,2022
+121,122.104,-3.483,WmIwdTdpeEtmcmxQZkNXMVQ1UCtxUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Walalindu,Konawe Utara,Sulawesi Tenggara,Nikel Walalindu,0.0,5265000.0,Ton,2022
+122,122.441258,-3.820364,YWZVd2F1UWdRMG5BZHdhQ2tSMlNkUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Matandahi,Konawe Utara,Sulawesi Tenggara,Nikel Matandahi,12124000.0,9324000.0,Ton,2022
+123,122.216765,-3.561457,c3NJcnIrTThNNW82L2RXTlNYN2lCUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Mandiodo 1,Konawe Utara,Sulawesi Tenggara,Nikel Mandiodo 1,0.0,3161589.92,Ton,2022
+124,122.164624,-3.570803,T2ZOTjNzM1hqL0V6SGJTSmMvYklmUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Mandiodo 2,Konawe Utara,Sulawesi Tenggara,Nikel Mandiodo 2,0.0,2570245.0,Ton,2022
+125,122.226288,-3.34847,RGl2OG00ME02dThpMG8zVFVJRFgyZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sari Mukti,Konawe Utara,Sulawesi Tenggara,Nikel Sari Mukti,55559997.0,14319712.0,Ton,2022
+126,122.179734,-3.584007,c3lQQjRsY3ptRm9yVFV4b2xTWDl3QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Mowundo,Konawe Utara,Sulawesi Tenggara,Nikel Mowundo,23205000.0,17983875.0,Ton,2022
+127,122.203,-3.344,TVU2cm1BL3lzTmNiY0pWc3VzMUNoQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Linomoiyo (Blok Utara),Konawe Utara,Sulawesi Tenggara,Nikel Linomoiyo (Blok Utara),18801000.0,12758500.0,Ton,2022
+128,121.705,-3.024,YnB4eC8xYllTTndpblpxc1g2c1ZOZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Routa 1,Konawe,Sulawesi Tenggara,Nikel Routa 1,150494060.0,9600000.0,Ton,2022
+129,122.205,-3.213,MjRDVjR2dDlMUHlKVTMxd0JoMVBPZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lamonae,Konawe Utara,Sulawesi Tenggara,Nikel Lamonae,0.0,16500000.0,Ton,2022
+130,122.254865,-3.229483,SjVBOG5PcXdNamE4YllMOVdhOXlqUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lamonae 2,Konawe Utara,Sulawesi Tenggara,Nikel Lamonae 2,898960941.0,125548425.0,Ton,2022
+131,122.206,-3.233,R0hZa3Q2NDlMOXpEK1pYTXk3YWJ2UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lamonae 3,Konawe Utara,Sulawesi Tenggara,Nikel Lamonae 3,24012500.0,2805000.0,Ton,2022
+132,129.877,-0.434,VEp1NFNNbUFMQUd5bFh3TmRFbS9ZQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pulau Gag (Zona Selatan),Raja Ampat,Papua Barat,Nikel Pulau Gag (Zona Selatan),0.0,0.0,Ton,2022
+133,122.27,-3.341,Q05oTlZkY29jN2MzZVd4cUZoRy83QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lamonae 5,Konawe Utara,Sulawesi Tenggara,Nikel Lamonae 5,33392000.0,26221000.0,Ton,2022
+134,122.391206,-4.392523,dy9Ta2xUcmVPWmk0UDZscW96M296QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wotumbohuti,Konawe Selatan,Sulawesi Tenggara,Nikel Wotumbohuti,2777652.0,1087741.0,Ton,2022
+135,122.407,-4.409,d2NhTzcySXNHTDB2aTIvVi9GVm8yQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Watumbohuti 1,Konawe Selatan,Sulawesi Tenggara,Nikel Watumbohuti 1,18943485.0,13963269.0,Ton,2022
+136,122.338,-4.399,bXlWcDJqWWs5N2ZxZ2RNWGJhR21Mdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Ululakara,Konawe Selatan,Sulawesi Tenggara,Nikel Ululakara,25020000.0,18970000.0,Ton,2022
+137,122.459,-4.424,ZUdKV1Npb2xBSzlqVkxHYXlyWDk1UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sangi sangi,Konawe Selatan,Sulawesi Tenggara,Nikel Sangi sangi,131642963.0,12290027.0,Ton,2022
+138,122.364,-4.451,a01ObVVINjRLajAwQVdRL2xpNWlQZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lalowua,Konawe Selatan,Sulawesi Tenggara,Nikel Lalowua,0.0,1345052.5786,Ton,2022
+139,122.033,-5.414,Zm50bk9ad1lIN0lzMUo5cmhQVEJJdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Talaga Besar,Buton Tengah,Sulawesi Tenggara,Nikel Talaga Besar,66990000.0,23720000.0,Ton,2022
+140,122.792,-5.264,QTlyR2g4MDJiWDh2UzBPVk5IUGhsUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wakalambe,Buton,Sulawesi Tenggara,Nikel Wakalambe,4182564.0,31320000.0,Ton,2022
+141,122.722,-5.4,aTM4YmI4T01yNC8xQ0c5T0QrN0dkZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Ngkari-ngkari,Kota Bau-Bau,Sulawesi Tenggara,Nikel Ngkari-ngkari,48612372.0,0.0,Ton,2022
+142,121.839,-5.246,SHhIYTF6TzQzSUlMd0VGbTF0eVFjdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Baliara,Bombana,Sulawesi Tenggara,Nikel Baliara,97301000.0,8596000.0,Ton,2022
+143,122.857,-4.687,TjJNWlEyT05lUFRrTk9WZnM1SEUwdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Langoro,Muna,Sulawesi Tenggara,Nikel Langoro,55868800.0,0.0,Ton,2022
+144,128.068918,1.114449,RWFxUWJjKzBXWThDY25iQTd6ZFVYUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Nanas,Halmahera Timur,Maluku Utara,Nikel Nanas,0.0,82464000.0,Ton,2022
+145,128.143468,1.023036,WjFRcWE1ei83TC81U0V0bUF5SjdXUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Fayaul,Halmahera Timur,Maluku Utara,Nikel Fayaul,13928468.0,9036270.0,Ton,2022
+146,128.103686,0.982843,UzNJYnBoeDhPVTc3bUd6b0ZkQlU1Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Saramaake,Halmahera Timur,Maluku Utara,Nikel Saramaake,39600000.0,0.0,Ton,2022
+147,128.206,0.775,cERoSVJnRnp1Vlc5TmcwRHlwQXB5Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wailukum,Halmahera Timur,Maluku Utara,Nikel Wailukum,637881.0,18053956.602,Ton,2022
+148,128.152,0.599,STJGVVNwdGw4aUZ6bzExeW1abVlVZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Fritu,Halmahera Timur,Maluku Utara,Nikel Fritu,114158376.0,50496436.0,Ton,2022
+149,128.16,0.542,K2o2RGpZdVh2Q2MzRm5ZajhKWThFUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Fritu 1,Halmahera Tengah,Maluku Utara,Nikel Fritu 1,114158376.0,50496436.0,Ton,2022
+150,128.079,0.564,d2tQaGdzRVZESTdTV1ozRXJ0T3Fodz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Waleh,Halmahera Tengah,Maluku Utara,Nikel Waleh,24330240.0,0.0,Ton,2022
+151,129.504,-0.131,VllrZzFqU29kVmM4UGNrdGY4UEFydz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sanafi,Halmahera Tengah,Maluku Utara,Nikel Sanafi,293271222.0,95676731.0,Ton,2022
+152,129.551,-0.186,TDZ4clFjYngzMmU4djIvMkNweDJydz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Umera (Pulau Gebe),Halmahera Tengah,Maluku Utara,Nikel Umera (Pulau Gebe),5185941.0,1441569.0,Ton,2022
+153,129.383,-0.022,WVFvWnlnMnVGYTJtNVVjRTMwbkYwdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Ubulie,Halmahera Tengah,Maluku Utara,Nikel Ubulie,55800000.0,0.0,Ton,2022
+154,127.499,-1.486,MFhMd1hNMUl3eDhIRHFURlIyd2tZQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Baru 1,Halmahera Selatan,Maluku Utara,Nikel Baru 1,20347380.0,14608750.0,Ton,2022
+155,127.616,-1.39,QUVqeldMdngwL2JKWFRiOGNQRENZdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Laiwui,Halmahera Selatan,Maluku Utara,Nikel Laiwui,19000000.0,9900000.0,Ton,2022
+156,129.425,-0.103,QUJFWGtBczJSZUtUdTZUbE16c1c5UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Fau,Halmahera Tengah,Maluku Utara,Nikel Fau,49600000.0,0.0,Ton,2022
+157,128.099,-3.111,UnJnT2FpNU5vWlhzYmFsZXplOVp5Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Piru,Seram Bagian Barat,Maluku,Nikel Piru,1894115853.0,147819770.0,Ton,2022
+158,131.296,-0.217,TUg0ajJqR0VBb09jQmYyM1ZBSktpUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Yambeka,Raja Ampat,Papua Barat,Nikel Yambeka,3705600.0,0.0,Ton,2022
+159,122.015,-5.365,eDZXbXc4S3YwWXNhWk92dkVjcEVqdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Dongkala,Bombana,Sulawesi Tenggara,Nikel Dongkala,5266000.0,4184301.0,Ton,2022
+160,114.202,-1.368,NzQxMGRlN0lhcFE2amU1QUR2TmRyQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tapen,Kapuas,Kalimantan Tengah,Nikel Tapen,21730643.0,9780719.0,Ton,2022
+161,120.965,-3.617,SUdOWFZGcnBuV2FZbytkY1U2Witndz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pitulua,Kolaka Utara,Sulawesi Tenggara,Nikel Pitulua,17136000.0,12581700.0,Ton,2022
+162,128.197,1.021,cS9nU1hZWnhzWVNIcGs4em9yaEVRZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Subaim,Halmahera Timur,Maluku Utara,Nikel Subaim,20340000.0,15910000.0,Ton,2022
+163,122.245,-3.042,TGtBUENhUE5icVJmOEtydndXc1ZIUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Laro Enai,Morowali,Sulawesi Tengah,Nikel Laro Enai,5523997.0,4263935.0,Ton,2022
+164,121.242,-2.642,TDJIMk5pQkR5THAzUUpRdXlHbTVBQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Soroako-Petea HPAL,Luwu Timur,Sulawesi Selatan,Nikel Soroako-Petea HPAL,157700000.0,0.0,Ton,2022
+165,122.154,-3.468,VTlEWUtORUdrVWJHMExia1BxM0pudz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lalindu dan Lasolo,Konawe Utara,Sulawesi Tenggara,Nikel Lalindu dan Lasolo,76630000.0,0.0,Ton,2022
+166,121.613,-4.229,MHFpcjhYSlZLWXl4K0s4aE1Xd0diUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pomalaa (Tambang Tengah) (WSPM 014),Kolaka,Sulawesi Tenggara,Nikel Pomalaa (Tambang Tengah) (WSPM 014),35480000.0,6700000.0,Ton,2022
+167,128.193,0.786,Z2w0MC9NWi9Tb2o3Qy9ZQzBJM3JiUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Mornopo,Halmahera Timur,Maluku Utara,Nikel Mornopo,97550000.0,65990000.0,Ton,2022
+168,121.592,-4.251,U3RRamxRdTFkbGV6ZFpoRlNzNmg2QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Hakatutobu,Kolaka,Sulawesi Tenggara,Nikel Hakatutobu,48473000.0,21301458.0,Ton,2022
+169,121.081,-2.833,c2JmUWI2cThmRlovOExGL2taM3NPQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok B Totala,Kolaka Utara,Sulawesi Tenggara,Nikel Blok B Totala,67321387.0,0.0,Ton,2022
+170,121.678,-4.303,YnRSV004YzRtYm4rayszKzdSZWdKQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tambea,Kolaka,Sulawesi Tenggara,Nikel Tambea,58065000.0,18007500.0,Ton,2022
+171,121.538721,-4.281295,ZG1KcHBCVDJOYjhLbjJLVmcxS3htdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sopura,Kolaka,Sulawesi Tenggara,Nikel Sopura,24444959.0,18305000.0,Ton,2022
+172,121.549,-4.327,SXpQV0ltOGhHUXZkV2s3UEo4Q0s0QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lamendai 1,Kolaka,Sulawesi Tenggara,Nikel Lamendai 1,861300.0,3445200.0,Ton,2022
+173,122.227423,-3.559355,djB2LzlRNGhqN1BqV0R3WVhabXlvdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Walalindu 1,Konawe Utara,Sulawesi Tenggara,Nikel Walalindu 1,36484563.0,7050902.0,Ton,2022
+174,122.245,-3.277,S0FjZ3hwTjJIMVhzWHRGMkRsbG5EUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lameruru 2,Konawe Utara,Sulawesi Tenggara,Nikel Lameruru 2,9010000.0,6000000.0,Ton,2022
+175,122.165,-3.362,Vnh1U2U4T1dMUUI5dmlkL01LOUREUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok Paka Indah,Konawe Utara,Sulawesi Tenggara,Nikel Blok Paka Indah,5880000.0,0.0,Ton,2022
+176,122.088,-4.02,UERyNXBEVkVnZWQxYTltTU1VZjZIZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Puriala,Konawe,Sulawesi Tenggara,Nikel Puriala,40986177.0,3652514.0,Ton,2022
+177,127.436,-1.496,ejE1M04yMm5iV08yL0I5OVNlVnBYdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Jiko Telaga,Halmahera Selatan,Maluku Utara,Nikel Jiko Telaga,4144000.0,3338000.0,Ton,2022
+178,122.261,-3.263,cHBDUEh5YjZqeXQ5eWNHUXZUR1lwUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok A Lameruru,Konawe Utara,Sulawesi Tenggara,Nikel Blok A Lameruru,38913803.0,0.0,Ton,2022
+179,128.094,0.699,dFR4dUFkZUZ5TEtKVVRJWVVXc0xiZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wailukum1,Halmahera Timur,Maluku Utara,Nikel Wailukum1,581758500.0,147105063.0,Ton,2022
+180,121.436,-2.177,VzFJWENCdkZTeDZjWE55T0d5SUo4Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok 1A Keuno,Morowali Utara,Sulawesi Tengah,Nikel Blok 1A Keuno,14392731.0,2150606.0,Ton,2022
+181,121.424,-2.18,MzdoWlM2a3NydENtTkhuU2lkODhZZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok 1B Keuno,Morowali Utara,Sulawesi Tengah,Nikel Blok 1B Keuno,8731238.0,1489823.0,Ton,2022
+182,121.474,-2.229,S0xpWUV5OVNhQUN4NjZzaEp3OEtRQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok 2 Keuno,Morowali Utara,Sulawesi Tengah,Nikel Blok 2 Keuno,4357924.0,0.0,Ton,2022
+183,122.268,-3.919,TkZQQW9aSzdXSHp5WWhWVVNKSG4rZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Amonggedo,Konawe,Sulawesi Tenggara,Nikel Amonggedo,25775357.0,15683144.0,Ton,2022
+184,122.272,-3.916,REVwMnZRekxvcDhiZmhDYUNvckFpdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Ponidaha,Konawe,Sulawesi Tenggara,Nikel Ponidaha,31426193.0,18575336.0,Ton,2022
+185,122.368,-3.418,REwrVmNieVZ6NTNsVXVPeW5NejVzQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Boenaga,Konawe Utara,Sulawesi Tenggara,Nikel Boenaga,10719212.0,1337903.0,Ton,2022
+186,121.925,-5.158,RjZqNC9XdEErM3BldWNMbHBOalJYUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok Larolano,Bombana,Sulawesi Tenggara,Nikel Blok Larolano,39688169.0,9058046.0,Ton,2022
+187,121.908,-5.115,NHVOVkpnSVM4SjVQQXFLR0VaSXIzUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Larolano,Bombana,Sulawesi Tenggara,Nikel Larolano,3214180.0,0.0,Ton,2022
+188,122.235,-3.379,ajlWUzMyem83d2hnTlBqbjFGem81UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Morombo 1,Konawe Utara,Sulawesi Tenggara,Nikel Morombo 1,33806357.0,6417656.0,Ton,2022
+189,121.531,-4.297,bVlQdlhnbmY2OGZSTFpBc0ZYNHdEdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sopura 1,Kolaka,Sulawesi Tenggara,Nikel Sopura 1,1233404.0,89965.0,Ton,2022
+190,121.467,-2.124,ZEh1QlpTeVlxOXFMcURNRmlNOGRGUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Bimor Jaya,Morowali Utara,Sulawesi Tengah,Nikel Bimor Jaya,55767015.66,42195901.49,Ton,2022
+191,122.405,-3.148,UWx1UFhtZVNVU0xJK2hyRndtOXUvdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lamantoli,Morowali,Sulawesi Tengah,Nikel Lamantoli,6275000.0,1760000.0,Ton,2022
+192,127.436,-1.538,U1JOSXZXRDJuUGxzUXNjOXF3aHVCdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Kawasi 1,Halmahera Selatan,Maluku Utara,Nikel Kawasi 1,38140000.0,111900000.0,Ton,2022
+193,121.536,-4.263,Z2MwOG5YOHJDbzVvSFhMWlZ2TVpXUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,WSPM 017,Kolaka,Sulawesi Tenggara,Nikel WSPM 017,2170000.0,410000.0,Ton,2022
+194,121.63,-4.204,cnVOTjFjeWRJYlJIaGFScGwrbWhpZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,WSPM 016,Kolaka,Sulawesi Tenggara,Nikel WSPM 016,20200000.0,3640000.0,Ton,2022
+195,121.553,-4.278,Y00yTXNaMFp4dEpwb2drN010VU9oZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,WSPM 015,Kolaka,Sulawesi Tenggara,Nikel WSPM 015,10060000.0,3380000.0,Ton,2022
+196,121.075,-2.571,TzV5b0srSXFsOUZ5cmN0eWVyU0Y4Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Ussu,Luwu Timur,Sulawesi Selatan,Nikel Ussu,15175977.0,3365776.0,Ton,2022
+197,121.703,-4.196,V0hzdmNHR3o5ZFF3RGcvK2hzNElPUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok 2 Pomalaa HPAL,Kolaka,Sulawesi Tenggara,Nikel Blok 2 Pomalaa HPAL,0.0,0.0,Ton,2022
+198,121.719,-4.239,cm9pazlmRnpvSUtYVVhhTWJOeWhUQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok 3 Pomalaa HPAL,Kolaka,Sulawesi Tenggara,Nikel Blok 3 Pomalaa HPAL,0.0,0.0,Ton,2022
+199,121.685,-4.271,NVdGNDJvMUhlcXJTeUFpQTVlaXpXZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok 4 Pomalaa HPAL,Kolaka,Sulawesi Tenggara,Nikel Blok 4 Pomalaa HPAL,0.0,0.0,Ton,2022
+200,121.651,-4.215,c24yTFdWZUpaYVdjMWZTRC9rRUs1Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok 5 Pomalaa HPAL,Kolaka,Sulawesi Tenggara,Nikel Blok 5 Pomalaa HPAL,0.0,0.0,Ton,2022
+201,122.358,-4.398,WHZ4N2pMMmFrMjF6YVpQWEdSeXNQZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok I Watudemba,Konawe Selatan,Sulawesi Tenggara,Nikel Blok I Watudemba,4973848.0,135630.0,Ton,2022
+202,122.369,-4.397,WFJPN2t5QjU0MlpxWnVxWVJ3MndBZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok II Kiaea,Konawe Selatan,Sulawesi Tenggara,Nikel Blok II Kiaea,4388990.0,426440.0,Ton,2022
+203,122.359,-4.411,ZVBVMkE3aVNjQXhCdUZFOG1tcTA1Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok IV Amondo,Konawe Selatan,Sulawesi Tenggara,Nikel Blok IV Amondo,3311560.0,2909260.0,Ton,2022
+204,122.234,-3.195,czZXZWFXT1JUNTZNUVkrb1VVd3dDdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wawoheo,Konawe Utara,Sulawesi Tenggara,Nikel Wawoheo,1422885.0,537220.0,Ton,2022
+205,122.235,-3.392,Rk04dGhDbDMxQTcwc3NpWE94ZWVrdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tapunggaya,Konawe Utara,Sulawesi Tenggara,Nikel Tapunggaya,11874548.0,5151395.0,Ton,2022
+206,122.222,-3.375,VjJPUHJNT29vTE9TbUEzM2dLK1YzUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Marombo (Blok Selatan),Konawe Utara,Sulawesi Tenggara,Nikel Marombo (Blok Selatan),17716050.0,0.0,Ton,2022
+207,122.274,-3.37,Q2NSVVk1SkZJbEtNMGJQT2dGYzN5UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Morombo,Konawe Utara,Sulawesi Tenggara,Nikel Morombo,11570000.0,3420000.0,Ton,2022
+208,121.319,-3.878,YlNUV3VtWUlReUpyakVMR0NzYmpGdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Samaenre,Kolaka,Sulawesi Tenggara,Nikel Samaenre,5440000.0,5190000.0,Ton,2022
+209,121.269,-3.843,MDFyQ2RzeU51eGtaSjhEZVFHdkJnUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wolo,Kolaka,Sulawesi Tenggara,Nikel Wolo,1220000.0,1200000.0,Ton,2022
+210,121.286,-3.872,aU1UZ1lPUTg5WXl1Um9XNktWWHJ2QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Ruby,Kolaka,Sulawesi Tenggara,Nikel Ruby,1550000.0,1400000.0,Ton,2022
+211,121.287,-3.864,VkNXZWZkZ280VUhSQVZKeTgwaHk5Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Jessica,Kolaka,Sulawesi Tenggara,Nikel Jessica,330000.0,300000.0,Ton,2022
+212,122.491,-4.435,b0hRa3VXY0RaYVNoVmN3SDNCcG1jUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wonua Kongga,Konawe Selatan,Sulawesi Tenggara,Nikel Wonua Kongga,44024936.0,10344665.06,Ton,2022
+213,123.015,-4.126,SnhUbTRuYnVjVkJ0NEFLN2h1aTZEZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wongkolo,Konawe Kepulauan,Sulawesi Tenggara,Nikel Wongkolo,1645900.0,0.0,Ton,2022
+214,122.265,-3.287,S2p1bVYxdzhtY0JzNXBWVDR3cDRadz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Bintaro,Konawe Utara,Sulawesi Tenggara,Nikel Bintaro,56769298.0,13929159.0,Ton,2022
+215,122.258,-3.39,ZnFFb3dCSXZ5WS81M0dKNTVSQkUyUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Marombo 1,Konawe Utara,Sulawesi Tenggara,Nikel Marombo 1,10650000.0,3150000.0,Ton,2022
+216,120.99,-2.843,Q2dFTzE5S3dzS05kTkZHQytKcWpsdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Patikala 4 Blok Utara,Kolaka Utara,Sulawesi Tenggara,Nikel Patikala 4 Blok Utara,24816948.0,16131012.0,Ton,2022
+217,121.492,-2.172,M3Y4R1J6U3poRDEvZTZYTU8vT2VWZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Keuno,Morowali Utara,Sulawesi Tengah,Nikel Keuno,6300000.0,2450000.0,Ton,2022
+218,121.451,-2.095,cXo3cDZZeStWWEM4dTluK2JzaU1yZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Towara,Morowali Utara,Sulawesi Tengah,Nikel Towara,2740000.0,260000.0,Ton,2022
+219,121.41,-2.084,MHhuU2hzMzkwbjdDeXM2SmdMRzVSdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tompira,Morowali Utara,Sulawesi Tengah,Nikel Tompira,19420000.0,1600000.0,Ton,2022
+220,121.418,-2.108,NDYvZWNKQkN3UlhyNVdvczNyamt1UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Putemata,Morowali Utara,Sulawesi Tengah,Nikel Putemata,1310000.0,0.0,Ton,2022
+221,121.366,-2.103,TlFhOXhDSkZoZEdXQzB3c2IwcXN3UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Cengkeh,Morowali Utara,Sulawesi Tengah,Nikel Cengkeh,30360000.0,5850000.0,Ton,2022
+222,122.25,-3.378,WXc5UzZmdm43Nmc1NTYrbzBYK2NQdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tobimieta,Konawe Utara,Sulawesi Tenggara,Nikel Tobimieta,24872602.54,10888423.0,Ton,2022
+223,121.63479,-4.218025,OGtHeldrUSt2TWZ0SENQSmQzODYydz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pesouha,Kolaka,Sulawesi Tenggara,Nikel Pesouha,81925343.0,5884984.0,Ton,2022
+224,122.196945,-3.563189,OVBxeFZaV09jMTB4Sms5YlZKdmg1Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tapungjaya 1,Konawe Utara,Sulawesi Tenggara,Nikel Tapungjaya 1,4310419.0,3171116.72,Ton,2022
+225,122.381265,-3.418004,c3NMTXhKbEczUWtTTy9XbXBDbU5idz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Boedingi,Konawe Utara,Sulawesi Tenggara,Nikel Boedingi,7024186.0,2573852.0,Ton,2022
+226,121.966892,-5.145352,a3cxOXZ1cHQ0NUdscHkwb1puRE84QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lengora 1 (Blok A 11),Bombana,Sulawesi Tenggara,Nikel Lengora 1 (Blok A 11),3410000.0,2432844.55,Ton,2022
+227,122.215,-3.363,NkhjZEdrYStuRWhiUU9HUEw5UUZpZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Osu Ranonuwue,Konawe Utara,Sulawesi Tenggara,Nikel Osu Ranonuwue,9543450.0,2662850.0,Ton,2022
+228,122.35,-3.387,VEcrbExYaThjQVNOUnNpcy9lOHVnUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Waturambaha,Konawe Utara,Sulawesi Tenggara,Nikel Waturambaha,16111800.0,10221553.0,Ton,2022
+229,122.336628,-3.368241,cnF1eS8xNDIzL1BDNVRldHcvaFBZZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok Helipad Waturambaha (B30),Konawe Utara,Sulawesi Tenggara,Nikel Blok Helipad Waturambaha (B30),44704600.0,12651970.0,Ton,2022
+230,122.336979,-3.372291,eFA0Q3lSR0lSU1BuYjVjK3A1bGxRdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok A Waturambaha,Konawe Utara,Sulawesi Tenggara,Nikel Blok A Waturambaha,0.0,0.0,Ton,2022
+231,122.337135,-3.37525,ai8wREtieFFGZXZaOGJZWWxQeEJtQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok B Waturambaha,Konawe Utara,Sulawesi Tenggara,Nikel Blok B Waturambaha,0.0,0.0,Ton,2022
+232,122.329724,-3.371979,UzVIcEh4ZStpL1ZUam9WdEJqRENJUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok C Waturambaha,Konawe Utara,Sulawesi Tenggara,Nikel Blok C Waturambaha,0.0,0.0,Ton,2022
+233,122.330075,-3.375444,aWtNbEdPQVY5NUtCaEF2UmREMW5LQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok D Waturambaha,Konawe Utara,Sulawesi Tenggara,Nikel Blok D Waturambaha,0.0,0.0,Ton,2022
+234,122.337525,-3.379571,c1phVytteTJmaXIwd2MzcjYvNTh5UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok E Waturambaha,Konawe Utara,Sulawesi Tenggara,Nikel Blok E Waturambaha,0.0,0.0,Ton,2022
+235,122.337798,-3.382101,ZHBBeWR1VjJSbXNDZlpWSTFWRFozZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok F Waturambaha,Konawe Utara,Sulawesi Tenggara,Nikel Blok F Waturambaha,0.0,0.0,Ton,2022
+236,122.337876,-3.384516,Y0o2UkpFaVZaM1BlNkhYRmUrSDBSUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok G Waturambaha,Konawe Utara,Sulawesi Tenggara,Nikel Blok G Waturambaha,0.0,0.0,Ton,2022
+237,122.337837,-3.386658,NW55K3NYcGdwekN1RW5lcjhCMjFhUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok H Waturambaha,Konawe Utara,Sulawesi Tenggara,Nikel Blok H Waturambaha,0.0,0.0,Ton,2022
+238,122.338,-3.407,QWYwUUc5M21MNEExeTRXeUk1dU1DZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Boedingin,Konawe Utara,Sulawesi Tenggara,Nikel Boedingin,0.0,12325000.0,Ton,2022
+239,122.176787,-4.395965,K2lLektVTWVNbkJJbkJWMXIwaituZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok Selatan Ngapaaha,Konawe Selatan,Sulawesi Tenggara,Nikel Blok Selatan Ngapaaha,20149452.0,11615008.0,Ton,2022
+240,121.825752,-5.258403,UXRBY1A4NnFKUUhRUGNTWTNKbDRWUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Rahampuu,Bombana,Sulawesi Tenggara,Nikel Rahampuu,13626983.0,1539800.0,Ton,2022
+241,129.520237,-0.176794,Ym9rOE1NTDVYZUNHbGh3dXVBRjYyUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Umera 1,Halmahera Tengah,Maluku Utara,Nikel Umera 1,14383000.0,5154000.0,Ton,2022
+242,127.52809,-1.605108,YU4ycTNzSkV2cVdVUDZCcTdvZlN0UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Soligi,Halmahera Selatan,Maluku Utara,Nikel Soligi,55277214.0,25468172.0,Ton,2022
+243,128.179,0.901,bEdSV0RXSnh4ZzNKQzhpVU81a0tOUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wagemna,Halmahera Timur,Maluku Utara,Nikel Wagemna,16700000.0,14000000.0,Ton,2022
+244,129.484,-0.133,cGp4cDhjYWNOQmdabmVaNHFheUtuUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Kacepi,Halmahera Tengah,Maluku Utara,Nikel Kacepi,49600000.0,0.0,Ton,2022
+245,127.441476,-1.577392,RmZYVTlRR3BncklTMk9OZGR5a3Urdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Loji,Halmahera Selatan,Maluku Utara,Nikel Loji,49625000.0,25800000.0,Ton,2022
+246,127.540584,-1.471565,OEd3YVFJOTBvSGQrY2I4dXpqSkowUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Baru 2,Halmahera Selatan,Maluku Utara,Nikel Baru 2,43911232.0,17980556.0,Ton,2022
+247,127.558612,-1.441138,cVZhbG0rSHdJODJESjhJcnBnd0E2QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Baru 3,Halmahera Selatan,Maluku Utara,Nikel Baru 3,86070000.0,31070000.0,Ton,2022
+248,127.9,0.571,VnVsby9MTyszbEhTMXdKT1d0MC92dz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Woekob,Halmahera Tengah,Maluku Utara,Nikel Woekob,17234854.45,34469710.0,Ton,2022
+249,128.106,0.795,bDZQdnp1YmVBMzd4Rmk4dXhyQUhNdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Weda,Halmahera Timur,Maluku Utara,Nikel Weda,103803835.0,56268985.0,Ton,2022
+250,128.009,0.62,c0RwQ2dBSGRnSFpNTUdpem1TdlFXZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sawai,Halmahera Tengah,Maluku Utara,Nikel Sawai,42500000.0,13525000.0,Ton,2022
+251,127.925,0.731,a3hXRWNQcmkxZU93TXM0M1pRSFZCQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wasile 2,Halmahera Timur,Maluku Utara,Nikel Wasile 2,48500000.0,17625000.0,Ton,2022
+252,121.72,-3.176,KzVId04zYUlWdlRlUXB1MDVVZE8vUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Amorome,Konawe Utara,Sulawesi Tenggara,Nikel Amorome,0.0,11392500.0,Ton,2022
+253,127.742,-1.621,c3NFN0ZleDdRaHRSdGxWYk4xR2pXdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Fluk,Halmahera Selatan,Maluku Utara,Nikel Fluk,35800000.0,0.0,Ton,2022
+254,122.042,-5.206,emt3VXBaeStXWUxwL3M0U0xQNWdnQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lengora,Bombana,Sulawesi Tenggara,Nikel Lengora,4179000.0,3079626.0,Ton,2022
+255,123.153,-4.193,VFJKSGdmKzU5YWFrOHYwREJGRHVMQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Mosolo,Konawe Kepulauan,Sulawesi Tenggara,Nikel Mosolo,3700000.0,0.0,Ton,2022
+256,123.138,-4.23,dERHd2xYKzlTUndMTGZ3WlJUYm5JQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Nambo Jaya,Konawe Kepulauan,Sulawesi Tenggara,Nikel Nambo Jaya,0.0,0.0,Ton,2022
+257,123.021,-4.086,akVnMHpVU1ZHbmJ5amVVWkt1Y2M3dz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Latambaga,Konawe Kepulauan,Sulawesi Tenggara,Nikel Latambaga,0.0,0.0,Ton,2022
+258,129.892,-0.433,UTlPRm96M0NhUkhWdDl3V2ttT2NsQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pulau Gag (Zona Timurlaut),Raja Ampat,Papua Barat,Nikel Pulau Gag (Zona Timurlaut),28220000.0,0.0,Ton,2022
+259,129.859,-0.42,dDlRaDltcWx0SEw5VUxGUlJGRWxkZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pulau Gag (Zona Baratlaut),Raja Ampat,Papua Barat,Nikel Pulau Gag (Zona Baratlaut),11620000.0,0.0,Ton,2022
+260,121.24,-3.868,ZnpIYXdzazZJVnlRbjYvenkrRGl1UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Emerald,Kolaka,Sulawesi Tenggara,Nikel Emerald,940000.0,860000.0,Ton,2022
+261,121.28,-3.876,bUhUaGplcXE3QU9NUHJWbnNEc2VDZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Saphire,Kolaka,Sulawesi Tenggara,Nikel Saphire,1690000.0,1540000.0,Ton,2022
+262,122.27,-3.91,QlF6K2JaYm9KSWZNb2RmampVQ0lLdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok SK 1 Pondidaha,Konawe,Sulawesi Tenggara,Nikel Blok SK 1 Pondidaha,3611430.0,2139950.0,Ton,2022
+263,121.621879,-4.25475,ZVowbTgzdzZLRERsemozaEx5R0NoQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tambea,Kolaka,Sulawesi Tenggara,Nikel Tambea,5300000.0,3600000.0,Ton,2022
+264,122.379771,-3.439408,akN5cUM1WnlyRXMwdFVzdkFLa0Rudz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Boenaga 1,Konawe Utara,Sulawesi Tenggara,Nikel Boenaga 1,42464772.0,20557641.0,Ton,2022
+265,121.000159,-2.858645,dnU4SWltVzkyeUZhK2thTDA0L2Y1Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Patikala 4 Blok Selatan,Kolaka Utara,Sulawesi Tenggara,Nikel Patikala 4 Blok Selatan,36009539.0,23406195.0,Ton,2022
+266,121.858132,-5.29457,YWZ2VmRiUWVyZUkxWWJjRDdyZUxUdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Teomokole,Bombana,Sulawesi Tenggara,Nikel Teomokole,10050000.0,1500000.0,Ton,2022
+267,121.193055,-2.916618,YVNGMHdPTW54ZXJVV1p1OU9SZnJlUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Larui,Kolaka Utara,Sulawesi Tenggara,Nikel Larui,134062370.0,52229794.0,Ton,2022
+268,123.033468,-0.697543,WEpLQkFWV0h1TlhDNU5VcXhQT0tJZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Longkoga Barat 1,Banggai,Sulawesi Tengah,Nikel Longkoga Barat 1,42716800.0,35558840.0,Ton,2022
+269,122.321608,-1.416227,L0Y3bVQ3d0dSenhjT2RLR1ZQN0NpUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Singkoyo,Banggai,Sulawesi Tengah,Nikel Singkoyo,72943000.0,21882900.0,Ton,2022
+270,122.246038,-1.465158,WHJWUWpTRUtSK1k5bEUzb2NzVS9DZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Piondo,Banggai,Sulawesi Tengah,Nikel Piondo,107397000.0,32219100.0,Ton,2022
+271,122.083155,-1.597529,NXZpVmxBWGFwK01SM3BmYmJxd2hpdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok Gunung Keramat,Banggai,Sulawesi Tengah,Nikel Blok Gunung Keramat,106500000.0,3195000.0,Ton,2022
+272,122.14058,-1.573329,L1ZjWTl1YVl4eGw4M2w4c1pWb1NQUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok Rata,Banggai,Sulawesi Tengah,Nikel Blok Rata,234000000.0,7020000.0,Ton,2022
+273,122.208952,-1.510534,a1RxdXczS2Q3Rno1RDU0Y2h6QkljZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok Gunung Keramat 1,Banggai,Sulawesi Tengah,Nikel Blok Gunung Keramat 1,187500000.0,23463150.0,Ton,2022
+274,122.18421,-0.98895,bXVucUdqaHlWcmZlVVhjcHBZQlQ0dz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sumber Agung,Banggai,Sulawesi Tengah,Nikel Sumber Agung,213000000.0,1375000.0,Ton,2022
+275,122.233683,-0.959631,K3hGcGI5REZrVTNVUVJFeThVZWNidz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sumber Mulya,Banggai,Sulawesi Tengah,Nikel Sumber Mulya,68089000.0,13000000.0,Ton,2022
+276,122.285722,-0.926281,elVxREJVamZWY3VDMkdaUHlBTG1RZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Donda,Banggai,Sulawesi Tengah,Nikel Donda,134758000.0,42500000.0,Ton,2022
+277,95.52,5.287,YzBaazdhYmQ4MmhJTWlUTXlIRWN4UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Siron Blang,Aceh Besar,Aceh,Nikel Siron Blang,8295040.0,0.0,Ton,2022
+278,122.288,-3.336,UU5TUTVuTzdaZzlHZHV5M0hKbzZ2QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Molore,Konawe Utara,Sulawesi Tenggara,Nikel Molore,19036464.0,3704316.0,Ton,2022
+279,122.237,-3.167,bjFrQlY2TEMzQ2JKcXZMWkpQeVVVQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wiwirano,Konawe Utara,Sulawesi Tenggara,Nikel Wiwirano,3150000.0,0.0,Ton,2022
+280,120.954,-3.623,Um5RanZENCtNVStwYW56Vml0NFV1UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pitulua 1,Kolaka Utara,Sulawesi Tenggara,Nikel Pitulua 1,24072500.0,4325000.0,Ton,2022
+281,121.138,-2.629,OVJxa25QdGtUL0paV0tWeldnT0cwdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Malili,Luwu Timur,Sulawesi Selatan,Nikel Malili,17135775.0,150301.9057,Ton,2022
+282,129.388,-0.042,UHAwL0RpVTVZaGx3NGJhUGpXa21UZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Ubulie Utara,Halmahera Tengah,Maluku Utara,Nikel Ubulie Utara,15997450.0,12035327.0,Ton,2022
+283,127.904,0.599,RHBRcUYyVDA0ZUd2NnRDM2w0S1RGQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lelilef 1,Halmahera Tengah,Maluku Utara,Nikel Lelilef 1,78365986.87,20377509.5,Ton,2022
+284,128.144,1.048,OFRoUmRQbkRyVWxzSmgrSXZraUZRUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Batu Raja,Halmahera Timur,Maluku Utara,Nikel Batu Raja,4800000.0,2920000.0,Ton,2022
+285,122.158,-3.522,ajlqbkxuTXdUUHpnbE0rdEVpbDhBUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lahimbua,Konawe Utara,Sulawesi Tenggara,Nikel Lahimbua,14062370.0,4288336.0,Ton,2022
+286,122.290023,-3.249139,bnZGeExCUEIvOVRRTlBBN01BZW5FQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lameruru,Konawe Utara,Sulawesi Tenggara,Nikel Lameruru,0.0,4310000.0,Ton,2022
+287,122.363202,-3.386704,aVpEakJBY1BYZy9nUTljakZacGI1UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tapunggaya 2,Konawe Utara,Sulawesi Tenggara,Nikel Tapunggaya 2,8907000.0,640000.0,Ton,2022
+288,122.27061,-3.340382,bmlXVVgyUFhnMno1ODdKTStEbGxiZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok Lameluru-Molore-Tobimeta,Konawe Utara,Sulawesi Tenggara,Nikel Blok Lameluru-Molore-Tobimeta,0.0,0.0,Ton,2022
+289,122.274841,-3.354277,ZXZLd0Mxc3VkeHA2Tk1NZStZZzQxZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tapunggaya 4 (Blok Utara),Konawe Utara,Sulawesi Tenggara,Nikel Tapunggaya 4 (Blok Utara),3660000.0,560000.0,Ton,2022
+290,122.287434,-3.213092,bC94ZUVTYllYM3ozVmpWTFdkQ1o4Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lamonae 4,Konawe Utara,Sulawesi Tenggara,Nikel Lamonae 4,45155091.0,31675498.0,Ton,2022
+291,122.382071,-3.454987,UThkQldIZ1MxNWtJZWdDbG1qTXFuZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pasir Panjang Boedingle,Konawe Utara,Sulawesi Tenggara,Nikel Pasir Panjang Boedingle,11538808.0,5270685.0,Ton,2022
+292,122.194371,-3.577021,UnZoNm0xMEFsRDNvbWovTWlSVGp3UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Mandiodo 2,Konawe Utara,Sulawesi Tenggara,Nikel Wawalalindu,30583100.0,9559750.0,Ton,2022
+293,122.191781,-3.594793,Vmp0K0VuWUltZDNXOWxZR0pQSjRmQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wawalalindu,Konawe Utara,Sulawesi Tenggara,Nikel Blok I dan Blok II Tapunggaya,2570245.0,2570245.0,Ton,2022
+294,122.144098,-4.424565,b1BXSEhYTjRhNWFPRTQyMFp6cGkrQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lapoa,Konawe Selatan,Sulawesi Tenggara,Nikel Lapoa,41677433.0,4537994.0,Ton,2022
+295,122.404,-4.371,cXc3TkQ4RFdWTzJ0aFB3YTZyUTBLUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Parasi,Konawe Selatan,Sulawesi Tenggara,Nikel Parasi,107440000.0,47770000.0,Ton,2022
+296,121.281,-3.862,UFU0Zm45RFd6WTlrZWxwZ3piRHZMQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok Tanjung Baja,Kolaka,Sulawesi Tenggara,Nikel Blok Tanjung Baja,10143681.0,5682044.0,Ton,2022
+297,121.107,-2.891,SGlrYmlBRWYyYzgxUzZ1K0JOY1IyQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tolala 1,Kolaka Utara,Sulawesi Tenggara,Nikel Tolala 1,3990000.0,870000.0,Ton,2022
+298,121.056599,-3.024407,ZzNES29JVWJXNWlpT1FnSmp6SGxrZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok II Lelewawo,Kolaka Utara,Sulawesi Tenggara,Nikel Blok II Lelewawo,1833580.0,700000.0,Ton,2022
+299,121.131044,-2.931255,Q08rMHZTYjRtcjkzY2hMcVdjOUF2UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Larui 1,Kolaka Utara,Sulawesi Tenggara,Nikel Larui 1,17845585.0,9135862.0,Ton,2022
+300,121.8783,-5.352099,K0F1RzdkVmV4UUduYUNKREZFSmJLQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Batuawu,Bombana,Sulawesi Tenggara,Nikel Batuawu,34577470.0,5732278.0,Ton,2022
+301,122.02547,-5.31981,QVdnTnlEajM4RmJVVk41Z29JKy9mQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tapuhaka,Bombana,Sulawesi Tenggara,Nikel Tapuhaka,3428706.0,233556.0,Ton,2022
+302,121.894024,-5.331796,UTJJN1ZIa01iNG5BRHBSTTcvNUdsQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lamkema,Bombana,Sulawesi Tenggara,Nikel Lamkema,9123936.0,1230172.0,Ton,2022
+303,122.182,-2.91,NjZqN2dva0dXbE0xRUJxdHZQampHZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Padabaho,Morowali,Sulawesi Tengah,Nikel Padabaho,14810000.0,10710000.0,Ton,2022
+304,121.292,-1.937,Mkg1aklMRnVvY2luTXdhTSszcWFhdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lambolo 1,Morowali Utara,Sulawesi Tengah,Nikel Lambolo 1,11876854.0,1258974.0,Ton,2022
+305,121.365,-2.14,cDh0QVMwQ0laV3pXaFFJUG1MQ20zZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Korowou,Morowali Utara,Sulawesi Tengah,Nikel Korowou,26201213.0,9951413.0,Ton,2022
+306,122.102504,-2.79574,d2NXaXhobHAxcG9qN2lTTDEvY1ZIdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lalampu 1,Morowali,Sulawesi Tengah,Nikel Lalampu 1,54000000.0,10510000.0,Ton,2022
+307,121.994,-2.82,L1dmUmlTQkNTOGJZOXk3WVp3d3JSUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sumbatu,Morowali,Sulawesi Tengah,Nikel Sumbatu,149052268.0,46197527.0,Ton,2022
+308,121.542,-2.223,bzNSUUp3YS9vcENTVTFaV2ZxTVQ1dz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Solonsa,Morowali,Sulawesi Tengah,Nikel Solonsa,26682250.0,5348698.25,Ton,2022
+309,122.214,-2.994,R2g1OXR2ZVZzdTUzQzVyU040ZDF2QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Torette 1,Morowali,Sulawesi Tengah,Nikel Torette 1,63200000.0,4600000.0,Ton,2022
+310,122.232,-3.023,YXpGL0lRMjAzMGZZaE5TOXV4eTZJQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Buleleng,Morowali,Sulawesi Tengah,Nikel Buleleng,76200000.0,14500000.0,Ton,2022
+311,121.473,-2.139,RTFmekc2dkpjNWc3QTUvVGlMV0ZSUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Molino 2,Morowali Utara,Sulawesi Tengah,Nikel Molino 2,2184344.0,350020.0,Ton,2022
+312,122.223,-1.353,ejZnMUc0VEhsQWxJT0VMcDNOZXAyZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sumber Agung 1,Banggai,Sulawesi Tengah,Nikel Sumber Agung 1,53617324.0,4385280.0,Ton,2022
+313,127.913282,0.532488,SmZhVi9uM3paMXc5YmFxLzNrUXZpUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Biri-Biri,Halmahera Tengah,Maluku Utara,Nikel Biri-Biri,31250000.0,22290000.0,Ton,2022
+314,122.074591,-2.780969,elgzcWJXU1c1cm00NGx0T3VJMXFzQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok Cetara Lalampu,Morowali,Sulawesi Tengah,Nikel Blok Cetara Lalampu,1710000.0,1310000.0,Ton,2022
+315,122.308916,-3.375524,RjJ1T2h6dkx4UDdFa0NURjdxMUxBdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Binanga,Konawe Utara,Sulawesi Tenggara,Nikel Binanga,2355832.0,444150.0,Ton,2022
+316,122.280095,-3.263478,MktTQ0xUNm5LbCtjWndocmVndFFRUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok B Lameluru,Konawe Utara,Sulawesi Tenggara,Nikel Blok B Lameluru,0.0,3586267.0,Ton,2022
+317,122.001227,-5.435993,UjMyaWl3NDF6aml1aEwvWjBaVWNGdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wulu,Buton,Sulawesi Tenggara,Nikel Wulu,66990000.0,23720000.0,Ton,2022
+318,122.303189,-3.362811,bzg5dGxGTnh3TE0xTHB2YU9qbkRHZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Waturambaha 1,Konawe Utara,Sulawesi Tenggara,Nikel Waturambaha 1,17332393.0,5041430.0,Ton,2022
+319,121.067092,-2.83887,d3MxMmVDUzd1SEsvVlBLSXFmYjZEUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lawaki Jaya,Kolaka Utara,Sulawesi Tenggara,Nikel Lawaki Jaya,25596960.0,14258082.0,Ton,2022
+320,121.060325,-2.840494,Z0F1SW9kQ2FTVEhnL0xBY2FoOG1DQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Mosiku,Kolaka Utara,Sulawesi Tenggara,Nikel Mosiku,33519996.0,6014813.0,Ton,2022
+321,122.177496,-3.523775,LzFGNzRjMTFrckhhbTQ0Rk9JdE9OZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tapunggaya 3,Konawe Utara,Sulawesi Tenggara,Nikel Tapunggaya 3,3166641.0,3166641.0,Ton,2022
+322,122.265682,-3.372782,RDQ4alVheHhlUlhrV2I3L3U5MUFXUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tapunggaya 4 (Blok Selatan),Konawe Utara,Sulawesi Tenggara,Nikel Tapunggaya 4 (Blok Selatan),5810000.0,690000.0,Ton,2022
+323,122.303334,-3.257407,dXJHNVA4UjM3OFhJM3RTbEQvMDdadz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lameruru 1,Konawe Utara,Sulawesi Tenggara,Nikel Lameruru 1,85866430.0,18963900.0,Ton,2022
+324,122.487726,-4.36081,UzUzbDFvcnFSZ3pYbkU3Z1U0UnBkZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Labokeo,Konawe Selatan,Sulawesi Tenggara,Nikel Labokeo,3444000.0,1001940.0,Ton,2022
+325,128.281562,0.619413,cHJzWEpsUXh0aTZlODNNZUEvb3ZuZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Soa Gimalaha,Halmahera Timur,Maluku Utara,Nikel Soa Gimalaha,24079379.0,14113186.0,Ton,2022
+326,128.008372,0.725976,cmZ3dDVjOUdWZnM0WVdvZzFZY09qUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Toloku,Halmahera Tengah,Maluku Utara,Nikel Toloku,18080000.0,0.0,Ton,2022
+327,128.033437,0.707826,KzFFaDJQSWhJV0NMdkVhQ2hxUWVaUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Kao Rahai Timurlaut,Halmahera Tengah,Maluku Utara,Nikel Kao Rahai Timurlaut,135460000.0,0.0,Ton,2022
+328,127.926453,0.557847,Sk9yUWY0bGpUNWRJYXYxdlBBaWdRUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Casuarina,Halmahera Tengah,Maluku Utara,Nikel Casuarina,8850000.0,0.0,Ton,2022
+329,128.047646,0.524907,Vk41aCs0bWp2eVlseWxmSHhVMGxWdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sepoh,Halmahera Tengah,Maluku Utara,Nikel Sepoh,30000000.0,26528000.0,Ton,2022
+330,121.08738,-2.745755,UUF3TEVwVWUvaUJ2SmZSd21JYlZwdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Desa Harapan (PDS),Luwu Timur,Sulawesi Selatan,Nikel Desa Harapan (PDS),80349042.0,23101752.0,Ton,2022
+331,121.909108,-5.373862,bjJKT2R6TklCZUp4dWxNRkdCUEMxdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Pongkalaero 1,Bombana,Sulawesi Tenggara,Nikel Pongkalaero 1,1870000.0,5590000.0,Ton,2022
+332,122.075695,-2.81264,S0Vubld6Mkh0YThWV2d3a3ZLcmo4dz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lalampu 2,Morowali,Sulawesi Tengah,Nikel Lalampu 2,1400000.0,550000.0,Ton,2022
+333,121.898026,-1.682942,OWRzcVRlY3N3NFV2N3phSEhUM2lnZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Kolo Bawah,Morowali Utara,Sulawesi Tengah,Nikel Kolo Bawah,91000.0,33000.0,Ton,2022
+334,121.414016,-2.094909,b1lpdDJBNkY5ZVRwT1pLMkRnM3dMUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Bungintibe,Morowali Utara,Sulawesi Tengah,Nikel Bungintibe,35935998.0,23597866.0,Ton,2022
+335,122.234543,-3.038003,TVM2SGx6UXJ0VEhQV0VRN2VZTVBlQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Buleleng 1,Morowali,Sulawesi Tengah,Nikel Buleleng 1,47330446.0,19431758.0,Ton,2022
+336,121.547502,-2.258651,UWlDTGpzOU5GSlpZeTQ5M0FIU2t5Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Ungkaya 1,Morowali,Sulawesi Tengah,Nikel Ungkaya 1,1730000.0,1306268.0,Ton,2022
+337,122.99128,-0.733443,aFpVbWVaeXp4a1B4NXNKSjZSN0Z1QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Siuna 2,Banggai,Sulawesi Tengah,Nikel Siuna 2,17040000.0,5640000.0,Ton,2022
+338,122.203694,-2.968062,VmI0VUIySjB1azB0RWxKZ3A5MW91QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Torette 2,Morowali,Sulawesi Tengah,Nikel Torette 2,65132170.0,20629600.0,Ton,2022
+339,121.256562,-1.900416,Y1RqMXNRZmY0blorUldTVlJBZTFMdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Towi,Morowali Utara,Sulawesi Tengah,Nikel Towi,117382192.0,49486876.0,Ton,2022
+340,122.363,-3.3867,aHREQWxTYWt1NGNTaEc2U3lhVGdDUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tapunggaya 5,Konawe Utara,Sulawesi Tenggara,Nikel Tapunggaya 5,83173253.37,50741266.67,Ton,2022
+341,122.37,-3.45697,WkJJTnZtUGpYZHhKOXhCTFlMMVBrZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tapu Boedingin,Konawe Utara,Sulawesi Tenggara,Nikel Tapu Boedingin,800000.0,450.0,Ton,2022
+342,122.404,-4.37076,eHpRSXlpQVUvT0toZXBEbmtoZVk4QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Kiaea,Konawe Selatan,Sulawesi Tenggara,Nikel Kiaea,20005000.0,3000000.0,Ton,2022
+343,121.153,-2.78849,R3FYK0NTRUpmT3drU21ZT01XUklaUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok Pongkeru dan Blok Harapan,Luwu Timur,Sulawesi Selatan,Nikel Blok Pongkeru dan Blok Harapan,16560000.0,1008000.0,Ton,2022
+344,128.231,0.737639,dWxZbHliVGYxQTYwSzZ1R1hVNDVEZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Wailukum 2,Halmahera Timur,Maluku Utara,Nikel Wailukum 2,657000.0,657000.0,Ton,2022
+345,128.181,0.900419,L1YwY2pySDlvTmZ6aTY5eUJwRmFvZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Buli Karya,Halmahera Timur,Maluku Utara,Nikel Buli Karya,98000000.0,48000000.0,Ton,2022
+346,127.389,-1.50834,MDZLbkdyakZISlg3UXlzL09BWFZzQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Malamala Utara,Halmahera Selatan,Maluku Utara,Nikel Malamala Utara,36700000.0,11600000.0,Ton,2022
+347,128.081,0.544907,QjZDb0lYc282TXFYamQ1eGkxN1JPUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sagea,Halmahera Tengah,Maluku Utara,Nikel Sagea,0.0,17264000.0,Ton,2022
+348,128.081,0.544907,WWY4NWVKaUkvY0ViWkozNnZqTHhjdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sagea 1,Halmahera Tengah,Maluku Utara,Nikel Sagea 1,4186000.0,3292000.0,Ton,2022
+349,121.806,-2.98486,NDAxSTZlUXZ6MHVJVDNLQTN3Smc4Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Prospek Bravo Romeo 1,Konawe,Sulawesi Tenggara,Nikel Prospek Bravo Romeo 1,152101550.742,67100000.0,Ton,2022
+350,121.806,-2.98486,aDNKdjBvRytOVzhPWUF3UjRJVGdvZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Prospek Bravo Romeo 2 dan 3,Konawe,Sulawesi Tenggara,Nikel Prospek Bravo Romeo 2 dan 3,519983538.3472,72300000.0,Ton,2022
+351,121.806,-2.98486,cDZLUDVESXBDL3NrcnJMamJlTHRsZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Prospek Delta Sierra,Konawe,Sulawesi Tenggara,Nikel Prospek Delta Sierra,171357965.9828,71200000.0,Ton,2022
+352,121.967,-5.14535,aDV0MnJiaXNudUFIa3MwNWZMK20wdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lengora 1 (Blok A 2),Bombana,Sulawesi Tenggara,Nikel Lengora 1 (Blok A 2),2070019.0,1404083.25,Ton,2022
+353,121.967,-5.14535,TVNJT3FTYnlGQzREU0UzN1kwcmFJQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lengora 1 (Blok A 7),Bombana,Sulawesi Tenggara,Nikel Lengora 1 (Blok A 7),1927680.0,1173847.0,Ton,2022
+354,121.967,-5.14535,MENLQUZibHlJanhTTnUyaVhNODBpdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lengora 1 (Blok AB),Bombana,Sulawesi Tenggara,Nikel Lengora 1 (Blok AB),180000.0,131305.2,Ton,2022
+355,121.967,-5.14535,Z1cxNDJ5cy9aNXJPS0lkV2pCTzhnQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lengora 1 (Blok A 12),Bombana,Sulawesi Tenggara,Nikel Lengora 1 (Blok A 12),1900000.0,0.0,Ton,2022
+356,121.967,-5.14535,bFM0czRPSkxXVjNFNC8wNmhNRlhpQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lengora 1 (Blok A 15),Bombana,Sulawesi Tenggara,Nikel Lengora 1 (Blok A 15),7360000.0,0.0,Ton,2022
+357,121.967,-5.14535,Yzd6aXhUTFdNdGVSdG9hTmZWQlBEQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Lengora 1 (Blok B1),Bombana,Sulawesi Tenggara,Nikel Lengora 1 (Blok B1),18340000.0,0.0,Ton,2022
+358,128.077,0.713041,U0JNZk4vNlJZQnprWlNJZE8yVS9LZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Maba Sangaji,Halmahera Timur,Maluku Utara,Nikel Maba Sangaji,224929976.0,23307185.0,Ton,2022
+359,128.205,0.811164,V21LWlJ0WXBPN0JNT0Vhcmk0VE94UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Mabapura,Halmahera Timur,Maluku Utara,Nikel Mabapura,28257000.0,22880000.0,Ton,2022
+360,122.273,-3.13008,aC8xd2tPM3NtOUhIS2pjNlovdy81Zz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sambalagi 1,Morowali,Sulawesi Tengah,Nikel Sambalagi 1,26188000.0,14797000.0,Ton,2022
+361,121.347,-1.89215,R0FxcndsNGhGai9POStTZGVaOVEyZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Ganda ganda 1,Morowali Utara,Sulawesi Tengah,Nikel Ganda ganda 1,1472080.0,1246548.0,Ton,2022
+362,122.184,-0.98895,aXhHNjY4YlVad0xySWNLeXNETzBadz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Rapalemba,Tojo Una-Una,Sulawesi Tengah,Nikel Rapalemba,40780258.0,9235772.0,Ton,2022
+363,122.404,-4.37076,cGZKUXlacjZtWmw5N2QxY1NyZlpqZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sambalagi 2,Morowali,Sulawesi Tengah,Nikel Sambalagi 2,31492000.0,13680000.0,Ton,2022
+364,121.277,-1.80008,M3pERmViaXpQQlVETnhoQ0F5R1pHQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tamainusi 2,Morowali Utara,Sulawesi Tengah,Nikel Tamainusi 2,9600000.0,2000000.0,Ton,2022
+365,121.220972,-1.836858,Z0VFTEl4N0ZKSERncmRnQ2pQSXM3UT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tamainusi 3,Morowali Utara,Sulawesi Tengah,Nikel Tamainusi 3,8851000.0,6988000.0,Ton,2022
+366,121.341,-1.8607,R2wxc2ZyemZwdWxhVTljSXNXM3B1dz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Towi,Morowali Utara,Sulawesi Tengah,Nikel Towi,3740000.0,2550000.0,Ton,2022
+367,122.076,-2.81264,OWpiVkFLR1ZVUlZlNDlsMzBtQWIzdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Sumbatu 1,Morowali,Sulawesi Tengah,Nikel Sumbatu 1,12400000.0,3990000.0,Ton,2022
+368,122.025,-5.31981,ZFBZc1kzdm1zR2NtRGFaelhsalQ1QT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tangkeno,Bombana,Sulawesi Tenggara,Nikel Tangkeno,80352000.0,17300000.0,Ton,2022
+369,122.37,-3.45697,U0NXa1BuMmk4MWtCKzhwVUhNSWJHZz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Tapunggaya 6,Konawe Utara,Sulawesi Tenggara,Nikel Tapunggaya 6,13393720.0,4061228.0,Ton,2022
+370,122.263739,-3.388406,YjJ5T1VCYnBDOENwWXptNUtWOUJGdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok DTGP-1 (A),Konawe Utara,Sulawesi Tenggara,Nikel Blok DTGP-1 (A),23472500.0,4325000.0,Ton,2022
+371,120.915151,-3.563004,L0lEK25ONWdqVk8raGthNmhVNkpZdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok PT FBS,Kolaka Utara,Sulawesi Tenggara,Nikel Blok PT FBS,4310450.0,1301031.0,Ton,2022
+372,122.36118,-3.428337,VCtDazlRSHg3bnNKeldMaVhIOEVMdz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok 1 - 9,Konawe Utara,Sulawesi Tenggara,Nikel Blok 1 - 9,5664765.0,4335564.0,Ton,2022
+373,122.099,-2.944,bnpWeUFmR2tJclkrRXdrZzhjNk51dz09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok A,Morowali,Sulawesi Tengah,Nikel Blok A,4379000.0,568000.0,Ton,2022
+374,121.728,-2.388,Vlc1UXhFcFZnaHFWb1pyOWlBRVJtQT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok 1,Morowali,Sulawesi Tengah,Nikel Blok 1,83034000.0,37908480.0,Ton,2022
+375,122.353,-3.414,VGEyeVRqUEsyUGtkRlNBRGcwbWxmUT09,Mineral Logam,Nikel,Logam Besi dan Paduan Besi,Blok WSM 1-7,Konawe Utara,Sulawesi Tenggara,Nikel Blok WSM 1-7,17710750.0,2667188.0,Ton,2022
