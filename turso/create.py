@@ -164,6 +164,28 @@ TABLE_STATEMENTS = [
     );
     """,
     """ 
+    CREATE TABLE IF NOT EXISTS mining_license_auctions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        commodity TEXT,
+        city TEXT,
+        province TEXT,
+        company_name TEXT,
+        date_winner TEXT,
+        luas_sk REAL,
+        nomor TEXT UNIQUE,  --  unique identifier
+        jenis_izin TEXT,
+        kdi TEXT,
+        code_wiup TEXT,
+        auction_status TEXT,
+        created_at TEXT,
+        last_modified TEXT,
+        jumlah_peserta INTEGER,
+        tahapan TEXT,
+        peserta TEXT,
+        winner TEXT
+    )
+    """,
+    """ 
     CREATE TABLE IF NOT EXISTS mining_news (
         id INTEGER PRIMARY KEY, 
         title TEXT NOT NULL,

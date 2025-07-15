@@ -34,6 +34,7 @@ TABLES = [
     "commodity",
     "global_commodity_data",
     "mining_license",
+    "mining_license_auctions",
     "mining_news"
 ]
 
@@ -50,6 +51,7 @@ CONFLICT_TARGET = {
     "commodity": ["commodity_id"],
     "global_commodity_data": ["id"],
     "mining_license": ["id"],
+    "mining_license_auctions": ["nomor"],
     "mining_news": ["source"]
 }
 

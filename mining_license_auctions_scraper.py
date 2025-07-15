@@ -1,3 +1,7 @@
+from seleniumwire import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
 from scrapper.esdm_minerba  import COMMODITY_MAP
 
 import logging
@@ -18,16 +22,74 @@ LOGGER.info("Init Global Variable")
 
 # The API URL 
 API_URL = "https://minerba.esdm.go.id/lelang/api/pub/lelang_done?page=1"
-
+# DB local
 DB_PATH = 'db.sqlite'
 
-HEADERS = {
-    'Accept': 'application/json, text/plain, */*',
-    'Authorization': 'Bearer iIsInR5cCI6IkpXVCJ9eyJhbGciOiJIUzI1N__2Nzg5MDEyMzQ1NiIsImUiOiJwdWJsaWNAZW1haWwuY29tIiwiciI6InB1YmxpYyIsIm4iOiJHdWVzdCIsInMiOiJibDRja200bWI0ISEiLCJpYXQiOjE3NTEyNTU1MzIsImV4cCI6MTc1MTI1NTgzMn0eyJpIjoiMTIzNDU__QlQeMAfAfZvEuJmqm9oY0oec95wRgZwQlQeMAfAfZvEuJmqm9oY0oec95wRgZw',
-    'Accept-Language': 'en-US,en;q=0.9,id;q=0.8', 
-    'Referer': 'https://minerba.esdm.go.id/lelang/',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 
-}
+
+def get_wire_driver(is_headless: bool = True) -> webdriver.Chrome:
+    """
+    Initializes a selenium-wire WebDriver.
+
+    Args:
+        is_headless (bool): If True, runs the browser in headless mode. Default is True.
+    
+    Returns:
+        webdriver.Chrome: An instance of the Chrome WebDriver configured with selenium-wire.
+    """
+    options = webdriver.ChromeOptions()
+    if is_headless:
+        options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=options)
+    return driver
+
+def get_jwt_auth():
+    """ 
+    Get the JWT Authorization header from the ESDM Minerba API.
+    This function uses Selenium Wire to capture the Authorization header from the API call.
+    """
+    headers = {
+        'Accept': 'application/json, text/plain, */*',
+        'Authorization': "",
+        'Accept-Language': 'en-US,en;q=0.9,id;q=0.8', 
+        'Referer': 'https://minerba.esdm.go.id/lelang/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 
+    }
+    
+    # Initialize the selenium-wire driver
+    driver = get_wire_driver()
+
+    try:
+        print("Navigating to page to trigger API calls...")
+        driver.get("https://minerba.esdm.go.id/lelang/")
+
+        print("Waiting up to 30 seconds for the browser to make the API call...")
+        # Use selenium-wire's function to wait for the request
+        request = driver.wait_for_request(
+            'lelang/api/pub/lelang_done',
+            timeout=30
+        )
+
+        # Grab the Authorization header from the captured request.
+        jwt_header = request.headers.get('Authorization')
+        if not jwt_header:
+            print("No Authorization header found.")
+            return None
+        
+        headers["Authorization"] = jwt_header
+        return headers
+    
+    except Exception as error:
+        print(f"\nFAILED. The browser never made the API call. Likely blocked by bot detection.")
+        print(f"Error: {error}")
+
+    finally:
+        if driver:
+            print("\nClosing the driver.")
+            driver.quit()
 
 
 def get_data_lelang_json():
@@ -38,7 +100,8 @@ def get_data_lelang_json():
     try:
         LOGGER.info(f"Sending request to: {API_URL}")
         # Make the request to the API, now including the headers
-        response = requests.get(API_URL, headers=HEADERS)
+        headers = get_jwt_auth()
+        response = requests.get(API_URL, headers=headers)
 
         # Check the status code from the server's response
         LOGGER.info(f"Received status code: {response.status_code}")
@@ -200,7 +263,7 @@ def get_specific_data(data_json: dict) -> dict[str]:
     """ 
     Extract specific data from the JSON response.
     This function filters the data to include only completed auctions for specific commodities
-    (coal and gold) and formats the data.
+    (coal, gold, nikel, tembaga) and formats the data.
     
     Args:
         data_json (dict): The JSON data containing auction information.
@@ -220,7 +283,8 @@ def get_specific_data(data_json: dict) -> dict[str]:
         
         if not isinstance(stage, str) or stage.lower() != "lelang selesai":
             continue
-        if not isinstance(commodity, str) or commodity.lower() not in ['batubara', 'emas']:
+        if not isinstance(commodity, str) or commodity.lower() not in ['batubara', 'emas', 
+                                                                       'nikel', 'tembaga']:
             continue
         
         # Loop data key peserta 
@@ -274,8 +338,8 @@ def create_table(path):
             created_at TEXT,
             last_modified TEXT,
             jumlah_peserta INTEGER,
-            tahapan JSON,
-            peserta JSON,
+            tahapan TEXT,
+            peserta TEXT,
             winner TEXT
         )
     ''')
@@ -384,7 +448,6 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
 if __name__ == '__main__':
     data = get_data_lelang_json()
     df_cleaned = get_specific_data(data)
-    
     conn = create_table(DB_PATH)
     check_upsert_local(conn, df_cleaned)
    
