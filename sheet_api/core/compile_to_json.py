@@ -1,8 +1,9 @@
 # %%
-from sheet_api.core.toolbox  import safeCast, clean_company_df
-from google_sheets.auth     import createClient, createService
+from sheet_api.core.toolbox           import safeCast, clean_company_df
+from sheet_api.google_sheets.auth     import createClient, createService
+from sheet_api.google_sheets.client   import getSheetAll
 from sheet_api.minerba_merge          import prepareMinerbaDf
-from rapidfuzz              import process, fuzz
+from rapidfuzz                        import process, fuzz
 
 import pandas as pd
 import json
@@ -340,12 +341,37 @@ def matchingSequence(license_df: pd.DataFrame, clean_list: list, key: str, key_n
 
     return matches
 
+def batchUpdateSheet(rows: list, sheet_id: int, starts_from: int, length: int, col_id: int):
+    requests = [
+        {
+            'updateCells': {
+                'range': {
+                    'sheetId': sheet_id,
+                    'startRowIndex': starts_from + 1,
+                    'endRowIndex': length + 1,
+                    'startColumnIndex': col_id,
+                    'endColumnIndex': col_id + 1
+                },
+                'rows': rows,
+                'fields': 'userEnteredValue'
+            }
+        }
+    ]
+
+    response = SERVICE.spreadsheets().batchUpdate(
+        spreadsheetId=SPREADSHEET_ID,
+        body={'requests': requests}
+    ).execute()
+    print(f"Batch update response: {response}")
+
+    return response
+
 def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
                       starts_from: int = 0, threshold: int = 93
                     ) -> None:
     # Load and clean reference DataFrame
     minerba_df, included_columns = prepareMinerbaDf()
-    minerba_df2, _ = prepareMinerbaDf("coal_db - minerba (cleansed).csv")
+    minerba_df2, _ = prepareMinerbaDf("datasets/coal_db - minerba (cleansed).csv")
     
     df_company = clean_company_df(df, 'name')
     df_minerba = clean_company_df(minerba_df,'company_name')
@@ -388,27 +414,55 @@ def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
                     ]
             }
         )
-        
-    # push all at once
-    requests = [
-        {
-            'updateCells': {
-                'range': {
-                    'sheetId': sheet_id,
-                    'startRowIndex': starts_from + 1,
-                    'endRowIndex': len(df) + 1,
-                    'startColumnIndex': col_id,
-                    'endColumnIndex': col_id + 1
-                },
-                'rows': rows,
-                'fields': 'userEnteredValue'
+    
+    response = batchUpdateSheet(rows, sheet_id, starts_from, len(df), col_id)
+
+def fillMiningContract(df: pd.DataFrame, sheet_id: int) -> pd.DataFrame:
+
+    c_df = df.copy()
+    _, mc_df = getSheetAll("mining_contract")
+
+    # Clean and normalize IDs for reliable matching
+    mc_df["contractor_id"] = (
+        pd.to_numeric(mc_df["contractor_id"], errors="coerce")
+        .astype("Int64")
+        .astype(str)
+    )
+    c_df["id"] = c_df["id"].astype(str)
+
+    # Group contracts by contractor_id
+    grouped_contracts = mc_df.groupby("contractor_id")
+
+    # Create a dictionary of contracts with the new JSON structure
+    contracts_dict = {}
+    for contractor_id, group in grouped_contracts:
+        contract_list = []
+        for _, row in group.iterrows():
+            agreement_type_str = row.get("Agreement type", "")
+            agreement_types = (
+                [item.strip() for item in agreement_type_str.split(",")]
+                if agreement_type_str
+                else []
+            )
+
+            new_contract = {
+                "company_name": row.get("*mine_owner_name"),
+                "company_id": row.get("mine_owner_id"),
+                "contract_period_end": row.get("contract_period_end"),
+                "agreement_type": agreement_types,
             }
-        }
-    ]
+            contract_list.append(new_contract)
+        contracts_dict[str(contractor_id)] = json.dumps(contract_list)
 
-    response = SERVICE.spreadsheets().batchUpdate(
-        spreadsheetId=SPREADSHEET_ID,
-        body={'requests': requests}
-    ).execute()
+    # Map contracts to company dataframe and fill empty values with '[]'
+    c_df["mining_contract"] = c_df["id"].map(contracts_dict)
+    c_df["mining_contract"] = c_df["mining_contract"].fillna("[]")
+    c_df.loc[c_df["mining_contract"].isnull(), "mining_contract"] = "[]"
 
-    print(f"Batch update response: {response}")
+    rows = c_df["mining_contract"].tolist()
+    rows = [{"values": [{"userEnteredValue": {"stringValue": r}}]} for r in rows]
+    col_id = c_df.columns.get_loc("mining_contract")
+
+    response = batchUpdateSheet(rows, sheet_id, 0, len(c_df), col_id)
+
+    return c_df

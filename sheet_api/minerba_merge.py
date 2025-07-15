@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def prepareMinerbaDf(filename: str = "esdm_minerba_all.csv"):
+def prepareMinerbaDf(filename: str = "datasets/esdm_minerba_all.csv"):
     minerba_df = pd.read_csv(filename)
     minerba_df.columns = [
         "row_id",  # 'Unnamed: 0'
