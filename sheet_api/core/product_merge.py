@@ -26,9 +26,20 @@ gold_specs = [
 	("g/ton Au", str),
 ]
 
+nickel_specs = [
+	("product_name", str),
+	("% Ni", str),
+	("% Co", str),
+	("% Fe", str),
+	("% SiO₂", str),
+	("% MgO", str),
+	("% Al₂O₃", str)
+]
+
 SPECS_MAP = {
 	'Coal': coal_specs,
-	'Gold': gold_specs
+	'Gold': gold_specs,
+	'Nickel': nickel_specs
 }
 
 SHEET_MAP = {
@@ -37,23 +48,30 @@ SHEET_MAP = {
 	'Nickel': 'nickel_performance'
 }
 
-def updateProduct(commodity: str, starts_from=0):
+def updateProduct(commodity: str, commodity_sub_type: bool = False, starts_from = 0 ):
 	cell_updates = []
 	commodity_sheet, commodity_df = getSheetAll(SHEET_MAP[commodity])
 
+		
 	for ccp_idx, ccp_row in commodity_df.iterrows():		
+		commodity_type_mask = (cp_df['commodity_type'] == ccp_row['commodity_type'])
+		if commodity_sub_type:
+			commodity_type_mask = (
+				(cp_df['commodity_type'] == ccp_row['commodity_type']) &
+				(cp_df['commodity_sub_type'] == ccp_row['commodity_sub_type']) 
+				)
+			
 		q = cp_df[
             (cp_df['company_id'] == ccp_row['company_id']) &
-			(cp_df['commodity_type'] == commodity) &
+			commodity_type_mask &
             (cp_df['year'] == ccp_row['year'])
         ]
-		
+
 		if q.empty:
             # Filter only by company_id
-
 			product_q = cp_df[
 				(cp_df['company_id'] == ccp_row['company_id']) &
-				(cp_df['commodity_type'] == commodity)
+				commodity_type_mask
 			]
 			
 			if product_q.empty:
@@ -90,4 +108,5 @@ def updateProduct(commodity: str, starts_from=0):
 		print(f"Batch updated {len(cell_updates)} cells.")
 
 if __name__ == '__main__':
-	updateProduct('Gold')
+	# updateProduct('Nickel', 'Limonite Ore')
+	updateProduct('Nickel', commodity_sub_type=True)
