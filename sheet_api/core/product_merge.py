@@ -1,22 +1,13 @@
-# %%
-import pandas as pd
 import json
-from google_sheets.auth import createClient
+
+from sheet_api.google_sheets.client import getSheetAll
 from sheet_api.core.toolbox import safeCast
 from gspread import Cell
 
-client, spreadsheet_id = createClient()
 
-# %%
-cp_sheet = client.open_by_key(spreadsheet_id).worksheet('product')
-cp_data = cp_sheet.get('A1:S122')
-cp_df = pd.DataFrame(cp_data[1:], columns=cp_data[0])
+
+cp_sheet, cp_df = getSheetAll("product")
 cp_df.columns = [col.lstrip("*") for col in cp_df.columns]
-
-ccp_sheet = client.open_by_key(spreadsheet_id).worksheet('company_performance')
-ccp_data = ccp_sheet.get('A1:X247')
-ccp_df = pd.DataFrame(ccp_data[1:], columns=ccp_data[0])
-# %%
 
 coal_specs = [
 	("product_name", str),
@@ -40,17 +31,17 @@ SPECS_MAP = {
 	'Gold': gold_specs
 }
 
-# %%
+SHEET_MAP = {
+	'Coal': 'coal_performance',
+	'Gold': 'gold_performance',
+	'Nickel': 'nickel_performance'
+}
 
-def updateProduct(starts_from=0):
+def updateProduct(commodity: str, starts_from=0):
 	cell_updates = []
+	commodity_sheet, commodity_df = getSheetAll(SHEET_MAP[commodity])
 
-	for ccp_idx, ccp_row in ccp_df.iterrows():
-		
-		commodity = ccp_row['commodity_type']
-		if commodity not in  SPECS_MAP:
-			continue                        
-		
+	for ccp_idx, ccp_row in commodity_df.iterrows():		
 		q = cp_df[
             (cp_df['company_id'] == ccp_row['company_id']) &
 			(cp_df['commodity_type'] == commodity) &
@@ -59,7 +50,6 @@ def updateProduct(starts_from=0):
 		
 		if q.empty:
             # Filter only by company_id
-
 
 			product_q = cp_df[
 				(cp_df['company_id'] == ccp_row['company_id']) &
@@ -88,7 +78,7 @@ def updateProduct(starts_from=0):
 			product_list.append(product_dict)
 			
 		product_list_json = json.dumps(product_list)
-		col_id = list(ccp_df.columns).index('*product') + 1  # 1-based indexing
+		col_id = list(commodity_df.columns).index('product') + 1
 
 		# Prepare Cell object
 		cell = Cell(row=sheet_row, col=col_id, value=product_list_json)
@@ -96,9 +86,8 @@ def updateProduct(starts_from=0):
 			
     # Perform batch update
 	if cell_updates:
-		ccp_sheet.update_cells(cell_updates)
+		commodity_sheet.update_cells(cell_updates)
 		print(f"Batch updated {len(cell_updates)} cells.")
 
-# %%
-updateProduct()
-# %%
+if __name__ == '__main__':
+	updateProduct('Gold')
