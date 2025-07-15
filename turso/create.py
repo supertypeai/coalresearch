@@ -165,7 +165,7 @@ TABLE_STATEMENTS = [
     """,
     """ 
     CREATE TABLE IF NOT EXISTS mining_license_auctions (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY NOT NULL,
         commodity TEXT,
         city TEXT,
         province TEXT,

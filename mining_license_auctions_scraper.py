@@ -1,6 +1,6 @@
-from seleniumwire import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+from seleniumwire                       import webdriver
+from selenium.webdriver.chrome.service  import Service
+from webdriver_manager.chrome           import ChromeDriverManager
 
 from scrapper.esdm_minerba  import COMMODITY_MAP
 
@@ -46,10 +46,13 @@ def get_wire_driver(is_headless: bool = True) -> webdriver.Chrome:
     driver = webdriver.Chrome(service=service, options=options)
     return driver
 
-def get_jwt_auth():
+def get_jwt_auth() -> dict[str]:
     """ 
     Get the JWT Authorization header from the ESDM Minerba API.
     This function uses Selenium Wire to capture the Authorization header from the API call.
+
+    Returns:
+        dict: A dictionary containing the Authorization header for the API request.
     """
     headers = {
         'Accept': 'application/json, text/plain, */*',
@@ -92,7 +95,7 @@ def get_jwt_auth():
             driver.quit()
 
 
-def get_data_lelang_json():
+def get_data_lelang_json() -> list[dict]:
     """ 
     Fetch data from the ESDM Minerba API and return it as a JSON object.
     This function handles the request, checks the response status, and returns the data.
@@ -259,7 +262,7 @@ def clean_data(result_data: list[dict]) -> pd.DataFrame:
     return df_auction
     
     
-def get_specific_data(data_json: dict) -> dict[str]: 
+def get_specific_data(data_json: list[dict]) -> dict[str]: 
     """ 
     Extract specific data from the JSON response.
     This function filters the data to include only completed auctions for specific commodities
@@ -323,7 +326,7 @@ def create_table(path):
     cursor = connection.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS mining_license_auctions (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id INTEGER PRIMARY KEY NOT NULL,
             commodity TEXT,
             city TEXT,
             province TEXT,
@@ -347,10 +350,18 @@ def create_table(path):
     return connection
 
 
-def safe_json_dumps(value):
+def safe_json_dumps(value: any) -> str:
     """ 
     Safely convert a value to a JSON string, handling None and empty values.
     This function checks if the value is None or an empty string, and returns None in those
+    cases. If the value is a list or dictionary, it converts it to a JSON string.
+    Otherwise, it converts the value to a JSON string.
+
+    Args:
+        value (any): The value to convert to a JSON string.
+    
+    Returns:
+        str: A JSON string representation of the value, or None if the value is None or
     """
     if value is None:
         return None
@@ -363,15 +374,41 @@ def safe_json_dumps(value):
         return json.dumps(value)
     return json.dumps(value)
 
+
+def prepare_id(conn: sqlite3.Connection, df: pd.DataFrame) -> pd.DataFrame:
+    """ 
+    Assign sequential integer IDs to a DataFrame based on the current maximum `id` in the database.
+
+    Args: 
+        conn  (sqlite3.Connection): A connection to the SQLite database 
+        df (pandas.DataFrame): A DataFrame of new rows to be inserted.
     
+    Returns:
+        pd.DataFrame: A copy of `df` with a new integer `id` column prepended.
+    """
+    cursor = conn.cursor()
+    cursor.execute("SELECT MAX(id) FROM mining_license_auctions")
+    max_id = cursor.fetchone()[0] or 0
+    cursor.close()
+
+    df = df.copy()
+    df.insert(0, 'id', range(max_id + 1, max_id + 1 + len(df)))
+    return df
+
+
 def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
     """
     Insert or update data in the lelang_minerba table.
     Uses UPSERT operation to handle existing records.
     Uses 'nomor' as the business unique identifier.
+
+    Args:
+        conn (sqlite3.Connection): The SQLite connection object.
+        df (pd.DataFrame): The DataFrame containing the auction data to be inserted or updated.
     """
     cursor = conn.cursor()
-    
+    df = prepare_id(conn, df)
+
     # Convert DataFrame to list of tuples for bulk insert
     data_to_insert = []
     
@@ -381,6 +418,7 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
         peserta_json = safe_json_dumps(row['peserta'])
         
         data_tuple = (
+            row['id'],
             row['commodity'],
             row['city'], 
             row['province'],
@@ -405,12 +443,12 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
     # The id field will auto-increment for new records
     upsert_query = """
         INSERT INTO mining_license_auctions (
-            commodity, city, province, company_name, date_winner, 
+            id, commodity, city, province, company_name, date_winner, 
             luas_sk, nomor, jenis_izin, kdi, code_wiup, 
             auction_status, created_at, last_modified, jumlah_peserta,
             tahapan, peserta, winner
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(nomor) DO UPDATE SET
             commodity = excluded.commodity,
             city = excluded.city,
