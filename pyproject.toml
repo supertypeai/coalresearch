@@ -28,5 +28,8 @@ dependencies = [
     "langchain-core>=0.3.68",
     "langchain-openai>=0.3.27",
     "langchain-text-splitters>=0.3.8", 
-    "python-dotenv>=1.1.0"
+    "python-dotenv>=1.1.0", 
+    "blinker==1.7.0", 
+    "selenium-wire==5.1.0",
+    "setuptools==80.9.0"
 ]
