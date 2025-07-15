@@ -51,9 +51,9 @@ def sync_model(
 
     df = castTypes(df, field_types)
 
-    # confirmChange(checkDeletedAndOrder, model, df)
-    # confirmChange(compareDBSheet, model, df)
-    # confirmChange(checkNewData, model, df, field_types)
+    confirmChange(checkDeletedAndOrder, model, df)
+    confirmChange(compareDBSheet, model, df)
+    confirmChange(checkNewData, model, df, field_types)
 
 
 def processCompanyOwnership() -> None:
@@ -104,23 +104,23 @@ if __name__ == "__main__":
     # %%
     sync_model("company", "A1:U345", Company, companyPreprocess)
     # %%
-    # sync_model(
-    #     "company_performance",
-    #     "A1:H245",
-    #     CompanyPerformance,
-    #     companyPerformancePreprocess,
-    # )
-    # # %%
-    # sync_model("mining_site", "A1:BZ144", MiningSite, miningSitePreprocess)
-    # # %%
-    # processCompanyOwnership()
-    # # %%
-    # sync_model("resources_and_reserves", "A1:N24", ResourcesAndReserves)
-    # # %%
-    # sync_model("commodities_production_id", "A1:E32", TotalCommoditiesProduction)
-    # # %%
-    # sync_model("export_destination", "A1:G273", ExportDestination)
-    # # %%
-    # sync_model("global_commodity_data", "A1:F104", GlobalCommodityData)
+    sync_model(
+        "company_performance",
+        "A1:H245",
+        CompanyPerformance,
+        companyPerformancePreprocess,
+    )
+    # %%
+    sync_model("mining_site", "A1:BZ144", MiningSite, miningSitePreprocess)
+    # %%
+    processCompanyOwnership()
+    # %%
+    sync_model("resources_and_reserves", "A1:N24", ResourcesAndReserves)
+    # %%
+    sync_model("commodities_production_id", "A1:E32", TotalCommoditiesProduction)
+    # %%
+    sync_model("export_destination", "A1:G273", ExportDestination)
+    # %%
+    sync_model("global_commodity_data", "A1:F104", GlobalCommodityData)
 
 # %%
