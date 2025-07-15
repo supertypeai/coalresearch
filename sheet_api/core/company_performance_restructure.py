@@ -1,7 +1,6 @@
-from google_sheets.auth    import createClient 
-from google_sheets.client  import getSheetAll 
-from sheet_api.core.compile_to_json       import renderCoalStats, renderMineralStats, renderNickelStats
-from sheet_api.core.toolbox import safeCast
+from sheet_api.google_sheets.auth    import createClient 
+from sheet_api.google_sheets.client  import getSheetAll 
+from sheet_api.core.compile_to_json  import renderCoalStats, renderMineralStats, renderNickelStats
 
 import gspread
 import pandas as pd
@@ -307,7 +306,7 @@ def init_restructure() -> None:
 def update_new_company_performance() -> None:   
     client, spreadsheet_id = createClient()    
     spreadsheet = client.open_by_key(spreadsheet_id)
-    new_sheet_name = 'new_company_performance'
+    new_sheet_name = 'company_performance'
     list_columns = ['performance_id'] + COMMON_COLUMNS + ['commodity_stats']
 
     df_list = []

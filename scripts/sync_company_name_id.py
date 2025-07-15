@@ -94,51 +94,61 @@ def batchUpdate(df, company_name_col, company_id_col, sheet_id, starts_from=0):
     print(f"Batch update response: {response}")
 
 def update_all():
-    ccp_sheet, ccp_df = getSheetAll('company_performance')
-    ms_sheet, ms_df = getSheetAll('mining_site')
-    mc_sheet, mc_df = getSheetAll('mining_contract')
-    cp_sheet, cp_df = getSheetAll('product')
-    n_sheet, n_df = getSheetAll('nickel_performance')
+    targets = ['ccp', 'c', 'ms', 'mc', 'cp', 'n']
+    for target in targets:
+        update_target(target)
 
-    batchUpdate(ccp_df, '*company_name', 'company_id', ccp_sheet.id)
-    batchUpdate(c_df, '*parent_company_name', '*parent_company_id', c_sheet.id)
-    batchUpdate(ms_df, '*company_name', 'company_id', ms_sheet.id)
-    batchUpdate(mc_df, '*mine_owner_name', 'mine_owner_id', mc_sheet.id)
-    batchUpdate(mc_df, '*contractor_name', 'contractor_id', mc_sheet.id)
-    batchUpdate(cp_df, '*company_name', 'company_id', cp_sheet.id)
-    batchUpdate(n_df, '*company_name', 'company_id', n_sheet.id)
+def update_commodity_performance():
+    commodities = ['coal', 'nickel', 'gold', 'copper', 'silver']
+    for commodity in commodities:
+        sheet, df = getSheetAll(f'{commodity}_performance')
+        batchUpdate(df, '*company_name', 'company_id', sheet.id)
+
+def update_target(target):
+    if target == 'ccp':
+        sheet, df = getSheetAll('company_performance')
+        batchUpdate(df, '*company_name', 'company_id', sheet.id)
+
+    elif target == 'c':
+        sheet, df = getSheetAll('company')
+        batchUpdate(df, '*parent_company_name', '*parent_company_id', sheet.id)
+
+    elif target == 'ms':
+        sheet, df = getSheetAll('mining_site')
+        batchUpdate(df, '*company_name', 'company_id', sheet.id)
+
+    elif target == 'mc':
+        sheet, df = getSheetAll('mining_contract')
+        batchUpdate(df, '*mine_owner_name', 'mine_owner_id', sheet.id)
+        batchUpdate(df, '*contractor_name', 'contractor_id', sheet.id)
+
+    elif target == 'cp':
+        sheet, df = getSheetAll('product')
+        batchUpdate(df, '*company_name', 'company_id', sheet.id)
+
+    elif target == 'n':
+        sheet, df = getSheetAll('nickel_performance')
+        batchUpdate(df, '*company_name', 'company_id', sheet.id)
+
+    else:
+        print(f"Unknown target: {target}")
 
 def main():
     parser = argparse.ArgumentParser(description="Batch update Google Sheets with company data.")
-
-    parser.add_argument('--target', choices=['ccp', 'c', 'ms', 'mc', 'cp', 'n'], help='Select target to update')
-    parser.add_argument('--all', action='store_true', help='Update all datasets')
+    parser.add_argument('--target', choices=['ccp', 'c', 'ms', 'mc', 'cp', 'n'], help='Select specific target to update')
+    parser.add_argument('--all', action='store_true', help='Update all predefined datasets')
+    parser.add_argument('--commodity', action='store_true', help='Update all commodity performance datasets')
 
     args = parser.parse_args()
 
     if args.all:
         update_all()
+    elif args.commodity:
+        update_commodity_performance()
     elif args.target:
-        if args.target == 'ccp':
-            ccp_sheet, ccp_df = getSheetAll('company_performance')
-            batchUpdate(ccp_df, '*company_name', 'company_id', ccp_sheet.id)
-        elif args.target == 'c':
-            batchUpdate(c_df, '*parent_company_name', '*parent_company_id', c_sheet.id)
-        elif args.target == 'ms':
-            ms_sheet, ms_df = getSheetAll('mining_site')
-            batchUpdate(ms_df, '*company_name', 'company_id', ms_sheet.id)
-        elif args.target == 'mc':
-            mc_sheet, mc_df = getSheetAll('mining_contract')
-            batchUpdate(mc_df, '*mine_owner_name', 'mine_owner_id', mc_sheet.id)
-            batchUpdate(mc_df, '*contractor_name', 'contractor_id', mc_sheet.id)
-        elif args.target == 'cp':
-            cp_sheet, cp_df = getSheetAll('product')
-            batchUpdate(cp_df, '*company_name', 'company_id', cp_sheet.id)
-        elif args.target == 'n':
-            n_sheet, n_df = getSheetAll('nickel_performance')
-            batchUpdate(n_df, '*company_name', 'company_id', n_sheet.id)
+        update_target(args.target)
     else:
-        print("Please specify --target <target> or --all.")
+        parser.print_help()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

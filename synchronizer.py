@@ -15,6 +15,7 @@ from sheet_api.db.models import (
 )
 from sheet_api.google_sheets.auth import createClient
 from sheet_api.core.toolbox import castTypes, mapPeeweeToPandasFields
+from sheet_api.core.company_performance_restructure import update_new_company_performance
 from sheet_api.core.sync import (
     checkDeletedAndOrder,
     compareDBSheet,
@@ -71,18 +72,20 @@ if __name__ == "__main__":
         # 1. Convert phone number to string type
         field_types["phone_number"] = "string"
 
-        # # 2. Fill out mining license
-        # print("Filling out company's mining_license...")
-        # fillMiningLicense(df, sheet.id)
+        # 2. Fill out mining license
+        print("Filling out company's mining_license...")
+        fillMiningLicense(df, sheet.id)
 
         # 3. Fill out mining contracts
         print("Filling out company's mining_contracts...")
         fillMiningContract(df, sheet.id)
 
-
         return df, field_types, sheet
 
     def companyPerformancePreprocess(df: pd.DataFrame, field_types: dict, sheet):
+        update_new_company_performance()
+
+        CompanyPerformance.truncate_table()
 
         return df, field_types, sheet
 
@@ -106,7 +109,7 @@ if __name__ == "__main__":
     # %%
     sync_model(
         "company_performance",
-        "A1:H245",
+        "A1:H248",
         CompanyPerformance,
         companyPerformancePreprocess,
     )

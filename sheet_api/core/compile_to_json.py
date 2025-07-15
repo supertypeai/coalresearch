@@ -100,14 +100,14 @@ NICKEL_MINE = [
     ("% MgO", float),
     ("% Al₂O₃", float),
 ]
-LIM_RSRV = [(f"lim rsrv {col}", typ) for col, typ in NICKEL_MINE]
-LIM_RSRO = [(f"lim rsro {col}", typ) for col, typ in NICKEL_MINE]
-SAP_RSRV = [(f"sap rsrv {col}", typ) for col, typ in NICKEL_MINE]
-SAP_RSRO = [(f"sap rsro {col}", typ) for col, typ in NICKEL_MINE]
+LIM_RSRV = [(f"lim reserves {col}", typ) for col, typ in NICKEL_MINE]
+LIM_RSRO = [(f"lim resources {col}", typ) for col, typ in NICKEL_MINE]
+SAP_RSRV = [(f"sap reserves {col}", typ) for col, typ in NICKEL_MINE]
+SAP_RSRO = [(f"sap resources {col}", typ) for col, typ in NICKEL_MINE]
 
 # Columns for Nickel Stats
-NICKEL_RSRV = [(f"rsrv {col}", typ) for col, typ in NICKEL_MINE]
-NICKEL_RSRO = [(f"rsro {col}", typ) for col, typ in NICKEL_MINE]
+NICKEL_RSRV = [(f"reserves {col}", typ) for col, typ in NICKEL_MINE]
+NICKEL_RSRO = [(f"resources {col}", typ) for col, typ in NICKEL_MINE]
 
 def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=0):
     col_id = df.columns.get_loc(target_col)
