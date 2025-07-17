@@ -1,4 +1,3 @@
-# %%
 import argparse
 
 from sheet_api.google_sheets.auth import createClient, createService
@@ -7,13 +6,7 @@ from sheet_api.google_sheets.client import getSheetAll
 _, spreadsheet_id = createClient()
 service = createService()
 
-# %%
-
-c_sheet, c_df = getSheetAll('company')
-
-
-# %%
-def syncCompanyNameID(df, sheet, company_name_col, company_id_col, starts_from=0):
+def syncCompanyNameID(c_df, df, sheet, company_name_col, company_id_col, starts_from=0):
     for row_id, row in df.iterrows():
 
         if (row_id + 2) < starts_from:
@@ -35,8 +28,7 @@ def syncCompanyNameID(df, sheet, company_name_col, company_id_col, starts_from=0
             print("Updating row number, col number, col name, value:", row_id + 2, col_id, company_id_col, to_use_value)
 
 
-def batchUpdate(df, company_name_col, company_id_col, sheet_id, starts_from=0):
-
+def batchUpdate(c_df, df, company_name_col, company_id_col, sheet_id, starts_from=0):   
     col_id = df.columns.get_loc(company_id_col)
 
     rows = []
@@ -93,62 +85,62 @@ def batchUpdate(df, company_name_col, company_id_col, sheet_id, starts_from=0):
 
     print(f"Batch update response: {response}")
 
-def update_all():
-    targets = ['ccp', 'c', 'ms', 'mc', 'cp', 'n']
-    for target in targets:
-        update_target(target)
+class SyncCompanyId:
+    def __init__(self):
+        # Initialize c_df once
+        _, self.c_df = getSheetAll('company')
 
-def update_commodity_performance():
-    commodities = ['coal', 'nickel', 'gold', 'copper', 'silver']
-    for commodity in commodities:
-        sheet, df = getSheetAll(f'{commodity}_performance')
-        batchUpdate(df, '*company_name', 'company_id', sheet.id)
+    def update_commodity_performance(self):
+        commodities = ['coal', 'nickel', 'gold', 'copper', 'silver']
+        for commodity in commodities:
+            sheet, df = getSheetAll(f'{commodity}_performance')
+            batchUpdate(self.c_df, df, '*company_name', 'company_id', sheet.id)
 
-def update_target(target):
-    if target == 'ccp':
-        sheet, df = getSheetAll('company_performance')
-        batchUpdate(df, '*company_name', 'company_id', sheet.id)
+    def update_target(self, target):
+        target_map = {
+            'ccp': ('company_performance', [('*company_name', 'company_id')]),
+            'c': ('company', [('*parent_company_name', '*parent_company_id')]),
+            'ms': ('mining_site', [('*company_name', 'company_id')]),
+            'mc': ('mining_contract', [
+                ('*mine_owner_name', 'mine_owner_id'),
+                ('*contractor_name', 'contractor_id')
+            ]),
+            'cp': ('product', [('*company_name', 'company_id')]),
+        }
 
-    elif target == 'c':
-        sheet, df = getSheetAll('company')
-        batchUpdate(df, '*parent_company_name', '*parent_company_id', sheet.id)
+        if target not in target_map:
+            print(f"Unknown target: {target}")
+            return
 
-    elif target == 'ms':
-        sheet, df = getSheetAll('mining_site')
-        batchUpdate(df, '*company_name', 'company_id', sheet.id)
+        sheet_name, updates = target_map[target]
+        sheet, df = getSheetAll(sheet_name)
+        for col_name, id_field in updates:
+            batchUpdate(self.c_df, df, col_name, id_field, sheet.id)
 
-    elif target == 'mc':
-        sheet, df = getSheetAll('mining_contract')
-        batchUpdate(df, '*mine_owner_name', 'mine_owner_id', sheet.id)
-        batchUpdate(df, '*contractor_name', 'contractor_id', sheet.id)
-
-    elif target == 'cp':
-        sheet, df = getSheetAll('product')
-        batchUpdate(df, '*company_name', 'company_id', sheet.id)
-
-    elif target == 'n':
-        sheet, df = getSheetAll('nickel_performance')
-        batchUpdate(df, '*company_name', 'company_id', sheet.id)
-
-    else:
-        print(f"Unknown target: {target}")
+    def update_all(self):
+        for target in ['ccp', 'c', 'ms', 'mc', 'cp']:
+            self.update_target(target)
+        self.update_commodity_performance()
 
 def main():
     parser = argparse.ArgumentParser(description="Batch update Google Sheets with company data.")
-    parser.add_argument('--target', choices=['ccp', 'c', 'ms', 'mc', 'cp', 'n'], help='Select specific target to update')
+    parser.add_argument('--target', choices=['ccp', 'c', 'ms', 'mc', 'cp'], help='Select specific target to update')
     parser.add_argument('--all', action='store_true', help='Update all predefined datasets')
     parser.add_argument('--commodity', action='store_true', help='Update all commodity performance datasets')
-
     args = parser.parse_args()
 
+    sync = SyncCompanyId()
+
     if args.all:
-        update_all()
+        sync.update_all()
     elif args.commodity:
-        update_commodity_performance()
+        sync.update_commodity_performance()
     elif args.target:
-        update_target(args.target)
+        sync.update_target(args.target)
     else:
         parser.print_help()
 
 if __name__ == '__main__':
     main()
+
+

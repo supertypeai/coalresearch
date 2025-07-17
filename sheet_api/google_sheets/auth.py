@@ -14,7 +14,8 @@ creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPE
 
 def createClient(): 
     client = gspread.authorize(creds)
-    spreadsheet_id = "19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk"
+    # spreadsheet_id = "19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk"
+    spreadsheet_id = "1q7V_kWXW6-UheYu3s0435atHSlg9wKAHsdp00s6IxhU"
 
     return client, spreadsheet_id
 
