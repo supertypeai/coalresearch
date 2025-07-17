@@ -128,7 +128,7 @@ MODEL_SYNC_MAP = {
     "company": sync_company,
     "company_performance": sync_company_performance,
     "mining_site": sync_mining_site,
-    "process_ownership": sync_process_ownership,
+    "company_ownership": sync_process_ownership,
     "resources_and_reserves": sync_resources_and_reserves,
     "commodities_production_id": sync_commodities_production_id,
     "export_destination": sync_export_destination,
