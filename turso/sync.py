@@ -233,14 +233,14 @@ def main():
         conn = sqlite3.connect(LOCAL_DB_PATH)
         LOGGER.info(f"Connected to SQLite at {LOCAL_DB_PATH}")
 
-        # # 4) Sync: upsert table
-        # for tbl in TO_UPSERT_TABLES:
-        #     try:
-        #         LOGGER.info(f"\nSyncing (upsert) {tbl}…")
-        #         rows = get_sqlite_rows(conn, tbl)
-        #         upsert_table(client, tbl, rows)
-        #     except Exception as table_err:
-        #         LOGGER.error(f"Error syncing (upsert) '{tbl}': {table_err}")
+        # 4) Sync: upsert table
+        for tbl in TO_UPSERT_TABLES:
+            try:
+                LOGGER.info(f"\nSyncing (upsert) {tbl}…")
+                rows = get_sqlite_rows(conn, tbl)
+                upsert_table(client, tbl, rows)
+            except Exception as table_err:
+                LOGGER.error(f"Error syncing (upsert) '{tbl}': {table_err}")
 
         # 5) Sync: replace table
         for tbl in TO_REPLACE_TABLES:
