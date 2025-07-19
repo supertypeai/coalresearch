@@ -3,15 +3,17 @@ This script processes five separate tables within the 'global_commodity_data' sh
 combines the data, and populates a master table in the same sheet (A1:F88).
 
 The script performs the following actions:
-1.  Reads data from three source tables:
+1.  Reads data from source tables:
     -   Global Coal Resource and Reserves 2020 (I3:K39)
-    -   Coal Production Volume (N3:Y49)
+    -   Coal Production Volume (N3:Y31)
     -   Coal Export Import (AA3:AC84)
-    -   Nickel Production Volume (N54:Y61)
+    -   Nickel Production Volume (N54:Y62)
     -   Copper Production Volume (N65:Y73)
+    -   Bauxite Production Volume (N79:Y87)
 2.  Processes and transforms the data for a predefined list of countries into JSON format.
 3.  Merges the processed data into a single DataFrame.
-4.  Writes the final, combined data to the range A1:F88, overwriting existing content.
+4.  Writes the final, combined data to the master table, overwriting existing content.
+
 """
 
 import json
@@ -258,11 +260,12 @@ def main():
     print("Reading data from source tables...")
     # Coal data
     res_df = get_dataframe_from_range(sheet, "I3:K39")
-    prod_coal_df = get_dataframe_from_range(sheet, "N3:Y49")
+    prod_coal_df = get_dataframe_from_range(sheet, "N3:Y31")
     exp_imp_df = get_dataframe_from_range(sheet, "AA3:AC84")
     # Nickel and Copper data
-    prod_nickel_df = get_dataframe_from_range(sheet, "N54:Y61")
+    prod_nickel_df = get_dataframe_from_range(sheet, "N54:Y62")
     prod_copper_df = get_dataframe_from_range(sheet, "N65:Y73")
+    prod_bauxite_df = get_dataframe_from_range(sheet, "N79:Y87")
 
     # 2. Process each data source into a standardized DataFrame
     res_json_df = process_resources_reserves(res_df, COUNTRY_LIST)
@@ -285,6 +288,10 @@ def main():
     if not prod_copper_json_df.empty:
         prod_copper_json_df["commodity_type"] = "Copper"
 
+    prod_bauxite_json_df = process_production_volume(prod_bauxite_df, COUNTRY_LIST)
+    if not prod_bauxite_json_df.empty:
+        prod_bauxite_json_df["commodity_type"] = "Bauxite"
+
     # 3. Combine all processed data
     print("Combining all commodity data...")
     all_dfs = [
@@ -293,6 +300,7 @@ def main():
         exp_imp_json_df,
         prod_nickel_json_df,
         prod_copper_json_df,
+        prod_bauxite_json_df,
     ]
 
     # Filter out any empty dataframes that resulted from empty source ranges

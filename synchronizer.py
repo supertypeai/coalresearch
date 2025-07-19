@@ -15,7 +15,9 @@ from sheet_api.db.models import (
 )
 from sheet_api.google_sheets.auth import createClient
 from sheet_api.core.toolbox import castTypes, mapPeeweeToPandasFields
-from sheet_api.core.company_performance_restructure import update_new_company_performance
+from sheet_api.core.company_performance_restructure import (
+    update_new_company_performance,
+)
 from sheet_api.core.sync import (
     checkDeletedAndOrder,
     compareDBSheet,
@@ -28,10 +30,11 @@ from sheet_api.core.compile_to_json import (
     jsonifyCommodityStats,
     jsonifyMineRsrvRsro,
     fillMiningLicense,
-    fillMiningContract
+    fillMiningContract,
 )
 
 client, spreadsheet_id = createClient()
+
 
 def sync_model(
     sheet_name: str,
@@ -64,6 +67,7 @@ def processCompanyOwnership() -> None:
     if input("Replace company ownerhip according to the sheet?") == "Y":
         replaceCO(CompanyOwnership, Company, df)
 
+
 def companyPreprocess(df: pd.DataFrame, field_types: dict, sheet):
     # 1. Convert phone number to string type
     field_types["phone_number"] = "string"
@@ -78,12 +82,14 @@ def companyPreprocess(df: pd.DataFrame, field_types: dict, sheet):
 
     return df, field_types, sheet
 
+
 def companyPerformancePreprocess(df: pd.DataFrame, field_types: dict, sheet):
     update_new_company_performance()
 
     CompanyPerformance.truncate_table()
 
     return df, field_types, sheet
+
 
 def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
     # # 1. Compile reserves_resourcees
@@ -100,29 +106,43 @@ def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
 
     return df, field_types, sheet
 
+
 def sync_company():
     sync_model("company", "A1:U345", Company, companyPreprocess)
 
+
 def sync_company_performance():
-    sync_model("company_performance", "A1:H248", CompanyPerformance, companyPerformancePreprocess)
+    sync_model(
+        "company_performance",
+        "A1:H248",
+        CompanyPerformance,
+        companyPerformancePreprocess,
+    )
+
 
 def sync_mining_site():
     sync_model("mining_site", "A1:BZ144", MiningSite, miningSitePreprocess)
 
+
 def sync_process_ownership():
     processCompanyOwnership()
+
 
 def sync_resources_and_reserves():
     sync_model("resources_and_reserves", "A1:N24", ResourcesAndReserves)
 
+
 def sync_commodities_production_id():
     sync_model("commodities_production_id", "A1:E32", TotalCommoditiesProduction)
+
 
 def sync_export_destination():
     sync_model("export_destination", "A1:G273", ExportDestination)
 
+
 def sync_global_commodity_data():
-    sync_model("global_commodity_data", "A1:F104", GlobalCommodityData)
+    sync_model("global_commodity_data", "A1:F106", GlobalCommodityData)
+
 
 MODEL_SYNC_MAP = {
     "company": sync_company,
@@ -135,17 +155,14 @@ MODEL_SYNC_MAP = {
     "global_commodity_data": sync_global_commodity_data,
 }
 
+
 def main():
     parser = argparse.ArgumentParser(description="Data sync CLI")
     parser.add_argument(
-        "action",
-        choices=["sync"],
-        help="Action to perform (only 'sync' supported)"
+        "action", choices=["sync"], help="Action to perform (only 'sync' supported)"
     )
     parser.add_argument(
-        "model",
-        choices=MODEL_SYNC_MAP.keys(),
-        help="Specify the model to sync"
+        "model", choices=MODEL_SYNC_MAP.keys(), help="Specify the model to sync"
     )
 
     args = parser.parse_args()
@@ -154,9 +171,6 @@ def main():
         MODEL_SYNC_MAP[args.model]()
         print(f"{args.model} synced.")
 
+
 if __name__ == "__main__":
     main()
-
-
-
-
