@@ -1,5 +1,6 @@
 from libsql_client  import create_client_sync
 from dotenv         import load_dotenv
+from create         import TABLE_STATEMENTS
 
 import os
 import sqlite3
@@ -155,6 +156,47 @@ def upsert_table(client, table: str, rows: list):
         
     LOGGER.info(f"[{table}] upserted {len(rows)} rows.")
 
+def replace_table(client, table: str, rows: list):
+    """
+    Completely replaces all data in a specified table by dropping the existing table, recreating it,
+    and then inserting the provided new rows.
+
+    Args: 
+        client (libsql_client): The Turso client to execute SQL commands.
+        table (str): The name of the table to upsert data into.
+        rows (list): A list of dictionaries representing the rows to upsert.
+    """
+    if not rows:
+        LOGGER.info(f"[{table}] no rows, skipping.")
+        return
+
+    cols = list(rows[0].keys())
+    col_list = ", ".join(cols)
+    placeholders = ", ".join("?" for _ in cols)
+
+    # 1) Drop table
+    client.execute(f"DROP TABLE IF EXISTS {table};")
+    
+    # 2) Create table
+    table_map = {
+        "company_ownership": 1,
+        "mining_contract": 4
+    }
+    sql_create = TABLE_STATEMENTS[table_map[table]]
+    client.execute(sql_create)
+
+    # 4) Insert
+    sql_insert = f"""
+        INSERT INTO {table} ({col_list})
+        VALUES ({placeholders})
+    """.strip()
+
+
+    for row in rows:
+        params = [row[c] for c in cols]
+        turso_execute(client, sql_insert, *params)
+        
+    LOGGER.info(f"[{table}] inserted {len(rows)} rows.")
 
 def main():
     """ 
@@ -178,20 +220,36 @@ def main():
         client.close()
         return
 
+    # 2) Define which table to upsert and replace
+    TO_REPLACE_TABLES = [
+        "company_ownership",
+        "mining_contract"
+    ]
+    TO_UPSERT_TABLES = [tbl for tbl in TABLES if tbl not in TO_REPLACE_TABLES]
+
     conn = None
     try:
-        # 2) Open SQLite
+        # 3) Open SQLite
         conn = sqlite3.connect(LOCAL_DB_PATH)
         LOGGER.info(f"Connected to SQLite at {LOCAL_DB_PATH}")
 
-        # 3) Sync each table
-        for tbl in TABLES:
+        # # 4) Sync: upsert table
+        # for tbl in TO_UPSERT_TABLES:
+        #     try:
+        #         LOGGER.info(f"\nSyncing (upsert) {tbl}…")
+        #         rows = get_sqlite_rows(conn, tbl)
+        #         upsert_table(client, tbl, rows)
+        #     except Exception as table_err:
+        #         LOGGER.error(f"Error syncing (upsert) '{tbl}': {table_err}")
+
+        # 5) Sync: replace table
+        for tbl in TO_REPLACE_TABLES:
             try:
-                LOGGER.info(f"\nSyncing {tbl}…")
+                LOGGER.info(f"\nSyncing (replace) {tbl}…")
                 rows = get_sqlite_rows(conn, tbl)
-                upsert_table(client, tbl, rows)
+                replace_table(client, tbl, rows)
             except Exception as table_err:
-                LOGGER.error(f"Error syncing '{tbl}': {table_err}")
+                LOGGER.error(f"Error syncing (replace) '{tbl}': {table_err}")
 
     except Exception as e:
         LOGGER.error(f"FATAL: {e}")
