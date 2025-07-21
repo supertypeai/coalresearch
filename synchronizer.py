@@ -141,7 +141,7 @@ def sync_export_destination():
 
 
 def sync_global_commodity_data():
-    sync_model("global_commodity_data", "A1:F106", GlobalCommodityData)
+    sync_model("global_commodity_data", "A1:F137", GlobalCommodityData)
 
 
 MODEL_SYNC_MAP = {

@@ -1,6 +1,6 @@
 """
-This script processes five separate tables within the 'global_commodity_data' sheet,
-combines the data, and populates a master table in the same sheet (A1:F88).
+This script processes separate tables within the 'global_commodity_data' sheet,
+combines the data, and populates a master table in the same sheet.
 
 The script performs the following actions:
 1.  Reads data from source tables:
@@ -10,6 +10,7 @@ The script performs the following actions:
     -   Nickel Production Volume (N54:Y62)
     -   Copper Production Volume (N65:Y73)
     -   Bauxite Production Volume (N79:Y87)
+    -   Gold Production Volume (N94:Y145)
 2.  Processes and transforms the data for a predefined list of countries into JSON format.
 3.  Merges the processed data into a single DataFrame.
 4.  Writes the final, combined data to the master table, overwriting existing content.
@@ -266,6 +267,7 @@ def main():
     prod_nickel_df = get_dataframe_from_range(sheet, "N54:Y62")
     prod_copper_df = get_dataframe_from_range(sheet, "N65:Y73")
     prod_bauxite_df = get_dataframe_from_range(sheet, "N79:Y87")
+    prod_gold_df = get_dataframe_from_range(sheet, "N94:Y145")
 
     # 2. Process each data source into a standardized DataFrame
     res_json_df = process_resources_reserves(res_df, COUNTRY_LIST)
@@ -292,6 +294,10 @@ def main():
     if not prod_bauxite_json_df.empty:
         prod_bauxite_json_df["commodity_type"] = "Bauxite"
 
+    prod_gold_json_df = process_production_volume(prod_gold_df, COUNTRY_LIST)
+    if not prod_gold_json_df.empty:
+        prod_gold_json_df["commodity_type"] = "Gold"
+
     # 3. Combine all processed data
     print("Combining all commodity data...")
     all_dfs = [
@@ -301,6 +307,7 @@ def main():
         prod_nickel_json_df,
         prod_copper_json_df,
         prod_bauxite_json_df,
+        prod_gold_json_df,
     ]
 
     # Filter out any empty dataframes that resulted from empty source ranges
