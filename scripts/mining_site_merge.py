@@ -1,29 +1,20 @@
-# %%
-import sys
-import os
-
-os.chdir("..")
-sys.path.append(os.path.join(os.getcwd(), "sheet_api"))
-
 import pandas as pd
 import re
 
-from google_sheets.auth import createClient, createService
+from sheet_api.google_sheets.auth import createClient, createService
 
-# %%
 client, spreadsheet_id = createClient()
 service = createService()
 ms_sheet = client.open_by_key(spreadsheet_id).worksheet('mining_site')
 
-ms_data = ms_sheet.get('A1:L29')
-ms_df = pd.DataFrame(ms_data[2:], columns=ms_data[1])
+ms_data = ms_sheet.get('A1:P147')
+ms_df = pd.DataFrame(ms_data[1:], columns=ms_data[0])
 
 # esdm_coal_df = pd.read_csv("coal_db - ESDM_coal.csv")
-esdm_coal_df = pd.read_csv("nickel.csv")
+esdm_coal_df = pd.read_csv("datasets/nickel.csv")
 # esdm_coal_df['mineral_grade'] = esdm_coal_df['mineral_grade'].apply(lambda x: re.search(r"\(([^)]+)\)", x).group(1))
 esdm_coal_df['object_name_strip'] = esdm_coal_df['object_name'].str.replace(r'\b[B]atubara\b', '', regex=True).str.strip()
 
-# %%
 merge_columns = [
     ("province", "*province"),
     ("city", "*city"),
@@ -70,7 +61,7 @@ def updateSheet(starts_from=0):
 
                 to_use_value = new_value
 
-                ms_sheet.update_cell(3 + row_id, col_id + 1, to_use_value)
+                ms_sheet.update_cell(2 + row_id, col_id + 1, to_use_value)
 
                 print("Updating row number, col number, value:", row_id, col_id, to_use_value)
 
@@ -123,7 +114,4 @@ def batchUpdateSheet(starts_from=0):
         print(f"Batch update response: {response}")
 
 # batchUpdateSheet(starts_from=90)
-
-# %%
-updateSheet(starts_from=18)
-# %%
+updateSheet(starts_from=145)
