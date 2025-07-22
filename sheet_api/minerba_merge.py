@@ -53,6 +53,7 @@ def prepareMinerbaDf(filename: str = "datasets/esdm_minerba_all.csv"):
         "geometry",
         # "commodity",  # 'komoditas_mapped'
     ]
+    minerba_df = minerba_df[minerba_df['kegiatan_norm'] != 'Wil Penunjang']
     # minerba_df["province"] = minerba_df["province"].str.title()
     minerba_df["province"] = minerba_df["provinsi_norm"]
     minerba_df["city"] = minerba_df["kabupaten_norm"]
