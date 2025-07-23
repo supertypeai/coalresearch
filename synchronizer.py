@@ -107,7 +107,7 @@ def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
 
 
 def sync_company():
-    sync_model("company", "A1:U348", Company, companyPreprocess)
+    sync_model("company", "A1:U350", Company, companyPreprocess)
 
 
 def sync_company_performance():
