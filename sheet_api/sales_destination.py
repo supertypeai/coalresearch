@@ -41,88 +41,97 @@ def setup_database(db_name, table_name):
 
 def process_and_insert_data(sheet, conn, cursor):
     """
-    Parses the sheet data and inserts it into the database.
+    Parses the sheet data by processing country-specific blocks and inserts it into the database.
     """
     print("Reading all data from the worksheet...")
     all_data = sheet.get_all_values()
 
-    # Define the keys for our metrics based on their fixed positions in column B
-    # B3 -> index 2, B4 -> index 3, etc.
-    metric_keys = {
-        2: "revenue",
-        3: "percentage_of_total_revenue",
-        4: "volume",
-        5: "percentage_of_sales_volume",
+    # This mapping is more robust. It maps the text label from Column B
+    # to the desired key in our final JSON.
+    metric_mapping = {
+        "Revenue (in million USD)": "revenue",
+        "% in total revenue": "percentage_of_total_revenue",
+        "Volume (Mt)": "volume",
+        "% in total sales volume": "percentage_of_sales_volume",
     }
 
-    header_row = all_data[0]  # Company names are on row 1
-    year_row = all_data[1]  # Years are on row 2
+    header_row = all_data[0]  # Company names are on row 1 (index 0)
+    year_row = all_data[1]  # Years are on row 2 (index 1)
 
-    current_country = None
-    country_data_json = {}
+    # We use a while loop to jump between country blocks, instead of iterating row-by-row.
+    current_row_idx = 2  # Start scanning for countries from row 3 (index 2)
+    while current_row_idx < len(all_data):
+        country_name = all_data[current_row_idx][0].strip()
 
-    # We iterate through rows starting from the first potential country row (A3)
-    for row_idx in range(2, len(all_data)):
-        row = all_data[row_idx]
-        country_name_in_cell = row[0]
+        # If the cell in column A is empty, it's not the start of a new country block. Skip it.
+        if not country_name:
+            current_row_idx += 1
+            continue
 
-        # A non-empty cell in column A indicates a new country block
-        if country_name_in_cell:
-            # If we were processing a previous country, insert its data first
-            if current_country and country_data_json:
-                json_output = json.dumps(country_data_json)
-                cursor.execute(
-                    f"INSERT INTO {TABLE_NAME} (country, company) VALUES (?, ?)",
-                    (current_country, json_output),
-                )
-                conn.commit()
-                print(f"Successfully inserted data for {current_country}.")
+        # --- Found a new country block ---
+        print(f"\nProcessing country: {country_name}...")
+        country_data_json = {}
+        block_start_row = current_row_idx
 
-            # Start processing the new country
-            current_country = country_name_in_cell
-            print(f"Processing country: {current_country}...")
-            country_data_json = {}
-            current_company_name = None
+        # Find the end of the current country block.
+        # It ends right before the next country starts or at the end of the sheet.
+        block_end_row = len(all_data)
+        for i in range(block_start_row + 1, len(all_data)):
+            if all_data[i][0].strip():  # Found the start of the next country
+                block_end_row = i
+                break
 
-            # Iterate through columns for this country's data (starting from C)
-            for col_idx in range(2, len(header_row)):
-                # Check for a new company name in the header row
-                company_from_header = header_row[col_idx].strip()
-                if company_from_header:
-                    current_company_name = company_from_header
+        # --- Process all columns for the current country block ---
+        current_company_name = None
+        for col_idx in range(2, len(header_row)):  # Start from column C (index 2)
+            # Check for a new company name. If a cell in the header is blank,
+            # it belongs to the previous company.
+            company_from_header = header_row[col_idx].strip()
+            if company_from_header:
+                current_company_name = company_from_header
 
-                # If there's no active company for this column, skip it
-                if not current_company_name:
-                    continue
+            if not current_company_name:
+                continue
 
-                year = year_row[col_idx].strip()
-                # If there's no year, this column is likely empty/irrelevant
-                if not year:
-                    continue
+            year = year_row[col_idx].strip()
+            if not year:
+                continue
 
-                # Ensure company exists in our JSON structure
-                if current_company_name not in country_data_json:
-                    country_data_json[current_company_name] = {}
+            # Ensure the company key exists in our structure
+            if current_company_name not in country_data_json:
+                country_data_json[current_company_name] = {}
 
-                # Build the details for this specific year
-                year_details = {}
-                # The data for metrics is in rows 3, 4, 5, 6
-                for metric_row_idx, key_name in metric_keys.items():
+            year_details = {}
+            # Iterate through the rows *within the current country block*
+            for metric_row_idx in range(block_start_row, block_end_row):
+                metric_label = all_data[metric_row_idx][
+                    1
+                ].strip()  # Get label from Column B
+
+                # If the label is one we care about, get its value
+                if metric_label in metric_mapping:
+                    json_key = metric_mapping[metric_label]
                     value = all_data[metric_row_idx][col_idx].strip()
-                    year_details[key_name] = value
+                    year_details[json_key] = value
 
-                # Add the year's data to the company's record
+            # Add the year's data to the company's record
+            if year_details:  # Only add if we actually found data
                 country_data_json[current_company_name][year] = year_details
 
-    # After the loop, insert the very last country's data
-    if current_country and country_data_json:
-        json_output = json.dumps(country_data_json)
-        cursor.execute(
-            f"INSERT INTO {TABLE_NAME} (country, company) VALUES (?, ?)",
-            (current_country, json_output),
-        )
-        conn.commit()
-        print(f"Successfully inserted data for {current_country}.")
+        # --- Insert the completed country data into the database ---
+        if country_data_json:
+            json_output = json.dumps(
+                country_data_json, indent=2
+            )  # indent for readability
+            cursor.execute(
+                f"INSERT INTO {TABLE_NAME} (country, company) VALUES (?, ?)",
+                (country_name, json_output),
+            )
+            conn.commit()
+            print(f"Successfully inserted data for {country_name}.")
+
+        # Move the main index to the start of the next block
+        current_row_idx = block_end_row
 
 
 def main():
