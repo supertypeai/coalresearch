@@ -60,7 +60,7 @@ def sync_model(
 
 def processCompanyOwnership() -> None:
     sheet = client.open_by_key(spreadsheet_id).worksheet("company")
-    data = sheet.get("A1:S282")
+    data = sheet.get("A1:350")
     df = pd.DataFrame(data[1:], columns=data[0])
 
     if input("Replace company ownerhip according to the sheet?") == "Y":
@@ -113,7 +113,7 @@ def sync_company():
 def sync_company_performance():
     sync_model(
         "company_performance",
-        "A1:H253",
+        "A1:H262",
         CompanyPerformance,
         companyPerformancePreprocess,
     )

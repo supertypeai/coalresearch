@@ -26,6 +26,11 @@ gold_specs = [
 	("g/ton Au", str),
 ]
 
+copper_specs = [
+	("product_name", str),
+	("% Cu", str)
+]
+
 nickel_specs = [
 	("product_name", str),
 	("% Ni", str),
@@ -39,13 +44,15 @@ nickel_specs = [
 SPECS_MAP = {
 	'Coal': coal_specs,
 	'Gold': gold_specs,
-	'Nickel': nickel_specs
+	'Nickel': nickel_specs,
+	'Copper': copper_specs
 }
 
 SHEET_MAP = {
 	'Coal': 'coal_performance',
 	'Gold': 'gold_performance',
-	'Nickel': 'nickel_performance'
+	'Nickel': 'nickel_performance',
+	'Copper': 'copper_performance'
 }
 
 def updateProduct(commodity: str, commodity_sub_type: bool = False, starts_from = 0 ):
@@ -108,5 +115,4 @@ def updateProduct(commodity: str, commodity_sub_type: bool = False, starts_from 
 		print(f"Batch updated {len(cell_updates)} cells.")
 
 if __name__ == '__main__':
-	# updateProduct('Nickel', 'Limonite Ore')
-	updateProduct('Nickel', commodity_sub_type=True)
+	updateProduct('Copper', commodity_sub_type=True)
