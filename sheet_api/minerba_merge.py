@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 def prepareMinerbaDf(filename: str = "datasets/esdm_minerba_all.csv"):
     minerba_df = pd.read_csv(filename)
     minerba_df.columns = [
@@ -78,9 +77,14 @@ def prepareMinerbaDf(filename: str = "datasets/esdm_minerba_all.csv"):
     minerba_df["permit_expiry_date"] = (
         minerba_df["permit_expiry_date"].dt.strftime("%Y-%m-%d").fillna("-")
     )
-    minerba_df["commodity"] = (
-        minerba_df["komoditas_mapped"].astype(str).str.strip().str.title()
-    )
+    # minerba_df["commodity"] = (
+    #     minerba_df["komoditas_mapped"].astype(str).str.strip().str.title()
+    # )
     minerba_df["generation"] = minerba_df["generation"].fillna("-")
 
     return minerba_df, included_columns
+
+if __name__ == '__main__':
+    df, cols = prepareMinerbaDf('datasets/coal_db - minerba (cleansed).csv')
+    cop_df = df[df['commodity'].str.contains('TEMB')]
+    cop_df.to_csv('cop_df.csv')

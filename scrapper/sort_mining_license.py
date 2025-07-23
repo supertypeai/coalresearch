@@ -165,6 +165,9 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
     df_sorted["nama_kab"] = df_sorted["nama_kab"].apply(normalize_admin)
     df_sorted["kegiatan"] = df_sorted["kegiatan"].apply(normalize_admin)
 
+    # Temporary fix: exclude 'Wil Penunjang'
+    df_sorted = df_sorted[df_sorted['kegiatan'] != 'Wil Penunjang']
+
     # Reformat dates
     df_sorted["permit_effective_date"] = df_sorted["tgl_berlaku"].dt.strftime(
         "%Y-%m-%d"
@@ -316,4 +319,4 @@ def scrape_and_upsert(csv_path: str, db_path: str):
 
 
 if __name__ == "__main__":
-    scrape_and_upsert("esdm_minerba_all.csv", "db.sqlite")
+    scrape_and_upsert("datasets/esdm_minerba_all.csv", "db.sqlite")
