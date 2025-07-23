@@ -120,7 +120,7 @@ def sync_company_performance():
 
 
 def sync_mining_site():
-    sync_model("mining_site", "A1:BZ147", MiningSite, miningSitePreprocess)
+    sync_model("mining_site", "A1:BZ151", MiningSite, miningSitePreprocess)
 
 
 def sync_process_ownership():

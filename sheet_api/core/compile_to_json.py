@@ -269,7 +269,8 @@ def jsonifyMineRsrvRsro(df: pd.DataFrame, sheet_id: int, starts_from: int = 0):
     renderMap = {
         'Gold': renderGoldMine,
         'Coal': renderCoalMine,
-        'Nickel': renderNickelMine
+        'Nickel': renderNickelMine,
+        'Copper': renderGoldMine
     }
 
 

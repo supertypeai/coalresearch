@@ -83,6 +83,8 @@ mineral_type_constraints = (
     "Zinc and Lead",
     "Oil",
     "Nickel",
+    "Copper",
+    "Silver"
 )
 mining_operation_status_constraints = ("production", "development", "inactive")
 

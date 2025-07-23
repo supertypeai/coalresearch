@@ -1,0 +1,104 @@
+,longitude,latitude,id,potential,commodity,group,location,city,province,object_name,total_reserve,total_resource,unit,year_measured
+0,95.937,5.027,UDVUQ2huc29PWUdSS3dEc2JXV0ViUT09,Mineral Logam,Tembaga,Logam Dasar,Tangse,Pidie,Aceh,Tembaga Tangse,600000000.0,0.0,Ton,2022
+1,99.754,0.686,YnFxVnlnTGsvQ2hnczFqYlNUR3RvZz09,Mineral Logam,Tembaga,Logam Dasar,Pagargunung,Mandailing Natal,Sumatera Utara,Tembaga Pagargunung,800000.0,0.0,Ton,2022
+2,99.693,0.671,OFJETTA5bm1kRXlLR1hTcmxxSVEzUT09,Mineral Logam,Tembaga,Logam Dasar,Pagaran Siayu,Mandailing Natal,Sumatera Utara,Tembaga Pagaran Siayu,65000.0,0.0,Ton,2022
+3,99.845,0.676,djloS3BOeW1HY3BQZ0NmcXhKeU8rUT09,Mineral Logam,Tembaga,Logam Dasar,Muara Sipongi,Mandailing Natal,Sumatera Utara,Tembaga Muara Sipongi,113000.0,0.0,Ton,2022
+4,100.629,-0.566,dHZSSWhDNUZVdEI4M3NvekdQVThKdz09,Mineral Logam,Tembaga,Logam Dasar,Sulit Air,Solok,Sumatera Barat,Tembaga Sulit Air,0.0,0.0,Ton,2022
+5,100.728,-0.584,YVQwZ2I1d2w0YWo3aVNiVlVmRWFDUT09,Mineral Logam,Tembaga,Logam Dasar,Sungai Sumpahan,Kota Sawahlunto,Sumatera Barat,Tembaga Sungai Sumpahan,0.0,0.0,Ton,2022
+6,100.647,-0.853,WnROT2EzcGNtTUhOKzZNWWoyRDRWQT09,Mineral Logam,Tembaga,Logam Dasar,Lubuk Sulasih,Solok,Sumatera Barat,Tembaga Lubuk Sulasih,0.0,0.0,Ton,2022
+7,100.635,-0.899,bzJYR3FlZkVQaXdSVVFhQjJqMnlqZz09,Mineral Logam,Tembaga,Logam Dasar,Lanawang,Solok,Sumatera Barat,Tembaga Lanawang,0.0,0.0,Ton,2022
+8,101.035,-1.431,TUh1bmVyRGhqRW80a3FmU0xYcjRaQT09,Mineral Logam,Tembaga,Logam Dasar,Sungai Pagu,Solok Selatan,Sumatera Barat,Tembaga Sungai Pagu,0.0,0.0,Ton,2022
+9,102.153,-3.093,SnBTZEIrL29EUWVvbjB0LzBFWi9uZz09,Mineral Logam,Tembaga,Logam Dasar,Tambang Sawah,Lebong,Bengkulu,Tembaga Tambang Sawah,265000.0,0.0,Ton,2022
+10,102.206,-3.146,WVE5VUN2Yy9JZlV6WDFpaFlZNGRZQT09,Mineral Logam,Tembaga,Logam Dasar,Lebong Sulit,Lebong,Bengkulu,Tembaga Lebong Sulit,513000.0,0.0,Ton,2022
+11,102.719,-2.668,YVZkeUQ3aGxzLzNNbGZsSXhyV1ZDZz09,Mineral Logam,Tembaga,Logam Dasar,Sungai Tuboh,Musi Rawas Utara,Sumatera Selatan,Tembaga Sungai Tuboh,1760000.0,0.0,Ton,2022
+12,103.157,-4.149,LzFWeEFUSUVURjlrZ2hSaTFrTzF0QT09,Mineral Logam,Tembaga,Logam Dasar,Daerah Kecamatan Pino,Empat Lawang,Sumatera Selatan,Tembaga Daerah Kecamatan Pino,100000.0,0.0,Ton,2022
+13,106.453,-6.544,VkdyRFJURzBKS3NxSHQ2a2FzY2hoZz09,Mineral Logam,Tembaga,Logam Dasar,Gunung Gede,Bogor,Jawa Barat,Tembaga Gunung Gede,1460935.0,0.0,Ton,2022
+14,106.436,-6.572,UWhoYUtZR05vTE5HWmNiVGttN2NIQT09,Mineral Logam,Tembaga,Logam Dasar,Gunung Limbung,Bogor,Jawa Barat,Tembaga Gunung Limbung,3500000.0,0.0,Ton,2022
+15,107.58,-7.451,U29CdmErKzh2NUpDQ1BlOTRFMnBGdz09,Mineral Logam,Tembaga,Logam Dasar,Caringin dan Mekar,Garut,Jawa Barat,Tembaga Caringin dan Mekar,0.0,11250000.0,Ton,2022
+16,111.115,-7.525,WjJjSmM2cDdlN3lLYXBXa2thbVhYdz09,Mineral Logam,Tembaga,Logam Dasar,Prospek Noyu - Ngrandon,Karanganyar,Jawa Tengah,Tembaga Prospek Noyu - Ngrandon,5025000.0,0.0,Ton,2022
+17,111.273554,-8.120699,MzkwWHUyM2piWGZweWpEMWZlOUdFdz09,Mineral Logam,Tembaga,Logam Dasar,Kasihan,Pacitan,Jawa Timur,Tembaga Kasihan,4914814.8148,0.0,Ton,2022
+18,111.394,-8.023,MldWWDNWanMrOEwxZjRiQ2NuVDB1dz09,Mineral Logam,Tembaga,Logam Dasar,"Gunung Domasan, Slaung",Ponorogo,Jawa Timur,"Tembaga Gunung Domasan, Slaung",200.0,0.0,Ton,2022
+19,116.882761,-8.963231,REx6aFZLV3kzZXBha0RuVGZITVVudz09,Mineral Logam,Tembaga,Logam Dasar,Batuhijau,Sumbawa Barat,Nusa Tenggara Barat,Tembaga Batuhijau,185000000.0,782000000.0,Ton,2022
+20,120.353,-8.356,K1dLSTA3MTBQSUw5cGFienYvQjE0Zz09,Mineral Logam,Tembaga,Logam Dasar,Wae Dara,Manggarai,Nusa Tenggara Timur,Tembaga Wae Dara,1200000.0,0.0,Ton,2022
+21,123.781,-9.874,MEQzODZ0VENQZzY5dDE2Ri9UT3RRQT09,Mineral Logam,Tembaga,Logam Dasar,"Taemaman, Bone",Kupang,Nusa Tenggara Timur,"Tembaga Taemaman, Bone",48000.0,0.0,Ton,2022
+22,111.291,-1.574,a2VCcTVpRHFRRmF4aDZqcmJlcHhoQT09,Mineral Logam,Tembaga,Logam Dasar,Ruwai,Lamandau,Kalimantan Tengah,Tembaga Ruwai,250000.0,0.0,Ton,2022
+23,113.327,-0.711,WkpJTDVwVjMyRzBqb2g2RWc3a2NTUT09,Mineral Logam,Tembaga,Logam Dasar,Central Zone (Baroi),Gunung Mas,Kalimantan Tengah,Tembaga Central Zone (Baroi),5840000.0,0.0,Ton,2022
+24,114.053,-0.567,bytrblRGT3Q5Z1JMT0JZcEFGSzFUZz09,Mineral Logam,Tembaga,Logam Dasar,Prospek Rina,Kapuas,Kalimantan Tengah,Tembaga Prospek Rina,261142.06,0.0,Ton,2022
+25,119.709,-3.041,RG94S0lMcWpEMUV4aGdFMkJBUlNoZz09,Mineral Logam,Tembaga,Logam Dasar,"Sasak, Sungai Darung, Dittuang",Tana Toraja,Sulawesi Selatan,"Tembaga Sasak, Sungai Darung, Dittuang",3500000.0,0.0,Ton,2022
+26,119.609,-2.985,VS9ZSUtLcGVmdkRvU21EUmdhU2tBUT09,Mineral Logam,Tembaga,Logam Dasar,"Cabang Sungai Mesupu, Masanda",Tana Toraja,Sulawesi Selatan,"Tembaga Cabang Sungai Mesupu, Masanda",50000.0,0.0,Ton,2022
+27,119.948,-2.852,dnBJRW1WSWZlV0hMOEQzMEdDR0JhQT09,Mineral Logam,Tembaga,Logam Dasar,Sangkaropi,Toraja Utara,Sulawesi Selatan,Tembaga Sangkaropi,2500000.0,0.0,Ton,2022
+28,121.38,1.17,TWtMcFNhUUZtRUFVc3JGZU1pdFNlZz09,Mineral Logam,Tembaga,Logam Dasar,Selatan Buol,Buol,Sulawesi Tengah,Tembaga Selatan Buol,250.0,0.0,Ton,2022
+29,121.759,0.938,aTFjWHo2cmpkQzdJZkRDOTdjaTIxZz09,Mineral Logam,Tembaga,Logam Dasar,Matinan,Buol,Sulawesi Tengah,Tembaga Matinan,8000000.0,0.0,Ton,2022
+30,121.617,0.973,QVZJUElDQ1RZak9WaXJXeWcycHNpQT09,Mineral Logam,Tembaga,Logam Dasar,Bulagidun,Buol,Sulawesi Tengah,Tembaga Bulagidun,14400000.0,0.0,Ton,2022
+31,122.502,0.931,d2hFQWlGb2dXV3ozTmRqTDdCM2tIQT09,Mineral Logam,Tembaga,Logam Dasar,Tambang tua,Gorontalo Utara,Gorontalo,Tembaga Tambang tua,0.0,14621245.24,Ton,2022
+32,122.506,0.929,a3h4a1Y1Zm9SZFgxTE5YMVJkNXp3dz09,Mineral Logam,Tembaga,Logam Dasar,Kelapa Dua,Gorontalo Utara,Gorontalo,Tembaga Kelapa Dua,0.0,6414333.24,Ton,2022
+33,122.511,0.928,R0xZdW1lRFBYd25uNVRnZllUWTY3Zz09,Mineral Logam,Tembaga,Logam Dasar,Padengo I,Gorontalo Utara,Gorontalo,Tembaga Padengo I,93000000.0,76000000.0,Ton,2022
+34,122.512,0.931,eEYvYWFaTnhmb2dTM3NqQmN4RlFEZz09,Mineral Logam,Tembaga,Logam Dasar,Padengo II,Gorontalo Utara,Gorontalo,Tembaga Padengo II,610000.0,0.0,Ton,2022
+35,123.113,0.498,WHhOYWtUYVR5eCszdlpkZDc3M0Fodz09,Mineral Logam,Tembaga,Logam Dasar,Tulabalo,Bone Bolango,Gorontalo,Tembaga Tulabalo,3500000.0,7892770.76,Ton,2022
+36,123.222,0.501,aVdhdjFDTWx3ZEJFZC9jZVB6b1NTUT09,Mineral Logam,Tembaga,Logam Dasar,Motomboto North,Bone Bolango,Gorontalo,Tembaga Motomboto North,3990000.0,0.0,Ton,2022
+37,123.236,0.556,Q2VBdk00YXEvNEd6T2o0NmVIRFMxdz09,Mineral Logam,Tembaga,Logam Dasar,Tapadaa,Bone Bolango,Gorontalo,Tembaga Tapadaa,15000000.0,3639027.56,Ton,2022
+38,123.351,0.446,cXdENkVMekhMekhzejQvRnN0eFVRUT09,Mineral Logam,Tembaga,Logam Dasar,Sungai Mak,Bone Bolango,Gorontalo,Tembaga Sungai Mak,173466623.0,105400000.0,Ton,2022
+39,123.361,0.423,NXY3dG5sRktGcDV1R2U4ZDFtcVJJZz09,Mineral Logam,Tembaga,Logam Dasar,Kayubulan,Bone Bolango,Gorontalo,Tembaga Kayubulan,28150000.0,0.0,Ton,2022
+40,127.494,-0.748,ZC9JN0RuS3VZUUFTeVJrNHBkUllGZz09,Mineral Logam,Tembaga,Logam Dasar,Kaputusan,Halmahera Selatan,Maluku Utara,Tembaga Kaputusan,115656250.0,0.0,Ton,2022
+41,128.693,-3.578,NVRWeUdVM2diY3QxVHBiZTRUQnFadz09,Mineral Logam,Tembaga,Logam Dasar,Haruku,Maluku Tengah,Maluku,Tembaga Haruku,0.0,8168000.0,Ton,2022
+42,136.204,-3.788,enMvK2pRMHZ6UGdMcVd1ZDRtS0p2QT09,Mineral Logam,Tembaga,Logam Dasar,Komopa,Paniai,Papua,Tembaga Komopa,122633000.0,0.0,Ton,2022
+43,137.112033,-4.054541,eXRkYm1YRVlnNU9qVWtHM0Y5alpTUT09,Mineral Logam,Tembaga,Logam Dasar,Grasberg open pit,Puncak Jaya,Papua,Tembaga Grasberg open pit,0.0,0.0,Ton,2022
+44,137.119,-4.05199,TEpTaTh6SzFOVWlQTDJGWktPRmVsdz09,Mineral Logam,Tembaga,Logam Dasar,Grasberg Stockpile,Puncak Jaya,Papua,Tembaga Grasberg Stockpile,0.0,0.0,Ton,2022
+45,137.116906,-4.063564,dDUzWTlQZHptaEdFSVBwMUlDT01HZz09,Mineral Logam,Tembaga,Logam Dasar,Grasberg block cave 2800,Puncak Jaya,Papua,Tembaga Grasberg block cave 2800,751745064.264,874000000.0,Ton,2022
+46,137.118,-4.058,ekRkQW5GTktQdnVHK1JUV3psazNEZz09,Mineral Logam,Tembaga,Logam Dasar,Grasberg block cave deep,Puncak Jaya,Papua,Tembaga Grasberg block cave deep,0.0,0.0,Ton,2022
+47,137.111919,-4.066039,cG9jVFZwSXJyYmZpcUdJQjdqUVV6QT09,Mineral Logam,Tembaga,Logam Dasar,Kucing Liar,Puncak Jaya,Papua,Tembaga Kucing Liar,997468019.973,351000000.0,Ton,2022
+48,123.239,0.411,eDVJQjhBWDFVa05uWU9SRWg0QUIxUT09,Mineral Logam,Tembaga,Logam Dasar,Cabang Kiri (Tombulilato),Bone Bolango,Gorontalo,Tembaga Cabang Kiri (Tombulilato),150950000.0,0.0,Ton,2022
+49,137.113981,-4.08101,MXFBbmhIckZpK1BVWlpXRzRjS2txUT09,Mineral Logam,Tembaga,Logam Dasar,Big Gossan,Puncak Jaya,Papua,Tembaga Big Gossan,16188685.2739,53000000.0,Ton,2022
+50,137.134,-4.078,dENJSkh4RjR0d3RmSkpXVFBiSCtudz09,Mineral Logam,Tembaga,Logam Dasar,Ertsberg Stockwork Zone,Puncak Jaya,Papua,Tembaga Ertsberg Stockwork Zone,13753006.0,0.0,Ton,2022
+51,137.139054,-4.07923,TndkNGJJNUF4eWI2SXFqc1pJVDEyUT09,Mineral Logam,Tembaga,Logam Dasar,DOZ Block Cave,Puncak Jaya,Papua,Tembaga DOZ Block Cave,222441294.5471,8000000.0,Ton,2022
+52,137.142861,-4.082942,cFlYVkVlT3lGWmNvTGNGOE1oOE1FQT09,Mineral Logam,Tembaga,Logam Dasar,Mill Level Zone Deep Block Cave,Puncak Jaya,Papua,Tembaga Mill Level Zone Deep Block Cave,693531603.576,439000000.0,Ton,2022
+53,137.134,-4.087,UmM3UzlvSFJZd2loY1lsZGhQSDVmdz09,Mineral Logam,Tembaga,Logam Dasar,DOM block cave,Puncak Jaya,Papua,Tembaga DOM block cave,0.0,0.0,Ton,2022
+54,137.135,-4.087,VDNIQU40a0hXcGRGYWtwSitPbERNZz09,Mineral Logam,Tembaga,Logam Dasar,DOM block cave overdraw,Puncak Jaya,Papua,Tembaga DOM block cave overdraw,0.0,0.0,Ton,2022
+55,137.136,-4.087,ZEkzVnNFT09KaHNsYUNtNUJUUHBHZz09,Mineral Logam,Tembaga,Logam Dasar,DOM open pit,Puncak Jaya,Papua,Tembaga DOM open pit,61601000.0,0.0,Ton,2022
+56,136.883,-4.661,UnowTVVpV1RSdExvVGt2Q0NxWjRYdz09,Mineral Logam,Tembaga,Logam Dasar,DOM open pit lower grade,Mimika,Papua,Tembaga DOM open pit lower grade,0.0,0.0,Ton,2022
+57,136.937,-4.718,NENsMHFMVW1pWTh4d2loSE5MWER2dz09,Mineral Logam,Tembaga,Logam Dasar,Timika,Mimika,Papua,Tembaga Timika,509640000.0,0.0,Ton,2022
+58,126.326356,-7.710966,cy9DbHZsVXV5Tzd4YnJja1NPNU5kdz09,Mineral Logam,Tembaga,Logam Dasar,Kali Kuning,Maluku Barat Daya,Maluku,Tembaga Kali Kuning,753112.0,623211.0,Ton,2022
+59,127.366,-7.627,WjVMOFd4SlF1M3V1ZWxGMk9PN0dBQT09,Mineral Logam,Tembaga,Logam Dasar,Lakuwahi (Polymetallic),Maluku Barat Daya,Maluku,Tembaga Lakuwahi (Polymetallic),81600000.0,0.0,Ton,2022
+60,126.293241,-7.723657,eCtLeTN1ZU0wT240N3pDdUdaeXhrUT09,Mineral Logam,Tembaga,Logam Dasar,Lerokis,Maluku Barat Daya,Maluku,Tembaga Lerokis,2920000.0,2794341.0,Ton,2022
+61,117.276,-8.86,dGxnZ1hUNVFndzI3WnZDbnZ6QUU4Zz09,Mineral Logam,Tembaga,Logam Dasar,Elang,Sumbawa,Nusa Tenggara Barat,Tembaga Elang,3096000000.0,0.0,Ton,2022
+62,113.4,-0.625,cHh6dmk3bTV2eWp0QWp2TEwxS2lSZz09,Mineral Logam,Tembaga,Logam Dasar,Beruang Kanan Main Zone,Gunung Mas,Kalimantan Tengah,Tembaga Beruang Kanan Main Zone,66900000.0,27767000.0,Ton,2022
+63,110.875,-7.81,TExGRW95UlRxa2cwSEo2NDZoUHlGUT09,Mineral Logam,Tembaga,Logam Dasar,Randu Kuning,Wonogiri,Jawa Tengah,Tembaga Randu Kuning,81560000.0,0.0,Ton,2022
+64,118.483,-8.834,QU9uNVpxWjh1d1VsVlZyZ1ZRZ1pwUT09,Mineral Logam,Tembaga,Logam Dasar,Onto,Bima,Nusa Tenggara Barat,Tembaga Humpaleu East,1720000000.0,0.0,Ton,2022
+65,113.47,-0.496,UzQ3bU0yMEhyMVc4Q3BGdVZLdHcyZz09,Mineral Logam,Tembaga,Logam Dasar,Waterfall,Gunung Mas,Kalimantan Tengah,Tembaga Waterfall,9898000.0,0.0,Ton,2022
+66,113.477,-0.501,Ull3TTNnNHdqMTZlZ1FzLzdGUjVWQT09,Mineral Logam,Tembaga,Logam Dasar,Tokatoi,Gunung Mas,Kalimantan Tengah,Tembaga Tokatoi,3560000.0,0.0,Ton,2022
+67,113.436,-0.628,bzhQRmtxVHlYbUJBTlI2WE9TVm41dz09,Mineral Logam,Tembaga,Logam Dasar,Beruang Tengah,Gunung Mas,Kalimantan Tengah,Tembaga Beruang Tengah,2800000000.0,0.0,Ton,2022
+68,113.255,-0.728,ZjlMRmZKUjhKVXNYbnpVb2dKWkNwUT09,Mineral Logam,Tembaga,Logam Dasar,Huoi,Gunung Mas,Kalimantan Tengah,Tembaga Huoi,7460000.0,0.0,Ton,2022
+69,113.22,-0.512,S1U0cnRxaGN0SEQ5TFNkazcvK0JTZz09,Mineral Logam,Tembaga,Logam Dasar,Mansur,Gunung Mas,Kalimantan Tengah,Tembaga Mansur,3970000.0,0.0,Ton,2022
+70,100.647,-0.853,a2wzUkdrWWRFNXdkdGxUMlNYZmdJQT09,Mineral Logam,Tembaga,Logam Dasar,Kampuang Baru,Solok,Sumatera Barat,Tembaga Kampuang Baru,79312000.0,0.0,Ton,2022
+71,100.684,-0.611,YlNmcmNaWkc1STQzM2xoN2RLMThlQT09,Mineral Logam,Tembaga,Logam Dasar,Sibarambang,Solok,Sumatera Barat,Tembaga Sibarambang,2335148.0,0.0,Ton,2022
+72,114.039,-8.613,WnYwTGwzYnZXZU9jY2thZVg1YVhNdz09,Mineral Logam,Tembaga,Logam Dasar,Tumpangpitu (Porfiri),Banyuwangi,Jawa Timur,Tembaga Tumpangpitu (Porfiri),1784100000.0,11135000.0,Ton,2022
+73,107.555,-7.369,a2lnRnBQeXZVMW5HaFRCTWtDRUE0Zz09,Mineral Logam,Tembaga,Logam Dasar,Cijulang,Garut,Jawa Barat,Tembaga Cijulang,0.0,0.0,Ton,2022
+74,96.569,4.478,eldyREE0UVlIUnhCTkRQdFZyandiQT09,Mineral Logam,Tembaga,Logam Dasar,East and Outer East Porphyry (Beutong),Nagan Raya,Aceh,Tembaga East and Outer East Porphyry (Beutong),107200000.0,0.0,Ton,2022
+75,108.14,-7.669,VHJ6NUd0Wng2cGxLR25TVjBuSHZaQT09,Mineral Logam,Tembaga,Logam Dasar,Cidadap,Tasikmalaya,Jawa Barat,Tembaga Cidadap,1754.0,0.0,Ton,2022
+76,108.158,-7.69,QU1HQVhBakJDY2ZnVzF2L1VyMUVEUT09,Mineral Logam,Tembaga,Logam Dasar,Mandalajaya,Tasikmalaya,Jawa Barat,Tembaga Mandalajaya,1800000.0,0.0,Ton,2022
+77,107.133,-7.004,RTZHalU5aytERDZJZkkrWC9BS2F5Zz09,Mineral Logam,Tembaga,Logam Dasar,Gunung Rosa,Cianjur,Jawa Barat,Tembaga Gunung Rosa,1978350.0,0.0,Ton,2022
+78,96.563,4.477,UXFNOTQrRURHd0hlWjZqSUFUN3pBdz09,Mineral Logam,Tembaga,Logam Dasar,West and Outer Porphyry (Beutong),Nagan Raya,Aceh,Tembaga West and Outer Porphyry (Beutong),45200000.0,0.0,Ton,2022
+79,96.569,4.481,eDVmNzcxY3pXMVIxWWJPejlUL2t4UT09,Mineral Logam,Tembaga,Logam Dasar,Skarn (Beutong),Nagan Raya,Aceh,Tembaga Skarn (Beutong),7000000.0,0.0,Ton,2022
+80,97.259,4.057,WjFvRWU3MWdScTlyUk0rQVg4b29Kdz09,Mineral Logam,Tembaga,Logam Dasar,Tengkereng Hulu,Gayo Lues,Aceh,Tembaga Tengkereng Hulu,264000000.0,0.0,Ton,2022
+81,123.309,0.437,cVBXbjBNWE92MHNRb1FnSlo4NnBBQT09,Mineral Logam,Tembaga,Logam Dasar,Motomboto East,Bone Bolango,Gorontalo,Tembaga Motomboto East,6110000.0,0.0,Ton,2022
+82,115.954,-8.775,KzdnOHdCeVh0RXBWQnhtTHBxQm1tdz09,Mineral Logam,Tembaga,Logam Dasar,Selodong,Lombok Barat,Nusa Tenggara Barat,Tembaga Selodong,66750000.0,0.0,Ton,2022
+83,101.089,-1.249,V0MzbEl3Q05mQ21oOHdsNVV4K1ZHZz09,Mineral Logam,Tembaga,Logam Dasar,Pinti Kayu Gadang,Solok Selatan,Sumatera Barat,Tembaga Pinti Kayu Gadang,0.0,0.0,Ton,2022
+84,112.623,0.42,NDlPYlFSWkF6VTFNSWorQ1gzUmsxZz09,Mineral Logam,Tembaga,Logam Dasar,Riam Piyang,Kapuas Hulu,Kalimantan Barat,Tembaga Riam Piyang,0.0,8731198.0,Ton,2022
+85,120.138,-4.818,QUszV29xME1Cb3FYeTcrTmtVVmpxQT09,Mineral Logam,Tembaga,Logam Dasar,Mattiro Bulu,Bone,Sulawesi Selatan,Tembaga Mattiro Bulu,0.0,3750000.0,Ton,2022
+86,101.04,-1.364,Y2twSkpVVzJsVEZQeVhZNUdZUjRxUT09,Mineral Logam,Tembaga,Logam Dasar,Sungai Aro,Solok Selatan,Sumatera Barat,Tembaga Sungai Aro,635443.0,0.0,Ton,2022
+87,127.503,-0.429,WDFwR3FuL0ZxdmN6U0gzY1JxNWpaQT09,Mineral Logam,Tembaga,Logam Dasar,Yaba,Halmahera Selatan,Maluku Utara,Tembaga Yaba,2080444.0,1456311.0,Ton,2022
+88,127.862,-0.796,V3V0YWlyMnZBdG5EZUo2L2lnckxzZz09,Mineral Logam,Tembaga,Logam Dasar,Pigaraja,Halmahera Selatan,Maluku Utara,Tembaga Pigaraja,215050.0,0.0,Ton,2022
+89,127.801,-0.798,RkgrSGYxeGlQUmdqbEhNOVdRQ0RYZz09,Mineral Logam,Tembaga,Logam Dasar,Sungai Dayat,Halmahera Selatan,Maluku Utara,Tembaga Sungai Dayat,71392000.0,0.0,Ton,2022
+90,127.862,-0.823,VmR5TTdjTS81R2kyc1grc2E4WHVFUT09,Mineral Logam,Tembaga,Logam Dasar,Lumpang,Halmahera Selatan,Maluku Utara,Tembaga Lumpang,18540.0,0.0,Ton,2022
+91,127.858,-0.79,ZVlLY0JKSWtNdTQ3alhXQmpHRUFadz09,Mineral Logam,Tembaga,Logam Dasar,Semarang,Halmahera Selatan,Maluku Utara,Tembaga Semarang,6500.0,0.0,Ton,2022
+92,113.416,-0.6,NnBtNEJSNGRUSGYyeEZuUHVnK2xsZz09,Mineral Logam,Tembaga,Logam Dasar,Beruang Kanan Zinc (BKZ),Gunung Mas,Kalimantan Tengah,Tembaga Beruang Kanan Zinc (BKZ),1100000.0,0.0,Ton,2022
+93,106.175,-6.951,U20zSGhIb1NGbGNtTjJmOHdZbjAvQT09,Mineral Logam,Tembaga,Logam Dasar,Lepas Pantai Panggarangan,Lebak,Banten,Tambaga Lepas Pantai Panggarangan,90712000.0,0.0,Ton,2022
+94,123.117,0.507,ZjRJVDVtMXFsK0kzOU9Cb2ZzZEc1UT09,Mineral Logam,Tembaga,Logam Dasar,Botupingge,Bone Bolango,Gorontalo,Tembaga Botupingge,827000.0,0.0,Ton,2022
+95,123.125,0.484,RnJrb0craVBIRW9EUDZtdllLbFhFdz09,Mineral Logam,Tembaga,Logam Dasar,Kabila Bone,Bone Bolango,Gorontalo,Tembaga Kabila Bone,2010000.0,0.0,Ton,2022
+96,120.279,-4.868,bGV6U1F5OXQ0N2JhV3RnWk5LM0dmQT09,Mineral Logam,Tembaga,Logam Dasar,Bulu bulu,Bone,Sulawesi Selatan,Tembaga Bulu bulu,400.0,0.0,Ton,2022
+97,126.343817,-7.709315,ZTE4NnI5S0lpT2dqaCt5ZUVEbis4UT09,Mineral Logam,Tembaga,Logam Dasar,Partolang,Maluku Barat Daya,Maluku,Tembaga Partolang,19600000.0,15110000.0,Ton,2022
+98,119.238,-2.645,S1FOLzJRUmlxQURFQWloYXM0LzE3Zz09,Mineral Logam,Tembaga,Logam Dasar,Bituuada,Mamuju,Sulawesi Barat,Tembaga Bituuada,543334000.0,214714000.0,Ton,2022
+99,113.617,-1.166,dmlvWlFFR0EzZVR6NTF5d1EwY1pmZz09,Mineral Logam,Tembaga,Logam Dasar,Jangkit,Gunung Mas,Kalimantan Tengah,Tembaga Jangkit,671000.0,671000.0,Ton,2022
+100,118.483198,-8.833503,eVJtd0pMbnJYVjdYWSt1TFA0T2Frdz09,Mineral Logam,Tembaga,Logam Dasar,Humpaleu East,Bima,Nusa Tenggara Barat,Tembaga Humpaleu East,0.0,0.0,Ton,2022
+101,111.310352,-8.206187,bnZnTFE1aDlkR01hWUxVZW1oVjFsQT09,Mineral Logam,Tembaga,Logam Dasar,Kluwih,Pacitan,Jawa Timur,Tembaga Kluwih,5200000.0,1324000.0,Ton,2022
+102,119.975,-2.83909,bFRuUnR2UDhmUXFMYWhsbG1UVml4dz09,Mineral Logam,Tembaga,Logam Dasar,Ilandila,Luwu,Sulawesi Selatan,Tembaga Ilandila,10348917.0,8215152.0,Ton,2022

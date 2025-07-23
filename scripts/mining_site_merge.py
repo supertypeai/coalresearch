@@ -7,11 +7,11 @@ client, spreadsheet_id = createClient()
 service = createService()
 ms_sheet = client.open_by_key(spreadsheet_id).worksheet('mining_site')
 
-ms_data = ms_sheet.get('A1:P147')
+ms_data = ms_sheet.get('A1:P152')
 ms_df = pd.DataFrame(ms_data[1:], columns=ms_data[0])
 
 # esdm_coal_df = pd.read_csv("coal_db - ESDM_coal.csv")
-esdm_coal_df = pd.read_csv("datasets/nickel.csv")
+esdm_coal_df = pd.read_csv("datasets/copper.csv")
 # esdm_coal_df['mineral_grade'] = esdm_coal_df['mineral_grade'].apply(lambda x: re.search(r"\(([^)]+)\)", x).group(1))
 esdm_coal_df['object_name_strip'] = esdm_coal_df['object_name'].str.replace(r'\b[B]atubara\b', '', regex=True).str.strip()
 
@@ -114,4 +114,4 @@ def batchUpdateSheet(starts_from=0):
         print(f"Batch update response: {response}")
 
 # batchUpdateSheet(starts_from=90)
-updateSheet(starts_from=145)
+updateSheet(starts_from=148)

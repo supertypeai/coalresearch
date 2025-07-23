@@ -3,9 +3,14 @@ import sqlite3
 from models import (
     db,
     Company,
+    MiningSite
 )
 
 db_dir = 'db.sqlite'
+TBL_MAP = {
+    'company': Company,
+    'mining_site': MiningSite
+}
 
 def logCreationScript(table_name: str):
     con = sqlite3.connect(db_dir)
@@ -35,31 +40,34 @@ def logCreationScript(table_name: str):
     con.close()
 
 
-def alterCompany():
+def alterTable(tbl_name: str):
     con = sqlite3.connect(db_dir)
     cur = con.cursor()
 
     # 1.
     cur.execute("PRAGMA foreign_keys = OFF;")
     # 2.
-    cur.execute("ALTER TABLE company RENAME TO company_old;") 
+    cur.execute(f"ALTER TABLE {tbl_name} RENAME TO {tbl_name}_old;") 
 
-    # 3. Use peewee to create new company table
+    # 3. Define model
+    Model = TBL_MAP[tbl_name]
+
+    # 3. Use peewee to create new table    
     db.connect()
-    db.create_tables([Company])
+    db.create_tables([Model])
 
     # 4. Copy data from old to new
-    fields = [field.column_name for field in Company._meta.sorted_fields]
+    fields = [field.column_name for field in Model._meta.sorted_fields]
     columns_str = ", ".join(fields)
 
     cur.execute(f"""
-        INSERT INTO company ({columns_str})
+        INSERT INTO {tbl_name} ({columns_str})
         SELECT {columns_str}
-        FROM company_old;
+        FROM {tbl_name}_old;
     """)
 
     # 5.
-    cur.execute("DROP TABLE company_old;")
+    cur.execute(f"DROP TABLE {tbl_name}_old;")
 
     # 6.
     cur.execute("PRAGMA foreign_keys = ON;")
@@ -69,8 +77,10 @@ def alterCompany():
     con.close()    
 
     # 8.
-    logCreationScript("company")
+    logCreationScript(tbl_name)
 
 if __name__ == "__main__":
-    alterCompany()
+    table_to_alter = "mining_site"
+    alterTable(table_to_alter)
+    logCreationScript(table_to_alter)
     print("Alteration done.")
