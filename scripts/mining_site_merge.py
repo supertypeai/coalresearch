@@ -7,7 +7,7 @@ client, spreadsheet_id = createClient()
 service = createService()
 ms_sheet = client.open_by_key(spreadsheet_id).worksheet('mining_site')
 
-ms_data = ms_sheet.get('A1:P152')
+ms_data = ms_sheet.get('A1:AG157')
 ms_df = pd.DataFrame(ms_data[1:], columns=ms_data[0])
 
 # esdm_coal_df = pd.read_csv("coal_db - ESDM_coal.csv")
@@ -25,10 +25,10 @@ merge_columns = [
     # ("inferred_resource", "*resources_inferred"),
     # ("indicated_resource", "*resources_indicated"),
     # ("measured_resource", "*resources_measured"),
-    # ("total_resource", "*total_resource"),
+    ("total_resource", "gold rsro material (mt)"),
     # ("probable_reserve", "*reserves_probable"),
     # ("proven_reserve", "*reserves_proved"),
-    # ("total_reserve", "*total_reserve"),
+    ("total_reserve", "gold rsrv material (mt)"),
 ]
 merge_columns_hash = {val:key for key, val in merge_columns}
 
@@ -114,4 +114,4 @@ def batchUpdateSheet(starts_from=0):
         print(f"Batch update response: {response}")
 
 # batchUpdateSheet(starts_from=90)
-updateSheet(starts_from=148)
+updateSheet(starts_from=152)
