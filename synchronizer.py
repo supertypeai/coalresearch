@@ -131,8 +131,8 @@ def sync_resources_and_reserves():
     sync_model("resources_and_reserves", "A1:N24", ResourcesAndReserves)
 
 
-def sync_commodities_production_id():
-    sync_model("commodities_production_id", "A1:E32", TotalCommoditiesProduction)
+def sync_total_commodity_production():
+    sync_model("total_commodity_production", "A1:E32", TotalCommoditiesProduction)
 
 
 def sync_export_destination():
@@ -143,15 +143,25 @@ def sync_global_commodity_data():
     sync_model("global_commodity_data", "A1:F137", GlobalCommodityData)
 
 
+def sync_company_financials():
+    from sheet_api import company_financials
+    company_financials.main()
+
+
+def sync_sales_destination():
+    from sheet_api import sales_destination
+    sales_destination.main()
+
 MODEL_SYNC_MAP = {
     "company": sync_company,
     "company_performance": sync_company_performance,
-    "mining_site": sync_mining_site,
+    "company_financials": sync_company_financials,
     "company_ownership": sync_process_ownership,
-    "resources_and_reserves": sync_resources_and_reserves,
-    "commodities_production_id": sync_commodities_production_id,
     "export_destination": sync_export_destination,
     "global_commodity_data": sync_global_commodity_data,
+    "mining_site": sync_mining_site,
+    "resources_and_reserves": sync_resources_and_reserves,
+    "total_commodity_production": sync_total_commodity_production,
 }
 
 
