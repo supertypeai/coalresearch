@@ -227,25 +227,6 @@ Notes: Currently running semi-manually to sync to `db.sqlite` every time there i
 | `location`                  | TEXT (JSON)   | No     | A JSON string containing geographical information about the mining site, including:<br><br>- `province`: The province where the mining site is located.<br>- `city`: The city or regency within the province.<br>- `latitude`: The geographical latitude coordinate of the site.<br>- `longitude`: The geographical longitude coordinate of the site.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
 
----
-
-## `total_commodities_production`
-
-Annual national-level production volumes.
-
-Source: 
-- Source of the data in this table is from trusted websites, specifically from [BPS Mineral Mining](https://www.bps.go.id/en/statistics-table/2/NTA4IzI=/production-of-minerals-mining.html), and then moved to [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) at `commodities_production_id` tab. Then, [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) into the `db.sqlite`.
-
-Notes: Currently running semi-manually to sync to `db.sqlite` every time there is changes on the [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502)
-
-| **Column**          | **Type**      | **PK** | **Description**                        |
-| ------------------- | ------------- | ------ | -------------------------------------- |
-| `id`                | INTEGER       | Yes    | Unique record ID.                      |
-| `commodity_type`    | TEXT          | No     | Commodity name (e.g. “Coal”).          |
-| `production_volume` | DECIMAL(10,5) | No     | Volume produced (in million units).    |
-| `unit`              | TEXT          | No     | Unit of measure (e.g. “Million Tons”). |
-| `year`              | INTEGER       | No     | Reporting year.                        |
-
 
 ---
 
@@ -274,3 +255,24 @@ Notes: Currently running semi-manually to sync to `db.sqlite` every time there i
 | `verified_resources_2` | DECIMAL(10,5) | No     | Government-verified resources.  |
 | `reserves_1`           | DECIMAL(10,5) | No     | Reported reserves.              |
 | `verified_reserves_2`  | DECIMAL(10,5) | No     | Government-verified reserves.   |
+
+
+
+---
+
+## `total_commodities_production`
+
+Annual national-level production volumes.
+
+Source: 
+- Source of the data in this table is from trusted websites, specifically from [BPS Mineral Mining](https://www.bps.go.id/en/statistics-table/2/NTA4IzI=/production-of-minerals-mining.html), and then moved to [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) at `commodities_production_id` tab. Then, [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) into the `db.sqlite`.
+
+Notes: Currently running semi-manually to sync to `db.sqlite` every time there is changes on the [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502)
+
+| **Column**          | **Type**      | **PK** | **Description**                        |
+| ------------------- | ------------- | ------ | -------------------------------------- |
+| `id`                | INTEGER       | Yes    | Unique record ID.                      |
+| `commodity_type`    | TEXT          | No     | Commodity name (e.g. “Coal”).          |
+| `production_volume` | DECIMAL(10,5) | No     | Volume produced (in million units).    |
+| `unit`              | TEXT          | No     | Unit of measure (e.g. “Million Tons”). |
+| `year`              | INTEGER       | No     | Reporting year.                        |
