@@ -4,7 +4,7 @@ import json
 import os
 import re
 
-from google_sheets.auth import createClient
+from sheet_api.google_sheets.auth import createClient
 
 # --- Configuration ---
 # The name of the worksheet (tab) in your Google Sheet to read from.
@@ -247,9 +247,9 @@ def main():
                     record["year"],
                     record["assets"],
                     record["revenue"],
-                    json.dumps(record["revenue_breakdown"], indent=2),
+                    json.dumps(record["revenue_breakdown"]),
                     record["cost_of_revenue"],
-                    json.dumps(record["cost_of_revenue_breakdown"], indent=2),
+                    json.dumps(record["cost_of_revenue_breakdown"]),
                     record["net_profit"],
                 )
 
