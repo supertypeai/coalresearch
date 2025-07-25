@@ -265,9 +265,23 @@ Notes: Currently running semi-manually to sync to `db.sqlite` every time there i
 Annual national-level production volumes.
 
 Source: 
-- Source of the data in this table is from trusted websites, specifically from [BPS Mineral Mining](https://www.bps.go.id/en/statistics-table/2/NTA4IzI=/production-of-minerals-mining.html), and then moved to [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) at `commodities_production_id` tab. Then, [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) into the `db.sqlite`.
+- Source of the data in this table is from trusted websites, specifically from [BPS Mineral Mining](https://www.bps.go.id/en/statistics-table/2/NTA4IzI=/production-of-minerals-mining.html), and then moved to [Insider Sheets: total_commodities_production](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=1364183975#gid=1364183975) at `total_commodities_production` tab. Then, [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from [Insider Sheets: total_commodities_production](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=1364183975#gid=1364183975) into the `db.sqlite`.
 
-Notes: Currently running semi-manually to sync to `db.sqlite` every time there is changes on the [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502)
+Notes: 
+- Currently running semi-manually to sync to `db.sqlite` every time there is changes on the [Insider Sheets - total_commodity_production](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=1364183975#gid=1364183975)
+- Specifically for `commodity_type = Copper` , it refers to Copper Concentrate 
+Flow:
+
+```mermaid
+graph TD
+  A[BPS] -->|manual entry| B[Insider Sheet: total_commodities_production]
+  B -->|synchronizer| C[SQLite Database: db.sqlite]
+
+  %% Add clickable links to each node
+  click A "https://www.bps.go.id/en/statistics-table/2/NTA4IzI=/production-of-minerals-mining.html" _blank
+  click B "https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=1364183975#gid=1364183975" _blank
+```
+
 
 | **Column**          | **Type**      | **PK** | **Description**                        |
 | ------------------- | ------------- | ------ | -------------------------------------- |

@@ -13,7 +13,7 @@ from sheet_api.db.models import (
     ExportDestination,
     GlobalCommodityData,
 )
-from sheet_api.google_sheets.auth import createClient
+from sheet_api.google_sheets.client import getSheet, getSheetAll
 from sheet_api.core.toolbox import castTypes, mapPeeweeToPandasFields
 from sheet_api.core.company_performance_restructure import (
     update_new_company_performance,
@@ -32,18 +32,16 @@ from sheet_api.core.compile_to_json import (
     fillMiningContract,
 )
 
-client, spreadsheet_id = createClient()
-
-
 def sync_model(
     sheet_name: str,
-    range: str,
     model: pw.ModelBase,
+    range: Optional[str] = None,
     preprocess: Optional[Callable] = None,
 ) -> None:
-    sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
-    data = sheet.get(range)
-    df = pd.DataFrame(data[1:], columns=data[0])
+    if range:
+        sheet, df = getSheet(sheet_name, range)
+    else:
+        sheet, df = getSheetAll(sheet_name)
 
     pw_field_types = {fn.name: type(fn).__name__ for fn in model._meta.sorted_fields}
     field_types = mapPeeweeToPandasFields(pw_field_types)
@@ -56,15 +54,6 @@ def sync_model(
     confirmChange(checkDeletedAndOrder, model, df)
     confirmChange(compareDBSheet, model, df)
     confirmChange(checkNewData, model, df, field_types)
-
-
-def processCompanyOwnership() -> None:
-    sheet = client.open_by_key(spreadsheet_id).worksheet("company")
-    data = sheet.get("A1:350")
-    df = pd.DataFrame(data[1:], columns=data[0])
-
-    if input("Replace company ownerhip according to the sheet?") == "Y":
-        replaceCO(CompanyOwnership, Company, df)
 
 
 def companyPreprocess(df: pd.DataFrame, field_types: dict, sheet):
@@ -107,40 +96,43 @@ def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
 
 
 def sync_company():
-    sync_model("company", "A1:U357", Company, companyPreprocess)
+    sync_model("company", Company, "A1:U357", companyPreprocess)
 
 
 def sync_company_performance():
     sync_model(
         "company_performance",
-        "A1:H262",
         CompanyPerformance,
+        "A1:H262",
         companyPerformancePreprocess,
     )
 
 
 def sync_mining_site():
-    sync_model("mining_site", "A1:BZ157", MiningSite, miningSitePreprocess)
+    sync_model("mining_site", MiningSite, "A1:BZ157", miningSitePreprocess)
 
 
 def sync_process_ownership():
-    processCompanyOwnership()
+    _, df = getSheetAll("company")
 
+    if input("Replace company ownerhip according to the sheet?") == "Y":
+        replaceCO(CompanyOwnership, Company, df)
+    
 
 def sync_resources_and_reserves():
-    sync_model("resources_and_reserves", "A1:N24", ResourcesAndReserves)
+    sync_model("resources_and_reserves", ResourcesAndReserves, "A1:N24")
 
 
-def sync_total_commodity_production():
-    sync_model("total_commodity_production", "A1:E32", TotalCommoditiesProduction)
+def sync_total_commodities_production():
+    sync_model("total_commodities_production", TotalCommoditiesProduction)
 
 
 def sync_export_destination():
-    sync_model("export_destination", "A1:G273", ExportDestination)
+    sync_model("export_destination", ExportDestination, "A1:G273")
 
 
 def sync_global_commodity_data():
-    sync_model("global_commodity_data", "A1:F137", GlobalCommodityData)
+    sync_model("global_commodity_data", GlobalCommodityData, "A1:F137")
 
 
 def sync_company_financials():
@@ -161,7 +153,7 @@ MODEL_SYNC_MAP = {
     "global_commodity_data": sync_global_commodity_data,
     "mining_site": sync_mining_site,
     "resources_and_reserves": sync_resources_and_reserves,
-    "total_commodity_production": sync_total_commodity_production,
+    "total_commodities_production": sync_total_commodities_production,
 }
 
 

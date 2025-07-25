@@ -1,15 +1,17 @@
 import sqlite3
 
-from models import (
+from sheet_api.db.models import (
     db,
     Company,
-    MiningSite
+    MiningSite,
+    TotalCommoditiesProduction
 )
 
 db_dir = 'db.sqlite'
 TBL_MAP = {
     'company': Company,
-    'mining_site': MiningSite
+    'mining_site': MiningSite,
+    'total_commodities_production': TotalCommoditiesProduction
 }
 
 def logCreationScript(table_name: str):
@@ -80,7 +82,7 @@ def alterTable(tbl_name: str):
     logCreationScript(tbl_name)
 
 if __name__ == "__main__":
-    table_to_alter = "mining_site"
+    table_to_alter = "total_commodities_production"
     alterTable(table_to_alter)
     logCreationScript(table_to_alter)
     print("Alteration done.")

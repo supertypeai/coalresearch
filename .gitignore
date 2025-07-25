@@ -10,3 +10,4 @@ sketch.py
 .vscode/*
 sheet_api/keys/*
 scrapper/*.csv
+.obsidian/
