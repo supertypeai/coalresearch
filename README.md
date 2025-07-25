@@ -235,28 +235,59 @@ Notes: Currently running semi-manually to sync to `db.sqlite` every time there i
 Provincial-level resource/reserve statistics.
 
 Source: 
-- Source of the data in this table is from company annual reports or trusted websites, specifically from [ESDM Statistics](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2023.pdf), and then moved to [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) at `resources_and_reserves` tab. Then, [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) into the `db.sqlite`.
+- Source of the data in this table is from company annual reports or trusted websites. 
+	- Coal:  
+		1. [ESDM: Coal Handbook 2023](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2023.pdf)
+		2. [ESDM: Coal Handbook 2024](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2024.pdf)
+	- Metal Minerals:
+		1. [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2025](https://geologi.esdm.go.id/storage/publikasi/JNMrP75x2gPzuli5paCho7uAfJbRpU4ZuOB2pLE7.pdf)
 
-Notes: Currently running semi-manually to sync to `db.sqlite` every time there is changes on the [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502)
+They then moved to [Insider Sheets: resources_and_reserves](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2049719033#gid=2049719033) at `resources_and_reserves` tab. Then, [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from [Insider Sheets: resources_and_reserves](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2049719033#gid=2049719033) into the `db.sqlite`.
 
+Notes: 
+- Currently running semi-manually to sync to `db.sqlite` every time there is changes on the [Insider Sheets: resources_and_reserves](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2049719033#gid=2049719033)
+- Export volume units:
+	- export destination: export volume BPS `Coal`: x 1000 ton
+	- export destination: export volume BPS `Copper`: x 1 ton
 
-| **Column**             | **Type**      | **PK** | **Description**                 |
-| ---------------------- | ------------- | ------ | ------------------------------- |
-| `id`                   | INTEGER       | Yes    | Unique identifier.              |
-| `province`             | TEXT          | No     | Province name.                  |
-| `year`                 | INTEGER       | No     | Reporting year.                 |
-| `commodity_type`       | TEXT          | No     | Commodity (e.g. “Coal”).        |
-| `exploration_target_1` | DECIMAL(10,5) | No     | Exploration target metric.      |
-| `total_inventory_1`    | DECIMAL(10,5) | No     | Total inventory volume.         |
-| `resources_inferred`   | DECIMAL(10,5) | No     | Inferred resource quantity.     |
-| `resources_indicated`  | DECIMAL(10,5) | No     | Indicated resource quantity.    |
-| `resources_measured`   | DECIMAL(10,5) | No     | Measured resource quantity.     |
-| `resources_total`      | DECIMAL(10,5) | No     | Sum of all resource categories. |
-| `verified_resources_2` | DECIMAL(10,5) | No     | Government-verified resources.  |
-| `reserves_1`           | DECIMAL(10,5) | No     | Reported reserves.              |
-| `verified_reserves_2`  | DECIMAL(10,5) | No     | Government-verified reserves.   |
+Data Flow:
 
+```mermaid
+graph TD
+  A1(ESDM: Coal) -->|manual entry| B
+  A2(ESDM: Mineral) -->|manual entry| B
+  B[Insider Sheet: resources_and_reserves] -->|synchronizer| C(SQLite Database: db.sqlite)
 
+  %% Add clickable links to each node
+  click A1 "https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2024.pdf" _blank
+  click A2 "https://geologi.esdm.go.id/storage/publikasi/JNMrP75x2gPzuli5paCho7uAfJbRpU4ZuOB2pLE7.pdf" _blank
+  click B "https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2049719033#gid=2049719033" _blank
+```
+
+| **Column**                 | **Type**      | **PK** | **Description**                               |
+| -------------------------- | ------------- | ------ | --------------------------------------------- |
+| `id`                       | INTEGER       | Yes    | Unique identifier.                            |
+| `province`                 | TEXT          | No     | Province name.                                |
+| `year`                     | INTEGER       | No     | Reporting year.                               |
+| `commodity_type`           | TEXT          | No     | Commodity type (e.g., "Coal", "Nickel").      |
+| `exploration_target_1`     | DECIMAL(10,5) | No     | Early-stage exploration target.               |
+| `total_inventory_1`        | DECIMAL(10,5) | No     | Raw total inventory estimate.                 |
+| `ore_resources_inferred`   | DECIMAL(10,5) | No     | Ore volume classified as inferred.            |
+| `resources_inferred`       | DECIMAL(10,5) | No     | Contained metal (inferred resource).          |
+| `ore_resources_indicated`  | DECIMAL(10,5) | No     | Ore volume classified as indicated.           |
+| `resources_indicated`      | DECIMAL(10,5) | No     | Contained metal (indicated resource).         |
+| `ore_resources_measured`   | DECIMAL(10,5) | No     | Ore volume classified as measured.            |
+| `resources_measured`       | DECIMAL(10,5) | No     | Contained metal (measured resource).          |
+| `ore_resources_total`      | DECIMAL(10,5) | No     | Sum of all ore resource categories.           |
+| `resources_total`          | DECIMAL(10,5) | No     | Sum of all contained metal resources.         |
+| `resources_total_verify_2` | DECIMAL(10,5) | No     | Government-verified total resources.          |
+| `ore_reserves_probable`    | DECIMAL(10,5) | No     | Ore volume classified as probable reserve.    |
+| `reserves_probable`        | DECIMAL(10,5) | No     | Contained metal (probable reserve).           |
+| `ore_reserves_proven`      | DECIMAL(10,5) | No     | Ore volume classified as proven reserve.      |
+| `reserves_proven`          | DECIMAL(10,5) | No     | Contained metal (proven reserve).             |
+| `ore_reserves_total`       | DECIMAL(10,5) | No     | Total ore reserves (proven + probable).       |
+| `reserves_total`           | DECIMAL(10,5) | No     | Total contained reserves (proven + probable). |
+| `reserves_total_verify_2`  | DECIMAL(10,5) | No     | Government-verified total reserves.           |
 
 ---
 

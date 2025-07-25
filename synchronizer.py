@@ -133,7 +133,7 @@ def sync_total_commodities_production():
 
 
 def sync_export_destination():
-    sync_model("export_destination", ExportDestination, "A1:G273")
+    sync_model("export_destination", ExportDestination)
 
 
 def sync_global_commodity_data():
