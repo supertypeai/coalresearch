@@ -115,19 +115,42 @@ Notes: Currently running semi-manually to sync to `db.sqlite` every time there i
 Yearly export values by country and commodity type.
 
 Source: 
-- Source of the data in this table is from trusted source, specifically from [BPS Copper Ore](https://www.bps.go.id/en/statistics-table/1/MTAzMiMx/exports-of-copper-ore-by-major-countries-of-destination--2012-2023.html) and [BPS Coal](https://www.bps.go.id/en/statistics-table/1/MTAzNCMx/exports-of-coal-by-major-countries-of-destination--2012-2023.html) website, and then moved to [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) at `export_destination` tab. Then, [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) into the `db.sqlite`.
+- Source of the data in this table is from trusted source, specifically from:
+	1. [BPS Copper Ore](https://www.bps.go.id/en/statistics-table/1/MTAzMiMx/exports-of-copper-ore-by-major-countries-of-destination--2012-2023.html) 
+	2. [BPS Coal](https://www.bps.go.id/en/statistics-table/1/MTAzNCMx/exports-of-coal-by-major-countries-of-destination--2012-2023.html) 
+	3. Gold
 
-Notes: Currently running semi-manually to sync to `db.sqlite` every time there is changes on the [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502)
+And then moved to [Insider Sheets: export_destination](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=847935271#gid=847935271) at `export_destination` tab. Then, [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from [Insider Sheets: export_destination](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=847935271#gid=847935271) into the `db.sqlite`.
 
-| **Column**           | **Type**      | **PK** | **Description**                   |
-| -------------------- | ------------- | ------ | --------------------------------- |
-| `id`                 | INTEGER       | Yes    | Unique row identifier.            |
-| `country`            | TEXT          | No     | Destination country name.         |
-| `year`               | INTEGER       | No     | Calendar year of the data.        |
-| `commodity_type`     | TEXT          | No     | Commodity category (e.g. “Coal”). |
-| `export_USD`         | DECIMAL(10,5) | No     | Export value in million USD.      |
-| `export_volume_BPS`  | DECIMAL(10,5) | No     | Export volume per BPS measure.    |
-| `export_volume_ESDM` | DECIMAL(10,5) | No     | Export volume per ESDM reporting. |
+Notes: 
+- Currently running semi-manually to sync to `db.sqlite` every time there is changes on the [Insider Sheets: export_destination](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=847935271#gid=847935271)
+- Export volume units:
+	- export destination: export volume BPS `Coal`: x 1000 ton
+	- export destination: export volume BPS `Copper`: x 1 ton
+- The Copper Ore one, is translated to `commodity = Copper` on the db. Probably need to verify this
+
+Data Flow:
+```mermaid
+graph TD
+  A1(BPS: Copper Ore) -->|manual entry| B
+  A2(BPS: Coal) -->|manual entry| B
+  B[Insider Sheet: export_destination] -->|synchronizer| C(SQLite Database: db.sqlite)
+
+  %% Add clickable links to each node
+  click A1 "https://www.bps.go.id/en/statistics-table/1/MTAzMiMx/exports-of-copper-ore-by-major-countries-of-destination--2012-2023.html" _blank
+  click A2 "https://www.bps.go.id/en/statistics-table/1/MTAzNCMx/exports-of-coal-by-major-countries-of-destination--2012-2023.html" _blank
+  click B "https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=847935271#gid=847935271" _blank
+```
+
+| **Column**           | **Type**      | **PK** | **Description**                             |
+| -------------------- | ------------- | ------ | ------------------------------------------- |
+| `id`                 | INTEGER       | Yes    | Unique row identifier.                      |
+| `country`            | TEXT          | No     | Destination country name.                   |
+| `year`               | INTEGER       | No     | Calendar year of the data.                  |
+| `commodity_type`     | TEXT          | No     | Commodity category (e.g. “Coal”, "Copper"). |
+| `export_USD`         | DECIMAL(10,5) | No     | Export value in million USD.                |
+| `export_volume_BPS`  | DECIMAL(10,5) | No     | Export volume per BPS measure.              |
+| `export_volume_ESDM` | DECIMAL(10,5) | No     | Export volume per ESDM reporting.           |
 
 
 
@@ -244,11 +267,7 @@ Source:
 
 They then moved to [Insider Sheets: resources_and_reserves](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2049719033#gid=2049719033) at `resources_and_reserves` tab. Then, [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from [Insider Sheets: resources_and_reserves](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2049719033#gid=2049719033) into the `db.sqlite`.
 
-Notes: 
-- Currently running semi-manually to sync to `db.sqlite` every time there is changes on the [Insider Sheets: resources_and_reserves](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2049719033#gid=2049719033)
-- Export volume units:
-	- export destination: export volume BPS `Coal`: x 1000 ton
-	- export destination: export volume BPS `Copper`: x 1 ton
+Notes: Currently running semi-manually to sync to `db.sqlite` every time there is changes on the [Insider Sheets: resources_and_reserves](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2049719033#gid=2049719033)
 
 Data Flow:
 
