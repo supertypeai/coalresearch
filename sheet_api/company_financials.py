@@ -2,6 +2,7 @@ import gspread
 import sqlite3
 import json
 import os
+import re
 
 from google_sheets.auth import createClient
 
@@ -11,24 +12,91 @@ WORKSHEET_NAME = "company_financials"
 # The name of the SQLite database file.
 DB_NAME = "db.sqlite"
 # The name of the table to create/update in the database.
+# NOTE: Changed the table name to reflect the new, yearly structure.
 TABLE_NAME = "company_financials"
 
 
+def to_float(value_str):
+    """Safely converts a string to a float, handling commas and empty/invalid values."""
+    if not isinstance(value_str, str) or not value_str.strip():
+        return None
+    try:
+        # Remove commas used as thousands separators
+        return float(value_str.replace(",", ""))
+    except ValueError:
+        return None
+
+
+def parse_breakdown_string(s):
+    """
+    Parses a complex breakdown string into a dictionary.
+    Handles formats like:
+    - "Key1 123.45; Key2 678.90"
+    - "123.45 Key1; 678.90 Key2"
+    - "Main Key 123.45 (SubKey1: 50; SubKey2: 73.45)"
+    """
+    if not s or not s.strip():
+        return {}
+
+    breakdown_dict = {}
+
+    # First, extract and process any parenthetical details
+    # e.g., "(Royalty: 339.79)"
+    parentheticals = re.findall(r"\((.*?)\)", s)
+    for p_content in parentheticals:
+        # Can be "key: val" or just another breakdown
+        if ":" in p_content:
+            parts = p_content.split(":")
+            if len(parts) == 2:
+                key = parts[0].strip()
+                val = to_float(parts[1].strip())
+                if key and val is not None:
+                    breakdown_dict[key] = val
+        else:
+            # If no colon, parse it like a regular part
+            nested_parts = parse_breakdown_string(p_content)
+            breakdown_dict.update(nested_parts)
+
+    # Remove the parenthetical parts for main processing
+    main_s = re.sub(r"\(.*?\)", "", s).strip()
+
+    # Split the main string by semicolon
+    items = [item.strip() for item in main_s.split(";") if item.strip()]
+
+    for item in items:
+        # Find the numeric value in the item
+        num_match = re.search(r"[\d,.]+", item)
+        if num_match:
+            value_str = num_match.group(0)
+            value = to_float(value_str)
+            # The key is what's left after removing the number
+            key = item.replace(value_str, "").strip()
+            if key and value is not None:
+                breakdown_dict[key] = value
+
+    return breakdown_dict
+
+
 def create_and_connect_db():
-    """Connects to the SQLite database and creates the table if it doesn't exist."""
+    """Connects to SQLite and creates the new, flattened table if it doesn't exist."""
     print(f"Connecting to SQLite database: {DB_NAME}...")
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
 
     print(f"Ensuring table '{TABLE_NAME}' exists...")
+    # New schema: one row per company per year
     create_table_query = f"""
     CREATE TABLE IF NOT EXISTS {TABLE_NAME} (
-        idx_ticker TEXT PRIMARY KEY,
+        idx_ticker TEXT,
         name TEXT,
-        assets TEXT,
-        revenue TEXT,
-        cost_of_revenue TEXT,
-        net_profit TEXT
+        year INTEGER,
+        assets REAL,
+        revenue REAL,
+        revenue_breakdown TEXT,
+        cost_of_revenue REAL,
+        cost_of_revenue_breakdown TEXT,
+        net_profit REAL,
+        PRIMARY KEY (idx_ticker, year)
     );
     """
     cursor.execute(create_table_query)
@@ -39,19 +107,21 @@ def create_and_connect_db():
 
 def parse_company_row(headers, sub_headers, values):
     """
-    Parses a single company's data row using the global header rows.
+    Parses a single company's row and returns a list of yearly records.
 
     Args:
         headers (list): The main header row (sheet row 1).
-        sub_headers (list): The sub-header row (sheet row 2, with years/breakdown).
+        sub_headers (list): The sub-header row (sheet row 2).
         values (list): The data row for a single company.
 
     Returns:
-        dict: A structured dictionary for the company, or None if the row is invalid.
+        list: A list of structured dictionaries, one for each year.
     """
-    # Check if the row has a ticker symbol. If not, it's likely an empty row.
     if not values or not values[0] or not values[0].strip():
         return None
+
+    company_base_info = {"idx_ticker": values[0], "name": values[1]}
+    yearly_data = {}  # Using a dict with year as key to aggregate data
 
     header_map = {
         "Assets (in USD millions)": "assets",
@@ -60,20 +130,9 @@ def parse_company_row(headers, sub_headers, values):
         "Net Profit (in USD millions)": "net_profit",
     }
 
-    company_data = {
-        "idx_ticker": values[0],
-        "name": values[1],
-        "assets": {},
-        "revenue": {},
-        "cost_of_revenue": {},
-        "net_profit": {},
-    }
-
     current_metric_key = None
-    # Iterate through the columns starting from C (index 2)
     col_idx = 2
     while col_idx < len(headers):
-        # Determine the current metric (e.g., 'assets') based on the global header
         header_text = headers[col_idx].strip()
         if header_text in header_map:
             current_metric_key = header_map[header_text]
@@ -82,25 +141,33 @@ def parse_company_row(headers, sub_headers, values):
             col_idx += 1
             continue
 
-        # Get the year and the value from the current company's row
-        year = sub_headers[col_idx]
-        value = values[col_idx] if col_idx < len(values) else ""  # Handle ragged rows
-
-        # Skip columns that don't have a year in the sub-header
-        if not year or not year.isdigit():
+        year_str = sub_headers[col_idx]
+        if not year_str or not year_str.isdigit():
             col_idx += 1
             continue
 
-        # Handle simple metrics (Assets, Net Profit)
+        # Initialize the dictionary for this year if it's the first time we see it
+        if year_str not in yearly_data:
+            yearly_data[year_str] = {
+                "year": int(year_str),
+                "assets": None,
+                "revenue": None,
+                "revenue_breakdown": {},
+                "cost_of_revenue": None,
+                "cost_of_revenue_breakdown": {},
+                "net_profit": None,
+            }
+
+        value = values[col_idx] if col_idx < len(values) else ""
+
         if current_metric_key in ["assets", "net_profit"]:
-            company_data[current_metric_key][year] = value
+            yearly_data[year_str][current_metric_key] = to_float(value)
             col_idx += 1
 
-        # Handle complex metrics (Revenue, Cost of Revenue)
         elif current_metric_key in ["revenue", "cost_of_revenue"]:
-            data_point = {current_metric_key: value}
+            yearly_data[year_str][current_metric_key] = to_float(value)
 
-            # Check if the next column is a breakdown
+            # Check for a breakdown in the next column
             if (
                 col_idx + 1 < len(sub_headers)
                 and sub_headers[col_idx + 1].strip().lower() == "breakdown"
@@ -108,96 +175,103 @@ def parse_company_row(headers, sub_headers, values):
                 breakdown_value = (
                     values[col_idx + 1] if col_idx + 1 < len(values) else ""
                 )
-                data_point["breakdown"] = breakdown_value
-                company_data[current_metric_key][year] = data_point
-                col_idx += 2  # Skip the value and breakdown columns
+                breakdown_dict = parse_breakdown_string(breakdown_value)
+                yearly_data[year_str][
+                    f"{current_metric_key}_breakdown"
+                ] = breakdown_dict
+                col_idx += 2  # Skip value and breakdown columns
             else:
-                data_point["breakdown"] = ""
-                company_data[current_metric_key][year] = data_point
                 col_idx += 1
         else:
             col_idx += 1
 
-    print(f"Successfully parsed data for ticker: {company_data['idx_ticker']}")
-    return company_data
+    # Convert the dictionary of yearly data into a list of final records
+    final_records = []
+    for year_rec in yearly_data.values():
+        # Combine the base company info with the specific year's data
+        full_record = {**company_base_info, **year_rec}
+        final_records.append(full_record)
+
+    print(
+        f"Successfully parsed {len(final_records)} yearly records for ticker: {company_base_info['idx_ticker']}"
+    )
+    return final_records
 
 
 def main():
     """Main function to run the entire process."""
     conn = None
     try:
-        # 1. Connect to Database and create table
         conn, cursor = create_and_connect_db()
 
-        # 2. Connect to Google Sheets
         print("Connecting to Google Sheets...")
         client, spreadsheet_id = createClient()
         spreadsheet = client.open_by_key(spreadsheet_id)
         sheet = spreadsheet.worksheet(WORKSHEET_NAME)
 
-        # 3. Get all data from the sheet at once
         all_data = sheet.get_all_values()
-
         if len(all_data) < 3:
             print(
                 "Error: The sheet must contain at least 3 rows (2 for headers, 1 for data)."
             )
             return
 
-        # 4. Extract the two global header rows and the data rows
         main_header_row = all_data[0]
         sub_header_row = all_data[1]
-        company_data_rows = all_data[2:]  # All rows from the 3rd one onwards
+        company_data_rows = all_data[2:]
 
         print(
-            f"Found headers and {len(company_data_rows)} company data rows to process."
+            f"Found headers and {len(company_data_rows)} potential company rows to process."
         )
         processed_count = 0
 
-        # 5. Iterate through each company's data row
         for i, company_row in enumerate(company_data_rows):
-            sheet_row_num = i + 3  # +3 because data starts on row 3
+            sheet_row_num = i + 3
             print(f"\n--- Processing company on sheet row {sheet_row_num} ---")
 
-            # Parse the current row using the global headers
-            parsed_data = parse_company_row(
+            yearly_records = parse_company_row(
                 main_header_row, sub_header_row, company_row
             )
 
-            # If parser returns None, it's an empty/invalid row, so we skip it
-            if not parsed_data:
+            if not yearly_records:
                 print(
-                    f"\nEncountered an empty row at sheet row {sheet_row_num}. Assuming end of data."
+                    f"Encountered an empty or invalid row at sheet row {sheet_row_num}. Stopping read process."
                 )
-                print("Stopping read process.")
-                break  # <-- CHANGE: Exits the loop entirely instead of just skipping.
+                break
 
-            # 6. Prepare data for DB insertion
-            db_tuple = (
-                parsed_data["idx_ticker"],
-                parsed_data["name"],
-                json.dumps(parsed_data["assets"], indent=2),
-                json.dumps(parsed_data["revenue"], indent=2),
-                json.dumps(parsed_data["cost_of_revenue"], indent=2),
-                json.dumps(parsed_data["net_profit"], indent=2),
-            )
+            # Iterate through each yearly record and insert it into the DB
+            for record in yearly_records:
+                db_tuple = (
+                    record["idx_ticker"],
+                    record["name"],
+                    record["year"],
+                    record["assets"],
+                    record["revenue"],
+                    json.dumps(record["revenue_breakdown"], indent=2),
+                    record["cost_of_revenue"],
+                    json.dumps(record["cost_of_revenue_breakdown"], indent=2),
+                    record["net_profit"],
+                )
 
-            # 7. Add the record to the database transaction
-            insert_query = f"""
-            INSERT OR REPLACE INTO {TABLE_NAME} (idx_ticker, name, assets, revenue, cost_of_revenue, net_profit)
-            VALUES (?, ?, ?, ?, ?, ?);
-            """
-            cursor.execute(insert_query, db_tuple)
-            processed_count += 1
+                insert_query = f"""
+                INSERT OR REPLACE INTO {TABLE_NAME} (
+                    idx_ticker, name, year, assets, revenue, revenue_breakdown, 
+                    cost_of_revenue, cost_of_revenue_breakdown, net_profit
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+                """
+                cursor.execute(insert_query, db_tuple)
+                processed_count += 1
+                print(
+                    f"  > Saved data for {record['idx_ticker']} for year {record['year']}."
+                )
 
-        # 8. Commit all changes to the database at once
         if processed_count > 0:
             conn.commit()
 
         print("\n==========================================")
         print("Process completed successfully!")
         print(
-            f"{processed_count} company records have been saved/updated in '{DB_NAME}'."
+            f"{processed_count} yearly records have been saved/updated in '{TABLE_NAME}' table in '{DB_NAME}'."
         )
         print("==========================================")
 
@@ -207,8 +281,11 @@ def main():
         )
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
+        # For debugging, it can be useful to see the full traceback
+        import traceback
+
+        traceback.print_exc()
     finally:
-        # 9. Close the database connection
         if conn:
             conn.close()
             print("Database connection closed.")

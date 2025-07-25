@@ -3,134 +3,187 @@ import sqlite3
 import json
 import os
 
-from google_sheets.auth import createClient
+from google_sheets.auth import (
+    createClient,
+)  # Assuming this path is correct for your setup
 
 # --- Configuration ---
 WORKSHEET_NAME = "sales_destination"
 # Construct the absolute path to the database file to ensure it's in the project root.
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_NAME = os.path.join(PROJECT_ROOT, "db.sqlite")
-TABLE_NAME = "sales_destination"
+TABLE_NAME = "sales_destination"  # This table will now be structured differently
 
 
-# --- Database Setup ---
 def setup_database(db_name, table_name):
     """
-    Connects to SQLite DB and creates the table if it doesn't exist.
+    Connects to SQLite DB and creates/recreates the table with the correct schema.
     """
-    print(f"Connecting to database '{db_name}'...")
+    print(f"Connecting to database at '{db_name}'...")
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
 
-    # Create table with two columns: country and a JSON data blob for companies
+    # Drop the old table to ensure a clean slate and apply the correct schema
+    cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
+    print(f"Dropped existing table '{table_name}' to apply new schema.")
+
+    # Create the table with a clear structure for each data point
     create_table_query = f"""
     CREATE TABLE IF NOT EXISTS {table_name} (
-        country TEXT PRIMARY KEY,
-        company TEXT
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        country TEXT NOT NULL,
+        idx_ticker TEXT NOT NULL,
+        year INTEGER NOT NULL,
+        revenue REAL,
+        percentage_of_total_revenue REAL,
+        volume REAL,
+        percentage_of_sales_volume REAL,
+        UNIQUE(country, idx_ticker, year) -- Prevents duplicate entries
     );
     """
     cursor.execute(create_table_query)
-
-    # Clear the table to avoid duplicate entries on re-runs
-    cursor.execute(f"DELETE FROM {table_name};")
-    print(f"Table '{table_name}' is ready. Existing data cleared.")
-
+    print(f"Table '{table_name}' created successfully.")
     conn.commit()
     return conn, cursor
 
 
+def parse_numeric_value(value):
+    """
+    Attempts to convert a string value to a float. Returns None if conversion fails.
+    Handles empty strings by returning None.
+    """
+    try:
+        if value.strip() == "":
+            return None
+        # Replace comma with dot for decimal conversion if necessary
+        return float(value.replace(",", "."))
+    except (ValueError, TypeError):
+        return None
+
+
 def process_and_insert_data(sheet, conn, cursor):
     """
-    Parses the sheet data by processing country-specific blocks and inserts it into the database.
+    Parses the sheet using a block-based approach for countries and a column-based
+    approach for companies and years, then inserts the data into the database.
     """
     print("Reading all data from the worksheet...")
     all_data = sheet.get_all_values()
 
-    # This mapping is more robust. It maps the text label from Column B
-    # to the desired key in our final JSON.
+    # --- Define key row indices (0-based) ---
+    COMPANY_ROW_IDX = 0  # Row 1 in Sheets
+    TICKER_ROW_IDX = 1  # Row 2 in Sheets
+    YEAR_ROW_IDX = 2  # Row 3 in Sheets
+
+    # Map metric names from the sheet to our database column names
     metric_mapping = {
         "Revenue (in million USD)": "revenue",
         "% in total revenue": "percentage_of_total_revenue",
         "Volume (Mt)": "volume",
         "% in total sales volume": "percentage_of_sales_volume",
     }
+    # Get a list of the database column names for metrics
+    metric_db_keys = list(metric_mapping.values())
 
-    header_row = all_data[0]  # Company names are on row 1 (index 0)
-    year_row = all_data[1]  # Years are on row 2 (index 1)
+    # Start scanning for country blocks from row 4 (index 3)
+    current_row_idx = 3
 
-    # We use a while loop to jump between country blocks, instead of iterating row-by-row.
-    current_row_idx = 2  # Start scanning for countries from row 3 (index 2)
     while current_row_idx < len(all_data):
         country_name = all_data[current_row_idx][0].strip()
 
-        # If the cell in column A is empty, it's not the start of a new country block. Skip it.
         if not country_name:
             current_row_idx += 1
             continue
 
-        # --- Found a new country block ---
-        print(f"\nProcessing country: {country_name}...")
-        country_data_json = {}
-        block_start_row = current_row_idx
+        print(f"\nProcessing Country: {country_name}")
 
-        # Find the end of the current country block.
-        # It ends right before the next country starts or at the end of the sheet.
         block_end_row = len(all_data)
-        for i in range(block_start_row + 1, len(all_data)):
-            if all_data[i][0].strip():  # Found the start of the next country
+        for i in range(current_row_idx + 1, len(all_data)):
+            if all_data[i][0].strip():
                 block_end_row = i
                 break
 
-        # --- Process all columns for the current country block ---
-        current_company_name = None
-        for col_idx in range(2, len(header_row)):  # Start from column C (index 2)
-            # Check for a new company name. If a cell in the header is blank,
-            # it belongs to the previous company.
-            company_from_header = header_row[col_idx].strip()
-            if company_from_header:
-                current_company_name = company_from_header
+        block_metric_rows = {}
+        for r_idx in range(current_row_idx, block_end_row):
+            metric_label = all_data[r_idx][1].strip()
+            if metric_label in metric_mapping:
+                block_metric_rows[metric_label] = r_idx
 
-            if not current_company_name:
+        active_ticker = None
+        num_cols = len(all_data[0]) if all_data else 0
+        for col_idx in range(2, num_cols):
+            company_name_from_header = all_data[COMPANY_ROW_IDX][col_idx].strip()
+            if company_name_from_header:
+                active_ticker = all_data[TICKER_ROW_IDX][col_idx].strip()
+                print(
+                    f"  Found Company: {company_name_from_header} (Ticker: {active_ticker})"
+                )
+
+            if not active_ticker:
                 continue
 
-            year = year_row[col_idx].strip()
-            if not year:
+            year_str = all_data[YEAR_ROW_IDX][col_idx].strip()
+
+            try:
+                if not year_str or not year_str.isdigit() or len(year_str) != 4:
+                    continue
+                year = int(year_str)
+            except (ValueError, TypeError):
                 continue
 
-            # Ensure the company key exists in our structure
-            if current_company_name not in country_data_json:
-                country_data_json[current_company_name] = {}
+            data_to_insert = {
+                "country": country_name,
+                "idx_ticker": active_ticker,
+                "year": year,
+                "revenue": None,
+                "percentage_of_total_revenue": None,
+                "volume": None,
+                "percentage_of_sales_volume": None,
+            }
 
-            year_details = {}
-            # Iterate through the rows *within the current country block*
-            for metric_row_idx in range(block_start_row, block_end_row):
-                metric_label = all_data[metric_row_idx][
-                    1
-                ].strip()  # Get label from Column B
+            for metric_label, row_idx_in_block in block_metric_rows.items():
+                db_column_name = metric_mapping[metric_label]
+                raw_value = all_data[row_idx_in_block][col_idx]
+                data_to_insert[db_column_name] = parse_numeric_value(raw_value)
 
-                # If the label is one we care about, get its value
-                if metric_label in metric_mapping:
-                    json_key = metric_mapping[metric_label]
-                    value = all_data[metric_row_idx][col_idx].strip()
-                    year_details[json_key] = value
-
-            # Add the year's data to the company's record
-            if year_details:  # Only add if we actually found data
-                country_data_json[current_company_name][year] = year_details
-
-        # --- Insert the completed country data into the database ---
-        if country_data_json:
-            json_output = json.dumps(
-                country_data_json, indent=2
-            )  # indent for readability
-            cursor.execute(
-                f"INSERT INTO {TABLE_NAME} (country, company) VALUES (?, ?)",
-                (country_name, json_output),
+            # --- NEW LOGIC: Check if all metric values are None ---
+            # Create a list of the values for the metric keys
+            all_metrics_are_null = all(
+                data_to_insert[key] is None for key in metric_db_keys
             )
-            conn.commit()
-            print(f"Successfully inserted data for {country_name}.")
 
-        # Move the main index to the start of the next block
+            if all_metrics_are_null:
+                # If all data points are null, skip this record entirely
+                print(f"    -> Skipping Year: {year} (No data found)")
+                continue
+            # --- END OF NEW LOGIC ---
+
+            try:
+                cursor.execute(
+                    f"""
+                    INSERT INTO {TABLE_NAME} (
+                        country, idx_ticker, year, revenue,
+                        percentage_of_total_revenue, volume, percentage_of_sales_volume
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        data_to_insert["country"],
+                        data_to_insert["idx_ticker"],
+                        data_to_insert["year"],
+                        data_to_insert["revenue"],
+                        data_to_insert["percentage_of_total_revenue"],
+                        data_to_insert["volume"],
+                        data_to_insert["percentage_of_sales_volume"],
+                    ),
+                )
+                print(f"    -> Inserted data for Year: {year}")
+            except sqlite3.IntegrityError:
+                print(
+                    f"    -> Skipped duplicate entry for Ticker: {active_ticker}, Year: {year}"
+                )
+            except Exception as e:
+                print(f"    -> ERROR inserting data for {active_ticker}, {year}: {e}")
+
+        conn.commit()
         current_row_idx = block_end_row
 
 
