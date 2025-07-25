@@ -4,14 +4,16 @@ from sheet_api.db.models import (
     db,
     Company,
     MiningSite,
-    TotalCommoditiesProduction
+    TotalCommoditiesProduction,
+    ResourcesAndReserves
 )
 
 db_dir = 'db.sqlite'
 TBL_MAP = {
     'company': Company,
     'mining_site': MiningSite,
-    'total_commodities_production': TotalCommoditiesProduction
+    'total_commodities_production': TotalCommoditiesProduction,
+    'resources_and_reserves': ResourcesAndReserves
 }
 
 def logCreationScript(table_name: str):
@@ -48,17 +50,18 @@ def alterTable(tbl_name: str):
 
     # 1.
     cur.execute("PRAGMA foreign_keys = OFF;")
+    
     # 2.
     cur.execute(f"ALTER TABLE {tbl_name} RENAME TO {tbl_name}_old;") 
 
     # 3. Define model
     Model = TBL_MAP[tbl_name]
 
-    # 3. Use peewee to create new table    
+    # 4. Use peewee to create new table    
     db.connect()
     db.create_tables([Model])
 
-    # 4. Copy data from old to new
+    # 5. Copy data from old to new
     fields = [field.column_name for field in Model._meta.sorted_fields]
     columns_str = ", ".join(fields)
 
@@ -68,21 +71,44 @@ def alterTable(tbl_name: str):
         FROM {tbl_name}_old;
     """)
 
-    # 5.
+    # 6.
     cur.execute(f"DROP TABLE {tbl_name}_old;")
 
-    # 6.
+    # 7.
     cur.execute("PRAGMA foreign_keys = ON;")
 
-    # 7.
+    # 8.
     con.commit()
     con.close()    
 
-    # 8.
+    # 9.
     logCreationScript(tbl_name)
+    print("Alteration done.")
+
+def recreateTable(tbl_name: str):
+    con = sqlite3.connect(db_dir)
+    cur = con.cursor()
+
+    # 1
+    cur.execute("PRAGMA foreign_keys = OFF;")
+    
+    # 2
+    cur.execute(f"DROP TABLE {tbl_name};")
+    
+    # 3
+    Model = TBL_MAP[tbl_name]
+    db.connect()
+    db.create_tables([Model])
+
+    # 4
+    cur.execute("PRAGMA foreign_keys = ON;")
+    con.commit()
+    con.close()    
+
+    logCreationScript(tbl_name)
+    print(f"Table {tbl_name} recreated.")
 
 if __name__ == "__main__":
-    table_to_alter = "total_commodities_production"
-    alterTable(table_to_alter)
-    logCreationScript(table_to_alter)
-    print("Alteration done.")
+    table = "resources_and_reserves"
+    # alterTable(table)
+    recreateTable(table)

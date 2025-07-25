@@ -94,6 +94,11 @@ def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
 
     return df, field_types, sheet
 
+def resourcesAndReservesPreprocess(df: pd.DataFrame, field_types: dict, sheet):
+    excluded_provinces = ['Papua Barat Daya', 'Papua Tengah']
+    df = df[~df['province'].isin(excluded_provinces)]
+
+    return df, field_types, sheet
 
 def sync_company():
     sync_model("company", Company, "A1:U357", companyPreprocess)
@@ -120,7 +125,7 @@ def sync_process_ownership():
     
 
 def sync_resources_and_reserves():
-    sync_model("resources_and_reserves", ResourcesAndReserves, "A1:N24")
+    sync_model("resources_and_reserves", ResourcesAndReserves, preprocess=resourcesAndReservesPreprocess)
 
 
 def sync_total_commodities_production():

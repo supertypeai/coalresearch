@@ -270,12 +270,13 @@ Source:
 Notes: 
 - Currently running semi-manually to sync to `db.sqlite` every time there is changes on the [Insider Sheets - total_commodity_production](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=1364183975#gid=1364183975)
 - Specifically for `commodity_type = Copper` , it refers to Copper Concentrate 
-Flow:
+
+Data Flow:
 
 ```mermaid
 graph TD
-  A[BPS] -->|manual entry| B[Insider Sheet: total_commodities_production]
-  B -->|synchronizer| C[SQLite Database: db.sqlite]
+  A(BPS) -->|manual entry| B[Insider Sheet: total_commodities_production]
+  B -->|synchronizer| C(SQLite Database: db.sqlite)
 
   %% Add clickable links to each node
   click A "https://www.bps.go.id/en/statistics-table/2/NTA4IzI=/production-of-minerals-mining.html" _blank

@@ -75,6 +75,8 @@ commodity_type_constraints = (
     "Nickel",
     "Copper",
     "Silver",
+    "Tin",
+    "Cobalt"
 )
 mineral_type_constraints = (
     "Coal",
@@ -204,13 +206,26 @@ class ResourcesAndReserves(Model):
     )
     exploration_target_1 = DecimalField(null=True)
     total_inventory_1 = DecimalField(null=True)
+
+    # Resources
+    ore_resources_inferred = DecimalField(null=True)
     resources_inferred = DecimalField(null=True)
+    ore_resources_indicated = DecimalField(null=True)
     resources_indicated = DecimalField(null=True)
+    ore_resources_measured = DecimalField(null=True)
     resources_measured = DecimalField(null=True)
+    ore_resources_total = DecimalField(null=True)
     resources_total = DecimalField(null=True)
-    verified_resources_2 = DecimalField(null=True)
-    reserves_1 = DecimalField(null=True)
-    verified_reserves_2 = DecimalField(null=True)
+    resources_total_verify_2 = DecimalField(null=True)
+
+    # Ore Reserves
+    ore_reserves_probable = DecimalField(null=True)
+    reserves_probable = DecimalField(null=True)
+    ore_reserves_proven = DecimalField(null=True)
+    reserves_proven = DecimalField(null=True)
+    ore_reserves_total = DecimalField(null=True)
+    reserves_total = DecimalField(null=True)
+    reserves_total_verify_2 = DecimalField(null=True)
 
     class Meta:
         database = db
