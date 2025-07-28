@@ -71,14 +71,6 @@ def companyPreprocess(df: pd.DataFrame, field_types: dict, sheet):
     return df, field_types, sheet
 
 
-def companyPerformancePreprocess(df: pd.DataFrame, field_types: dict, sheet):
-    update_new_company_performance()
-
-    CompanyPerformance.truncate_table()
-
-    return df, field_types, sheet
-
-
 def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
     # # 1. Compile reserves_resourcees
     jsonifyMineRsrvRsro(df, sheet.id)
@@ -105,16 +97,13 @@ def sync_company():
 
 
 def sync_company_performance():
-    sync_model(
-        "company_performance",
-        CompanyPerformance,
-        "A1:H262",
-        companyPerformancePreprocess,
-    )
+    update_new_company_performance()
+    # CompanyPerformance.truncate_table()
+    # sync_model("company_performance", CompanyPerformance)
 
 
 def sync_mining_site():
-    sync_model("mining_site", MiningSite, "A1:BZ157", miningSitePreprocess)
+    sync_model("mining_site", MiningSite, "A1:CD157", miningSitePreprocess)
 
 
 def sync_process_ownership():

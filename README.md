@@ -134,6 +134,7 @@ Data Flow:
 graph TD
   A1(BPS: Copper Ore) -->|manual entry| B
   A2(BPS: Coal) -->|manual entry| B
+  A3(Gold) -->|manual entry| B
   B[Insider Sheet: export_destination] -->|synchronizer| C(SQLite Database: db.sqlite)
 
   %% Add clickable links to each node

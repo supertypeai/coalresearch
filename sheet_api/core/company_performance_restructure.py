@@ -1,6 +1,6 @@
 from sheet_api.google_sheets.auth    import createClient 
 from sheet_api.google_sheets.client  import getSheetAll 
-from sheet_api.core.compile_to_json  import renderCoalStats, renderMineralStats, renderNickelStats
+from sheet_api.core.compile_to_json  import renderCoalStats, renderGoldCopperStats, renderNickelStats
 
 import gspread
 import pandas as pd
@@ -311,8 +311,8 @@ def update_new_company_performance() -> None:
 
     df_list = []
     renderMap = {
-        'gold': renderMineralStats,
         'coal': renderCoalStats,
+        'gold': renderGoldCopperStats,
         'nickel': renderNickelStats
     }
 
@@ -321,7 +321,7 @@ def update_new_company_performance() -> None:
         _, df = getSheetAll(sheet_name)
         df['performance_id'] = f'{n}_' + df['id']
 
-        renderFunction = renderMap.get(n, renderMineralStats)
+        renderFunction = renderMap.get(n, renderGoldCopperStats)
         df['commodity_stats'] = df.apply(
             lambda row: json.dumps(renderFunction(row)), axis=1
         )
