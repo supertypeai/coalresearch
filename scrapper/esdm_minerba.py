@@ -167,7 +167,9 @@ def fetch_page(url: str, params: dict, max_retries: int = 10) -> dict:
             logging.info(
                 f"Requesting offset={params.get('resultOffset')} (Attempt {attempt}/{max_retries})"
             )
-            response = requests.get(url, params=params, timeout=15)
+            response = requests.get(url, params=params, timeout=15, headers={
+                "Referer": "https://geoportal.esdm.go.id/minerba/"
+                })
             response.raise_for_status()
             data = response.json()
             # early check for broken base URL response
@@ -368,7 +370,7 @@ if __name__ == "__main__":
                 f"Scraped data is insufficient (row count = {len(df)}); existing CSV will not be overwritten."
             )
         else:
-            filename = f"esdm_minerba_{selected}.csv"
+            filename = f"datasets/esdm_minerba_{selected}.csv"
             df.to_csv(filename, index=True)
             logging.info(f"Saved {len(df)} rows to {filename}")
     except Exception as e:
