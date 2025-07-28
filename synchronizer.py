@@ -27,7 +27,7 @@ from sheet_api.core.sync import (
 )
 from sheet_api.core.compile_to_json import (
     compileToJsonBatch,
-    jsonifyMineRsrvRsro,
+    jsonifyMineReservesAndResources,
     fillMiningLicense,
     fillMiningContract,
 )
@@ -73,7 +73,7 @@ def companyPreprocess(df: pd.DataFrame, field_types: dict, sheet):
 
 def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
     # # 1. Compile reserves_resourcees
-    jsonifyMineRsrvRsro(df, sheet.id)
+    jsonifyMineReservesAndResources(df, sheet.id)
 
     # 2. Compile location
     location = [
@@ -98,8 +98,8 @@ def sync_company():
 
 def sync_company_performance():
     update_new_company_performance()
-    # CompanyPerformance.truncate_table()
-    # sync_model("company_performance", CompanyPerformance)
+    CompanyPerformance.truncate_table()
+    sync_model("company_performance", CompanyPerformance)
 
 
 def sync_mining_site():

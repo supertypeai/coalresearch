@@ -179,6 +179,8 @@ def jsonifyCommodityStats(df: pd.DataFrame, sheet_id: int, starts_from: int = 0)
             data_dict = renderCoalStats(row)
             
         rr_cols_json = json.dumps(data_dict)
+        row["commodity_stats"] = rr_cols_json
+
         to_use_value = {'stringValue':f'{rr_cols_json}'}
 
         rows.append(
@@ -226,7 +228,7 @@ def renderNickelMine(row):
     data_dict['saprolite'] = renderDict(row, SAPROLITE_MINE)
     return data_dict
 
-def jsonifyMineRsrvRsro(df: pd.DataFrame, sheet_id: int, starts_from: int = 0):
+def jsonifyMineReservesAndResources(df: pd.DataFrame, sheet_id: int, starts_from: int = 0):
     col_id = df.columns.get_loc("resources_reserves")
     rows = []
 
@@ -337,15 +339,12 @@ def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
                     ) -> None:
     # Load and clean reference DataFrame
     minerba_df, included_columns = prepareMinerbaDf()
-    minerba_df2, _ = prepareMinerbaDf("datasets/coal_db - minerba (cleansed).csv")
     
     df_company = clean_company_df(df, 'name')
     df_minerba = clean_company_df(minerba_df,'company_name')
-    df_minerba2 = clean_company_df(minerba_df2,'company_name')
 
     # Pre-extract the list of normalized names for fuzzy matching
     clean_list = df_minerba['name_cleaned'].tolist()
-    clean_list2 = df_minerba2['name_cleaned'].tolist()
     
     col_id = df.columns.get_loc("mining_license")
 
@@ -359,8 +358,6 @@ def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
 
         # Exact matching
         matches = matchingSequence(df_minerba, clean_list, key, key_no_space, threshold, is_debug)
-        if matches.empty:
-            matches = matchingSequence(df_minerba2, clean_list2, key, key_no_space, threshold, is_debug)
 
         if not matches.empty:
             records = matches[included_columns].to_dict(orient="records")
@@ -370,6 +367,8 @@ def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
 
         ### CHANGED: dump the list (even if empty) as your JSON array
         license_json = json.dumps(records, ensure_ascii=False)
+        row['mining_license'] = license_json
+
         to_use_value = {"stringValue": license_json}
 
         rows.append(
