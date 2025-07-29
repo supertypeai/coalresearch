@@ -168,6 +168,44 @@ def process_resources_reserves(df, country_list):
 
     return pd.DataFrame(processed_data)
 
+def process_resources_reserves_shares(df, country_list):
+    """Processes the 'Global Coal Resource and Reserves 2020 Shares' dataframe."""
+    print("Processing 'Global Coal Resource and Reserves 2020 Shares' data...")
+    if df.empty:
+        return pd.DataFrame(columns=["country", "resources_reserves_shares"])
+
+    cols = ["Anthracite", "Sub-bituminous & Bituminous & Lignite"]
+    df[cols] = df[cols].apply(lambda x: pd.to_numeric(x, errors="coerce").fillna(0))
+
+    resources_reserves_sum = {c: df[c].sum() for c in cols}
+
+    processed_data = []
+    for _, row in df.iterrows():
+        country = row.get("Country")
+        if country and country.strip() in country_list:
+            try:
+                anthracite_share = round((row["Anthracite"] / resources_reserves_sum["Anthracite"]) * 100, 2)
+                sub_bit_share = round((row["Sub-bituminous & Bituminous & Lignite"] / resources_reserves_sum["Sub-bituminous & Bituminous & Lignite"]) * 100, 2)
+
+                payload = []
+                if pd.notna(anthracite_share):
+                    payload.append({"Anthracite": anthracite_share})
+                if pd.notna(anthracite_share):
+                    payload.append(
+                        {"Sub-bituminous & Bituminous & Lignite": sub_bit_share}
+                    )
+
+                if payload:
+                    json_data = {"2020": payload}
+                    json_string = json.dumps(json_data)
+                    processed_data.append(
+                        {"country": country.strip(), "resources_reserves_shares": json_string}
+                    )
+            except (KeyError, ValueError) as e:
+                print(f"Skipping row for '{country}' in resources due to error: {e}")
+                continue
+
+    return pd.DataFrame(processed_data)
 
 def process_production_volume(df, country_list):
     """Processes the 'Coal Production Volume' dataframe."""
@@ -305,6 +343,10 @@ def main():
     if not res_json_df.empty:
         res_json_df["commodity_type"] = "Coal"
 
+    res_share_json_df = process_resources_reserves_shares(res_df, COUNTRY_LIST)
+    if not res_share_json_df.empty:
+        res_share_json_df["commodity_type"] = "Coal"
+
     exp_imp_json_df = process_export_import(exp_imp_df, COUNTRY_LIST)
     if not exp_imp_json_df.empty:
         exp_imp_json_df["commodity_type"] = "Coal"
@@ -328,7 +370,8 @@ def main():
     print("Combining all commodity data...")
     all_dfs = [
         res_json_df,
-        exp_imp_json_df
+        exp_imp_json_df,
+        res_share_json_df
     ] + commodity_production_dfs + \
         commodity_production_share_dfs
 
@@ -354,6 +397,7 @@ def main():
         "id",
         "country",
         "resources_reserves",
+        "resources_reserves_shares",
         "export_import",
         "production_volume",
         "production_share",
@@ -362,7 +406,7 @@ def main():
     final_df = final_df.reindex(columns=final_columns)
 
     # 6. Write to sheet
-    output_range = f"A1:G{len(final_df) + 1}"
+    output_range = f"A1:H{len(final_df) + 1}"
     print(f"Writing combined data to range {output_range}...")
 
     update_values = [final_df.columns.values.tolist()] + final_df.fillna(
