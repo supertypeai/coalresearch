@@ -5,12 +5,12 @@ combines the data, and populates a master table in the same sheet.
 The script performs the following actions:
 1.  Reads data from source tables:
     -   Global Coal Resource and Reserves 2020 (I3:K39)
-    -   Coal Production Volume (N3:Y31)
+    -   Coal Production Volume (M3:X31)
     -   Coal Export Import (AA3:AC84)
-    -   Nickel Production Volume (N54:Y62)
-    -   Copper Production Volume (N65:Y73)
-    -   Bauxite Production Volume (N79:Y87)
-    -   Gold Production Volume (N94:Y145)
+    -   Nickel Production Volume (M54:X62)
+    -   Copper Production Volume (M65:X73)
+    -   Bauxite Production Volume (M79:X87)
+    -   Gold Production Volume (M94:X145)
 2.  Processes and transforms the data for a predefined list of countries into JSON format.
 3.  Merges the processed data into a single DataFrame.
 4.  Writes the final, combined data to the master table, overwriting existing content.
@@ -22,7 +22,7 @@ from functools import reduce
 
 import gspread
 import pandas as pd
-from google_sheets.auth import createClient
+from sheet_api.google_sheets.auth import createClient
 
 # List of countries to process
 COUNTRY_LIST = {
@@ -199,6 +199,37 @@ def process_production_volume(df, country_list):
 
     return pd.DataFrame(processed_data)
 
+def process_production_share(df, country_list):
+    """Processes the 'Commodity Production Share' dataframe."""
+    print("Processing 'Commodity Production Share' data...")
+    if df.empty:
+        return pd.DataFrame(columns=["country", "production_share"])
+
+    processed_data = []
+    year_cols = [col for col in df.columns if col.isdigit()]
+
+    df[year_cols] = df[year_cols].apply(
+        lambda col: pd.to_numeric(col, errors="coerce").fillna(0)
+    )
+
+    yearly_production_sum = {year: df[year].sum() for year in year_cols}
+
+    for _, row in df.iterrows():
+        country = row.get("Country")
+        if country and country.strip() in country_list:
+            production_share = {}
+            for year in year_cols:
+                production = row[year]
+                # Assuming yearly_production_sum[year] is non zero
+                production_share[year] = round((production / yearly_production_sum[year]) * 100, 2)
+        
+            if production_share:
+                json_string = json.dumps(production_share)
+                processed_data.append(
+                    {"country": country.strip(), "production_share": json_string}
+                )
+
+    return pd.DataFrame(processed_data)
 
 def process_export_import(df, country_list):
     """Processes the 'Coal Export Import' dataframe."""
@@ -261,54 +292,45 @@ def main():
     print("Reading data from source tables...")
     # Coal data
     res_df = get_dataframe_from_range(sheet, "I3:K39")
-    prod_coal_df = get_dataframe_from_range(sheet, "N3:Y31")
+    prod_coal_df = get_dataframe_from_range(sheet, "M3:X31")
     exp_imp_df = get_dataframe_from_range(sheet, "AA3:AC84")
     # Nickel and Copper data
-    prod_nickel_df = get_dataframe_from_range(sheet, "N54:Y62")
-    prod_copper_df = get_dataframe_from_range(sheet, "N65:Y73")
-    prod_bauxite_df = get_dataframe_from_range(sheet, "N79:Y87")
-    prod_gold_df = get_dataframe_from_range(sheet, "N94:Y145")
+    prod_nickel_df = get_dataframe_from_range(sheet, "M54:X62")
+    prod_copper_df = get_dataframe_from_range(sheet, "M65:X73")
+    prod_bauxite_df = get_dataframe_from_range(sheet, "M79:X87")
+    prod_gold_df = get_dataframe_from_range(sheet, "M94:X145")
 
     # 2. Process each data source into a standardized DataFrame
     res_json_df = process_resources_reserves(res_df, COUNTRY_LIST)
     if not res_json_df.empty:
         res_json_df["commodity_type"] = "Coal"
 
-    prod_coal_json_df = process_production_volume(prod_coal_df, COUNTRY_LIST)
-    if not prod_coal_json_df.empty:
-        prod_coal_json_df["commodity_type"] = "Coal"
-
     exp_imp_json_df = process_export_import(exp_imp_df, COUNTRY_LIST)
     if not exp_imp_json_df.empty:
         exp_imp_json_df["commodity_type"] = "Coal"
 
-    prod_nickel_json_df = process_production_volume(prod_nickel_df, COUNTRY_LIST)
-    if not prod_nickel_json_df.empty:
-        prod_nickel_json_df["commodity_type"] = "Nickel"
+    commodity_production_dfs = []
+    commodity_production_share_dfs = []
+    for df, commodity in zip((prod_coal_df, prod_nickel_df, prod_copper_df, prod_bauxite_df, prod_gold_df),
+                             ("Coal", "Nickel", "Copper", "Bauxite", "Gold")):
+        
+        commodity_prod_json_df = process_production_volume(df, COUNTRY_LIST)
+        if not commodity_prod_json_df.empty:
+            commodity_prod_json_df["commodity_type"] = commodity
+        commodity_production_dfs.append(commodity_prod_json_df)
 
-    prod_copper_json_df = process_production_volume(prod_copper_df, COUNTRY_LIST)
-    if not prod_copper_json_df.empty:
-        prod_copper_json_df["commodity_type"] = "Copper"
-
-    prod_bauxite_json_df = process_production_volume(prod_bauxite_df, COUNTRY_LIST)
-    if not prod_bauxite_json_df.empty:
-        prod_bauxite_json_df["commodity_type"] = "Bauxite"
-
-    prod_gold_json_df = process_production_volume(prod_gold_df, COUNTRY_LIST)
-    if not prod_gold_json_df.empty:
-        prod_gold_json_df["commodity_type"] = "Gold"
+        commodity_share_json_df = process_production_share(df, COUNTRY_LIST)
+        if not commodity_share_json_df.empty:
+            commodity_share_json_df["commodity_type"] = commodity
+        commodity_production_share_dfs.append(commodity_share_json_df)
 
     # 3. Combine all processed data
     print("Combining all commodity data...")
     all_dfs = [
         res_json_df,
-        prod_coal_json_df,
-        exp_imp_json_df,
-        prod_nickel_json_df,
-        prod_copper_json_df,
-        prod_bauxite_json_df,
-        prod_gold_json_df,
-    ]
+        exp_imp_json_df
+    ] + commodity_production_dfs + \
+        commodity_production_share_dfs
 
     # Filter out any empty dataframes that resulted from empty source ranges
     valid_dfs = [df for df in all_dfs if not df.empty]
@@ -334,12 +356,13 @@ def main():
         "resources_reserves",
         "export_import",
         "production_volume",
+        "production_share",
         "commodity_type",
     ]
     final_df = final_df.reindex(columns=final_columns)
 
     # 6. Write to sheet
-    output_range = f"A1:F{len(final_df) + 1}"
+    output_range = f"A1:G{len(final_df) + 1}"
     print(f"Writing combined data to range {output_range}...")
 
     update_values = [final_df.columns.values.tolist()] + final_df.fillna(
