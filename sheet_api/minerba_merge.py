@@ -53,6 +53,10 @@ def prepareMinerbaDf(filename: str = "datasets/modi_mining_license_merge.csv"):
     minerba_df["city"] = minerba_df["kabupaten_norm"]
     minerba_df["activity"] = minerba_df["kegiatan_norm"]
     minerba_df["location"] = minerba_df["lokasi_norm"].fillna("-")
+
+    # Temporary fix
+    minerba_df = minerba_df[~(minerba_df["geometry"] == "[]")]
+
     minerba_df["license_number"] = minerba_df["license_number"].fillna("-").str.strip()
     # minerba_df["permit_effective_date"] = pd.to_datetime(
     #     minerba_df["permit_effective_date"], unit="ms", errors="coerce"
