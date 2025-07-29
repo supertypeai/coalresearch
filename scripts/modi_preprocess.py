@@ -64,4 +64,7 @@ merge = merge.fillna("-")
 merge['luas_sk'] = merge['luas_sk'].str.replace('.', '', regex=False) \
                                    .str.replace(',', '.', regex=False)
 
-merge.to_csv("datasets/modi_mining_license_merge.csv")
+# merge.to_csv("datasets/modi_mining_license_merge.csv")
+md = merge[merge.duplicated(subset='sk_iup', keep=False)]
+md = md.sort_values(by='sk_iup')
+md.to_csv('dup_sk_iup.csv')
