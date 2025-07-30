@@ -118,7 +118,7 @@ def load_and_parse(csv_path: str) -> pd.DataFrame:
     return pd.read_csv(
         csv_path,
         parse_dates=["tgl_berlaku", "tgl_akhir"],
-        date_parser=lambda col: pd.to_datetime(col, unit="ms"),
+        # date_parser=lambda col: pd.to_datetime(col, unit="ms"),
     )
 
 
@@ -150,7 +150,8 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
     df_sorted = df_sorted[df_sorted["tgl_berlaku"] != df_sorted["tgl_akhir"]]
 
     # Strip and filter out rows with empty or '-' in any string column
-    str_cols = df_sorted.select_dtypes(include=[object]).columns
+    excluded_columns = ['generasi']
+    str_cols = df_sorted.select_dtypes(include=[object]).columns.difference(excluded_columns)
 
     def valid_row(row):
         for col in str_cols:
@@ -336,4 +337,4 @@ def scrape_and_upsert(csv_path: str, db_path: str):
 
 
 if __name__ == "__main__":
-    scrape_and_upsert("datasets/esdm_minerba_all.csv", "db.sqlite")
+    scrape_and_upsert("datasets/modi_mining_license_merge.csv", "db.sqlite")

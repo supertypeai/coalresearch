@@ -46,7 +46,7 @@ modi_df = modi_df.drop_duplicates(keep='first')
 
 minerba_df = pd.read_csv('datasets/esdm_minerba_all.csv')
 minerba_cols = ['kode_wiup', 'objectid', 'pulau', 'pejabat', 'id_prov', 'nama_prov', 'id_kab', 
-                'nama_kab', 'kode_golongan', 'kode_jnskom', 'generasi', 'kode_wil', 'geometry',
+                'nama_kab', 'kode_golongan', 'kode_jnskom', 'generasi', 'geometry',
                 'komoditas_mapped', 'provinsi_norm', 'kabupaten_norm', 'kegiatan_norm', 'lokasi_norm']
 minerba_df = minerba_df[[c for c in minerba_cols]]
 
