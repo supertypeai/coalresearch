@@ -92,9 +92,9 @@ def create_and_connect_db():
         year INTEGER,
         assets REAL,
         revenue REAL,
-        revenue_breakdown TEXT,
+        revenue_breakdown TEXT CHECK (json_valid(revenue_breakdown)),
         cost_of_revenue REAL,
-        cost_of_revenue_breakdown TEXT,
+        cost_of_revenue_breakdown TEXT CHECK (json_valid(cost_of_revenue_breakdown)),
         net_profit REAL,
         PRIMARY KEY (idx_ticker, year)
     );
