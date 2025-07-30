@@ -45,7 +45,7 @@ modi_df = modi_df.sort_values(by=['nama_usaha', 'sk_iup'])
 modi_df = modi_df.drop_duplicates(keep='first')
 
 minerba_df = pd.read_csv('datasets/esdm_minerba_all.csv')
-minerba_cols = ['sk_iup', 'kode_wiup', 'objectid', 'pulau', 'pejabat', 'id_prov', 'nama_prov', 'id_kab', 
+minerba_cols = ['kode_wiup', 'objectid', 'pulau', 'pejabat', 'id_prov', 'nama_prov', 'id_kab', 
                 'nama_kab', 'kode_golongan', 'kode_jnskom', 'generasi', 'kode_wil', 'geometry',
                 'komoditas_mapped', 'provinsi_norm', 'kabupaten_norm', 'kegiatan_norm', 'lokasi_norm']
 minerba_df = minerba_df[[c for c in minerba_cols]]
@@ -54,7 +54,7 @@ merge = pd.merge(
     modi_df,
     minerba_df,
     how='left',
-    on=['sk_iup', 'kode_wiup'],
+    on=['kode_wiup'],
 )
 merge = merge.sort_values(by=['nama_usaha', 'sk_iup'])
 
@@ -63,5 +63,15 @@ merge.loc[pd.isna(merge['geometry']), 'geometry'] = "[]"
 merge = merge.fillna("-")
 merge['luas_sk'] = merge['luas_sk'].str.replace('.', '', regex=False) \
                                    .str.replace(',', '.', regex=False)
+
+wiup_code_numeric = pd.to_numeric(merge['kode_wiup'], errors='coerce')
+df_to_drop = merge[pd.isna(wiup_code_numeric)]
+
+print(f"Dropping {len(df_to_drop)} companies with no wiup_code")
+for rowid, row in df_to_drop.iterrows():
+    print(row['nama_usaha'])
+
+merge = merge[pd.to_numeric(merge['kode_wiup'], errors='coerce').notna()]
+merge = merge.reset_index(drop=True)
 
 merge.to_csv("datasets/modi_mining_license_merge.csv")

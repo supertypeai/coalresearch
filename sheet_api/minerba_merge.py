@@ -37,6 +37,7 @@ def prepareMinerbaDf(filename: str = "datasets/modi_mining_license_merge.csv"):
     included_columns = [
         "license_type",
         "license_number",
+        "wiup_code",
         "province",
         "city",
         "permit_effective_date",
@@ -55,7 +56,13 @@ def prepareMinerbaDf(filename: str = "datasets/modi_mining_license_merge.csv"):
     minerba_df["location"] = minerba_df["lokasi_norm"].fillna("-")
 
     # Temporary fix
-    minerba_df = minerba_df[~(minerba_df["geometry"] == "[]")]
+    no_geometry_mask = minerba_df["geometry"] == "[]"
+    minerba_df_with_no_geometry = minerba_df[no_geometry_mask]
+    print(f"Excluding {len(minerba_df_with_no_geometry)} companies with no geometry data")
+    for rowid, row in minerba_df_with_no_geometry.head(5).iterrows():
+        print(row['company_name'])
+
+    minerba_df = minerba_df[~no_geometry_mask]
 
     minerba_df["license_number"] = minerba_df["license_number"].fillna("-").str.strip()
     # minerba_df["permit_effective_date"] = pd.to_datetime(

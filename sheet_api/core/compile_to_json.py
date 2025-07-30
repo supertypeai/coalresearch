@@ -107,8 +107,6 @@ def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=0
             data_dict[in_col_cleaned] = val
 
         rr_cols_json = json.dumps(data_dict)
-        row[target_col] = rr_cols_json
-
         to_use_value = {"stringValue": f"{rr_cols_json}"}
 
         rows.append({"values": [{"userEnteredValue": to_use_value}]})
@@ -179,8 +177,6 @@ def jsonifyCommodityStats(df: pd.DataFrame, sheet_id: int, starts_from: int = 0)
             data_dict = renderCoalStats(row)
             
         rr_cols_json = json.dumps(data_dict)
-        row["commodity_stats"] = rr_cols_json
-
         to_use_value = {'stringValue':f'{rr_cols_json}'}
 
         rows.append(
@@ -248,8 +244,6 @@ def jsonifyMineReservesAndResources(df: pd.DataFrame, sheet_id: int, starts_from
         data_dict = renderFunction(row)
             
         rr_cols_json = json.dumps(data_dict)
-        row["resources_reserves"] = rr_cols_json
-
         to_use_value = {'stringValue':f'{rr_cols_json}'}
 
         rows.append(
@@ -336,7 +330,7 @@ def batchUpdateSheet(rows: list, sheet_id: int, starts_from: int, length: int, c
 
 def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
                       starts_from: int = 0, threshold: int = 93
-                    ) -> None:
+                    ) -> pd.DataFrame:
     # Load and clean reference DataFrame
     minerba_df, included_columns = prepareMinerbaDf()
     
@@ -367,7 +361,7 @@ def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
 
         ### CHANGED: dump the list (even if empty) as your JSON array
         license_json = json.dumps(records, ensure_ascii=False)
-        row['mining_license'] = license_json
+        df_company.at[row_id, 'mining_license'] = license_json
 
         to_use_value = {"stringValue": license_json}
 
@@ -382,6 +376,8 @@ def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
     
     response = batchUpdateSheet(rows, sheet_id, starts_from, len(df), col_id)
 
+    return df_company
+
 def fillMiningContract(df: pd.DataFrame, sheet_id: int) -> pd.DataFrame:
 
     c_df = df.copy()
@@ -393,7 +389,6 @@ def fillMiningContract(df: pd.DataFrame, sheet_id: int) -> pd.DataFrame:
         .astype("Int64")
         .astype(str)
     )
-    c_df["id"] = c_df["id"].astype(str)
 
     # Group contracts by contractor_id
     grouped_contracts = mc_df.groupby("contractor_id")
@@ -417,7 +412,7 @@ def fillMiningContract(df: pd.DataFrame, sheet_id: int) -> pd.DataFrame:
                 "agreement_type": agreement_types,
             }
             contract_list.append(new_contract)
-        contracts_dict[str(contractor_id)] = json.dumps(contract_list)
+        contracts_dict[contractor_id] = json.dumps(contract_list)
 
     # Map contracts to company dataframe and fill empty values with '[]'
     c_df["mining_contract"] = c_df["id"].map(contracts_dict)

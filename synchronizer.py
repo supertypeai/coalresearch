@@ -62,11 +62,11 @@ def companyPreprocess(df: pd.DataFrame, field_types: dict, sheet):
 
     # 2. Fill out mining license
     print("Filling out company's mining_license...")
-    fillMiningLicense(df, sheet.id)
+    df = fillMiningLicense(df, sheet.id)
 
     # 3. Fill out mining contracts
     print("Filling out company's mining_contracts...")
-    fillMiningContract(df, sheet.id)
+    df = fillMiningContract(df, sheet.id)
 
     return df, field_types, sheet
 

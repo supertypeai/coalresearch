@@ -195,6 +195,7 @@ def create_table(conn: sqlite3.Connection):
         id TEXT PRIMARY KEY NOT NULL,
         license_type TEXT,
         license_number TEXT,
+        wiup_code TEXT,
         province TEXT,
         city TEXT,
         permit_effective_date TEXT,
@@ -231,6 +232,7 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
         columns={
             "jenis_izin": "license_type",
             "sk_iup": "license_number",
+            "kode_wiup": "wiup_code",
             "nama_prov": "province",
             "nama_kab": "city",
             "kegiatan": "activity",
@@ -272,17 +274,18 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
     # 5) Perform the upsert
     upsert_sql = """
     INSERT INTO mining_license (
-      id, license_type, license_number, province, city,
+      id, license_type, license_number, wiup_code, province, city,
       permit_effective_date, permit_expiry_date, activity,
       licensed_area, location, commodity, company_name, company_id
     ) VALUES (
-      :id, :license_type, :license_number, :province, :city,
+      :id, :license_type, :license_number, :wiup_code, :province, :city,
       :permit_effective_date, :permit_expiry_date, :activity,
       :licensed_area, :location, :commodity, :company_name, :company_id
     )
     ON CONFLICT(id) DO UPDATE SET
       license_type          = excluded.license_type,
       license_number        = excluded.license_number,
+      wiup_code             = excluded.wiup_code,
       province              = excluded.province,
       city                  = excluded.city,
       permit_effective_date = excluded.permit_effective_date,
@@ -299,6 +302,7 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
         "id",
         "license_type",
         "license_number",
+        "wiup_code",
         "province",
         "city",
         "permit_effective_date",
