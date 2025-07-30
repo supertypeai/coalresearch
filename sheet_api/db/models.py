@@ -51,7 +51,7 @@ company_type_constraints = (
     "Consultant",
     "Contractor",
     "Trader",
-    "Manufacturer",
+    "Manufacturer"
 )
 key_operation_constraints = (
     "Mining",
@@ -64,7 +64,7 @@ key_operation_constraints = (
     "Barging, Port & Transshipment",
     "Investment",
     "Mineral Refining",
-    "Construction",
+    "Construction"
 )
 commodity_type_constraints = (
     "Coal",
@@ -76,8 +76,7 @@ commodity_type_constraints = (
     "Copper",
     "Silver",
     "Tin",
-    "Cobalt",
-    "Copper Concentrate",
+    "Cobalt"
 )
 mineral_type_constraints = (
     "Coal",
@@ -87,7 +86,7 @@ mineral_type_constraints = (
     "Oil",
     "Nickel",
     "Copper",
-    "Silver",
+    "Silver"
 )
 mining_operation_status_constraints = ("production", "development", "inactive")
 
