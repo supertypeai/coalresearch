@@ -7,6 +7,7 @@ from sheet_api.db.models import (
     TotalCommoditiesProduction,
     ResourcesAndReserves,
     ExportDestination,
+    GlobalCommodityData,
 )
 
 db_dir = 'db.sqlite'
@@ -15,7 +16,8 @@ TBL_MAP = {
     'mining_site': MiningSite,
     'total_commodities_production': TotalCommoditiesProduction,
     'resources_and_reserves': ResourcesAndReserves,
-    'export_destination': ExportDestination
+    'export_destination': ExportDestination,
+    'global_commodity_data': GlobalCommodityData
 }
 
 def logCreationScript(table_name: str):
@@ -111,6 +113,6 @@ def recreateTable(tbl_name: str):
     print(f"Table {tbl_name} recreated.")
 
 if __name__ == "__main__":
-    table = "export_destination"
+    table = "global_commodity_data"
     # alterTable(table)
     recreateTable(table)

@@ -199,7 +199,7 @@ def process_resources_reserves_shares(df, country_list):
                     json_data = {"2020": payload}
                     json_string = json.dumps(json_data)
                     processed_data.append(
-                        {"country": country.strip(), "resources_reserves_shares": json_string}
+                        {"country": country.strip(), "resources_reserves_share": json_string}
                     )
             except (KeyError, ValueError) as e:
                 print(f"Skipping row for '{country}' in resources due to error: {e}")
@@ -397,7 +397,7 @@ def main():
         "id",
         "country",
         "resources_reserves",
-        "resources_reserves_shares",
+        "resources_reserves_share",
         "export_import",
         "production_volume",
         "production_share",

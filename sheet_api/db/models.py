@@ -134,11 +134,17 @@ class GlobalCommodityData(Model):
     resources_reserves = TextField(
         null=True, constraints=[Check("json_valid(resources_reserves)")]
     )
+    resources_reserves_share = TextField(
+        null=True, constraints=[Check("json_valid(resources_reserves_share)")]
+    )
     export_import = TextField(
         null=True, constraints=[Check("json_valid(export_import)")]
     )
     production_volume = TextField(
         null=True, constraints=[Check("json_valid(production_volume)")]
+    )
+    production_share = TextField(
+        null=True, constraints=[Check("json_valid(production_share)")]
     )
     commodity_type = TextField()
 
