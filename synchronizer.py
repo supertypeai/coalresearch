@@ -87,16 +87,8 @@ def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
 
     return df, field_types, sheet
 
-def resourcesAndReservesPreprocess(df: pd.DataFrame, field_types: dict, sheet):
-    print(df)
-    
+def resourcesAndReservesPreprocess(df: pd.DataFrame, field_types: dict, sheet):   
     df = jsonifyProvincesResourcesReserves(df)
-    
-    print(df)
-
-    excluded_provinces = ['Papua Barat Daya', 'Papua Tengah']
-    df = df[~df['province'].isin(excluded_provinces)]
-
     return df, field_types, sheet
 
 def sync_company():

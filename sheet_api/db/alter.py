@@ -116,5 +116,5 @@ def recreateTable(tbl_name: str):
 
 if __name__ == "__main__":
     table = "resources_and_reserves"
-    # alterTable(table)
-    recreateTable(table)
+    alterTable(table)
+    # recreateTable(table)
