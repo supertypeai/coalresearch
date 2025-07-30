@@ -88,6 +88,34 @@ LIMONITE_MINE = [
     (f"lim resources {t}", typ) for t, typ in NICKEL_TEMPLATE
 ]
 
+# Resources and Reserves
+RESERVES_RESOURCES_COAL = [
+    ("exploration_target_1", float),
+    ("total_inventory_1", float),
+    ("resources_inferred", float),
+    ("resources_indicated", float),
+    ("resources_measured", float),
+    ("resources_total", float),
+    ("resources_total_verify_2", float),
+    ("reserves_total", float),
+    ("reserves_total_verify_2", float)
+]
+RESERVES_RESOURCES_METAL = [
+    ("ore_resources_inferred", float),
+    ("resources_inferred", float),
+    ("ore_resources_indicated", float),
+    ("resources_indicated", float),
+    ("ore_resources_measured", float),
+    ("ore_resources_total", float),
+    ("resources_total", float),
+    ("ore_reserves_probable", float),
+    ("reserves_probable", float),
+    ("ore_reserves_proven", float),
+    ("reserves_proven", float),
+    ("ore_reserves_total", float),
+    ("reserves_total", float)
+]		
+
 def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=0):
     col_id = df.columns.get_loc(target_col)
 
@@ -426,3 +454,21 @@ def fillMiningContract(df: pd.DataFrame, sheet_id: int) -> pd.DataFrame:
     response = batchUpdateSheet(rows, sheet_id, 0, len(c_df), col_id)
 
     return c_df
+
+def renderCoalResourcesReserves(row):
+    return renderDict(row, RESERVES_RESOURCES_COAL)
+    
+def renderMetalResourcesReserves(row):
+    return renderDict(row, RESERVES_RESOURCES_METAL)
+
+def jsonifyProvincesResourcesReserves(df: pd.DataFrame) -> pd.DataFrame:
+    renderMap = {
+        'Coal': renderCoalResourcesReserves,
+    }
+
+    for rowid, row in df.iterrows():
+        commodity = row['commodity_type']
+        renderFunction = renderMap.get(commodity, renderMetalResourcesReserves)
+        df.at[rowid, 'resources_reserves'] = json.dumps(renderFunction(row))
+
+    return df

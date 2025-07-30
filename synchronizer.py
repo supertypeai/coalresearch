@@ -27,6 +27,7 @@ from sheet_api.core.sync import (
 )
 from sheet_api.core.compile_to_json import (
     compileToJsonBatch,
+    jsonifyProvincesResourcesReserves,
     jsonifyMineReservesAndResources,
     fillMiningLicense,
     fillMiningContract,
@@ -87,6 +88,12 @@ def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
     return df, field_types, sheet
 
 def resourcesAndReservesPreprocess(df: pd.DataFrame, field_types: dict, sheet):
+    print(df)
+    
+    df = jsonifyProvincesResourcesReserves(df)
+    
+    print(df)
+
     excluded_provinces = ['Papua Barat Daya', 'Papua Tengah']
     df = df[~df['province'].isin(excluded_provinces)]
 

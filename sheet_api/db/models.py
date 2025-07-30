@@ -210,28 +210,9 @@ class ResourcesAndReserves(Model):
         null=True,
         constraints=[Check(f"commodity_type IN {commodity_type_constraints}")],
     )
-    exploration_target_1 = DecimalField(null=True)
-    total_inventory_1 = DecimalField(null=True)
-
-    # Resources
-    ore_resources_inferred = DecimalField(null=True)
-    resources_inferred = DecimalField(null=True)
-    ore_resources_indicated = DecimalField(null=True)
-    resources_indicated = DecimalField(null=True)
-    ore_resources_measured = DecimalField(null=True)
-    resources_measured = DecimalField(null=True)
-    ore_resources_total = DecimalField(null=True)
-    resources_total = DecimalField(null=True)
-    resources_total_verify_2 = DecimalField(null=True)
-
-    # Ore Reserves
-    ore_reserves_probable = DecimalField(null=True)
-    reserves_probable = DecimalField(null=True)
-    ore_reserves_proven = DecimalField(null=True)
-    reserves_proven = DecimalField(null=True)
-    ore_reserves_total = DecimalField(null=True)
-    reserves_total = DecimalField(null=True)
-    reserves_total_verify_2 = DecimalField(null=True)
+    resources_reserves = TextField(
+        null=True, constraints=[Check("json_valid(resources_reserves)")]
+    )
 
     class Meta:
         database = db
