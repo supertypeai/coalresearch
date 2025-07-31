@@ -27,48 +27,14 @@ def syncCompanyNameID(c_df, df, sheet, company_name_col, company_id_col, starts_
 
             print("Updating row number, col number, col name, value:", row_id + 2, col_id, company_id_col, to_use_value)
 
-
-def batchUpdate(c_df, df, company_name_col, company_id_col, sheet_id, starts_from=0):   
-    col_id = df.columns.get_loc(company_id_col)
-
-    rows = []
-
-    for row_id, row in df.iterrows():
-
-        if (row_id + 2) < starts_from:
-            continue
-
-        company_q = c_df[c_df['name'] == row[company_name_col]]
-
-        if not company_q.empty:
-            
-            original_value = row[company_id_col]
-            new_value = company_q['id'].iloc[0]
-
-            to_use_value = new_value
-            to_use_value = {'numberValue':f'{to_use_value}'}
-
-        else:
-            to_use_value = {}
-        
-
-        rows.append(
-            {
-                'values': 
-                    [
-                        {'userEnteredValue': to_use_value}
-                    ]
-            }
-        )
-
-
+def sendRequest(sheet_id, start, end, col_id, rows):
     requests = [
         {
             'updateCells': {
                 'range': {
                     'sheetId': sheet_id,
-                    'startRowIndex': starts_from + 1,
-                    'endRowIndex': len(df) + 1,
+                    'startRowIndex': start + 1,
+                    'endRowIndex': end + 1,
                     'startColumnIndex': col_id,
                     'endColumnIndex': col_id + 1
                 },
@@ -84,6 +50,44 @@ def batchUpdate(c_df, df, company_name_col, company_id_col, sheet_id, starts_fro
     ).execute()
 
     print(f"Batch update response: {response}")
+
+
+def batchUpdate(c_df, df, company_name_col, company_id_col, sheet_id, starts_from=0, sync_name=True):
+
+    source = 'id' if sync_name else 'name'
+    target = 'name' if sync_name else 'id'
+    source_col = company_id_col if sync_name else company_name_col
+    target_col = company_name_col if sync_name else company_id_col
+    value_type = 'stringValue' if sync_name else 'numberValue'
+
+    target_col_id = df.columns.get_loc(target_col)
+
+    rows = []
+
+    for row_id, row in df.iterrows():
+
+        if (row_id + 2) < starts_from:
+            continue
+
+        company_q = c_df[c_df[source] == row[source_col]]
+
+        if not company_q.empty:
+            
+            original_value = row[target_col]
+            new_value = company_q[target].iloc[0]
+
+            to_use_value = new_value
+            to_use_value = {value_type:f'{to_use_value}'}
+
+        else:
+            to_use_value = {}
+        
+
+        rows.append({
+            'values': [{'userEnteredValue': to_use_value}]
+            })
+
+    sendRequest(sheet_id, starts_from, len(df), target_col_id, rows)
 
 class SyncCompanyId:
     def __init__(self):
