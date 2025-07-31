@@ -92,7 +92,7 @@ def resourcesAndReservesPreprocess(df: pd.DataFrame, field_types: dict, sheet):
     return df, field_types, sheet
 
 def sync_company():
-    sync_model("company", Company, "A1:U357", companyPreprocess)
+    sync_model("company", Company, "A1:U356", companyPreprocess)
 
 
 def sync_company_performance():
