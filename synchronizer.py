@@ -2,6 +2,7 @@ import pandas as pd
 import peewee as pw
 import argparse
 
+from scripts.sync_company_name_id import SyncCompanyId
 from typing import Callable, Optional
 from sheet_api.db.models import (
     Company,
@@ -92,7 +93,7 @@ def resourcesAndReservesPreprocess(df: pd.DataFrame, field_types: dict, sheet):
     return df, field_types, sheet
 
 def sync_company():
-    sync_model("company", Company, "A1:U356", companyPreprocess)
+    sync_model("company", Company, preprocess=companyPreprocess)
 
 
 def sync_company_performance():
@@ -106,6 +107,9 @@ def sync_mining_site():
 
 
 def sync_process_ownership():
+    sync = SyncCompanyId()
+    sync.update_target('c')
+
     _, df = getSheetAll("company")
 
     if input("Replace company ownerhip according to the sheet?") == "Y":

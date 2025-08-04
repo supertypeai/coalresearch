@@ -52,7 +52,7 @@ def sendRequest(sheet_id, start, end, col_id, rows):
     print(f"Batch update response: {response}")
 
 
-def batchUpdate(c_df, df, company_name_col, company_id_col, sheet_id, starts_from=0, sync_name=True):
+def batchUpdate(c_df, df, company_name_col, company_id_col, sheet_id, starts_from=0, sync_name=False):
 
     source = 'id' if sync_name else 'name'
     target = 'name' if sync_name else 'id'
