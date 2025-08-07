@@ -21,8 +21,8 @@ def main():
 
     synchronizer.sync_company()
     synchronizer.sync_company_performance()
-    synchronizer.sync_mining_site()
     synchronizer.sync_process_ownership()
+    synchronizer.sync_mining_site()
 
 if __name__ == '__main__':
     main()
