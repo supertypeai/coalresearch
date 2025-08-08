@@ -1,10 +1,10 @@
-from dotenv         import load_dotenv
-from libsql_client  import create_client_sync
+from dotenv import load_dotenv
+from libsql_client import create_client_sync
 
 import os
 
 # load variables from .env
-load_dotenv()  
+load_dotenv()
 
 TABLE_STATEMENTS = [
     """
@@ -196,7 +196,38 @@ TABLE_STATEMENTS = [
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
         UNIQUE(source)
     );
+    """,
     """
+    CREATE TABLE IF NOT EXISTS sales_destination (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        company_id INTEGER,
+        country TEXT NOT NULL,
+        idx_ticker TEXT NOT NULL,
+        year INTEGER NOT NULL,
+        revenue REAL,
+        percentage_of_total_revenue REAL,
+        volume REAL,
+        percentage_of_sales_volume REAL,
+        UNIQUE(country, idx_ticker, year),
+        FOREIGN KEY (company_id) REFERENCES company(id)
+    );
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS company_financials (
+        company_id INTEGER,
+        idx_ticker TEXT,
+        name TEXT,
+        year INTEGER,
+        assets REAL,
+        revenue REAL,
+        revenue_breakdown TEXT CHECK (json_valid(revenue_breakdown)),
+        cost_of_revenue REAL,
+        cost_of_revenue_breakdown TEXT CHECK (json_valid(cost_of_revenue_breakdown)),
+        net_profit REAL,
+        PRIMARY KEY (idx_ticker, year)
+        FOREIGN KEY (company_id) REFERENCES company(id)
+    );
+    """,
 ]
 
 
@@ -204,7 +235,7 @@ def get_turso_credentials() -> tuple[str, str]:
     """
     Retrieve Turso database URL and auth token from environment variables.
     If not set, print an error message and exit.
-    
+
     Returns:
         tuple[str, str]: A tuple containing the raw database URL and auth token.
     """
@@ -214,24 +245,24 @@ def get_turso_credentials() -> tuple[str, str]:
     if not raw_url or not auth_token:
         print("Missing Turso credentials, exiting.")
         exit(1)
-        
+
     return raw_url, auth_token
 
 
 def normalize_db_url(raw_url: str) -> str:
-    """ 
-    Normalize the raw Turso URL to a format suitable for HTTP access. 
-    
-    Args: 
+    """
+    Normalize the raw Turso URL to a format suitable for HTTP access.
+
+    Args:
         raw_url (str): The raw Turso database URL.
-        
+
     Returns:
         str: Normalized URL for HTTP access.
     """
     if raw_url.startswith("wss"):
-        db_url = raw_url.replace('wss', 'https')
+        db_url = raw_url.replace("wss", "https")
     elif raw_url.startswith("libsql"):
-        db_url = raw_url.replace('libsql', 'https')
+        db_url = raw_url.replace("libsql", "https")
     else:
         db_url = raw_url
     db_url = db_url.rstrip("/")
@@ -239,8 +270,8 @@ def normalize_db_url(raw_url: str) -> str:
 
 
 def main():
-    """ 
-    Main function to create tables in the Turso database. 
+    """
+    Main function to create tables in the Turso database.
     This function retrieves the database URL and auth token from environment variables,
     normalizes the URL, and then creates a synchronous client to execute the table creation statements.
     """
