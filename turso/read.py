@@ -1,5 +1,9 @@
 import os
 from libsql_client import create_client_sync
+from dotenv import load_dotenv  # Import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Grab Turso credentials from environment
 raw_url = os.getenv("TURSO_DATABASE_URL", "")
@@ -51,7 +55,7 @@ try:
         print("No user tables found.")
     else:
         for tbl in table_names:
-            fetch_and_print(tbl, limit=5)
+            fetch_and_print(tbl, limit=1)
 
 finally:
     client.close()

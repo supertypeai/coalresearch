@@ -4,7 +4,8 @@ import json
 import os
 import re
 
-from sheet_api.google_sheets.auth import createClient
+# from sheet_api.google_sheets.auth import createClient
+from .google_sheets.auth import createClient
 
 # --- Configuration ---
 # The name of the worksheet (tab) in your Google Sheet to read from.
@@ -87,6 +88,7 @@ def create_and_connect_db():
     # New schema: one row per company per year
     create_table_query = f"""
     CREATE TABLE IF NOT EXISTS {TABLE_NAME} (
+        company_id INTEGER,
         idx_ticker TEXT,
         name TEXT,
         year INTEGER,
@@ -97,6 +99,7 @@ def create_and_connect_db():
         cost_of_revenue_breakdown TEXT CHECK (json_valid(cost_of_revenue_breakdown)),
         net_profit REAL,
         PRIMARY KEY (idx_ticker, year)
+        FOREIGN KEY (company_id) REFERENCES company(id)
     );
     """
     cursor.execute(create_table_query)
@@ -241,7 +244,22 @@ def main():
 
             # Iterate through each yearly record and insert it into the DB
             for record in yearly_records:
+                company_id = None
+                ticker = record.get("idx_ticker")
+                if ticker:
+                    cursor.execute(
+                        "SELECT id FROM company WHERE idx_ticker = ?", (ticker,)
+                    )
+                    result = cursor.fetchone()
+                    if result:
+                        company_id = result[0]
+                    else:
+                        print(
+                            f"  > WARNING: Ticker '{ticker}' not found in 'company' table. company_id will be set to NULL."
+                        )
+
                 db_tuple = (
+                    company_id,
                     record["idx_ticker"],
                     record["name"],
                     record["year"],
@@ -255,10 +273,11 @@ def main():
 
                 insert_query = f"""
                 INSERT OR REPLACE INTO {TABLE_NAME} (
-                    idx_ticker, name, year, assets, revenue, revenue_breakdown, 
+                    company_id, idx_ticker, name, year, assets, revenue, revenue_breakdown, 
                     cost_of_revenue, cost_of_revenue_breakdown, net_profit
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
                 """
+
                 cursor.execute(insert_query, db_tuple)
                 processed_count += 1
                 print(
@@ -293,3 +312,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# command to run: python -m sheet_api.company_financials
