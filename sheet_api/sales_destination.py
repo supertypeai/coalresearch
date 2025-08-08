@@ -3,9 +3,7 @@ import sqlite3
 import json
 import os
 
-from google_sheets.auth import (
-    createClient,
-)  # Assuming this path is correct for your setup
+from .google_sheets.auth import createClient
 
 # --- Configuration ---
 WORKSHEET_NAME = "sales_destination"
@@ -27,10 +25,11 @@ def setup_database(db_name, table_name):
     cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
     print(f"Dropped existing table '{table_name}' to apply new schema.")
 
-    # Create the table with a clear structure for each data point
+    # Create the table with company_id and a foreign key link
     create_table_query = f"""
     CREATE TABLE IF NOT EXISTS {table_name} (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        company_id INTEGER,
         country TEXT NOT NULL,
         idx_ticker TEXT NOT NULL,
         year INTEGER NOT NULL,
@@ -38,11 +37,12 @@ def setup_database(db_name, table_name):
         percentage_of_total_revenue REAL,
         volume REAL,
         percentage_of_sales_volume REAL,
-        UNIQUE(country, idx_ticker, year) -- Prevents duplicate entries
+        UNIQUE(country, idx_ticker, year),
+        FOREIGN KEY (company_id) REFERENCES company(id)
     );
     """
     cursor.execute(create_table_query)
-    print(f"Table '{table_name}' created successfully.")
+    print(f"Table '{table_name}' created successfully with company_id.")
     conn.commit()
     return conn, cursor
 
@@ -157,15 +157,30 @@ def process_and_insert_data(sheet, conn, cursor):
                 continue
             # --- END OF NEW LOGIC ---
 
+            company_id = None
+            if active_ticker:
+                cursor.execute(
+                    "SELECT id FROM company WHERE idx_ticker = ?", (active_ticker,)
+                )
+                result = cursor.fetchone()
+                if result:
+                    company_id = result[0]
+                else:
+                    print(
+                        f"    -> WARNING: Ticker '{active_ticker}' not found in 'company' table. company_id will be NULL."
+                    )
+
             try:
+                # Update the INSERT query and the tuple of values
                 cursor.execute(
                     f"""
                     INSERT INTO {TABLE_NAME} (
-                        country, idx_ticker, year, revenue,
+                        company_id, country, idx_ticker, year, revenue,
                         percentage_of_total_revenue, volume, percentage_of_sales_volume
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
+                        company_id,
                         data_to_insert["country"],
                         data_to_insert["idx_ticker"],
                         data_to_insert["year"],
@@ -176,6 +191,7 @@ def process_and_insert_data(sheet, conn, cursor):
                     ),
                 )
                 print(f"    -> Inserted data for Year: {year}")
+
             except sqlite3.IntegrityError:
                 print(
                     f"    -> Skipped duplicate entry for Ticker: {active_ticker}, Year: {year}"
