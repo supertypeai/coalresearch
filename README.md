@@ -22,6 +22,22 @@ Source:
 	- This script [commodity_gold_silver.py](https://github.com/supertypeai/coalresearch/blob/main/commodity_gold_silver.py) scrapes from [Gold](https://prices.lbma.org.uk/json/gold_am.json) and [Silver](https://prices.lbma.org.uk/json/silver.json)
 	- Running on weekly basis and will automatically sync to `db.sqlite`
 
+Data Flow:
+```mermaid
+graph TD
+  A1(ESDM Minerba) --> |weekly scrapper| B1 
+  A2(Gold) --> |weekly scrapper| B2
+  A3(Silver) -->|weekly scrapper| B2
+  B1(minerba_commodities_scrapper) --> C(SQLite Database: db.sqlite)
+  B2(commodity_gold_silver) --> C(SQLite Database: db.sqlite)
+
+  %% Add clickable links to each node
+  click A1 "https://www.minerba.esdm.go.id/harga_acuan" _blank
+  click A2 "https://prices.lbma.org.uk/json/gold_am.json" _blank
+  click A3 "https://prices.lbma.org.uk/json/silver.json" _blank
+  click B1 "https://github.com/supertypeai/coalresearch/blob/main/minerba_commodities_scraper.py" _blank
+  click B2 "https://github.com/supertypeai/coalresearch/blob/main/commodity_gold_silver.py" _blank
+```
 
 | **Column**     | **Type**          | **PK** | **Description**                                                                                                                                                       |
 | -------------- | ----------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -44,6 +60,17 @@ Source:
 
 
 Notes: Currently running semi-manually to sync to `db.sqlite` every time there is changes on the [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502)
+
+Data Flow:
+```mermaid
+graph TD
+  A1(Company Website) -->|manual entry| B[Insider Sheet: company]
+  A2(Company Annual Report) -->|manual entry| B[Insider Sheet: company]
+  B -->|synchronizer| C(db.sqlite: company)
+
+  %% Add clickable links to each node
+  click B "https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=1820286624#gid=1820286624" _blank
+```
 
 | **Column**               | **Type**          | **PK** | **Description**                                 |
 | ------------------------ | ----------------- | ------ | ----------------------------------------------- |
@@ -75,6 +102,17 @@ Source:
 - Source of the data in this table is from company annual reports or trusted websites moved to [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) at `company_ownership` tab. Then, [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) into the `db.sqlite`.
 
 Notes: Currently running semi-manually to sync to `db.sqlite` every time there is changes on the [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502)
+
+Data Flow:
+```mermaid
+graph TD
+  A1(Company Website) -->|manual entry| B[Insider Sheet: company]
+  A2(Company Annual Report) -->|manual entry| B[Insider Sheet: company]
+  B -->|synchronizer| C(db.sqlite: company_ownership)
+
+  %% Add clickable links to each node
+  click B "https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=1820286624#gid=1820286624" _blank
+```
 
 | **Column**             | **Type**      | **PK**  | **Description**                                                     |
 | ---------------------- | ------------- | ------- | ------------------------------------------------------------------- |
@@ -135,7 +173,7 @@ graph TD
   A1(BPS: Copper Ore) -->|manual entry| B
   A2(BPS: Coal) -->|manual entry| B
   A3(Gold) -->|manual entry| B
-  B[Insider Sheet: export_destination] -->|synchronizer| C(SQLite Database: db.sqlite)
+  B[Insider Sheet: export_destination] -->|synchronizer| C(db.sqlite: export_destination)
 
   %% Add clickable links to each node
   click A1 "https://www.bps.go.id/en/statistics-table/1/MTAzMiMx/exports-of-copper-ore-by-major-countries-of-destination--2012-2023.html" _blank
@@ -276,7 +314,7 @@ Data Flow:
 graph TD
   A1(ESDM: Coal) -->|manual entry| B
   A2(ESDM: Mineral) -->|manual entry| B
-  B[Insider Sheet: resources_and_reserves] -->|synchronizer| C(SQLite Database: db.sqlite)
+  B[Insider Sheet: resources_and_reserves] -->|synchronizer| C(db.sqlite: resources_and_reserves)
 
   %% Add clickable links to each node
   click A1 "https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2024.pdf" _blank
@@ -327,7 +365,7 @@ Data Flow:
 ```mermaid
 graph TD
   A(BPS) -->|manual entry| B[Insider Sheet: total_commodities_production]
-  B -->|synchronizer| C(SQLite Database: db.sqlite)
+  B -->|synchronizer| C(db.sqlite: total_commodities_production)
 
   %% Add clickable links to each node
   click A "https://www.bps.go.id/en/statistics-table/2/NTA4IzI=/production-of-minerals-mining.html" _blank
