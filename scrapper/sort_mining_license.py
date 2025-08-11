@@ -1,7 +1,8 @@
 import pandas as pd
 import sqlite3
 import re
-from rapidfuzz import process, fuzz
+
+from scripts.fuzzy_matcher import match_company_by_name
 
 def normalize_admin(name: str) -> str:
     """
@@ -221,7 +222,7 @@ def create_table(conn: sqlite3.Connection):
         location TEXT,
         commodity TEXT,
         company_name TEXT,
-        company_id TEXT,
+        company_id INTEGER,
         FOREIGN KEY (company_id) REFERENCES company(id)
     );
     """
@@ -235,15 +236,7 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
     Looks up company_id and canonical company_name from the company table,
     then writes those into mining_license, falling back to the scraped name.
     """
-    # 1) Pull the company master list
-    company_df = pd.read_sql("SELECT id, name FROM company;", conn)
-    company_df["cleaned_company_name"] = company_df["name"].apply(clean_company_name)
-    cleaned_company_name_list = company_df["cleaned_company_name"].tolist()
-
-    company_id_map = dict(zip(company_df["cleaned_company_name"], company_df["id"]))
-    company_name_map = dict(zip(company_df["cleaned_company_name"], company_df["name"]))
-
-    # 2) Prepare our license DataFrame
+    # 1) Prepare our license DataFrame
     df_up = df.rename(
         columns={
             "jenis_izin": "license_type",
@@ -257,22 +250,7 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
         }
     ).copy()
 
-    # 3) Clean the scraped company names and map to id & canonical name
-    df_up["cleaned_company_name"] = df_up["nama_usaha"].apply(clean_company_name)
-    def _matchingSequence(name, scorer=fuzz.ratio, threshold=93):
-        if name in company_id_map:
-            return company_id_map[name], company_name_map[name]
-
-        match = process.extractOne(name, cleaned_company_name_list, scorer=scorer)
-        if match and match[1] >= threshold:
-            matched_name = match[0]
-            return company_id_map[matched_name], company_name_map[matched_name]
-        
-        return None, None
-
-    df_up[["company_id", "company_name"]] = df_up["cleaned_company_name"].apply(
-        lambda x: pd.Series(_matchingSequence(x))
-    )
+    df_up = match_company_by_name(df_up, "nama_usaha")
 
     # ←── NEW: where there's no match, fall back to the original scraped name
     # df_up["company_name"] = df_up["company_name"].fillna(df_up["nama_usaha"])

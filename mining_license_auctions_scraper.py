@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.service  import Service
 from webdriver_manager.chrome           import ChromeDriverManager
 
 from scrapper.esdm_minerba  import COMMODITY_MAP
+from scripts.fuzzy_matcher import match_company_by_name
 
 import logging
 import requests
@@ -262,7 +263,7 @@ def clean_data(result_data: list[dict]) -> pd.DataFrame:
     return df_auction
     
     
-def get_specific_data(data_json: list[dict]) -> dict[str]: 
+def get_specific_data(data_json: list[dict]) -> pd.DataFrame: 
     """ 
     Extract specific data from the JSON response.
     This function filters the data to include only completed auctions for specific commodities
@@ -272,7 +273,7 @@ def get_specific_data(data_json: list[dict]) -> dict[str]:
         data_json (dict): The JSON data containing auction information.
     
     Returns:
-        dict[str]: A DataFrame containing the cleaned and formatted auction data.
+        pd.DataFrame: A DataFrame containing the cleaned and formatted auction data.
     """
     # Loop data json
     result_data = []
@@ -343,7 +344,9 @@ def create_table(path):
             jumlah_peserta INTEGER,
             tahapan TEXT,
             peserta TEXT,
-            winner TEXT
+            winner TEXT,
+            company_id INTEGER,
+            FOREIGN KEY (company_id) REFERENCES company(id)
         )
     ''')
     connection.commit()
@@ -435,7 +438,8 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
             row['jumlah_peserta'],
             tahapan_json,
             peserta_json,
-            row['winner']
+            row['winner'],
+            row['company_id']
         )
         data_to_insert.append(data_tuple)
     
@@ -446,7 +450,7 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
             id, commodity, city, province, company_name, date_winner, 
             luas_sk, nomor, jenis_izin, kdi, code_wiup, 
             auction_status, created_at, last_modified, jumlah_peserta,
-            tahapan, peserta, winner
+            tahapan, peserta, winner, company_id
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(nomor) DO UPDATE SET
@@ -465,7 +469,8 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
             jumlah_peserta = excluded.jumlah_peserta,
             tahapan = excluded.tahapan,
             peserta = excluded.peserta,
-            winner = excluded.winner
+            winner = excluded.winner,
+            company_id = excluded.company_id
     """
     
     try:
@@ -486,6 +491,7 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
 if __name__ == '__main__':
     data = get_data_lelang_json()
     df_cleaned = get_specific_data(data)
+    df_cleaned = match_company_by_name(df_cleaned, "company_name")
     conn = create_table(DB_PATH)
     check_upsert_local(conn, df_cleaned)
    
