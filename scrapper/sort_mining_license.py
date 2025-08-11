@@ -132,33 +132,40 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
 
     # Drop rows with null in critical columns
     required_cols = [
-        "tgl_berlaku",
-        "tgl_akhir",  # dates
-        "sk_iup",  # license number
         "jenis_izin",  # license type
+        "sk_iup",  # license number
+        "kode_wiup", # wiup_code
         "nama_prov",  # province
         "nama_kab",  # city
+        "tgl_berlaku", # permit_effective_date
+        "tgl_akhir",  # permit_expiry_date
         "kegiatan",  # activity
         "luas_sk",  # licensed_area
-        "lokasi",  # location
+        "lokasi_norm",  # location
         "komoditas_mapped",  # commodity
         "nama_usaha",  # company_name
+        "badan_usaha",
     ]
-    df_sorted = df_sorted.dropna(subset=required_cols)
+    df_sorted = df_sorted[required_cols]
+    df_sorted.rename(columns={"lokasi_norm": "lokasi"}, inplace=True)
 
     # Exclude rows where effective equals expiry date
     df_sorted = df_sorted[df_sorted["tgl_berlaku"] != df_sorted["tgl_akhir"]]
 
     # Strip and filter out rows with empty or '-' in any string column
-    excluded_columns = ['generasi']
+    excluded_columns = ["lokasi"]
     str_cols = df_sorted.select_dtypes(include=[object]).columns.difference(excluded_columns)
 
     def valid_row(row):
         for col in str_cols:
-            val = str(row[col]).strip()
-            if val == "" or val == "-":
+            val = row[col]
+            if pd.isna(val) or str(val).strip() in ("", "-"):
                 return False
         return True
+
+    invalid_df = df_sorted[~df_sorted.apply(valid_row, axis=1)]
+    print(f"Dropping {len(invalid_df)} rows. Viewing first 5 rows: ")
+    print(invalid_df.head(5), "\n")
 
     df_sorted = df_sorted[df_sorted.apply(valid_row, axis=1)]
 
@@ -181,7 +188,15 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
     df_sorted["cleaned_company_name_for_match"] = df_sorted["nama_usaha"].apply(
         clean_company_name
     )
-    df_sorted["location"] = df_sorted.apply(normalize_location, axis=1)
+    no_location_mask = df_sorted["lokasi"] == "-"
+    df_sorted.loc[no_location_mask, "lokasi"] = (
+        "Kab. "
+        + df_sorted.loc[no_location_mask, "nama_kab"]
+        + ", "
+        + df_sorted.loc[no_location_mask, "nama_prov"]
+    )
+
+    # df_sorted["location"] = df_sorted.apply(normalize_location, axis=1)
 
     return df_sorted
 
