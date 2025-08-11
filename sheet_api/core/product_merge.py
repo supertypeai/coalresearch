@@ -115,4 +115,7 @@ def updateProduct(commodity: str, commodity_sub_type: bool = False, starts_from 
 		print(f"Batch updated {len(cell_updates)} cells.")
 
 if __name__ == '__main__':
-	updateProduct('Copper', commodity_sub_type=True)
+	for commodity in ['Coal', 'Gold', 'Copper']:
+		updateProduct(commodity)
+	for commodity in ['Nickel']:
+		updateProduct(commodity, commodity_sub_type=True)
