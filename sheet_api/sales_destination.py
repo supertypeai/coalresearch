@@ -240,3 +240,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# command to run: python -m sheet_api.sales_destination
