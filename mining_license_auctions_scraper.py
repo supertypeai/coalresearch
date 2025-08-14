@@ -10,6 +10,7 @@ import requests
 import json
 import pandas as pd 
 import sqlite3 
+import re
 
 logging.basicConfig(
     # no filename → logs go to stderr by default
@@ -316,6 +317,16 @@ def get_specific_data(data_json: list[dict]) -> pd.DataFrame:
     LOGGER.info(f"Total auctions processed: {len(df_cleaned)}")
     return df_cleaned
 
+def sync_company_id(df: pd.DataFrame, target_col: str = "company_name") -> pd.DataFrame:
+    df = match_company_by_name(df, target_col, fallback_column=target_col)
+
+    df[target_col] = df[target_col].apply(
+        lambda name: None if pd.isna(name) 
+        else re.sub(r"\b(PT|Tbk|CV|UD|PD|KSU|KUD)\b", "", str(name), flags=re.IGNORECASE).strip()
+    )
+
+    return df
+
 
 # **************** LOCAL DATABASE SETUP AND PUSH ****************
 def create_table(path): 
@@ -491,7 +502,7 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
 if __name__ == '__main__':
     data = get_data_lelang_json()
     df_cleaned = get_specific_data(data)
-    df_cleaned = match_company_by_name(df_cleaned, "company_name")
+    df_cleaned = sync_company_id(df_cleaned)
     conn = create_table(DB_PATH)
     check_upsert_local(conn, df_cleaned)
    

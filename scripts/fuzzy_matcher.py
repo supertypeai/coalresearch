@@ -3,6 +3,7 @@ import sqlite3
 import re
 
 from rapidfuzz import process, fuzz
+from typing import Optional
 
 def clean_company_name(name):
     """Removes common corporate prefixes/suffixes and converts to lowercase."""
@@ -21,7 +22,11 @@ def query_company() -> pd.DataFrame:
 
     return company_df
 
-def match_company_by_name(target_df: pd.DataFrame, target_colum: str) -> pd.DataFrame:
+def match_company_by_name(
+    target_df: pd.DataFrame,
+    target_column: str,
+    fallback_column: Optional[str] = None
+) -> pd.DataFrame:
 
     company_df = query_company()
 
@@ -31,9 +36,11 @@ def match_company_by_name(target_df: pd.DataFrame, target_colum: str) -> pd.Data
     company_id_map = dict(zip(company_df["cleaned_company_name"], company_df["id"]))
     company_name_map = dict(zip(company_df["cleaned_company_name"], company_df["name"]))
 
-    target_df["cleaned_company_name"] = target_df[target_colum].apply(clean_company_name)
+    target_df["cleaned_company_name"] = target_df[target_column].apply(clean_company_name)
 
-    def match_sequence(name, scorer=fuzz.ratio, threshold=93):
+    def match_sequence(row, scorer=fuzz.ratio, threshold=93):
+        name = row["cleaned_company_name"]
+
         if name in company_id_map:
             return company_id_map[name], company_name_map[name]
 
@@ -42,10 +49,13 @@ def match_company_by_name(target_df: pd.DataFrame, target_colum: str) -> pd.Data
             matched_name = match[0]
             return company_id_map[matched_name], company_name_map[matched_name]
         
-        return None, None
+        company_id = None
+        company_name = row[fallback_column] if fallback_column and fallback_column in row else None
+        return company_id, company_name
 
-    target_df[["company_id", "company_name"]] = target_df["cleaned_company_name"].apply(
-        lambda row: pd.Series(match_sequence(row))
+    target_df[["company_id", "company_name"]] = target_df.apply(
+        lambda row: pd.Series(match_sequence(row)),
+        axis=1
     )
 
     return target_df
