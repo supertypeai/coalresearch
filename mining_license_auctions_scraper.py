@@ -452,7 +452,7 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
             auction_status, created_at, last_modified, jumlah_peserta,
             tahapan, peserta, winner, company_id
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(nomor) DO UPDATE SET
             commodity = excluded.commodity,
             city = excluded.city,
