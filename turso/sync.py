@@ -37,6 +37,8 @@ TABLES = [
     "mining_license",
     "mining_license_auctions",
     "mining_news",
+    "sales_destination",
+    "company_financials",
 ]
 
 # Primary-key columns for each table
@@ -54,6 +56,8 @@ CONFLICT_TARGET = {
     "mining_license": ["id"],
     "mining_license_auctions": ["nomor"],
     "mining_news": ["source"],
+    "sales_destination": ["id"],
+    "company_financials": ["idx_ticker", "year"],
 }
 
 
