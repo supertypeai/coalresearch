@@ -21,18 +21,23 @@ client = create_client_sync(url=db_url, auth_token=auth_token)
 
 # List of tables you want to drop
 tables_to_drop = [
+    "company",
     "company_ownership",
     "company_performance",
-    # "export_destination",
+    "export_destination",
     "mining_contract",
     "mining_site",
-    # "resources_and_reserves",
-    # "total_commodities_production",
-    # "commodity",
-    # "global_commodity_data",
-    # "mining_news",
+    "resources_and_reserves",
+    "total_commodities_production",
+    "commodity_price",
+    "global_commodity_data",
     "mining_license",
-    "company",
+    "mining_license_auctions",
+    "mining_news",
+    "sales_destination",
+    "company_financials",
+    "mineral_company_report",
+    "commodity_report",
 ]
 
 try:
