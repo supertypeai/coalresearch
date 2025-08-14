@@ -28,10 +28,6 @@ jobs:
         run: |
           python minerba_commodities_scraper.py
 
-      - name: Execute commodity_gold_silver.py
-        run: |
-          python commodity_gold_silver.py
-
       - name: Pull remote changes
         run: git pull origin main
 

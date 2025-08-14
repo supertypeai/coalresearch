@@ -129,7 +129,7 @@ TABLE_STATEMENTS = [
     );
     """,
     """
-    CREATE TABLE IF NOT EXISTS commodity (
+    CREATE TABLE IF NOT EXISTS commodity_price (
         commodity_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         name TEXT NOT NULL,
         price TEXT

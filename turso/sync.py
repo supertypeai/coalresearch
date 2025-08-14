@@ -1,6 +1,6 @@
-from libsql_client  import create_client_sync
-from dotenv         import load_dotenv
-from create         import TABLE_STATEMENTS
+from libsql_client import create_client_sync
+from dotenv import load_dotenv
+from create import TABLE_STATEMENTS
 
 import os
 import sqlite3
@@ -10,17 +10,17 @@ import logging
 load_dotenv()
 
 logging.basicConfig(
-    level=logging.INFO, # Set the logging level
-    format='%(asctime)s [%(levelname)s] - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-    )
+    level=logging.INFO,  # Set the logging level
+    format="%(asctime)s [%(levelname)s] - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 
 LOGGER = logging.getLogger(__name__)
 LOGGER.info("Init Global Variable")
 
 # Resolve local SQLite path relative to this script (<project>/turso/...)
 SCRIPT_DIR = os.path.dirname(__file__)
-LOCAL_DB_PATH = 'db.sqlite'
+LOCAL_DB_PATH = "db.sqlite"
 
 # Tables to sync, in dependency order
 TABLES = [
@@ -32,11 +32,11 @@ TABLES = [
     "mining_site",
     "resources_and_reserves",
     "total_commodities_production",
-    "commodity",
+    "commodity_price",
     "global_commodity_data",
     "mining_license",
     "mining_license_auctions",
-    "mining_news"
+    "mining_news",
 ]
 
 # Primary-key columns for each table
@@ -49,11 +49,11 @@ CONFLICT_TARGET = {
     "mining_site": ["id"],
     "resources_and_reserves": ["id"],
     "total_commodities_production": ["id"],
-    "commodity": ["commodity_id"],
+    "commodity_price": ["commodity_id"],
     "global_commodity_data": ["id"],
     "mining_license": ["id"],
     "mining_license_auctions": ["nomor"],
-    "mining_news": ["source"]
+    "mining_news": ["source"],
 }
 
 
@@ -61,7 +61,7 @@ def get_turso_credentials() -> tuple[str, str]:
     """
     Retrieve Turso database URL and auth token from environment variables.
     If not set, print an error message and exit.
-    
+
     Returns:
         tuple[str, str]: A tuple containing the raw database URL and auth token.
     """
@@ -71,27 +71,27 @@ def get_turso_credentials() -> tuple[str, str]:
     if not raw_url or not auth_token:
         LOGGER.info("Missing Turso credentials, exiting.")
         exit(1)
-        
+
     return raw_url, auth_token
 
 
 def normalize_db_url(raw_url: str) -> str:
-    """ 
-    Normalize the raw Turso URL to a format suitable for HTTP access. 
-    
-    Args: 
+    """
+    Normalize the raw Turso URL to a format suitable for HTTP access.
+
+    Args:
         raw_url (str): The raw Turso database URL.
-        
+
     Returns:
         str: Normalized URL for HTTP access.
     """
     if raw_url.startswith("wss"):
-        db_url = raw_url.replace('wss', 'https')
+        db_url = raw_url.replace("wss", "https")
     elif raw_url.startswith("libsql"):
-        db_url = raw_url.replace('libsql', 'https')
+        db_url = raw_url.replace("libsql", "https")
     else:
         db_url = raw_url
-        
+
     db_url = db_url.rstrip("/")
     return db_url
 
@@ -99,7 +99,7 @@ def normalize_db_url(raw_url: str) -> str:
 def turso_execute(client, sql: str, *params):
     """
     Send a single SQL statement to Turso via libsql_client.
-    
+
     Args:
         client (libsql_client): The Turso client to execute SQL commands.
         sql (str): The SQL statement to execute.
@@ -112,7 +112,7 @@ def turso_execute(client, sql: str, *params):
 def get_sqlite_rows(conn: sqlite3.Connection, table: str) -> list:
     """
     Fetch all rows from SQLite as list of dicts.
-    
+
     Args:
         conn (sqlite3.Connection): The SQLite connection object.
         table (str): The name of the table to fetch data from.
@@ -125,8 +125,8 @@ def get_sqlite_rows(conn: sqlite3.Connection, table: str) -> list:
 def upsert_table(client, table: str, rows: list):
     """
     Build and execute an UPSERT statement for every row.
-    
-    Args: 
+
+    Args:
         client (libsql_client): The Turso client to execute SQL commands.
         table (str): The name of the table to upsert data into.
         rows (list): A list of dictionaries representing the rows to upsert.
@@ -153,15 +153,16 @@ def upsert_table(client, table: str, rows: list):
     for row in rows:
         params = [row[c] for c in cols]
         turso_execute(client, sql, *params)
-        
+
     LOGGER.info(f"[{table}] upserted {len(rows)} rows.")
+
 
 def replace_table(client, table: str, rows: list):
     """
     Completely replaces all data in a specified table by dropping the existing table, recreating it,
     and then inserting the provided new rows.
 
-    Args: 
+    Args:
         client (libsql_client): The Turso client to execute SQL commands.
         table (str): The name of the table to upsert data into.
         rows (list): A list of dictionaries representing the rows to upsert.
@@ -176,12 +177,9 @@ def replace_table(client, table: str, rows: list):
 
     # 1) Drop table
     client.execute(f"DROP TABLE IF EXISTS {table};")
-    
+
     # 2) Create table
-    table_map = {
-        "company_ownership": 1,
-        "mining_contract": 4
-    }
+    table_map = {"company_ownership": 1, "mining_contract": 4}
     sql_create = TABLE_STATEMENTS[table_map[table]]
     client.execute(sql_create)
 
@@ -191,22 +189,22 @@ def replace_table(client, table: str, rows: list):
         VALUES ({placeholders})
     """.strip()
 
-
     for row in rows:
         params = [row[c] for c in cols]
         turso_execute(client, sql_insert, *params)
-        
+
     LOGGER.info(f"[{table}] inserted {len(rows)} rows.")
 
+
 def main():
-    """ 
+    """
     Main function to sync data from SQLite to Turso.
     This function retrieves the database URL and auth token from environment variables,
     normalizes the URL, and then creates a synchronous client to execute the sync operations.
     """
     db_url, auth_token = get_turso_credentials()
     db_url_normalized = normalize_db_url(db_url)
-    
+
     # Create Turso HTTP client
     client = create_client_sync(url=db_url_normalized, auth_token=auth_token)
 
@@ -221,10 +219,7 @@ def main():
         return
 
     # 2) Define which table to upsert and replace
-    TO_REPLACE_TABLES = [
-        "company_ownership",
-        "mining_contract"
-    ]
+    TO_REPLACE_TABLES = ["company_ownership", "mining_contract"]
     TO_UPSERT_TABLES = [tbl for tbl in TABLES if tbl not in TO_REPLACE_TABLES]
 
     conn = None
