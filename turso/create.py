@@ -179,7 +179,7 @@ TABLE_STATEMENTS = [
         tahapan TEXT,
         peserta TEXT,
         winner TEXT,
-        company_id INTEGER, -- Added: Missing column
+        company_id INTEGER, 
         FOREIGN KEY (company_id) REFERENCES company(id) -- Added: Missing foreign key constraint
     )
     """,
@@ -192,6 +192,7 @@ TABLE_STATEMENTS = [
         timestamp TEXT,
         commodities TEXT,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE(source)
     );
     """,
     """

@@ -5,6 +5,7 @@ from create import TABLE_STATEMENTS
 import os
 import sqlite3
 import logging
+import re
 
 # Load environment variables
 load_dotenv()
@@ -175,19 +176,33 @@ def replace_table(client, table: str, rows: list):
         LOGGER.info(f"[{table}] no rows, skipping.")
         return
 
+    # Find the correct CREATE statement from the imported TABLE_STATEMENTS list
+    sql_create = None
+    for statement in TABLE_STATEMENTS:
+        # Use regex to find a statement that creates the current table
+        if re.search(f"CREATE TABLE IF NOT EXISTS {table}", statement, re.IGNORECASE):
+            sql_create = statement
+            break
+
+    if not sql_create:
+        LOGGER.error(
+            f"Could not find a CREATE statement for table '{table}'. Skipping replace."
+        )
+        return
+
     cols = list(rows[0].keys())
     col_list = ", ".join(cols)
     placeholders = ", ".join("?" for _ in cols)
 
     # 1) Drop table
     client.execute(f"DROP TABLE IF EXISTS {table};")
+    LOGGER.info(f"[{table}] dropped table.")
 
-    # 2) Create table
-    table_map = {"company_ownership": 1, "mining_contract": 4}
-    sql_create = TABLE_STATEMENTS[table_map[table]]
+    # 2) Create table using the statement we found
     client.execute(sql_create)
+    LOGGER.info(f"[{table}] created new table.")
 
-    # 4) Insert
+    # 3) Insert data
     sql_insert = f"""
         INSERT INTO {table} ({col_list})
         VALUES ({placeholders})
@@ -223,7 +238,23 @@ def main():
         return
 
     # 2) Define which table to upsert and replace
-    TO_REPLACE_TABLES = ["company_ownership", "mining_contract"]
+    TO_REPLACE_TABLES = [
+        "company_ownership",
+        "company_performance",
+        "export_destination",
+        "mining_site",
+        "resources_and_reserves",
+        "total_commodities_production",
+        "commodity_price",
+        "global_commodity_data",
+        "mining_license",
+        "mining_license_auctions",
+        "mining_news",
+        "sales_destination",
+        "company_financials",
+        "company",
+    ]
+
     TO_UPSERT_TABLES = [tbl for tbl in TABLES if tbl not in TO_REPLACE_TABLES]
 
     conn = None
