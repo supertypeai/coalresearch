@@ -38,6 +38,7 @@ tables_to_drop = [
     "company_financials",
     "mineral_company_report",
     "commodity_report",
+    "commodity",  # <-- Added this table
 ]
 
 try:
