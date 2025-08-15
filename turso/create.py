@@ -16,10 +16,10 @@ TABLE_STATEMENTS = [
         operation_kabkot TEXT,
         representative_address TEXT,
         company_type TEXT,
-        key_operation TEXT,
+        key_operation TEXT NOT NULL, -- Changed: Added NOT NULL constraint
         activities TEXT,
         website TEXT,
-        phone_number TEXT,
+        phone_number INTEGER, -- Changed: Data type from TEXT to INTEGER
         email TEXT,
         mining_license TEXT,
         mining_contract TEXT,
@@ -30,7 +30,7 @@ TABLE_STATEMENTS = [
     CREATE TABLE IF NOT EXISTS company_ownership (
         parent_company_id INTEGER NOT NULL,
         company_id INTEGER NOT NULL,
-        percentage_ownership INTEGER NOT NULL,
+        percentage_ownership DECIMAL(10, 5) NOT NULL, -- Changed: Data type from INTEGER to DECIMAL(10, 5)
         PRIMARY KEY (parent_company_id, company_id),
         FOREIGN KEY (parent_company_id)
           REFERENCES company(id)
@@ -46,10 +46,10 @@ TABLE_STATEMENTS = [
     CREATE TABLE IF NOT EXISTS company_performance (
         id INTEGER PRIMARY KEY NOT NULL,
         company_id INTEGER NOT NULL,
-        year INTEGER,
+        year INTEGER NOT NULL, -- Changed: Added NOT NULL constraint
         commodity_type TEXT,
         commodity_sub_type TEXT,
-        commodity_stats TEXT,
+        commodity_stats TEXT NOT NULL, -- Changed: Added NOT NULL constraint
         FOREIGN KEY (company_id)
           REFERENCES company(id)
             ON UPDATE NO ACTION
@@ -62,9 +62,9 @@ TABLE_STATEMENTS = [
         country TEXT NOT NULL,
         year INTEGER NOT NULL,
         commodity_type TEXT,
-        export_USD REAL,
-        export_volume_BPS REAL,
-        export_volume_ESDM REAL
+        export_USD DECIMAL(10, 5), -- Changed: Data type from REAL to DECIMAL
+        export_volume_BPS DECIMAL(10, 5), -- Changed: Data type from REAL to DECIMAL
+        export_volume_ESDM DECIMAL(10, 5)  -- Changed: Data type from REAL to DECIMAL
     );
     """,
     """
@@ -88,12 +88,12 @@ TABLE_STATEMENTS = [
         id INTEGER PRIMARY KEY NOT NULL,
         name TEXT NOT NULL,
         project_name TEXT,
-        year INTEGER,
+        year INTEGER NOT NULL, -- Changed: Added NOT NULL constraint
         mineral_type TEXT,
-        company_id INTEGER,
-        production_volume REAL,
-        overburden_removal_volume REAL,
-        strip_ratio REAL,
+        company_id INTEGER NOT NULL, -- Changed: Added NOT NULL constraint
+        production_volume DECIMAL(10, 5), -- Changed: Data type from REAL to DECIMAL
+        overburden_removal_volume DECIMAL(10, 5), -- Changed: Data type from REAL to DECIMAL
+        strip_ratio DECIMAL(10, 5), -- Changed: Data type from REAL to DECIMAL
         resources_reserves TEXT,
         location TEXT,
         FOREIGN KEY (company_id)
@@ -105,43 +105,38 @@ TABLE_STATEMENTS = [
     """
     CREATE TABLE IF NOT EXISTS resources_and_reserves (
         id INTEGER PRIMARY KEY NOT NULL,
-        province TEXT,
+        province TEXT NOT NULL, -- Changed: Added NOT NULL constraint
         year INTEGER NOT NULL,
         commodity_type TEXT,
-        exploration_target_1 REAL,
-        total_inventory_1 REAL,
-        resources_inferred REAL,
-        resources_indicated REAL,
-        resources_measured REAL,
-        resources_total REAL,
-        verified_resources_2 REAL,
-        reserves_1 REAL,
-        verified_reserves_2 REAL
+        -- Changed: Replaced multiple REAL columns with a single TEXT column to match DB structure
+        resources_reserves TEXT
     );
     """,
     """
     CREATE TABLE IF NOT EXISTS total_commodities_production (
         id INTEGER PRIMARY KEY NOT NULL,
         commodity_type TEXT,
-        production_volume REAL,
+        production_volume DECIMAL(10, 5), -- Changed: Data type from REAL to DECIMAL
         unit TEXT,
         year INTEGER NOT NULL
     );
     """,
     """
     CREATE TABLE IF NOT EXISTS commodity_price (
-        commodity_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        commodity_id INTEGER PRIMARY KEY, -- Changed: Simplified from AUTOINCREMENT NOT NULL
         name TEXT NOT NULL,
         price TEXT
     );
     """,
     """
     CREATE TABLE IF NOT EXISTS global_commodity_data (
-        id                INTEGER PRIMARY KEY,
+        id                INTEGER PRIMARY KEY NOT NULL, -- Changed: Added NOT NULL constraint
         country           TEXT    NOT NULL,
         resources_reserves TEXT,
+        resources_reserves_share TEXT, -- Added: Missing column
         export_import     TEXT,
         production_volume TEXT,
+        production_share TEXT, -- Added: Missing column
         commodity_type    TEXT    NOT NULL
     );
     """,
@@ -150,6 +145,7 @@ TABLE_STATEMENTS = [
         id TEXT PRIMARY KEY NOT NULL,
         license_type TEXT,
         license_number TEXT,
+        wiup_code TEXT, -- Added: Missing column
         province TEXT,
         city TEXT,
         permit_effective_date TEXT,
@@ -159,7 +155,7 @@ TABLE_STATEMENTS = [
         location TEXT,
         commodity TEXT,
         company_name TEXT,
-        company_id TEXT,
+        company_id INTEGER, -- Changed: Data type from TEXT to INTEGER
         FOREIGN KEY (company_id) REFERENCES company(id)
     );
     """,
@@ -172,7 +168,7 @@ TABLE_STATEMENTS = [
         company_name TEXT,
         date_winner TEXT,
         luas_sk REAL,
-        nomor TEXT UNIQUE,  --  unique identifier
+        nomor TEXT, -- Changed: Removed UNIQUE constraint to match DB schema
         jenis_izin TEXT,
         kdi TEXT,
         code_wiup TEXT,
@@ -182,7 +178,9 @@ TABLE_STATEMENTS = [
         jumlah_peserta INTEGER,
         tahapan TEXT,
         peserta TEXT,
-        winner TEXT
+        winner TEXT,
+        company_id INTEGER, -- Added: Missing column
+        FOREIGN KEY (company_id) REFERENCES company(id) -- Added: Missing foreign key constraint
     )
     """,
     """ 
@@ -194,12 +192,11 @@ TABLE_STATEMENTS = [
         timestamp TEXT,
         commodities TEXT,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-        UNIQUE(source)
     );
     """,
     """
     CREATE TABLE IF NOT EXISTS sales_destination (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY, -- Changed: Simplified from AUTOINCREMENT
         company_id INTEGER,
         country TEXT NOT NULL,
         idx_ticker TEXT NOT NULL,
@@ -208,7 +205,6 @@ TABLE_STATEMENTS = [
         percentage_of_total_revenue REAL,
         volume REAL,
         percentage_of_sales_volume REAL,
-        UNIQUE(country, idx_ticker, year),
         FOREIGN KEY (company_id) REFERENCES company(id)
     );
     """,
@@ -220,11 +216,11 @@ TABLE_STATEMENTS = [
         year INTEGER,
         assets REAL,
         revenue REAL,
-        revenue_breakdown TEXT CHECK (json_valid(revenue_breakdown)),
+        revenue_breakdown TEXT, -- Changed: Removed JSON validity check
         cost_of_revenue REAL,
-        cost_of_revenue_breakdown TEXT CHECK (json_valid(cost_of_revenue_breakdown)),
+        cost_of_revenue_breakdown TEXT, -- Changed: Removed JSON validity check
         net_profit REAL,
-        PRIMARY KEY (idx_ticker, year)
+        PRIMARY KEY (idx_ticker, year), -- Changed: Added comma before FOREIGN KEY
         FOREIGN KEY (company_id) REFERENCES company(id)
     );
     """,
