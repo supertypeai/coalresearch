@@ -3,14 +3,14 @@ import sqlite3
 
 def create_commodity_report_mv():
     """
-    Connects to the SQLite database and creates a new materialized view named
-    'commodity_report'.
+    Connects to the SQLite database and creates or updates a materialized view
+    named 'commodity_report', reflecting the latest database schema and data formats.
 
-    This view is centered on the 'commodity_price' table, with each row representing
-    a unique commodity. Data from related tables (export, global data, reserves,
-    and production) is aggregated into JSON columns.
+    This view is centered on the 'commodity_price' table. Data from related tables
+    is aggregated into JSON columns, with time-series data pivoted into nested
+    JSON objects for easier analysis.
 
-    This script is idempotent and can be run multiple times to refresh the report.
+    The script is idempotent and can be run multiple times to refresh the report.
     """
     db_file = "db.sqlite"
     conn = None  # Initialize conn to None
@@ -19,15 +19,15 @@ def create_commodity_report_mv():
         conn = sqlite3.connect(db_file)
         cursor = conn.cursor()
 
-        print(f"Connected to {db_file}. Preparing to create 'commodity_report' table.")
+        print(
+            f"Connected to {db_file}. Preparing to create/update 'commodity_report' table."
+        )
 
         # Drop the materialized view if it already exists to ensure a fresh start
         cursor.execute("DROP TABLE IF EXISTS commodity_report")
         print("Dropped existing 'commodity_report' table (if any).")
 
         # The main query to build the commodity_report materialized view.
-        # It uses commodity_price as the central table and aggregates data
-        # from other tables using correlated subqueries.
         create_table_query = """
         CREATE TABLE commodity_report AS
         SELECT
@@ -35,42 +35,56 @@ def create_commodity_report_mv():
             cp.name AS commodity_name,
             json(cp.price) AS price_history,
 
-            -- Aggregate total national production history for the commodity
-            (SELECT json_group_array(
-                json_object(
-                    'year', tcp.year,
-                    'production_volume', tcp.production_volume,
-                    'unit', tcp.unit
+            -- REVISED: Aggregate total national production history, grouping years under each unit
+            (SELECT
+                json_group_array(
+                    json_object(
+                        'production_volume', json(production_by_year),
+                        'unit', unit
+                    )
                 )
-             ) FROM total_commodities_production tcp WHERE tcp.commodity_type = cp.name
-            ) AS national_production_history,
+            FROM (
+                SELECT
+                    tcp.unit,
+                    json_group_object(tcp.year, tcp.production_volume) AS production_by_year
+                FROM
+                    total_commodities_production tcp
+                WHERE
+                    tcp.commodity_type = cp.name
+                GROUP BY
+                    tcp.unit
+            )) AS national_production_history,
 
-            -- Aggregate export destination data for the commodity
-            (SELECT json_group_array(
-                json_object(
-                    'country', ed.country,
-                    'year', ed.year,
-                    'export_USD', ed.export_USD,
-                    'export_volume_BPS', ed.export_volume_BPS,
-                    'export_volume_ESDM', ed.export_volume_ESDM
+            -- Aggregate export destination data, grouping years under each country
+            (SELECT
+                json_group_array(
+                    json_object(
+                        'country', country,
+                        'export_USD', json(export_USD_by_year),
+                        'export_volume_BPS', json(export_volume_BPS_by_year),
+                        'export_volume_ESDM', json(export_volume_ESDM_by_year)
+                    )
                 )
-             ) FROM export_destination ed WHERE ed.commodity_type = cp.name
-            ) AS export_destinations,
+            FROM (
+                SELECT
+                    ed.country,
+                    json_group_object(ed.year, ed.export_USD) AS export_USD_by_year,
+                    json_group_object(ed.year, ed.export_volume_BPS) AS export_volume_BPS_by_year,
+                    json_group_object(ed.year, ed.export_volume_ESDM) AS export_volume_ESDM_by_year
+                FROM
+                    export_destination ed
+                WHERE
+                    ed.commodity_type = cp.name
+                GROUP BY
+                    ed.country
+            )) AS export_destinations,
             
             -- Aggregate provincial resources and reserves data
             (SELECT json_group_array(
                 json_object(
                     'province', rar.province,
                     'year', rar.year,
-                    'exploration_target_1', rar.exploration_target_1,
-                    'total_inventory_1', rar.total_inventory_1,
-                    'resources_inferred', rar.resources_inferred,
-                    'resources_indicated', rar.resources_indicated,
-                    'resources_measured', rar.resources_measured,
-                    'resources_total', rar.resources_total,
-                    'verified_resources_2', rar.verified_resources_2,
-                    'reserves_1', rar.reserves_1,
-                    'verified_reserves_2', rar.verified_reserves_2
+                    'data', json(rar.resources_reserves)
                 )
              ) FROM resources_and_reserves rar WHERE rar.commodity_type = cp.name
             ) AS resources_and_reserves,
@@ -80,8 +94,10 @@ def create_commodity_report_mv():
                 json_object(
                     'country', gcd.country,
                     'resources_reserves', json(gcd.resources_reserves),
+                    'resources_reserves_share', json(gcd.resources_reserves_share),
                     'export_import', json(gcd.export_import),
-                    'production_volume', json(gcd.production_volume)
+                    'production_volume', json(gcd.production_volume),
+                    'production_share', json(gcd.production_share)
                 )
              ) FROM global_commodity_data gcd WHERE gcd.commodity_type = cp.name
             ) AS global_comparison
@@ -97,6 +113,7 @@ def create_commodity_report_mv():
         print(
             "Each commodity now has a single row with related data aggregated in JSON format."
         )
+        print("National production history has been restructured as requested.")
 
     except sqlite3.Error as e:
         print(f"Database error: {e}")
