@@ -5,22 +5,22 @@ import sqlite3
 DEV_DB_FILE = "db.sqlite"
 
 # Grab whatever they gave you…
-raw_url = os.getenv("TURSO_DATABASE_URL", "")
-auth_token = os.getenv("TURSO_AUTH_TOKEN")
+# raw_url = os.getenv("TURSO_DATABASE_URL", "")
+# auth_token = os.getenv("TURSO_AUTH_TOKEN")
 
-if not raw_url or not auth_token:
-    print("Missing Turso credentials, exiting.")
-    exit(1)
+# if not raw_url or not auth_token:
+#     print("Missing Turso credentials, exiting.")
+#     exit(1)
 
-# Normalize URL for HTTP access
-if raw_url.startswith("wss://"):
-    db_url = "https://" + raw_url[len("wss://") :]
-elif raw_url.startswith("libsql://"):
-    db_url = "https://" + raw_url[len("libsql://") :]
-else:
-    db_url = raw_url
+# # Normalize URL for HTTP access
+# if raw_url.startswith("wss://"):
+#     db_url = "https://" + raw_url[len("wss://") :]
+# elif raw_url.startswith("libsql://"):
+#     db_url = "https://" + raw_url[len("libsql://") :]
+# else:
+#     db_url = raw_url
 
-client = create_client_sync(url=db_url, auth_token=auth_token)
+# client = create_client_sync(url=db_url, auth_token=auth_token)
 
 
 def list_tables_with_structure_and_indexes(db_path: str, sample_limit: int = 5):
@@ -130,7 +130,4 @@ def list_tables_with_structure_and_indexes(db_path: str, sample_limit: int = 5):
 
 
 if __name__ == "__main__":
-    try:
-        list_tables_with_structure_and_indexes(DEV_DB_FILE, 5)
-    finally:
-        client.close()
+    list_tables_with_structure_and_indexes(DEV_DB_FILE, 5)
