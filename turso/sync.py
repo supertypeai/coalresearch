@@ -252,7 +252,7 @@ def main():
         "mining_news",
         "sales_destination",
         "company_financials",
-        "company",
+        # "company",
     ]
 
     TO_UPSERT_TABLES = [tbl for tbl in TABLES if tbl not in TO_REPLACE_TABLES]
