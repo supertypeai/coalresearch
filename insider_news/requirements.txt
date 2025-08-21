@@ -4,8 +4,8 @@ charset-normalizer==3.4.2
 dateparser==1.2.2
 idna==3.10
 load-dotenv==0.1.0
-numpy==2.3.1
-pandas==2.3.0
+numpy
+pandas
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.1
 pytz==2025.2
@@ -24,3 +24,6 @@ langchain-core==0.3.68
 langchain-openai==0.3.27
 langchain-text-splitters==0.3.8
 webdriver-manager==4.0.2
+goose3
+cloudscraper
+langchain-groq
