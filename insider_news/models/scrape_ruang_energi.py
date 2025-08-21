@@ -81,12 +81,10 @@ class RuangEnergiScraper(Scraper):
     
         # Score 3: Recent (published within the last week)
         elif time_difference <= timedelta(days=7):
-            # Representative score for the 6-8 range
             return 3 
 
         # Score 2: Somewhat recent (published within the last 2 weeks)
         elif time_difference <= timedelta(days=14):
-            # Representative score for the 3-5 range
             return 2 
 
         # Score 1: Outdated (more than 2 weeks old)

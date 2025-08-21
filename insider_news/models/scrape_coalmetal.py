@@ -284,6 +284,15 @@ def get_summarize_article(text: str, sentences_count: int = 2) -> str:
 
 
 def manual_scoring_time(date: str) -> int: 
+    """ 
+    Manually scores the article based on its publication date.
+
+    Args:
+        date (str): The publication date of the article in 'YYYY-MM-DD HH:MM:SS' format.
+    
+    Returns:
+        int: The score based on the recency of the article.
+    """
     if isinstance(date, str):
         publication_timestamp = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
 
