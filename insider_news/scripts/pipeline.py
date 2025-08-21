@@ -404,7 +404,7 @@ def archive_old_news(days_old: int = 182, archive_path: str = 'insider_news/data
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Pipeline for inserting mining news into database")
-    parser.add_argument("--scrape-miningnews", action="store_true", help="Scrape new data from mining.com")
+    parser.add_argument("--scrape-news", action="store_true", help="Scrape new data from mining.com")
     parser.add_argument("--load", type=str, help="Load data from existing JSON file")
     parser.add_argument("--pages", type=int, default=1, help="Number of pages to scrape (default: 1)")
     parser.add_argument("--db", type=str, default="db.sqlite", help="Database path (default: db.sqlite)")
@@ -420,7 +420,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     
-    if args.scrape_miningnews:
+    if args.scrape_news:
         scrape_and_insert_daily_news(args.pages, args.db, args.output)
     elif args.scrape_coalmetal:
         scrape_and_insert_coalmetal_news(args.limit_coalmetal, args.db, args.initial_run, args.minimum_score)
@@ -429,7 +429,7 @@ if __name__ == "__main__":
     elif args.archive: 
         archive_old_news(days_old=args.days_old, archive_path=args.archive_path)
     else:
-        LOGGER.info("Please specify either --scrape-miningnews, --scrape-coalmetal, --load, or --archive option.")
+        LOGGER.info("Please specify either --scrape-news, --scrape-coalmetal, --load, or --archive option.")
         LOGGER.info("Examples:")
-        LOGGER.info("  python pipeline.py --scrape-miningnews --pages 3 --db db.sqlite --output mining_news")
+        LOGGER.info("  python pipeline.py --scrape-news --pages 3 --db db.sqlite --output mining_news")
         LOGGER.info("  python pipeline.py --load insider_news/data/mining_news.json --db db.sqlite")
