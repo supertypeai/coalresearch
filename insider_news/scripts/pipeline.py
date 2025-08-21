@@ -1,16 +1,19 @@
 from datetime import datetime, timedelta
-from typing import Optional
 
-from insider_news.models.scrape_coalmetal import run_coalmetal_scraping
-from insider_news.models.scrape_mining import MiningScraper
+from insider_news.models.scrape_coalmetal    import run_coalmetal_scraping
+from insider_news.models.scrape_mining       import MiningScraper
+from insider_news.models.scrape_ima          import IMANewsScraper
+from insider_news.models.scrape_nikel        import NikelCoIdScraper
+from insider_news.models.scrape_ruang_energi import RuangEnergiScraper
+from insider_news.base_model.scraper         import ScraperCollection
 
 import sqlite3
 import json
 import pandas as pd
-import sys
 import os
 import logging 
 import argparse
+
 
 logging.basicConfig(
     level=logging.INFO, # Set the logging level
@@ -124,6 +127,7 @@ def prepare_news_data(articles: list) -> pd.DataFrame:
     
     # Remove articles with empty titles
     df = df[df['title'].str.strip() != '']
+
     return df 
 
 
@@ -215,40 +219,44 @@ def insert_news_records(conn: sqlite3.Connection, df: pd.DataFrame):
     LOGGER.info(f"Inserted {inserted} new news records (duplicates ignored).")
 
 
-def scrape_and_insert_mining_news(num_pages: int, db_path: str, output_filename: str = None):
+def scrape_and_insert_daily_news(num_pages: int, db_path: str, output_filename: str = None):
     """
-    Full pipeline:
-    1. Scrape news data using MiningScraper
-    2. Save to JSON (optional)
-    3. Prepare data for database
-    4. Create table if needed
-    5. Insert into SQLite
+    Pipeline to scrape daily news from multiple sources and insert into database.
+
+    Args:
+        num_pages: Number of pages to scrape from each source
+        db_path: Path to SQLite database
+        output_filename: Optional filename to save scraped articles as JSON
     """
-    # Step 1: Scrape news data
-    LOGGER.info(f"Scraping {num_pages} pages of mining news...")
-    scraper = MiningScraper()
-    articles = scraper.extract_news_pages(num_pages)
+    LOGGER.info(f"Scraping {num_pages} pages of every news sources...")
+
+    scraper_mining = MiningScraper()
+    scraper_nikel = NikelCoIdScraper()
+    scraper_ima = IMANewsScraper()
+    scraper_ruangenergi = RuangEnergiScraper()
+
+    # Add scrapper function to scraper collection list
+    scraper_collection = ScraperCollection()
+    scraper_collection.add_scraper(scraper_mining)
+    scraper_collection.add_scraper(scraper_nikel)
+    scraper_collection.add_scraper(scraper_ima)
+    scraper_collection.add_scraper(scraper_ruangenergi)
+
+    # Run scraper
+    article_lists = scraper_collection.run_all(num_pages)
+    LOGGER.info(f"Scraped {len(article_lists)} articles.")
     
-    if not articles:
-        LOGGER.info("No articles found.")
-        return
-    
-    LOGGER.info(f"Scraped {len(articles)} articles.")
-    
-    # Step 2: Save to JSON (optional)
     if output_filename:
         os.makedirs('insider_news/data', exist_ok=True)
-        scraper.write_json(articles, output_filename)
+        scraper_collection.write_json(article_lists, output_filename)
         LOGGER.info(f"Saved articles to {output_filename}.json")
     
-    # Step 3: Prepare data
-    df = prepare_news_data(articles)
+    df = prepare_news_data(article_lists)
     
     if df.empty:
         LOGGER.info("No valid articles to insert after filtering.")
         return
     
-    # Step 4 & 5: Create table and insert data
     conn = get_connection(db_path)
     create_news_table(conn)
     insert_news_records(conn, df)
@@ -324,7 +332,7 @@ def archive_old_news(days_old: int = 182, archive_path: str = 'insider_news/data
     
     Args:
         db_path: Path to SQLite database
-        days_old: Delete articles older than this many days (default: 365 = 1 year)
+        days_old: Number of days to consider for archiving old articles
     """
     # Create a connection to the database
     conn = get_connection()
@@ -344,7 +352,7 @@ def archive_old_news(days_old: int = 182, archive_path: str = 'insider_news/data
     articles_to_archive_df  = pd.read_sql_query(query, conn, params=(cutoff_str,))
     conn.close()
     
-    if articles_to_archive_df .empty:
+    if articles_to_archive_df.empty:
         LOGGER.info(f"No articles older than {days_old} days found to archive.")
         conn.close()
         return pd.DataFrame()
@@ -413,7 +421,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     if args.scrape_miningnews:
-        scrape_and_insert_mining_news(args.pages, args.db, args.output)
+        scrape_and_insert_daily_news(args.pages, args.db, args.output)
     elif args.scrape_coalmetal:
         scrape_and_insert_coalmetal_news(args.limit_coalmetal, args.db, args.initial_run, args.minimum_score)
     elif args.load:
