@@ -225,6 +225,44 @@ TABLE_STATEMENTS = [
         FOREIGN KEY (company_id) REFERENCES company(id)
     );
     """,
+    """
+    CREATE TABLE IF NOT EXISTS commodity_report (
+        commodity_id INTEGER PRIMARY KEY,
+        commodity_name TEXT,
+        price_history TEXT,
+        national_production_history TEXT,
+        export_destinations TEXT,
+        resources_and_reserves TEXT,
+        global_comparison TEXT
+    );
+    """,
+    """
+        CREATE TABLE IF NOT EXISTS mineral_company_report (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        idx_ticker TEXT,
+        operation_province TEXT,
+        operation_kabkot TEXT,
+        representative_address TEXT,
+        company_type TEXT,
+        key_operation TEXT NOT NULL,
+        activities TEXT,
+        website TEXT,
+        phone_number INTEGER,
+        email TEXT,
+        mining_license TEXT,
+        mining_contract TEXT,
+        commodity TEXT,
+        financials TEXT,
+        ownership TEXT,
+        performance TEXT,
+        contracts TEXT,
+        licenses TEXT,
+        license_auctions TEXT,
+        sites TEXT,
+        sales_destinations TEXT
+    );
+    """,
 ]
 
 

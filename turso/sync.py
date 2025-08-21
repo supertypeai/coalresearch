@@ -252,6 +252,8 @@ def main():
         "mining_news",
         "sales_destination",
         "company_financials",
+        "mineral_company_report",
+        "commodity_report",
         # "company",
     ]
 
