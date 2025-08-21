@@ -33,17 +33,14 @@ class Scraper:
       response = requests.get(url)
       self.soup = BeautifulSoup(response.content, 'html.parser')
       return self.soup
-    except Exception as e:
-      print(f"Error fetching the URL: {e}")
+    except Exception as error:
+      print(f"Error fetching the URL: {error}")
       return BeautifulSoup()
-    
     
   # Fetch news using urllib.request with proxy
   def fetch_news_with_proxy(self, url):
     try:
-      self.proxy = os.environ.get("proxy")
-
-      print("proxy", self.proxy)
+      self.proxy = os.environ.get("PROXY")
 
       proxy_support = urllib.request.ProxyHandler({'http': self.proxy,'https': self.proxy})
       opener = urllib.request.build_opener(proxy_support)
@@ -55,10 +52,21 @@ class Scraper:
 
       self.soup = BeautifulSoup(data, 'html.parser')
       return self.soup
-    except Exception as e:
-      print(f"Error fetching the URL: {e}")
+    except Exception as error:
+      print(f"Error fetching the URL: {error}")
       return BeautifulSoup()
-      
+  
+  # Fetch news using requests post
+  def fetch_news_with_post(self, url: str, payload: dict):
+    try:
+      response = requests.post(url, data=payload)
+      data = response.json()
+      html_content = data.get('html_items')
+      self.soup = BeautifulSoup(html_content, 'html.parser')
+      return self.soup 
+    except Exception as error:
+      print(f'Error fetching article IMA: {error}')
+      return BeautifulSoup()
   
   # Will be overridden by subclass
   def extract_news(self):
@@ -90,3 +98,31 @@ class Scraper:
 
       for item in data:
         csv_writer.writerow(item.values())
+
+
+class ScraperCollection:
+  scrapers: list[Scraper]
+  articles: list
+  
+  def __init__(self):
+    self.scrapers = []
+    self.articles = []
+    
+  def add_scraper(self, scraper):
+    self.scrapers.append(scraper)
+  
+  def run_all(self, num_page):
+    for scraper in self.scrapers:
+      try:
+        articles = scraper.extract_news_pages(num_page)
+        self.articles = [*self.articles, *articles]
+      except Exception as e:
+        print(f"Error in scraper {scraper.__class__.__name__}: {e}")
+        continue
+    return self.articles
+  
+  # Writer methods
+  def write_json(self, jsontext, filename):
+    path = os.path.join("insider_news", "data", f"{filename}.json")
+    with open(path, 'w', encoding="utf-8") as f:
+      json.dump(jsontext, f, indent=4)

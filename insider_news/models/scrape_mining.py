@@ -1,14 +1,14 @@
-import argparse
-import sys
-import os
-from bs4 import BeautifulSoup
-from datetime import datetime
+from datetime import datetime, timedelta
+
+from insider_news.base_model                        import Scraper
+from insider_news.preprocessing_llm.scoring_engine  import get_scoring_news
+from .scrape_article_content                        import get_article_body
+
 import dateparser
 import re
+import argparse
 
-# Add the parent directory (project root) to sys.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from base_model import Scraper
+
 
 COMMODITY_TYPE = {
     "Bauxite",
@@ -23,6 +23,7 @@ COMMODITY_TYPE = {
     "Granite",
     "Non-Metallic Mineral"
 }
+
 
 class MiningScraper(Scraper):
     def extract_commodities(self, title, body):
@@ -40,19 +41,29 @@ class MiningScraper(Scraper):
         # Return list of commodities found, or empty list if none found
         return found_commodities
 
-    def extract_news(self, url):
+    def extract_news(self, url: str):
         soup = self.fetch_news(url)
         # Scrape articles with class 'post'
-        for item in soup.find_all("article", class_="post"):
+        article_containers = soup.find_all("article", class_="post")
+        print(f"Found {len(article_containers)} articles on this page mining.com")
+
+        for item in article_containers:
             # Title and source (URL)
             h2 = item.find("h2")
             if h2 and h2.find("a"):
                 title = h2.find("a").get_text(strip=True)
                 source = h2.find("a").get("href", "").strip()
             else:
-                title = ""
-                source = ""
+                title = None
+                source = None
             
+            if not title or not source:
+                print(f"Skipping article due to missing title or source")
+                continue
+                
+            # Extract article content
+            article = get_article_body(source)
+
             # Body (summary)
             post_info = item.find("p", class_="post-info")
             body = post_info.get_text(strip=True) if post_info else ""
@@ -70,19 +81,29 @@ class MiningScraper(Scraper):
                     date_str = parts[1].strip()
                     timestamp_str = date_str
                 else:
-                    timestamp_str = ""
+                    timestamp_str = None
                 # Use dateparser for flexible parsing
                 dt = dateparser.parse(timestamp_str)
                 if dt:
                     timestamp = dt.strftime("%Y-%m-%d %H:%M:%S")
                 else:
-                    timestamp = ""
+                    timestamp = None
             else:
-                timestamp = ""
+                timestamp = None
             
+            # Skip articles with low score
+            score = get_scoring_news(title, article)
+            score = score.get('news_score')
+            manual_score = self.manual_scoring_time(timestamp)
+            final_score = score + manual_score
+            if final_score < 65:
+                print(f"Skipping article due to low score: {final_score}")
+                continue
+
             # Extract all commodity types
             commodities = self.extract_commodities(title, body)
-            
+            commodities = self.handling_duplicate_commodities(commodities)
+
             self.articles.append(
                 {
                     "title": title, 
@@ -94,9 +115,45 @@ class MiningScraper(Scraper):
             )
         return self.articles
 
+    def manual_scoring_time(self, date: str): 
+        if isinstance(date, str):
+            publication_timestamp = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+
+        current_time = datetime.now() 
+
+        # scoring manual for timestamp 
+        time_difference = current_time - publication_timestamp 
+
+        # Score 5: Very recent (published within the last 48 hours)
+        if time_difference <= timedelta(hours=48):
+            return 5
+    
+        # Score 3: Recent (published within the last week)
+        elif time_difference <= timedelta(days=7):
+            # Representative score for the 6-8 range
+            return 3 
+
+        # Score 2: Somewhat recent (published within the last 2 weeks)
+        elif time_difference <= timedelta(days=14):
+            # Representative score for the 3-5 range
+            return 2 
+
+        # Score 1: Outdated (more than 2 weeks old)
+        else:
+            return 1
+
+    def handling_duplicate_commodities(self, commodities: list) -> list:
+        seen = set()
+        update = []
+        for commodity in commodities:
+            if commodity not in seen:
+                update.append(commodity)
+                seen.add(commodity)
+        return update 
+    
     def extract_news_pages(self, num_pages):
-        for i in range(1, num_pages + 1):
-            self.extract_news(self.get_page(i))
+        for page in range(1, num_pages + 1):
+            self.extract_news(self.get_page(page))
         return self.articles
 
     def get_page(self, page_num):

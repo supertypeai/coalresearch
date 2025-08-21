@@ -43,7 +43,7 @@ jobs:
           install-chromedriver: true
 
       - name: Run Mining News and CoalMetal Scraping and Push Local
-        run: python -m insider_news.scripts.pipeline --scrape-coalmetal --db db.sqlite --limit-coalmetal 3 --minimum-score 65
+        run: python -m insider_news.scripts.pipeline --scrape-coalmetal --db db.sqlite --limit-coalmetal 5 --minimum-score 65
 
       - name: Run Archive Old News
         run: python -m insider_news.scripts.pipeline --archive

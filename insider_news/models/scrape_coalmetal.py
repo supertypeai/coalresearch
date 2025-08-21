@@ -11,9 +11,10 @@ from selenium.webdriver.common.by       import By
 from selenium.webdriver.support.ui      import WebDriverWait
 from selenium.webdriver.support         import expected_conditions as EC
 from selenium.common.exceptions         import TimeoutException
+from datetime                           import datetime, timedelta
 
-from scrapper.esdm_minerba                      import COMMODITY_MAP
-from insider_news.scoring_system.scoring_engine import get_scoring_news
+from scrapper.esdm_minerba                          import COMMODITY_MAP
+from insider_news.preprocessing_llm.scoring_engine  import get_scoring_news
 
 import pandas as pd
 import logging
@@ -21,6 +22,7 @@ import time
 import re 
 import nltk 
 import dateparser
+
 
 nltk.download('punkt', quiet=True)
 nltk.download('punkt_tab', quiet=True)
@@ -32,6 +34,7 @@ logging.basicConfig(
     format='%(asctime)s [%(levelname)s] - %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S'
 )
+
 
 LOGGER = logging.getLogger(__name__)
 LOGGER.info("Init Global Variable")
@@ -280,6 +283,34 @@ def get_summarize_article(text: str, sentences_count: int = 2) -> str:
     return ' '.join([str(sentence) for sentence in summary])
 
 
+def manual_scoring_time(date: str) -> int: 
+    if isinstance(date, str):
+        publication_timestamp = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+
+    current_time = datetime.now() 
+
+    # scoring manual for timestamp 
+    time_difference = current_time - publication_timestamp 
+
+    # Score 5: Very recent (published within the last 48 hours)
+    if time_difference <= timedelta(hours=48):
+        return 5
+
+    # Score 3: Recent (published within the last week)
+    elif time_difference <= timedelta(days=7):
+        # Representative score for the 6-8 range
+        return 3 
+
+    # Score 2: Somewhat recent (published within the last 2 weeks)
+    elif time_difference <= timedelta(days=14):
+        # Representative score for the 3-5 range
+        return 2 
+
+    # Score 1: Outdated (more than 2 weeks old)
+    else:
+        return 1
+        
+
 def get_article_contents(article_links: list[str]) -> list[dict]:
     """ 
     Scrapes the content of each article from the provided links.
@@ -338,6 +369,8 @@ def get_article_contents(article_links: list[str]) -> list[dict]:
             # Get scoring system
             scoring_result = get_scoring_news(title, summarize_article, cleaned_date)
             scoring_result = scoring_result.get('news_score')
+            manual_score = manual_scoring_time(cleaned_date)
+            final_score = scoring_result + manual_score
 
             # Output
             all_articles_data.append({
@@ -346,7 +379,7 @@ def get_article_contents(article_links: list[str]) -> list[dict]:
                 "source": article_url,
                 "timestamp": cleaned_date,
                 "commodities": commodities, 
-                "score": scoring_result
+                "score": final_score
             })
 
         except Exception as error:
