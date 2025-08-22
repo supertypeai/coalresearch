@@ -145,6 +145,10 @@ def filter_new_articles(conn: sqlite3.Connection, df:pd.DataFrame) -> pd.DataFra
     if df.empty: 
         return df 
     
+    df['source'] = df['source'].str.strip().str.lower()
+    # Remove duplicates within the current DataFrame
+    df = df.drop_duplicates(subset=['source'], keep='first')
+
     # Get existing sources from the database
     cursor = conn.cursor()
     cursor.execute("SELECT source FROM mining_news WHERE source IS NOT NULL;")
@@ -152,6 +156,9 @@ def filter_new_articles(conn: sqlite3.Connection, df:pd.DataFrame) -> pd.DataFra
     
     # Filter out articles that already exist in the database
     new_articles = df[~df['source'].isin(existing_sources)]
+    if not new_articles.empty:
+        LOGGER.warning(f"Attempted to insert: {new_articles['source'].tolist()}")
+    
     LOGGER.info(f"Found {len(df)} total articles, {len(new_articles)} are new.")
     return new_articles
 
