@@ -1,5 +1,12 @@
 [
     {
+        "title": "Freeport Indonesia to ramp up concentrate exports ahead of ban",
+        "body": "The firm has exported about 65% of the quota as of mid-August.",
+        "source": "https://www.mining.com/web/freeport-indonesias-copper-concentrate-exports-may-reach-90-of-its-quota-by-september-16-official-says/",
+        "timestamp": "2025-08-21 00:00:00",
+        "commodities": []
+    },
+    {
         "title": "Indonesia president signals intention to go after illegal mines",
         "body": "Indonesia will move to \u201crectify\u201d illegal mines estimated to have caused $19 billion in state losses.",
         "source": "https://www.mining.com/web/prabowo-signals-intention-to-go-after-illegal-mines-in-indonesia/",
@@ -72,12 +79,12 @@
         ]
     },
     {
-        "title": "Indonesia plans to cut mining quota period back to one year, minister says",
-        "body": "The move is expected to help underpin prices of coal and ores and boost government revenues.",
-        "source": "https://www.mining.com/web/indonesia-plans-to-cut-mining-quota-period-back-to-one-year-minister-says/",
-        "timestamp": "2025-07-02 00:00:00",
+        "title": "APNI Successfully Holds 7th Training to Miners (TTM) 2025",
+        "body": "The Indonesian Nickel Miners Association (APNI) held its 7th Training to Miners (TTM) 2025, a three-day event aimed at enhancing the capacity and understanding of nickel industry players in various strategic aspects of mining. The training covered nine key topics, including RKAB 1 Year, minimum wage policy, ESG integration, and Indonesia Metals Exchange, and was attended by government representatives, academia, and industry players.",
+        "source": "https://nikel.co.id/2025/08/20/ttm-apni-2025-resmi-digelar-dorong-tata-kelola-nikel-yang-transparan-dan-berkelanjutan/",
+        "timestamp": "2025-08-20 10:54:43",
         "commodities": [
-            "Coal"
+            "Nickel"
         ]
     },
     {
@@ -89,7 +96,7 @@
     },
     {
         "title": "Indonesia's Nickel Reference Price Falls Slightly in Second Half of August 2025",
-        "body": "The Indonesian government has set the nickel reference price at $15.012 per dry metric ton for the second half of August 2025, a slight decrease from the previous period. The fluctuation in prices serves as a signal for nickel industry players to adjust their production and marketing strategies, considering the reference price is a key factor in domestic transactions and royalty calculations.",
+        "body": "The Indonesian government has set the nickel reference price at US$15.012,67 per dry metric ton for the second half of August 2025, a slight decrease from the previous period. The fluctuation in prices serves as a signal for nickel industry players to adjust their production and marketing strategies, considering the reference price is a key factor in domestic transactions and royalty calculations.",
         "source": "https://nikel.co.id/2025/08/18/hma-harga-nikel-turun-tipis/",
         "timestamp": "2025-08-18 16:54:29",
         "commodities": [
@@ -161,15 +168,6 @@
         ]
     },
     {
-        "title": "Indonesia Hosts First ESG Report Forum, Discusses Nickel Industry Dynamics and Challenges",
-        "body": "The Indonesian Chamber of Commerce in China (CCCI) held its first ESG Report Forum, focusing on environmental, social, and governance issues in the nickel industry, with discussions on the importance of transparent mineral pricing and the need for a national metal exchange. Indonesia is a significant player in the global nickel supply chain, with 35% of national reserves coming from East Indonesia, particularly Maluku Utara and other provinces.",
-        "source": "https://nikel.co.id/2025/08/07/forum-esg-2025-meidy-dorong-hilirisasi-nikel-dan-kepatuhan-industri-mineral-di-indonesia/",
-        "timestamp": "2025-08-07 18:04:06",
-        "commodities": [
-            "Nickel"
-        ]
-    },
-    {
         "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in 1H 2025",
         "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of a 20% stake in Filipino energy company Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
         "source": "https://www.ruangenergi.com/kapasitas-pembangkit-naik-14-buah-manis-investasi-pertamina-nre-di-perusahaan-energi-filipina-crec/",
@@ -226,6 +224,15 @@
         "commodities": []
     },
     {
+        "title": "PT Timah's Conservation Efforts: Rehabilitating Over 1,000 Endangered Species",
+        "body": "PT Timah, in collaboration with Alobi Foundation, has established a Wildlife Rescue Center in Pangkal Pinang, Bangka, which has successfully rehabilitated and released over 1,000 endangered species back into their natural habitats since 2018. This initiative is part of the company's environmental responsibility efforts, setting an example for other mining companies to follow.",
+        "source": "https://www.ruangenergi.com/bukan-sekadar-tambang-pt-timah-rawat-satwa-liar-lewat-pps-alobi-mantap/",
+        "timestamp": "2025-08-22 00:00:00",
+        "commodities": [
+            "Tin"
+        ]
+    },
+    {
         "title": "PT Pertamina Gas Commits to Developing Village-Based Micro, Small, and Medium Enterprises",
         "body": "PT Pertamina Gas (Pertagas) has committed to developing village-based micro, small, and medium enterprises (UMKM) as part of its corporate social responsibility program, which has already benefited over 2,400 people directly and 7,500 people indirectly. The program aims to empower local communities to become economically independent and contribute to national economic growth.",
         "source": "https://www.ruangenergi.com/wujudkan-merdeka-ekonomi-pertagas-dorong-pengembangan-umkm-berbasis-desa/",
@@ -233,26 +240,35 @@
         "commodities": []
     },
     {
-        "title": "MIND ID Reaffirms Strategic Role of Mineral Wealth for Indonesia's Future",
-        "body": "MIND ID, Indonesia's mining holding company, emphasized the importance of responsible management of mineral resources to ensure the country's future prosperity and social welfare. The company highlighted its commitment to sustainable mining practices, environmental conservation, and social responsibility programs.",
-        "source": "https://www.ruangenergi.com/rayakan-hut-ri-ke-80-mind-id-tegaskan-mineral-jadi-fondasi-indonesia-emas-2045/",
-        "timestamp": "2025-08-19 00:00:00",
+        "title": "PT Timah's New Smelter in Muntok, Bangka Belitung, Begins Operation",
+        "body": "PT Timah's new smelter in Muntok, Bangka Belitung, with a production capacity of 40,000 tons of tin per year, has officially begun operation in January 2023 after a two-year delay due to the pandemic. The Ausmelt Furnace technology used in the smelter is more efficient and environmentally friendly, enabling the company to process low-grade tin concentrates and strengthening Indonesia's competitiveness in the global tin market.",
+        "source": "https://www.ruangenergi.com/wow-smelter-modern-pt-timah-tbk-di-muntok-jadi-andalan-hilirisasi-timah-nasional/",
+        "timestamp": "2025-08-22 00:00:00",
         "commodities": [
-            "Gold"
+            "Tin"
         ]
     },
     {
-        "title": "Pertamina Holds Anugerah Jurnalistik Pertamina 2025 to Promote Energy Literacy in Indonesia",
-        "body": "PT Pertamina (Persero) held the Anugerah Jurnalistik Pertamina 2025 (AJP) event in Banda Aceh, Sumatera, to promote energy literacy and appreciation for journalists who have contributed to the cause. The event, which is part of Pertamina's annual journalism competition, aims to increase awareness about energy sustainability in Indonesia and features eight categories of competition for journalists.",
-        "source": "https://www.ruangenergi.com/tingkatkan-literasi-energi-pertamina-sosialisasi-anugerah-jurnalistik-pertamina-2025-hingga-ujung-barat-indonesia/",
+        "title": "MIND ID Holds MediaMIND 2025 Socialization at ITB, Fostering Innovation in Mining Sector",
+        "body": "PT Mineral Industri Indonesia (MIND ID) held its first MediaMIND 2025 socialization event at the Institut Teknologi Bandung (ITB), attended by hundreds of students, public, and local media, aiming to provide in-depth information on the mining sector and its benefits. The event highlighted MIND ID's strategic initiatives, including optimizing natural resources while ensuring environmental and social sustainability, as seen in the post-mining program in Ombilin, which led to the site being listed as a UNESCO cultural heritage in 2019.",
+        "source": "https://www.ruangenergi.com/sosialisasi-mediamind-itb-pastikan-manfaat-kekayaan-mineral-bagi-peradaban-indonesia/",
         "timestamp": "2025-08-21 00:00:00",
+        "commodities": [
+            "Coal"
+        ]
+    },
+    {
+        "title": "Pertamina Hulu Energi Accelerates Oil and Gas Production for Indonesia's Energy Independence",
+        "body": "PT Pertamina Hulu Energi (PHE) is speeding up oil and gas production to ensure Indonesia's energy independence, with a current contribution of 69% to national oil production and 37% to national gas production. PHE is implementing strategies to maintain baseline production and accelerate growth through exploration, new discoveries, and technology adoption, while ensuring compliance with ESG principles.",
+        "source": "https://www.ruangenergi.com/phe-tancap-gas-dongkrak-produksi-migas-targetkan-swasembada-energi/",
+        "timestamp": "2025-08-22 00:00:00",
         "commodities": []
     },
     {
-        "title": "Pertamina Develops Sustainable Aviation Fuel from Used Cooking Oil, Boosting Circular Economy and Reducing Emissions",
-        "body": "PT Pertamina has successfully developed Sustainable Aviation Fuel (SAF) from used cooking oil, promoting a circular economy and reducing environmental emissions in the aviation industry. The company's initiative, UCollect, encourages public participation in collecting used cooking oil, with 35 collection points established across various regions, aiming to increase production of environmentally friendly aviation fuel.",
-        "source": "https://www.ruangenergi.com/pertamina-saf-dorong-ekonomi-sirkular-masyarakat-dan-pengurangan-emisi-lingkungan/",
-        "timestamp": "2025-08-21 00:00:00",
+        "title": "Pertamina Hulu Energi Accelerates Oil and Gas Exploration to Ensure Energy Security",
+        "body": "PT Pertamina Hulu Energi (PHE) is accelerating oil and gas exploration to ensure energy security in Indonesia, with a significant contribution of 69% to domestic oil lifting and 37% to national gas sales. The company is focusing on high-impact exploration, Enhanced Oil Recovery (EOR), and greenfield development to increase production, with several key projects underway.",
+        "source": "https://www.ruangenergi.com/eksplorasi-jadi-game-changer-phe-percepat-produksi-migas-di-era-transisi-catat-ya/",
+        "timestamp": "2025-08-22 00:00:00",
         "commodities": []
     },
     {
