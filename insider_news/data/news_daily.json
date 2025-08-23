@@ -19,8 +19,8 @@
         "source": "https://www.mining.com/web/nickel-surpasses-coal-as-indonesias-top-export-macquarie-says/",
         "timestamp": "2025-08-14 00:00:00",
         "commodities": [
-            "Nickel",
-            "Coal"
+            "Coal",
+            "Nickel"
         ]
     },
     {
@@ -76,6 +76,15 @@
         "timestamp": "2025-07-07 00:00:00",
         "commodities": [
             "Copper"
+        ]
+    },
+    {
+        "title": "APNI's Training to Miners 2025 Forum Educates Nickel Industry Players on Regulations and Best Practices",
+        "body": "The Training to Miners (TTM) 2025 forum, organized by the Indonesian Nickel Miners Association (APNI), aimed to educate nickel industry players on regulations, government policies, and current challenges in the mining sector. The three-day event featured speakers from the government, academia, and industry practitioners, providing a platform for discussion and knowledge sharing.",
+        "source": "https://nikel.co.id/2025/08/21/hilmi-cipta-tambang-abadi-ttm-apni-2025-guidance-bagi-pelaku-usaha/",
+        "timestamp": "2025-08-21 11:10:09",
+        "commodities": [
+            "Nickel"
         ]
     },
     {
@@ -158,25 +167,15 @@
         ]
     },
     {
-        "title": "Indonesia's Energy and Mineral Sector Sees 24.1% Investment Growth in Semester I 2025",
-        "body": "Indonesia's energy and mineral sector has seen a significant 24.1% growth in investment in Semester I 2025, reaching US$13.9 billion, with the oil and gas subsector contributing the most at US$8.1 billion. The sector has also created 753,578 jobs and generated Rp138.8 trillion in non-tax state revenue, despite declining global commodity prices.",
-        "source": "https://nikel.co.id/2025/08/11/investasi-esdm-semester-i-2025-tembus-us139-miliar/",
-        "timestamp": "2025-08-11 14:49:48",
-        "commodities": [
-            "Nickel",
-            "Coal"
-        ]
-    },
-    {
-        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in 1H 2025",
-        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of a 20% stake in Filipino energy company Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
+        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in H1 2025",
+        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of 20% stake in Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
         "source": "https://www.ruangenergi.com/kapasitas-pembangkit-naik-14-buah-manis-investasi-pertamina-nre-di-perusahaan-energi-filipina-crec/",
         "timestamp": "2025-08-20 00:00:00",
         "commodities": []
     },
     {
         "title": "Pertamina NRE's Investment in CREC Boosts Stock Price by 30%",
-        "body": "Pertamina NRE's investment in CREC on June 18 was positively received by the Philippine stock market, with CREC's stock price increasing by 30% to \u20b14.21 (around Rp 1,195 per share) since the start of 2025. The investment has led to a significant surge in CREC's stock value, reflecting market confidence in the partnership.",
+        "body": "Pertamina NRE's investment in CREC on June 18 was positively received by the Philippine stock market, with CREC's stock price increasing by 30% to \u20b14.21 (around Rp 1,195 per share) as of August 15. The investment has boosted investor confidence in CREC, reflected in the steady rise in its stock price since the start of 2025.",
         "source": "https://www.ruangenergi.com/tokcer-buah-manis-investasi-pertamina-nre-laba-bersih-crec-terbang-38-persen/",
         "timestamp": "2025-08-19 00:00:00",
         "commodities": []
@@ -185,13 +184,6 @@
         "title": "Zulfan Zahar Elected as New Chairman of Masyarakat Energi Terbarukan Indonesia (METI)",
         "body": "Zulfan Zahar has been elected as the new Chairman of Masyarakat Energi Terbarukan Indonesia (METI) for the 2025-2028 period, securing 84.9% of the votes. The new leadership is expected to focus on developing human resources and promoting transparency in the renewable energy sector to support Indonesia's national energy transition goals.",
         "source": "https://www.ruangenergi.com/sah-zulfan-zahar-terpilih-jadi-ketum-meti-2025-2028/",
-        "timestamp": "2025-08-16 00:00:00",
-        "commodities": []
-    },
-    {
-        "title": "METI Holds National Congress, Elects New Leader to Accelerate Renewable Energy Transition",
-        "body": "The Indonesian Renewable Energy Society (METI) held its 9th National Congress, where three candidates, Norman Ginting, Suroso Isnandar, and Zulfan Zahar, are vying for the position of General Chairperson to lead the organization towards a green economy and decarbonization. The new leader is expected to bring fresh momentum to accelerate Indonesia's renewable energy transition.",
-        "source": "https://www.ruangenergi.com/breaking-news-munas-ix-meti-bobby-gafur-umar-mundur-dari-bursa-calon-ketua-umum/",
         "timestamp": "2025-08-16 00:00:00",
         "commodities": []
     },
@@ -224,51 +216,46 @@
         "commodities": []
     },
     {
-        "title": "PT Timah's Conservation Efforts: Rehabilitating Over 1,000 Endangered Species",
-        "body": "PT Timah, in collaboration with Alobi Foundation, has established a Wildlife Rescue Center in Pangkal Pinang, Bangka, which has successfully rehabilitated and released over 1,000 endangered species back into their natural habitats since 2018. This initiative is part of the company's environmental responsibility efforts, setting an example for other mining companies to follow.",
-        "source": "https://www.ruangenergi.com/bukan-sekadar-tambang-pt-timah-rawat-satwa-liar-lewat-pps-alobi-mantap/",
-        "timestamp": "2025-08-22 00:00:00",
+        "title": "PT Timah Supports Mapur Cultural Heritage through TJSL Program",
+        "body": "PT Timah Tbk has launched a Tanggung Jawab Sosial dan Lingkungan (TJSL) program to preserve Mapur cultural heritage, building a traditional village, Kampung Adat Gebong Memarong, in Bangka Belitung, which has boosted the local economy and attracted tourists. The program has also provided training for local residents to become tour guides, with 2,000 tourists visiting the village every month.",
+        "source": "https://www.ruangenergi.com/budaya-terjaga-dompet-warga-tebal-gebong-memarong-hadiah-pt-timah-untuk-bangka/",
+        "timestamp": "2025-08-23 00:00:00",
         "commodities": [
             "Tin"
         ]
     },
     {
-        "title": "PT Pertamina Gas Commits to Developing Village-Based Micro, Small, and Medium Enterprises",
-        "body": "PT Pertamina Gas (Pertagas) has committed to developing village-based micro, small, and medium enterprises (UMKM) as part of its corporate social responsibility program, which has already benefited over 2,400 people directly and 7,500 people indirectly. The program aims to empower local communities to become economically independent and contribute to national economic growth.",
-        "source": "https://www.ruangenergi.com/wujudkan-merdeka-ekonomi-pertagas-dorong-pengembangan-umkm-berbasis-desa/",
-        "timestamp": "2025-08-21 00:00:00",
-        "commodities": []
-    },
-    {
-        "title": "PT Timah's New Smelter in Muntok, Bangka Belitung, Begins Operation",
-        "body": "PT Timah's new smelter in Muntok, Bangka Belitung, with a production capacity of 40,000 tons of tin per year, has officially begun operation in January 2023 after a two-year delay due to the pandemic. The Ausmelt Furnace technology used in the smelter is more efficient and environmentally friendly, enabling the company to process low-grade tin concentrates and strengthening Indonesia's competitiveness in the global tin market.",
-        "source": "https://www.ruangenergi.com/wow-smelter-modern-pt-timah-tbk-di-muntok-jadi-andalan-hilirisasi-timah-nasional/",
-        "timestamp": "2025-08-22 00:00:00",
+        "title": "MIND ID Develops Kalium Humat Product from Low-Calorie Coal, Boosting Agricultural Productivity by 30%",
+        "body": "MIND ID, through its subsidiary PT Bukit Asam Tbk, has developed a kalium humat product from low-calorie coal, which can increase agricultural productivity by 30%. The product, resulting from a collaboration with Universitas Gadjah Mada, has a production capacity of 144 tons per year and is expected to support the government's national food self-sufficiency program.",
+        "source": "https://www.ruangenergi.com/hilirisasi-batu-bara-dukung-ketahanan-pangan-tingkatkan-produktivitas-petani/",
+        "timestamp": "2025-08-23 00:00:00",
         "commodities": [
-            "Tin"
-        ]
-    },
-    {
-        "title": "MIND ID Holds MediaMIND 2025 Socialization at ITB, Fostering Innovation in Mining Sector",
-        "body": "PT Mineral Industri Indonesia (MIND ID) held its first MediaMIND 2025 socialization event at the Institut Teknologi Bandung (ITB), attended by hundreds of students, public, and local media, aiming to provide in-depth information on the mining sector and its benefits. The event highlighted MIND ID's strategic initiatives, including optimizing natural resources while ensuring environmental and social sustainability, as seen in the post-mining program in Ombilin, which led to the site being listed as a UNESCO cultural heritage in 2019.",
-        "source": "https://www.ruangenergi.com/sosialisasi-mediamind-itb-pastikan-manfaat-kekayaan-mineral-bagi-peradaban-indonesia/",
-        "timestamp": "2025-08-21 00:00:00",
-        "commodities": [
+            "Gold",
             "Coal"
         ]
     },
     {
-        "title": "Pertamina Hulu Energi Accelerates Oil and Gas Production for Indonesia's Energy Independence",
-        "body": "PT Pertamina Hulu Energi (PHE) is speeding up oil and gas production to ensure Indonesia's energy independence, with a current contribution of 69% to national oil production and 37% to national gas production. PHE is implementing strategies to maintain baseline production and accelerate growth through exploration, new discoveries, and technology adoption, while ensuring compliance with ESG principles.",
-        "source": "https://www.ruangenergi.com/phe-tancap-gas-dongkrak-produksi-migas-targetkan-swasembada-energi/",
+        "title": "Bangka Belitung to Host Indonesia's Largest Tin Smelter with $1.5-2 Billion Investment",
+        "body": "The province of Bangka Belitung is set to host Indonesia's largest tin smelter with an investment of Rp1.5-2 trillion (approximately $1.5-2 billion) by PT Tong Fang, a Chinese investor, which is expected to produce 300 tons of high-value tin products per month. The smelter will create jobs for around 70% of the local workforce and is expected to start operating within a year.",
+        "source": "https://www.ruangenergi.com/babel-siap-jadi-pusat-hilirisasi-timah-investor-china-bangun-smelter-rp2-triliun-di-bangka-tengah/",
         "timestamp": "2025-08-22 00:00:00",
+        "commodities": [
+            "Tin",
+            "Sand, Stone, Gravel"
+        ]
+    },
+    {
+        "title": "ITB and IAFMI Sign MoU to Strengthen Collaboration in Oil and Gas Industry",
+        "body": "Institut Teknologi Bandung (ITB) and Ikatan Ahli Fasilitas Produksi Minyak dan Gas Bumi Indonesia (IAFMI) signed a Memorandum of Understanding (MoU) to enhance collaborative research and development in the oil and gas industry. The partnership aims to promote innovation, increase national capacity, and address global energy challenges.",
+        "source": "https://www.ruangenergi.com/dari-bandung-untuk-energi-nasional-itb-iafmi-perkuat-kapasitas-industri-migas/",
+        "timestamp": "2025-08-23 00:00:00",
         "commodities": []
     },
     {
-        "title": "Pertamina Hulu Energi Accelerates Oil and Gas Exploration to Ensure Energy Security",
-        "body": "PT Pertamina Hulu Energi (PHE) is accelerating oil and gas exploration to ensure energy security in Indonesia, with a significant contribution of 69% to domestic oil lifting and 37% to national gas sales. The company is focusing on high-impact exploration, Enhanced Oil Recovery (EOR), and greenfield development to increase production, with several key projects underway.",
-        "source": "https://www.ruangenergi.com/eksplorasi-jadi-game-changer-phe-percepat-produksi-migas-di-era-transisi-catat-ya/",
-        "timestamp": "2025-08-22 00:00:00",
+        "title": "Pertamina Drilling Successfully Completes Sembakung Deep-01 Exploration Well in Nunukan, Kalimantan Utara",
+        "body": "Pertamina Drilling's Rig PDSI#43.3/AB1500-E successfully completed the Sembakung Deep-01 exploration well, reaching a depth of over 2,100 meters and discovering new gas reserves with low CO\u2082 content. The well's production test on August 4, 2025, showed a promising gas flow, marking a significant achievement for Pertamina Drilling and opening up new opportunities for energy exploration in Kalimantan.",
+        "source": "https://www.ruangenergi.com/rig-canggih-pertamina-drilling-temukan-cadangan-gas-baru-di-nunukan-luar-biasa/",
+        "timestamp": "2025-08-23 00:00:00",
         "commodities": []
     },
     {
@@ -286,8 +273,8 @@
         "commodities": []
     },
     {
-        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in 1H 2025",
-        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of a 20% stake in Filipino energy company Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
+        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in H1 2025",
+        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of 20% stake in Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
         "source": "https://www.ruangenergi.com/kapasitas-pembangkit-naik-14-buah-manis-investasi-pertamina-nre-di-perusahaan-energi-filipina-crec/",
         "timestamp": "2025-08-20 00:00:00",
         "commodities": []
