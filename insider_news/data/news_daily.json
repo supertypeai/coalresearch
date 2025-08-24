@@ -105,7 +105,7 @@
     },
     {
         "title": "Indonesia's Nickel Reference Price Falls Slightly in Second Half of August 2025",
-        "body": "The Indonesian government has set the nickel reference price at US$15.012,67 per dry metric ton for the second half of August 2025, a slight decrease from the previous period. The fluctuation in prices serves as a signal for nickel industry players to adjust their production and marketing strategies, considering the reference price is a key factor in domestic transactions and royalty calculations.",
+        "body": "The Indonesian government has set the nickel reference price at $15.012 per dry metric ton for the second half of August 2025, a slight decrease from the previous period. The fluctuation in prices serves as a signal for nickel industry players to adjust their production and marketing strategies, considering the reference price is a key factor in domestic transactions and royalty calculations.",
         "source": "https://nikel.co.id/2025/08/18/hma-harga-nikel-turun-tipis/",
         "timestamp": "2025-08-18 16:54:29",
         "commodities": [
@@ -175,7 +175,7 @@
     },
     {
         "title": "Pertamina NRE's Investment in CREC Boosts Stock Price by 30%",
-        "body": "Pertamina NRE's investment in CREC on June 18 was positively received by the Philippine stock market, with CREC's stock price increasing by 30% to \u20b14.21 (around Rp 1,195 per share) as of August 15. The investment has boosted investor confidence in CREC, reflected in the steady rise in its stock price since the start of 2025.",
+        "body": "Pertamina NRE's investment in CREC on June 18 was positively received by the Philippine stock market, with CREC's stock price increasing by 30% to \u20b14.21 (around Rp 1,195 per share) since the start of 2025. The investment has led to a significant surge in CREC's stock value, reflecting market confidence in the partnership.",
         "source": "https://www.ruangenergi.com/tokcer-buah-manis-investasi-pertamina-nre-laba-bersih-crec-terbang-38-persen/",
         "timestamp": "2025-08-19 00:00:00",
         "commodities": []
@@ -216,10 +216,26 @@
         "commodities": []
     },
     {
-        "title": "PT Timah Supports Mapur Cultural Heritage through TJSL Program",
-        "body": "PT Timah Tbk has launched a Tanggung Jawab Sosial dan Lingkungan (TJSL) program to preserve Mapur cultural heritage, building a traditional village, Kampung Adat Gebong Memarong, in Bangka Belitung, which has boosted the local economy and attracted tourists. The program has also provided training for local residents to become tour guides, with 2,000 tourists visiting the village every month.",
-        "source": "https://www.ruangenergi.com/budaya-terjaga-dompet-warga-tebal-gebong-memarong-hadiah-pt-timah-untuk-bangka/",
+        "title": "PT Pertamina International Shipping Transplants 1000 Coral Fragments in Sabang to Support Marine Biodiversity",
+        "body": "PT Pertamina International Shipping (PIS) has transplanted 1000 coral fragments in Sabang, Aceh, as part of its CSR program Marine BiodiverSEAty, aiming to support the creation of a healthy marine ecosystem. The program is expected to increase the productivity of the blue carbon ecosystem, with a potential carbon absorption of 0.4 tons per year.",
+        "source": "https://www.ruangenergi.com/aksi-nyata-pis-tanam-1000-terumbu-karang-di-titik-terujung-barat-indonesia/",
         "timestamp": "2025-08-23 00:00:00",
+        "commodities": []
+    },
+    {
+        "title": "PLN Nusantara Power's PIJAR GEMILANG Program Achieves Circular Economy and Sustainability",
+        "body": "PLN Nusantara Power's PIJAR GEMILANG program has successfully transformed waste into valuable products, including organic fertilizers, animal feed, and hydroponic products, benefiting 55 people directly and 8,803 people indirectly, while also rehabilitating 13 hectares of critical land and reducing CO\u2082 emissions by 75,000 kg/year. The program has received national recognition, winning the TOP CSR 2025 Bintang 5 and Circular Economy Sustainability Award (CESA) 2025.",
+        "source": "https://www.ruangenergi.com/pln-nusantara-power-wujudkan-ekonomi-sirkular-lewat-trenggulunan-agro-view-dari-limbah-menjadi-berkah-untuk-desa/",
+        "timestamp": "2025-08-23 00:00:00",
+        "commodities": [
+            "Coal"
+        ]
+    },
+    {
+        "title": "PT Timah Tbk Struggles with Illegal Tin Mining, Calls for Regulatory Support",
+        "body": "PT Timah Tbk, Indonesia's state-owned tin company, faces challenges in combating illegal tin mining, which has become a deeply ingrained culture in the country. The company is taking steps to address the issue, including tightening contracts with mining partners and introducing performance-based incentives, but acknowledges that regulatory support is crucial to reversing the trend.",
+        "source": "https://www.ruangenergi.com/pareto-negatif-di-industri-timah-suhendra-yusuf-saatnya-aturan-diperketat/",
+        "timestamp": "2025-08-24 00:00:00",
         "commodities": [
             "Tin"
         ]
@@ -235,26 +251,16 @@
         ]
     },
     {
-        "title": "Bangka Belitung to Host Indonesia's Largest Tin Smelter with $1.5-2 Billion Investment",
-        "body": "The province of Bangka Belitung is set to host Indonesia's largest tin smelter with an investment of Rp1.5-2 trillion (approximately $1.5-2 billion) by PT Tong Fang, a Chinese investor, which is expected to produce 300 tons of high-value tin products per month. The smelter will create jobs for around 70% of the local workforce and is expected to start operating within a year.",
-        "source": "https://www.ruangenergi.com/babel-siap-jadi-pusat-hilirisasi-timah-investor-china-bangun-smelter-rp2-triliun-di-bangka-tengah/",
-        "timestamp": "2025-08-22 00:00:00",
-        "commodities": [
-            "Tin",
-            "Sand, Stone, Gravel"
-        ]
-    },
-    {
-        "title": "ITB and IAFMI Sign MoU to Strengthen Collaboration in Oil and Gas Industry",
-        "body": "Institut Teknologi Bandung (ITB) and Ikatan Ahli Fasilitas Produksi Minyak dan Gas Bumi Indonesia (IAFMI) signed a Memorandum of Understanding (MoU) to enhance collaborative research and development in the oil and gas industry. The partnership aims to promote innovation, increase national capacity, and address global energy challenges.",
-        "source": "https://www.ruangenergi.com/dari-bandung-untuk-energi-nasional-itb-iafmi-perkuat-kapasitas-industri-migas/",
-        "timestamp": "2025-08-23 00:00:00",
+        "title": "PT Pertamina International EP Holds ESG Workshop to Align with Pertamina's Sustainability Path",
+        "body": "PT Pertamina International EP (PIEP) held a two-day ESG Workshop to align its ESG strategy with Pertamina's path towards sustainability, featuring speakers from various sectors including Pertamina, Pertamina Hulu Energi, Medco Energi, Universitas Pertamina, and Fintech Solutions. The workshop aimed to strengthen PIEP's ESG strategy in supporting Pertamina's transition to new and renewable energy.",
+        "source": "https://www.ruangenergi.com/piep-gelar-esg-workshop-perkuat-langkah-menuju-energi-berkelanjutan/",
+        "timestamp": "2025-08-24 00:00:00",
         "commodities": []
     },
     {
-        "title": "Pertamina Drilling Successfully Completes Sembakung Deep-01 Exploration Well in Nunukan, Kalimantan Utara",
-        "body": "Pertamina Drilling's Rig PDSI#43.3/AB1500-E successfully completed the Sembakung Deep-01 exploration well, reaching a depth of over 2,100 meters and discovering new gas reserves with low CO\u2082 content. The well's production test on August 4, 2025, showed a promising gas flow, marking a significant achievement for Pertamina Drilling and opening up new opportunities for energy exploration in Kalimantan.",
-        "source": "https://www.ruangenergi.com/rig-canggih-pertamina-drilling-temukan-cadangan-gas-baru-di-nunukan-luar-biasa/",
+        "title": "Pertamina Hulu Energi Revives Idle Well, Boosts National Oil Production",
+        "body": "PT Pertamina Hulu Energi Offshore North West Java (PHE ONWJ) has successfully revived an idle well, LLE-5ST, which has been shut-in since 2012, and achieved a production rate of 2,635 barrels of oil per day (BOPD) with a water cut of 10%. The project was completed in 37 days, faster than the target of 46.2 days, and at a cost of USD 8.69 million, which is 64.66% of the approved budget.",
+        "source": "https://www.ruangenergi.com/breaking-news-sumur-idle-hidup-kembali-produksi-2-635-bopd-di-lepas-pantai-onwj/",
         "timestamp": "2025-08-23 00:00:00",
         "commodities": []
     },
@@ -273,8 +279,8 @@
         "commodities": []
     },
     {
-        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in H1 2025",
-        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of 20% stake in Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
+        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in 1H 2025",
+        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of a 20% stake in Filipino energy company Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
         "source": "https://www.ruangenergi.com/kapasitas-pembangkit-naik-14-buah-manis-investasi-pertamina-nre-di-perusahaan-energi-filipina-crec/",
         "timestamp": "2025-08-20 00:00:00",
         "commodities": []
