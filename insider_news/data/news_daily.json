@@ -19,8 +19,8 @@
         "source": "https://www.mining.com/web/nickel-surpasses-coal-as-indonesias-top-export-macquarie-says/",
         "timestamp": "2025-08-14 00:00:00",
         "commodities": [
-            "Coal",
-            "Nickel"
+            "Nickel",
+            "Coal"
         ]
     },
     {
@@ -105,7 +105,7 @@
     },
     {
         "title": "Indonesia's Nickel Reference Price Falls Slightly in Second Half of August 2025",
-        "body": "The Indonesian government has set the nickel reference price at $15.012 per dry metric ton for the second half of August 2025, a slight decrease from the previous period. The fluctuation in prices serves as a signal for nickel industry players to adjust their production and marketing strategies, considering the reference price is a key factor in domestic transactions and royalty calculations.",
+        "body": "The Indonesian government has set the nickel reference price at US$15.012,67 per dry metric ton for the second half of August 2025, a slight decrease from the previous period. The fluctuation in prices serves as a signal for nickel industry players to adjust their production and marketing strategies, considering the reference price is a key factor in domestic transactions and royalty calculations.",
         "source": "https://nikel.co.id/2025/08/18/hma-harga-nikel-turun-tipis/",
         "timestamp": "2025-08-18 16:54:29",
         "commodities": [
@@ -167,15 +167,15 @@
         ]
     },
     {
-        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in H1 2025",
-        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of 20% stake in Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
+        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in 1H 2025",
+        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of a 20% stake in Filipino energy company Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
         "source": "https://www.ruangenergi.com/kapasitas-pembangkit-naik-14-buah-manis-investasi-pertamina-nre-di-perusahaan-energi-filipina-crec/",
         "timestamp": "2025-08-20 00:00:00",
         "commodities": []
     },
     {
         "title": "Pertamina NRE's Investment in CREC Boosts Stock Price by 30%",
-        "body": "Pertamina NRE's investment in CREC on June 18 was positively received by the Philippine stock market, with CREC's stock price increasing by 30% to \u20b14.21 (around Rp 1,195 per share) since the start of 2025. The investment has led to a significant surge in CREC's stock value, reflecting market confidence in the partnership.",
+        "body": "Pertamina NRE's investment in CREC on June 18 was positively received by the Philippine stock market, with CREC's stock price increasing by 30% to \u20b14.21 (around Rp 1,195 per share) as of August 15. The stock price surge reflects the market's confidence in the partnership.",
         "source": "https://www.ruangenergi.com/tokcer-buah-manis-investasi-pertamina-nre-laba-bersih-crec-terbang-38-persen/",
         "timestamp": "2025-08-19 00:00:00",
         "commodities": []
@@ -232,6 +232,13 @@
         ]
     },
     {
+        "title": "President Prabowo Appoints Brian Yuliarto as Head of Mineral Industry Agency",
+        "body": "President Prabowo Subianto has officially inaugurated Brian Yuliarto as the Head of the Mineral Industry Agency, a new institution expected to play a crucial role in Indonesia's mineral downstreaming strategy. Yuliarto, a renowned academic with expertise in nanotechnology and quantum engineering, is tasked with leading the agency, which is seen as a game-changer for Indonesia's mineral industry.",
+        "source": "https://www.ruangenergi.com/dari-nano-ke-mineral-brian-yuliarto-resmi-nahkodai-badan-industri-mineral/",
+        "timestamp": "2025-08-25 00:00:00",
+        "commodities": []
+    },
+    {
         "title": "PT Timah Tbk Struggles with Illegal Tin Mining, Calls for Regulatory Support",
         "body": "PT Timah Tbk, Indonesia's state-owned tin company, faces challenges in combating illegal tin mining, which has become a deeply ingrained culture in the country. The company is taking steps to address the issue, including tightening contracts with mining partners and introducing performance-based incentives, but acknowledges that regulatory support is crucial to reversing the trend.",
         "source": "https://www.ruangenergi.com/pareto-negatif-di-industri-timah-suhendra-yusuf-saatnya-aturan-diperketat/",
@@ -241,27 +248,17 @@
         ]
     },
     {
-        "title": "MIND ID Develops Kalium Humat Product from Low-Calorie Coal, Boosting Agricultural Productivity by 30%",
-        "body": "MIND ID, through its subsidiary PT Bukit Asam Tbk, has developed a kalium humat product from low-calorie coal, which can increase agricultural productivity by 30%. The product, resulting from a collaboration with Universitas Gadjah Mada, has a production capacity of 144 tons per year and is expected to support the government's national food self-sufficiency program.",
-        "source": "https://www.ruangenergi.com/hilirisasi-batu-bara-dukung-ketahanan-pangan-tingkatkan-produktivitas-petani/",
-        "timestamp": "2025-08-23 00:00:00",
-        "commodities": [
-            "Gold",
-            "Coal"
-        ]
-    },
-    {
-        "title": "PT Pertamina International EP Holds ESG Workshop to Align with Pertamina's Sustainability Path",
-        "body": "PT Pertamina International EP (PIEP) held a two-day ESG Workshop to align its ESG strategy with Pertamina's path towards sustainability, featuring speakers from various sectors including Pertamina, Pertamina Hulu Energi, Medco Energi, Universitas Pertamina, and Fintech Solutions. The workshop aimed to strengthen PIEP's ESG strategy in supporting Pertamina's transition to new and renewable energy.",
-        "source": "https://www.ruangenergi.com/piep-gelar-esg-workshop-perkuat-langkah-menuju-energi-berkelanjutan/",
-        "timestamp": "2025-08-24 00:00:00",
+        "title": "PGN Ensures 100% Normal Gas Supply, Boosting Industrial Operations",
+        "body": "PT Perusahaan Gas Negara Tbk (PGN) has restored 100% normal gas supply, ensuring a stable and secure supply for industrial customers, and supporting national economic growth. The company achieved this through gas swap Natuna, optimization of gas and LNG supply, and close synergy with stakeholders.",
+        "source": "https://www.ruangenergi.com/pasokan-gas-pgn-kembali-normal-industri-bisa-tancap-gas-lagi-mantap-kali-bah/",
+        "timestamp": "2025-08-25 00:00:00",
         "commodities": []
     },
     {
-        "title": "Pertamina Hulu Energi Revives Idle Well, Boosts National Oil Production",
-        "body": "PT Pertamina Hulu Energi Offshore North West Java (PHE ONWJ) has successfully revived an idle well, LLE-5ST, which has been shut-in since 2012, and achieved a production rate of 2,635 barrels of oil per day (BOPD) with a water cut of 10%. The project was completed in 37 days, faster than the target of 46.2 days, and at a cost of USD 8.69 million, which is 64.66% of the approved budget.",
-        "source": "https://www.ruangenergi.com/breaking-news-sumur-idle-hidup-kembali-produksi-2-635-bopd-di-lepas-pantai-onwj/",
-        "timestamp": "2025-08-23 00:00:00",
+        "title": "Elnusa Strengthens Its Position in the Energy Sector with Aggressive Expansion Plans",
+        "body": "PT Elnusa Tbk, a subsidiary of PT Pertamina Hulu Energi, is taking aggressive steps to strengthen its position in the energy sector, including increasing its credit facility from PT Bank Negara Indonesia (Persero) Tbk from US$50 million to US$70 million and expanding its business lines in integrated upstream oil and gas services, energy distribution and logistics, and supporting services. The company's strategy is expected to drive growth and increase its competitiveness in the industry.",
+        "source": "https://www.ruangenergi.com/dari-kredit-jumbo-ke-energi-berkelanjutan-cara-elnusa-jaga-kinerja-bisnis/",
+        "timestamp": "2025-08-25 00:00:00",
         "commodities": []
     },
     {
