@@ -1,8 +1,17 @@
-import gspread
+from dotenv import load_dotenv
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 
-SERVICE_ACCOUNT_FILE = 'keys/supertype-insider-d4710ac3561a.json'
+import gspread
+import os
+
+load_dotenv()
+
+SERVICE_ACCOUNT_DIR = os.getenv('SERVICE_ACC_DIR', '')
+
+if not SERVICE_ACCOUNT_DIR:
+    print("Service account key is not available, exiting!")
+    exit(1)
 
 # Define scope
 SCOPES = [
@@ -10,7 +19,7 @@ SCOPES = [
     'https://www.googleapis.com/auth/drive'
 ]
 
-creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_DIR, scopes=SCOPES)
 
 def createClient(): 
     client = gspread.authorize(creds)
