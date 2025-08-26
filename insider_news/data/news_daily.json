@@ -1,5 +1,12 @@
 [
     {
+        "title": "Indonesia sets up new mineral industry agency to oversee rare earths development",
+        "body": "New mineral industry agency will also oversee radioactive materials.",
+        "source": "https://www.mining.com/web/indonesia-sets-up-new-mineral-industry-agency-to-oversee-rare-earths-development/",
+        "timestamp": "2025-08-25 00:00:00",
+        "commodities": []
+    },
+    {
         "title": "Freeport Indonesia to ramp up concentrate exports ahead of ban",
         "body": "The firm has exported about 65% of the quota as of mid-August.",
         "source": "https://www.mining.com/web/freeport-indonesias-copper-concentrate-exports-may-reach-90-of-its-quota-by-september-16-official-says/",
@@ -68,15 +75,6 @@
         "source": "https://www.mining.com/web/chinese-tycoons-are-turning-indonesia-into-an-aluminum-giant/",
         "timestamp": "2025-07-10 00:00:00",
         "commodities": []
-    },
-    {
-        "title": "Indonesian minister seeks support to allow Amman to export copper concentrate",
-        "body": "Amman said in February that it had around 200,000 metric tons of concentrate inventory available for export.",
-        "source": "https://www.mining.com/web/indonesian-minister-seeks-support-to-allow-amman-to-export-copper-concentrate/",
-        "timestamp": "2025-07-07 00:00:00",
-        "commodities": [
-            "Copper"
-        ]
     },
     {
         "title": "APNI's Training to Miners 2025 Forum Educates Nickel Industry Players on Regulations and Best Practices",
@@ -174,13 +172,6 @@
         "commodities": []
     },
     {
-        "title": "Pertamina NRE's Investment in CREC Boosts Stock Price by 30%",
-        "body": "Pertamina NRE's investment in CREC on June 18 was positively received by the Philippine stock market, with CREC's stock price increasing by 30% to \u20b14.21 (around Rp 1,195 per share) as of August 15. The stock price surge reflects the market's confidence in the partnership.",
-        "source": "https://www.ruangenergi.com/tokcer-buah-manis-investasi-pertamina-nre-laba-bersih-crec-terbang-38-persen/",
-        "timestamp": "2025-08-19 00:00:00",
-        "commodities": []
-    },
-    {
         "title": "Zulfan Zahar Elected as New Chairman of Masyarakat Energi Terbarukan Indonesia (METI)",
         "body": "Zulfan Zahar has been elected as the new Chairman of Masyarakat Energi Terbarukan Indonesia (METI) for the 2025-2028 period, securing 84.9% of the votes. The new leadership is expected to focus on developing human resources and promoting transparency in the renewable energy sector to support Indonesia's national energy transition goals.",
         "source": "https://www.ruangenergi.com/sah-zulfan-zahar-terpilih-jadi-ketum-meti-2025-2028/",
@@ -232,6 +223,16 @@
         ]
     },
     {
+        "title": "Indonesian Mining Industry Embraces Sustainability and Technology",
+        "body": "The Indonesian mining industry is adopting sustainable practices and advanced technologies to minimize its environmental impact, with companies like Freeport Indonesia and Grup MIND ID utilizing real-time monitoring and control rooms to reduce emissions and increase efficiency. The industry is also exploring recycling and reusing of mining waste, and is expected to play a crucial role in the country's transition to renewable energy.",
+        "source": "https://www.ruangenergi.com/hilirisasi-mineral-tetap-mampu-jaga-kelestarian-alam-indonesia/",
+        "timestamp": "2025-08-25 00:00:00",
+        "commodities": [
+            "Copper",
+            "Coal"
+        ]
+    },
+    {
         "title": "President Prabowo Appoints Brian Yuliarto as Head of Mineral Industry Agency",
         "body": "President Prabowo Subianto has officially inaugurated Brian Yuliarto as the Head of the Mineral Industry Agency, a new institution expected to play a crucial role in Indonesia's mineral downstreaming strategy. Yuliarto, a renowned academic with expertise in nanotechnology and quantum engineering, is tasked with leading the agency, which is seen as a game-changer for Indonesia's mineral industry.",
         "source": "https://www.ruangenergi.com/dari-nano-ke-mineral-brian-yuliarto-resmi-nahkodai-badan-industri-mineral/",
@@ -239,25 +240,16 @@
         "commodities": []
     },
     {
-        "title": "PT Timah Tbk Struggles with Illegal Tin Mining, Calls for Regulatory Support",
-        "body": "PT Timah Tbk, Indonesia's state-owned tin company, faces challenges in combating illegal tin mining, which has become a deeply ingrained culture in the country. The company is taking steps to address the issue, including tightening contracts with mining partners and introducing performance-based incentives, but acknowledges that regulatory support is crucial to reversing the trend.",
-        "source": "https://www.ruangenergi.com/pareto-negatif-di-industri-timah-suhendra-yusuf-saatnya-aturan-diperketat/",
-        "timestamp": "2025-08-24 00:00:00",
-        "commodities": [
-            "Tin"
-        ]
+        "title": "Indonesian Anti-Corruption Agency Investigates Alleged Corruption in Pertamina's Oil and Gas Sector",
+        "body": "The Indonesian Anti-Corruption Agency is investigating alleged corruption in Pertamina's oil and gas sector, involving eight key witnesses, including high-ranking officials from the Ministry of Energy and Mineral Resources and Pertamina. The case is estimated to have caused state losses of hundreds of trillions of rupiah.",
+        "source": "https://www.ruangenergi.com/wow-kejagung-periksa-8-saksi-kasus-dugaan-korupsi-minyak-mentah-pertamina-termasuk-eks-dirjen-migas-dan-petinggi-skk-migas/",
+        "timestamp": "2025-08-26 00:00:00",
+        "commodities": []
     },
     {
         "title": "PGN Ensures 100% Normal Gas Supply, Boosting Industrial Operations",
         "body": "PT Perusahaan Gas Negara Tbk (PGN) has restored 100% normal gas supply, ensuring a stable and secure supply for industrial customers, and supporting national economic growth. The company achieved this through gas swap Natuna, optimization of gas and LNG supply, and close synergy with stakeholders.",
         "source": "https://www.ruangenergi.com/pasokan-gas-pgn-kembali-normal-industri-bisa-tancap-gas-lagi-mantap-kali-bah/",
-        "timestamp": "2025-08-25 00:00:00",
-        "commodities": []
-    },
-    {
-        "title": "Elnusa Strengthens Its Position in the Energy Sector with Aggressive Expansion Plans",
-        "body": "PT Elnusa Tbk, a subsidiary of PT Pertamina Hulu Energi, is taking aggressive steps to strengthen its position in the energy sector, including increasing its credit facility from PT Bank Negara Indonesia (Persero) Tbk from US$50 million to US$70 million and expanding its business lines in integrated upstream oil and gas services, energy distribution and logistics, and supporting services. The company's strategy is expected to drive growth and increase its competitiveness in the industry.",
-        "source": "https://www.ruangenergi.com/dari-kredit-jumbo-ke-energi-berkelanjutan-cara-elnusa-jaga-kinerja-bisnis/",
         "timestamp": "2025-08-25 00:00:00",
         "commodities": []
     },
@@ -276,17 +268,10 @@
         "commodities": []
     },
     {
-        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in 1H 2025",
-        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of a 20% stake in Filipino energy company Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
+        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in H1 2025",
+        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of 20% stake in Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
         "source": "https://www.ruangenergi.com/kapasitas-pembangkit-naik-14-buah-manis-investasi-pertamina-nre-di-perusahaan-energi-filipina-crec/",
         "timestamp": "2025-08-20 00:00:00",
-        "commodities": []
-    },
-    {
-        "title": "Pertamina NRE's Investment in CREC Boosts Stock Price by 30%",
-        "body": "Pertamina NRE's investment in CREC on June 18 was positively received by the Philippine stock market, with CREC's stock price increasing by 30% to \u20b14.21 (around Rp 1,195 per share) since the start of 2025. The investment has led to a significant surge in CREC's stock value, reflecting market confidence in the partnership.",
-        "source": "https://www.ruangenergi.com/tokcer-buah-manis-investasi-pertamina-nre-laba-bersih-crec-terbang-38-persen/",
-        "timestamp": "2025-08-19 00:00:00",
         "commodities": []
     }
 ]
