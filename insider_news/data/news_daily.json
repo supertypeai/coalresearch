@@ -1,5 +1,14 @@
 [
     {
+        "title": "Indonesia scraps coal pricing rules after pushback from buyers",
+        "body": "Miners will now be allowed to sell below government-set benchmarks.",
+        "source": "https://www.mining.com/web/indonesia-scraps-coal-pricing-rules-after-pushback-from-buyers/",
+        "timestamp": "2025-08-26 00:00:00",
+        "commodities": [
+            "Coal"
+        ]
+    },
+    {
         "title": "Indonesia sets up new mineral industry agency to oversee rare earths development",
         "body": "New mineral industry agency will also oversee radioactive materials.",
         "source": "https://www.mining.com/web/indonesia-sets-up-new-mineral-industry-agency-to-oversee-rare-earths-development/",
@@ -70,13 +79,6 @@
         ]
     },
     {
-        "title": "Chinese tycoons are turning Indonesia into an aluminum giant",
-        "body": "This year alone, three new alumina refineries, a key part of the aluminum production process, will begin working.",
-        "source": "https://www.mining.com/web/chinese-tycoons-are-turning-indonesia-into-an-aluminum-giant/",
-        "timestamp": "2025-07-10 00:00:00",
-        "commodities": []
-    },
-    {
         "title": "APNI's Training to Miners 2025 Forum Educates Nickel Industry Players on Regulations and Best Practices",
         "body": "The Training to Miners (TTM) 2025 forum, organized by the Indonesian Nickel Miners Association (APNI), aimed to educate nickel industry players on regulations, government policies, and current challenges in the mining sector. The three-day event featured speakers from the government, academia, and industry practitioners, providing a platform for discussion and knowledge sharing.",
         "source": "https://nikel.co.id/2025/08/21/hilmi-cipta-tambang-abadi-ttm-apni-2025-guidance-bagi-pelaku-usaha/",
@@ -103,7 +105,7 @@
     },
     {
         "title": "Indonesia's Nickel Reference Price Falls Slightly in Second Half of August 2025",
-        "body": "The Indonesian government has set the nickel reference price at US$15.012,67 per dry metric ton for the second half of August 2025, a slight decrease from the previous period. The fluctuation in prices serves as a signal for nickel industry players to adjust their production and marketing strategies, considering the reference price is a key factor in domestic transactions and royalty calculations.",
+        "body": "The Indonesian government has set the nickel reference price at $15.012 per dry metric ton for the second half of August 2025, a slight decrease from the previous period. The fluctuation in prices serves as a signal for nickel industry players to adjust their production and marketing strategies, considering the reference price is a key factor in domestic transactions and royalty calculations.",
         "source": "https://nikel.co.id/2025/08/18/hma-harga-nikel-turun-tipis/",
         "timestamp": "2025-08-18 16:54:29",
         "commodities": [
@@ -207,50 +209,38 @@
         "commodities": []
     },
     {
-        "title": "PT Pertamina International Shipping Transplants 1000 Coral Fragments in Sabang to Support Marine Biodiversity",
-        "body": "PT Pertamina International Shipping (PIS) has transplanted 1000 coral fragments in Sabang, Aceh, as part of its CSR program Marine BiodiverSEAty, aiming to support the creation of a healthy marine ecosystem. The program is expected to increase the productivity of the blue carbon ecosystem, with a potential carbon absorption of 0.4 tons per year.",
-        "source": "https://www.ruangenergi.com/aksi-nyata-pis-tanam-1000-terumbu-karang-di-titik-terujung-barat-indonesia/",
-        "timestamp": "2025-08-23 00:00:00",
-        "commodities": []
-    },
-    {
-        "title": "PLN Nusantara Power's PIJAR GEMILANG Program Achieves Circular Economy and Sustainability",
-        "body": "PLN Nusantara Power's PIJAR GEMILANG program has successfully transformed waste into valuable products, including organic fertilizers, animal feed, and hydroponic products, benefiting 55 people directly and 8,803 people indirectly, while also rehabilitating 13 hectares of critical land and reducing CO\u2082 emissions by 75,000 kg/year. The program has received national recognition, winning the TOP CSR 2025 Bintang 5 and Circular Economy Sustainability Award (CESA) 2025.",
-        "source": "https://www.ruangenergi.com/pln-nusantara-power-wujudkan-ekonomi-sirkular-lewat-trenggulunan-agro-view-dari-limbah-menjadi-berkah-untuk-desa/",
-        "timestamp": "2025-08-23 00:00:00",
-        "commodities": [
-            "Coal"
-        ]
-    },
-    {
-        "title": "Indonesian Mining Industry Embraces Sustainability and Technology",
-        "body": "The Indonesian mining industry is adopting sustainable practices and advanced technologies to minimize its environmental impact, with companies like Freeport Indonesia and Grup MIND ID utilizing real-time monitoring and control rooms to reduce emissions and increase efficiency. The industry is also exploring recycling and reusing of mining waste, and is expected to play a crucial role in the country's transition to renewable energy.",
-        "source": "https://www.ruangenergi.com/hilirisasi-mineral-tetap-mampu-jaga-kelestarian-alam-indonesia/",
-        "timestamp": "2025-08-25 00:00:00",
-        "commodities": [
-            "Copper",
-            "Coal"
-        ]
-    },
-    {
-        "title": "President Prabowo Appoints Brian Yuliarto as Head of Mineral Industry Agency",
-        "body": "President Prabowo Subianto has officially inaugurated Brian Yuliarto as the Head of the Mineral Industry Agency, a new institution expected to play a crucial role in Indonesia's mineral downstreaming strategy. Yuliarto, a renowned academic with expertise in nanotechnology and quantum engineering, is tasked with leading the agency, which is seen as a game-changer for Indonesia's mineral industry.",
-        "source": "https://www.ruangenergi.com/dari-nano-ke-mineral-brian-yuliarto-resmi-nahkodai-badan-industri-mineral/",
-        "timestamp": "2025-08-25 00:00:00",
-        "commodities": []
-    },
-    {
-        "title": "Indonesian Anti-Corruption Agency Investigates Alleged Corruption in Pertamina's Oil and Gas Sector",
-        "body": "The Indonesian Anti-Corruption Agency is investigating alleged corruption in Pertamina's oil and gas sector, involving eight key witnesses, including high-ranking officials from the Ministry of Energy and Mineral Resources and Pertamina. The case is estimated to have caused state losses of hundreds of trillions of rupiah.",
-        "source": "https://www.ruangenergi.com/wow-kejagung-periksa-8-saksi-kasus-dugaan-korupsi-minyak-mentah-pertamina-termasuk-eks-dirjen-migas-dan-petinggi-skk-migas/",
+        "title": "Pertamina's Energi Negeri 8.0 Inspires Thousands of Students Across Indonesia",
+        "body": "Pertamina's Energi Negeri 8.0, a collaborative and inspirational movement, reached 19,152 students in 80 elementary schools across 28 cities in Indonesia, with 950 volunteers participating in the event. The program aims to inspire and educate students to become future leaders and promote ecological awareness.",
+        "source": "https://www.ruangenergi.com/pertamina-drilling-ikut-berpatisipasi-dan-memberi-inspirasi-pada-kegiatan-pertamina-energi-negeri-8-0/",
         "timestamp": "2025-08-26 00:00:00",
         "commodities": []
     },
     {
-        "title": "PGN Ensures 100% Normal Gas Supply, Boosting Industrial Operations",
-        "body": "PT Perusahaan Gas Negara Tbk (PGN) has restored 100% normal gas supply, ensuring a stable and secure supply for industrial customers, and supporting national economic growth. The company achieved this through gas swap Natuna, optimization of gas and LNG supply, and close synergy with stakeholders.",
-        "source": "https://www.ruangenergi.com/pasokan-gas-pgn-kembali-normal-industri-bisa-tancap-gas-lagi-mantap-kali-bah/",
-        "timestamp": "2025-08-25 00:00:00",
+        "title": "Indonesia's Rare Earth Element Potential Remains Untapped",
+        "body": "Indonesia has a significant potential for Rare Earth Element (REE) production, with an estimated 52,000 tons of REE in Bangka, but the country still lacks a special mining permit for REE and investment to develop the industry. Meanwhile, China dominates the global REE market, producing 83% of the world's total REE output.",
+        "source": "https://www.ruangenergi.com/china-kuasai-dunia-indonesia-masih-tidur-dalam-pemanfaatan-rare-earth-element/",
+        "timestamp": "2025-08-26 00:00:00",
+        "commodities": []
+    },
+    {
+        "title": "Indonesia Establishes New Agency to Develop Rare Earth Minerals Industry",
+        "body": "President Prabowo Subianto has formed the Badan Industri Mineral (BIM) to focus on developing the country's rare earth minerals industry, with 28 potential locations identified across Indonesia, and only 30% of them have been explored. The agency, led by Brian Yuliarto, aims to drive national economic growth and support the government's strategic agenda on energy security, defense, and natural resource-based industry development.",
+        "source": "https://www.ruangenergi.com/mkei-apresiasi-langkah-presiden-prabowo-bentuk-badan-industri-mineral-mantap/",
+        "timestamp": "2025-08-26 00:00:00",
+        "commodities": []
+    },
+    {
+        "title": "Riau Provincial Government and PT KPI Unit Dumai Discuss Buffer Zone Development in Dumai",
+        "body": "The Riau Provincial Government and PT Kilang Pertamina Internasional (KPI) Unit Dumai have discussed the development of a buffer zone in Dumai, with a focus on the RT 02 area, which was initially considered affected but later deemed not affected after a Fire and Explosion Risk Assessment. The government and KPI have committed to prioritizing the safety of local residents and ensuring transparency in the development process.",
+        "source": "https://www.ruangenergi.com/pemprov-riau-dan-pt-kpi-bahas-bufferzone-dumai-ini-hasilnya-catat-ya/",
+        "timestamp": "2025-08-27 00:00:00",
+        "commodities": []
+    },
+    {
+        "title": "Indonesia's RDMP Kilang Balikpapan Refinery to Start LPG Production in September",
+        "body": "The Refinery Development Master Plan (RDMP) Kilang Balikpapan is set to start producing LPG from its LPG Treater facility in early September, with the Residual Fluid Catalytic Cracking (RFCC) unit targeted to start production in November. The refinery, a strategic national project, aims to increase Indonesia's oil refining capacity and produce more environmentally friendly fuel.",
+        "source": "https://www.ruangenergi.com/wow-mantap-proyek-rdmp-balikpapan-siap-produksi-lpg-september-rfcc-menyusul-november/",
+        "timestamp": "2025-08-27 00:00:00",
         "commodities": []
     },
     {
