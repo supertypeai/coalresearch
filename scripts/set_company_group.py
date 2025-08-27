@@ -53,7 +53,53 @@ def setTickerOn(sheet_name):
     )
     print(f"Updated {len(group_ticker_values)} rows in '*company_group' column")
 
-if __name__ == '__main__':
+def setDirectParent(sheet_name: str) -> None:
+    sql = """
+    SELECT
+        c.id AS company_id_db,
+        parent.id AS parent_id,
+        parent.name AS direct_parent
+    FROM company c
+    LEFT JOIN company_ownership co ON co.company_id = c.id
+    LEFT JOIN company parent ON parent.id = co.parent_company_id;
+    """
+    company_group_df = query(sql)
+
+    cp_sheet, cp_df = getSheetAll(sheet_name)
+    cp_df.loc[:, 'company_id'] = cp_df['company_id'].astype(int)
+
+    if '*direct_parent' not in cp_df.columns:
+        print('*direct_parent column is not available yet, please create that column first')
+        return
+
+    cp_df = cp_df.merge(company_group_df[['parent_id', 'direct_parent', 'company_id_db']], 
+                      left_on='company_id', right_on='company_id_db', how='left')
+    
+    cp_df['*direct_parent'] = cp_df['direct_parent'].where(cp_df['direct_parent'].notna(), '')
+    cp_df['*direct_parent_id'] = cp_df['parent_id'].where(cp_df['parent_id'].notna(), '')
+
+    cp_df.drop(columns='direct_parent', inplace=True)
+    cp_df.drop(columns='parent_id', inplace=True)
+
+    parent_name_col_idx = cp_df.columns.get_loc('*direct_parent')
+    parent_id_col_idx = cp_df.columns.get_loc('*direct_parent_id')
+
+    start_col_idx = parent_name_col_idx
+    end_col_idx = parent_id_col_idx
+
+    assert isinstance(start_col_idx, int)
+    assert isinstance(end_col_idx, int)
+
+    group_values_2d = cp_df[['*direct_parent', '*direct_parent_id']].values.tolist()
+
+    # Update column without clearing the sheet
+    cp_sheet.update(
+        range_name=f"{chr(65 + start_col_idx)}2:{chr(65 + end_col_idx)}{len(group_values_2d)+1}",
+        values=group_values_2d
+    )
+    print(f"Updated {len(group_values_2d)} rows in '*direct_parent' and '*direct_parent_id' columns")
+
+def setCompanyGroup() -> None:
     available_commodity = (
         'coal_performance',
         'copper_performance',
@@ -64,3 +110,9 @@ if __name__ == '__main__':
     comm_to_use = 0
     
     setTickerOn(available_commodity[comm_to_use])
+
+def setCompanyParentOnProductSheet() -> None:
+    setDirectParent('product')
+
+if __name__ == '__main__':
+    setCompanyParentOnProductSheet()
