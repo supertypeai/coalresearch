@@ -1,5 +1,12 @@
 [
     {
+        "title": "Freeport Indonesia to wrap up Gresik plant repairs by early September",
+        "body": "Freeport expects to complete early next month repair work at its JV smelter in East Java.",
+        "source": "https://www.mining.com/web/freeport-indonesia-to-wrap-up-gresik-plant-repairs-by-early-september/",
+        "timestamp": "2025-08-27 00:00:00",
+        "commodities": []
+    },
+    {
         "title": "Indonesia scraps coal pricing rules after pushback from buyers",
         "body": "Miners will now be allowed to sell below government-set benchmarks.",
         "source": "https://www.mining.com/web/indonesia-scraps-coal-pricing-rules-after-pushback-from-buyers/",
@@ -70,10 +77,10 @@
         ]
     },
     {
-        "title": "Philippine miner sees surge in nickel shipments to Indonesia",
-        "body": "Exports from the Philippines to Indonesia will likely rise to between 5 million and 10 million tons this year from around a million tons at the end of 2023.",
-        "source": "https://www.mining.com/web/philippine-miner-sees-surge-in-nickel-shipments-to-indonesia/",
-        "timestamp": "2025-07-11 00:00:00",
+        "title": "Indonesian Mining Industry Faces Challenges, Emphasizes Adaptation and Competency",
+        "body": "The Indonesian mining industry is experiencing a significant slowdown due to global price dynamics and geopolitics, with nickel and coal production declining, while gold is showing a positive trend. The industry needs to adapt and improve its competency to remain competitive, with a focus on environmental, social, and governance (ESG) issues.",
+        "source": "https://nikel.co.id/2025/08/21/prof-irwandy-industri-tambang-butuh-kompetensi-dan-strategi-hadapi-gejolak-global/",
+        "timestamp": "2025-08-21 15:43:32",
         "commodities": [
             "Nickel"
         ]
@@ -105,7 +112,7 @@
     },
     {
         "title": "Indonesia's Nickel Reference Price Falls Slightly in Second Half of August 2025",
-        "body": "The Indonesian government has set the nickel reference price at $15.012 per dry metric ton for the second half of August 2025, a slight decrease from the previous period. The fluctuation in prices serves as a signal for nickel industry players to adjust their production and marketing strategies, considering the reference price is a key factor in domestic transactions and royalty calculations.",
+        "body": "The Indonesian government has set the nickel reference price at US$15.012,67 per dry metric ton for the second half of August 2025, a slight decrease from the previous period. The fluctuation in prices serves as a signal for nickel industry players to adjust their production and marketing strategies, considering the reference price is a key factor in domestic transactions and royalty calculations.",
         "source": "https://nikel.co.id/2025/08/18/hma-harga-nikel-turun-tipis/",
         "timestamp": "2025-08-18 16:54:29",
         "commodities": [
@@ -158,15 +165,6 @@
         ]
     },
     {
-        "title": "Indonesia's Mining Sector Contributes Rp74.2 Trillion to State Revenue in H1 2025",
-        "body": "Indonesia's mining sector, led by nickel, contributed Rp74.2 trillion to state revenue in the first half of 2025, with the sector's overall revenue reaching Rp138.8 trillion, or 54.5% of the annual target. The government is optimistic that the target of Rp254.5 trillion can be achieved by the end of the year, driven by stable commodity prices and increased national production volume.",
-        "source": "https://nikel.co.id/2025/08/11/dirjen-minerba-realisasi-sektor-nikel-menunjukkan-berjalan-sesuai-rencana/",
-        "timestamp": "2025-08-11 15:57:03",
-        "commodities": [
-            "Nickel"
-        ]
-    },
-    {
         "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in 1H 2025",
         "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of a 20% stake in Filipino energy company Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
         "source": "https://www.ruangenergi.com/kapasitas-pembangkit-naik-14-buah-manis-investasi-pertamina-nre-di-perusahaan-energi-filipina-crec/",
@@ -209,10 +207,26 @@
         "commodities": []
     },
     {
-        "title": "Pertamina's Energi Negeri 8.0 Inspires Thousands of Students Across Indonesia",
-        "body": "Pertamina's Energi Negeri 8.0, a collaborative and inspirational movement, reached 19,152 students in 80 elementary schools across 28 cities in Indonesia, with 950 volunteers participating in the event. The program aims to inspire and educate students to become future leaders and promote ecological awareness.",
-        "source": "https://www.ruangenergi.com/pertamina-drilling-ikut-berpatisipasi-dan-memberi-inspirasi-pada-kegiatan-pertamina-energi-negeri-8-0/",
-        "timestamp": "2025-08-26 00:00:00",
+        "title": "Pertamina Supports 110 Young Innovators with IDR 3.7 Billion in Funding",
+        "body": "Pertamina has awarded IDR 3.7 billion in funding to 110 young innovators through its PFmuda 2025 program, which aims to support social innovation and entrepreneurship among young people. The program has received 3,485 registrations and has selected 110 proposals that address various social issues, including poverty, education, and environmental sustainability.",
+        "source": "https://www.ruangenergi.com/perkuat-ketahanan-energi-hingga-ketahanan-pangan-pertamina-kembangkan-110-inovasi-lewat-program-pfmuda/",
+        "timestamp": "2025-08-27 00:00:00",
+        "commodities": [
+            "Gold"
+        ]
+    },
+    {
+        "title": "Pertamina Launches Energy Education Program for 19,000 Students in 80 Schools Across Indonesia",
+        "body": "PT Pertamina (Persero) has collaborated with the Pertamina Peduli Community to launch the Pertamina Energi Negeri (PEN) 8.0 program, educating over 19,000 students in 80 elementary schools across Indonesia. The program, themed 'Anak Hebat, Indonesia Kuat', aims to inspire young generations to contribute to the country's development and provide educational support, including school equipment and facilities.",
+        "source": "https://www.ruangenergi.com/pertamina-energi-negeri-serentak-di-28-kota-gencarkan-edukasi-energi-untuk-19-ribu-siswa-sekolah-dasar/",
+        "timestamp": "2025-08-27 00:00:00",
+        "commodities": []
+    },
+    {
+        "title": "Indonesian Students Support National Mining Downstreaming Program",
+        "body": "Hundreds of students from nine universities in Bangka Belitung expressed their support for the national mining downstreaming program through the MediaMIND 2025 event, emphasizing the need for Indonesia to process its mineral resources domestically and export finished products to increase national revenue and strengthen the economy.",
+        "source": "https://www.ruangenergi.com/generasi-z-bangka-belitung-lantang-saatnya-tambang-indonesia-naik-kelas/",
+        "timestamp": "2025-08-28 00:00:00",
         "commodities": []
     },
     {
@@ -223,24 +237,17 @@
         "commodities": []
     },
     {
-        "title": "Indonesia Establishes New Agency to Develop Rare Earth Minerals Industry",
-        "body": "President Prabowo Subianto has formed the Badan Industri Mineral (BIM) to focus on developing the country's rare earth minerals industry, with 28 potential locations identified across Indonesia, and only 30% of them have been explored. The agency, led by Brian Yuliarto, aims to drive national economic growth and support the government's strategic agenda on energy security, defense, and natural resource-based industry development.",
-        "source": "https://www.ruangenergi.com/mkei-apresiasi-langkah-presiden-prabowo-bentuk-badan-industri-mineral-mantap/",
-        "timestamp": "2025-08-26 00:00:00",
+        "title": "Pertamina Hulu Energi Accelerates Carbon Capture Utilization and Storage Project Development",
+        "body": "PT Pertamina Hulu Energi (PHE) is pushing forward with its Carbon Capture Utilization and Storage (CCUS) project, with 13 active projects and a potential storage capacity of 7.3 Giga Tons. The company aims to develop an integrated CCUS business model, including carbon capture, transportation, compression, and storage, to support Indonesia's goal of reducing energy emissions by 69% by 2030.",
+        "source": "https://www.ruangenergi.com/pertamina-hulu-energi-gaspol-dorong-ccs-ccus-luar-biasa/",
+        "timestamp": "2025-08-28 00:00:00",
         "commodities": []
     },
     {
-        "title": "Riau Provincial Government and PT KPI Unit Dumai Discuss Buffer Zone Development in Dumai",
-        "body": "The Riau Provincial Government and PT Kilang Pertamina Internasional (KPI) Unit Dumai have discussed the development of a buffer zone in Dumai, with a focus on the RT 02 area, which was initially considered affected but later deemed not affected after a Fire and Explosion Risk Assessment. The government and KPI have committed to prioritizing the safety of local residents and ensuring transparency in the development process.",
-        "source": "https://www.ruangenergi.com/pemprov-riau-dan-pt-kpi-bahas-bufferzone-dumai-ini-hasilnya-catat-ya/",
-        "timestamp": "2025-08-27 00:00:00",
-        "commodities": []
-    },
-    {
-        "title": "Indonesia's RDMP Kilang Balikpapan Refinery to Start LPG Production in September",
-        "body": "The Refinery Development Master Plan (RDMP) Kilang Balikpapan is set to start producing LPG from its LPG Treater facility in early September, with the Residual Fluid Catalytic Cracking (RFCC) unit targeted to start production in November. The refinery, a strategic national project, aims to increase Indonesia's oil refining capacity and produce more environmentally friendly fuel.",
-        "source": "https://www.ruangenergi.com/wow-mantap-proyek-rdmp-balikpapan-siap-produksi-lpg-september-rfcc-menyusul-november/",
-        "timestamp": "2025-08-27 00:00:00",
+        "title": "Indonesian Ministry of Energy and Mineral Resources Submits 18 Names for BPH Migas Committee",
+        "body": "The Indonesian Ministry of Energy and Mineral Resources has submitted 18 names to the President for the BPH Migas Committee, which plays a crucial role in regulating and supervising the downstream oil and gas sector. The DPR RI will conduct a fit and proper test to determine the chairman and members of the committee for the 2025-2029 period.",
+        "source": "https://www.ruangenergi.com/pssst-ada-info-anyar-soal-kandidat-komite-bph-migas/",
+        "timestamp": "2025-08-28 00:00:00",
         "commodities": []
     },
     {
@@ -258,8 +265,8 @@
         "commodities": []
     },
     {
-        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in H1 2025",
-        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of 20% stake in Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
+        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in 1H 2025",
+        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of a 20% stake in Filipino energy company Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
         "source": "https://www.ruangenergi.com/kapasitas-pembangkit-naik-14-buah-manis-investasi-pertamina-nre-di-perusahaan-energi-filipina-crec/",
         "timestamp": "2025-08-20 00:00:00",
         "commodities": []
