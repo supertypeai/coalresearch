@@ -1,5 +1,14 @@
 [
     {
+        "title": "South32 sees limited risk of Indonesia replicating nickel success in alumina",
+        "body": "South32 reported a 75% surge in full-year profit on Thursday, helped by strong performance at its alumina division and higher commodity prices.",
+        "source": "https://www.mining.com/web/south32-sees-limited-risk-of-indonesia-replicating-nickel-success-in-alumina/",
+        "timestamp": "2025-08-27 00:00:00",
+        "commodities": [
+            "Nickel"
+        ]
+    },
+    {
         "title": "Freeport Indonesia to wrap up Gresik plant repairs by early September",
         "body": "Freeport expects to complete early next month repair work at its JV smelter in East Java.",
         "source": "https://www.mining.com/web/freeport-indonesia-to-wrap-up-gresik-plant-repairs-by-early-september/",
@@ -68,12 +77,21 @@
         "commodities": []
     },
     {
-        "title": "Indonesia looking at coal export levy to boost state coffers",
-        "body": "The tariff would be collected from miners only when coal prices are high, with authorities potentially including it in the 2026 budget plan.",
-        "source": "https://www.mining.com/web/indonesia-looking-at-coal-export-levy-to-boost-state-coffers/",
-        "timestamp": "2025-07-15 00:00:00",
+        "title": "Illegal Mining Remains a Major Obstacle to Nickel Industry's Decarbonization",
+        "body": "The Indonesian Nickel Miners Association (APNI) has highlighted the persistent issue of illegal mining as a major hurdle to the implementation of Environmental, Social, and Governance (ESG) principles in the nickel industry, with 11 community members currently facing legal action for protesting against illegal mining activities. APNI has called for a more realistic approach to decarbonization, emphasizing the need to address environmental and social impacts before pursuing carbon reduction goals.",
+        "source": "https://nikel.co.id/2025/08/27/apni-soroti-penambangan-ilegal-dalam-fgd-dekarbonisasi-industri-nikel/",
+        "timestamp": "2025-08-27 16:04:08",
         "commodities": [
-            "Coal"
+            "Nickel"
+        ]
+    },
+    {
+        "title": "APNI's Training to Miners 2025 Receives Positive Response from National Mining Industry",
+        "body": "The Indonesian Nickel Miners Association (APNI) held its annual Training to Miners (TTM) 2025 event, which received a positive response from national mining industry players, providing updates on industry regulations and global trends. The event aimed to enhance the competitiveness of mining companies, addressing challenges such as regulatory pressures, decreasing nickel commodity prices, and increasing production costs.",
+        "source": "https://nikel.co.id/2025/08/22/ttm-apni-2025-dinilai-informatif-pelaku-usaha-tambang-harap-regulasi-lebih-berimbang/",
+        "timestamp": "2025-08-22 10:17:46",
+        "commodities": [
+            "Nickel"
         ]
     },
     {
@@ -147,26 +165,8 @@
         ]
     },
     {
-        "title": "Indonesian Nickel Industry Leaders Discuss Challenges and Strategies for Resilience",
-        "body": "Indonesian nickel industry leaders discussed the challenges of low nickel prices, global uncertainty, and the importance of sustainable investment at the 4th Nickel Producers, Processors, and Buyers Conference in Jakarta. They emphasized the need for realistic market expectations, diversification of products and markets, and responsible mining practices to ensure the long-term sustainability of the industry.",
-        "source": "https://nikel.co.id/2025/08/12/strategi-industri-nikel-hadapi-tekanan-harga-pemimpin-industri-ungkap-arah-masa-depan-di-forum-ceo/",
-        "timestamp": "2025-08-12 17:53:59",
-        "commodities": [
-            "Nickel"
-        ]
-    },
-    {
-        "title": "SESNA Develops Renewable Energy Solutions for Nickel Smelters in Indonesia",
-        "body": "PT Sumber Energi Surya Nusantara (SESNA) is building a 300 MWp solar power plant to support decarbonization of nickel smelters in Indonesia, particularly in the Morowali industrial area. The project aims to reduce carbon emissions and meet global sustainability standards, with a target to start construction in September 2025.",
-        "source": "https://nikel.co.id/2025/08/12/sesna-bangun-smelter-nikel-terbesar-ramah-lingkungan-dengan-energi-surya/",
-        "timestamp": "2025-08-12 12:44:06",
-        "commodities": [
-            "Nickel"
-        ]
-    },
-    {
-        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in 1H 2025",
-        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of a 20% stake in Filipino energy company Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
+        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in H1 2025",
+        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of 20% stake in Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
         "source": "https://www.ruangenergi.com/kapasitas-pembangkit-naik-14-buah-manis-investasi-pertamina-nre-di-perusahaan-energi-filipina-crec/",
         "timestamp": "2025-08-20 00:00:00",
         "commodities": []
@@ -207,20 +207,27 @@
         "commodities": []
     },
     {
-        "title": "Pertamina Supports 110 Young Innovators with IDR 3.7 Billion in Funding",
-        "body": "Pertamina has awarded IDR 3.7 billion in funding to 110 young innovators through its PFmuda 2025 program, which aims to support social innovation and entrepreneurship among young people. The program has received 3,485 registrations and has selected 110 proposals that address various social issues, including poverty, education, and environmental sustainability.",
-        "source": "https://www.ruangenergi.com/perkuat-ketahanan-energi-hingga-ketahanan-pangan-pertamina-kembangkan-110-inovasi-lewat-program-pfmuda/",
-        "timestamp": "2025-08-27 00:00:00",
-        "commodities": [
-            "Gold"
-        ]
+        "title": "PT Pertamina International Shipping's Sustainability Efforts Gain Recognition",
+        "body": "PT Pertamina International Shipping (PIS) has been recognized for its significant role in promoting Indonesia's maritime industry globally, with a strong commitment to sustainability and environmental responsibility. PIS has set a target to achieve net zero carbon emissions by 2050, 10 years ahead of the Indonesian government's target, and has already reduced carbon emissions by 51,090 tons CO\u2082e in 2024.",
+        "source": "https://www.ruangenergi.com/gita-wirjawan-pis-bisa-jadi-narator-keren-untuk-industri-maritim-ri-di-kancah-dunia/",
+        "timestamp": "2025-08-28 00:00:00",
+        "commodities": []
     },
     {
-        "title": "Pertamina Launches Energy Education Program for 19,000 Students in 80 Schools Across Indonesia",
-        "body": "PT Pertamina (Persero) has collaborated with the Pertamina Peduli Community to launch the Pertamina Energi Negeri (PEN) 8.0 program, educating over 19,000 students in 80 elementary schools across Indonesia. The program, themed 'Anak Hebat, Indonesia Kuat', aims to inspire young generations to contribute to the country's development and provide educational support, including school equipment and facilities.",
-        "source": "https://www.ruangenergi.com/pertamina-energi-negeri-serentak-di-28-kota-gencarkan-edukasi-energi-untuk-19-ribu-siswa-sekolah-dasar/",
-        "timestamp": "2025-08-27 00:00:00",
+        "title": "Pertamina Supports Used Cooking Oil Collection Program in Cilacap, Reduces Environmental Pollution",
+        "body": "PT Pertamina, through its Refinery Unit IV Cilacap, has partnered with Bank Sampah Beo Asri to collect used cooking oil, with a monthly collection volume of 175 kg, generating an annual revenue of Rp12 million. The program aims to reduce environmental pollution and promote economic empowerment among local communities.",
+        "source": "https://www.ruangenergi.com/pertamina-berdayakan-bank-sampah-beo-asri-kelola-minyak-jelantah-hasilkan-energi-bersih-dan-sumber-ekonomi-bagi-880-warga-cilacap-selatan/",
+        "timestamp": "2025-08-28 00:00:00",
         "commodities": []
+    },
+    {
+        "title": "MIND ID Strengthens Strategic Role in Building Sustainable Industrial Ecosystem through Mineral Downstreaming",
+        "body": "MIND ID, through PT Indonesia Asahan Aluminium (INALUM), is promoting the downstreaming of minerals, particularly bauxite, to increase the added value of domestic mineral resources, with the potential to increase the value of bauxite from $40 to $2,800. The company is also supporting the national decarbonization agenda by substituting High-Speed Diesel with Liquefied Natural Gas, reducing greenhouse gas emissions by 3,700 tCO2e per year.",
+        "source": "https://www.ruangenergi.com/mind-id-bangun-ekosistem-industri-berkelanjutan-lewat-hilirisasi-bauksit/",
+        "timestamp": "2025-08-28 00:00:00",
+        "commodities": [
+            "Bauxite"
+        ]
     },
     {
         "title": "Indonesian Students Support National Mining Downstreaming Program",
@@ -230,24 +237,17 @@
         "commodities": []
     },
     {
-        "title": "Indonesia's Rare Earth Element Potential Remains Untapped",
-        "body": "Indonesia has a significant potential for Rare Earth Element (REE) production, with an estimated 52,000 tons of REE in Bangka, but the country still lacks a special mining permit for REE and investment to develop the industry. Meanwhile, China dominates the global REE market, producing 83% of the world's total REE output.",
-        "source": "https://www.ruangenergi.com/china-kuasai-dunia-indonesia-masih-tidur-dalam-pemanfaatan-rare-earth-element/",
-        "timestamp": "2025-08-26 00:00:00",
+        "title": "Potential Buyers of Masela LNG Express Concerns Over Delivery Schedules",
+        "body": "Potential buyers of LNG from the Masela block, operated by Inpex Masela Ltd, are expressing concerns over the reliability of delivery schedules, fearing that signed contracts may be changed mid-way. The Masela block is expected to produce 9.5 million tons of LNG per year, making it a crucial project for Indonesia's energy sector.",
+        "source": "https://www.ruangenergi.com/pembeli-lng-masela-gelisah-jangan-sampai-komitmen-berubah-di-tengah-jalan-catat-itu/",
+        "timestamp": "2025-08-29 00:00:00",
         "commodities": []
     },
     {
-        "title": "Pertamina Hulu Energi Accelerates Carbon Capture Utilization and Storage Project Development",
-        "body": "PT Pertamina Hulu Energi (PHE) is pushing forward with its Carbon Capture Utilization and Storage (CCUS) project, with 13 active projects and a potential storage capacity of 7.3 Giga Tons. The company aims to develop an integrated CCUS business model, including carbon capture, transportation, compression, and storage, to support Indonesia's goal of reducing energy emissions by 69% by 2030.",
-        "source": "https://www.ruangenergi.com/pertamina-hulu-energi-gaspol-dorong-ccs-ccus-luar-biasa/",
-        "timestamp": "2025-08-28 00:00:00",
-        "commodities": []
-    },
-    {
-        "title": "Indonesian Ministry of Energy and Mineral Resources Submits 18 Names for BPH Migas Committee",
-        "body": "The Indonesian Ministry of Energy and Mineral Resources has submitted 18 names to the President for the BPH Migas Committee, which plays a crucial role in regulating and supervising the downstream oil and gas sector. The DPR RI will conduct a fit and proper test to determine the chairman and members of the committee for the 2025-2029 period.",
-        "source": "https://www.ruangenergi.com/pssst-ada-info-anyar-soal-kandidat-komite-bph-migas/",
-        "timestamp": "2025-08-28 00:00:00",
+        "title": "Thousands of Community Oil Wells in Sumatra Contribute to National Production",
+        "body": "There are approximately 8,300 community oil wells in Sumatra, with 2,200 located in Jambi Province, contributing to national oil production. The government is currently conducting field verification to confirm the location, condition, and legal status of each well, with the aim of legalizing these wells and integrating them into the formal system.",
+        "source": "https://www.ruangenergi.com/luar-biasa-ada-8-300-sumur-minyak-rakyat-di-sumatera-jambi-jadi-penyumbang-terbanyak/",
+        "timestamp": "2025-08-29 00:00:00",
         "commodities": []
     },
     {
@@ -265,8 +265,8 @@
         "commodities": []
     },
     {
-        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in 1H 2025",
-        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of a 20% stake in Filipino energy company Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
+        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in H1 2025",
+        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of 20% stake in Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
         "source": "https://www.ruangenergi.com/kapasitas-pembangkit-naik-14-buah-manis-investasi-pertamina-nre-di-perusahaan-energi-filipina-crec/",
         "timestamp": "2025-08-20 00:00:00",
         "commodities": []
