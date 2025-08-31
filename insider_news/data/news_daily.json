@@ -51,8 +51,8 @@
         "source": "https://www.mining.com/web/nickel-surpasses-coal-as-indonesias-top-export-macquarie-says/",
         "timestamp": "2025-08-14 00:00:00",
         "commodities": [
-            "Nickel",
-            "Coal"
+            "Coal",
+            "Nickel"
         ]
     },
     {
@@ -130,7 +130,7 @@
     },
     {
         "title": "Indonesia's Nickel Reference Price Falls Slightly in Second Half of August 2025",
-        "body": "The Indonesian government has set the nickel reference price at $15.012 per dry metric ton for the second half of August 2025, a slight decrease from the previous period. The fluctuation in prices serves as a signal for nickel industry players to adjust their production and marketing strategies, considering the reference price is a key factor in domestic transactions and royalty calculations.",
+        "body": "The Indonesian government has set the nickel reference price at US$15.012,67 per dry metric ton for the second half of August 2025, a slight decrease from the previous period. The fluctuation in prices serves as a signal for nickel industry players to adjust their production and marketing strategies, considering the reference price is a key factor in domestic transactions and royalty calculations.",
         "source": "https://nikel.co.id/2025/08/18/hma-harga-nikel-turun-tipis/",
         "timestamp": "2025-08-18 16:54:29",
         "commodities": [
@@ -165,8 +165,15 @@
         ]
     },
     {
-        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in 1H 2025",
-        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of a 20% stake in Filipino energy company Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
+        "title": "Indonesia Sets Biodiesel Price Index at IDR 13,948 per Liter for September 2025",
+        "body": "The Indonesian Ministry of Energy and Mineral Resources has set the Biodiesel Price Index at IDR 13,948 per liter for September 2025, effective from September 1, 2025, based on the conversion of Crude Palm Oil to biodiesel at USD 85/MT. This move is part of the implementation of the Mandatory Biodiesel Program, aiming to support the country's energy transition.",
+        "source": "https://www.ruangenergi.com/hip-biodiesel-september-2025-ditapkan-rp-13-948-per-liter/",
+        "timestamp": "2025-08-30 00:00:00",
+        "commodities": []
+    },
+    {
+        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in H1 2025",
+        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of 20% stake in Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
         "source": "https://www.ruangenergi.com/kapasitas-pembangkit-naik-14-buah-manis-investasi-pertamina-nre-di-perusahaan-energi-filipina-crec/",
         "timestamp": "2025-08-20 00:00:00",
         "commodities": []
@@ -200,17 +207,10 @@
         "commodities": []
     },
     {
-        "title": "Pertamina Develops Bioethanol from Aren Trees to Support National Energy Transition",
-        "body": "PT Pertamina is preparing a strategic plan to develop renewable energy through the use of aren trees as a raw material for bioethanol, with a pilot project planned in several regions in Indonesia, aiming to produce 876,000 kiloliters of bioethanol per year. This initiative is expected to become a game-changer in the national energy transition and support the country's Net Zero Emission 2060 target.",
-        "source": "https://www.ruangenergi.com/mantab-pertamina-pelajari-potensi-bioetanol-dari-aren-di-sulawesi-targetkan-energi-bersih-dan-ekonomi-desa/",
-        "timestamp": "2025-08-08 00:00:00",
-        "commodities": []
-    },
-    {
-        "title": "Pertamina Launches 'Belida Musi Lestari' CSR Program to Support Sustainable Development in South Sumatra",
-        "body": "Pertamina's 'Belida Musi Lestari' CSR program aims to develop an integrated and sustainable fishery area in Desa Sungai Gerong, Banyuasin, South Sumatra, and has already created 18 integrated fishery centers, benefiting 7 vulnerable groups. The program also promotes circular economy and has produced 40 nutrition-based products, supporting the local community's economic growth and environmental sustainability.",
-        "source": "https://www.ruangenergi.com/pertamina-wujudkan-sentra-perikanan-terintegrasi-di-banyuasin-sumsel/",
-        "timestamp": "2025-08-29 00:00:00",
+        "title": "PT Kilang Pertamina Internasional Supports Community Empowerment through Coconut Flour and Biscuit Training",
+        "body": "PT Kilang Pertamina Internasional (KPI) Unit Kasim has organized a coconut flour and biscuit training program for the Kalifiti community, aiming to empower local women and improve their economic conditions. The program, which is part of KPI's corporate social responsibility initiatives, has the potential to create a positive impact on the local economy and environment.",
+        "source": "https://www.ruangenergi.com/pertamina-hadir-di-timur-indonesia-dorong-perempuan-adat-kasimle-dahulu-tidak-berdaya-kini-pengolah-sumber-daya/",
+        "timestamp": "2025-08-30 00:00:00",
         "commodities": []
     },
     {
@@ -230,18 +230,20 @@
         "commodities": []
     },
     {
-        "title": "Elnusa's ETSA Launches Frontliner Marine Training Program to Enhance Professionalism and Safety",
-        "body": "PT Elnusa Tbk's subsidiary, PT Elnusa Trans Samudera (ETSA), has launched the Frontliner Marine Training Program Batch III to equip its crew with world-class competencies and professionalism, aiming to support national energy production with a focus on safety and zero harm. The program is part of Elnusa's long-term investment in building superior human resources to maintain its competitiveness in the national and international energy industry.",
-        "source": "https://www.ruangenergi.com/12-armada-siap-tempur-elnusa-perkuat-kru-kapal-lewat-program-pelatihan-khusus/",
+        "title": "PHE ONWJ Boosts Oil Production by 570 BOPD at Uniform Field",
+        "body": "PT Pertamina Hulu Energi Offshore North West Java (PHE ONWJ) has successfully increased oil production by 570 barrels per day (BOPD) at the Uniform Field, exceeding the initial target of 276 BOPD. The achievement was made possible through the development of the UA-9 well, which was completed in just 24 days with a cost of USD 6.15 million, 60% below the approved budget.",
+        "source": "https://www.ruangenergi.com/keajaiban-di-laut-jawa-sumur-ua-9-phe-onwj-tembus-570-bopd/",
         "timestamp": "2025-08-30 00:00:00",
         "commodities": []
     },
     {
-        "title": "Indonesia's Energy Ministry Appoints New Director General of Oil and Gas to Boost National Lifting Target",
-        "body": "The Indonesian Energy Ministry has appointed Laode Sulaeman as the new Director General of Oil and Gas, tasking him to boost the country's national lifting target to 605,000 barrels by 2025, up from the current 600,000 barrels. The ministry aims to achieve this goal through improved coordination and integrity among stakeholders, as well as revisions to regulations hindering production growth.",
-        "source": "https://www.ruangenergi.com/lantik-laode-sulaeman-jadi-dirjen-migas-ini-tugas-utamanya/",
-        "timestamp": "2025-08-29 00:00:00",
-        "commodities": []
+        "title": "Indonesia Ketapang Classic 2025: Fostering Cross-Border Collaboration in the Oil and Gas Industry",
+        "body": "The Indonesia Ketapang Classic 2025 golf tournament brought together oil and gas industry players from Indonesia and Malaysia, promoting cross-border collaboration and networking in a relaxed atmosphere. The event, themed 'Nurturing Network', saw participants from both countries sharing experiences and exploring business opportunities, highlighting the importance of collaboration in the high-risk, high-investment oil and gas industry.",
+        "source": "https://www.ruangenergi.com/golf-jadi-jembatan-kolaborasi-migas-indonesia-malaysia-di-ketapang-classic-2025/",
+        "timestamp": "2025-08-30 00:00:00",
+        "commodities": [
+            "Gold"
+        ]
     },
     {
         "title": "Indonesia's Energy and Mineral Resources Sector: A Key Driver of National Development",
@@ -258,8 +260,15 @@
         "commodities": []
     },
     {
-        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in H1 2025",
-        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of 20% stake in Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
+        "title": "Indonesia Sets Biodiesel Price Index at IDR 13,948 per Liter for September 2025",
+        "body": "The Indonesian Ministry of Energy and Mineral Resources has set the Biodiesel Price Index at IDR 13,948 per liter for September 2025, effective from September 1, 2025, based on the conversion of Crude Palm Oil to biodiesel at USD 85/MT. This move is part of the implementation of the Mandatory Biodiesel Program, aiming to support the country's energy transition.",
+        "source": "https://www.ruangenergi.com/hip-biodiesel-september-2025-ditapkan-rp-13-948-per-liter/",
+        "timestamp": "2025-08-30 00:00:00",
+        "commodities": []
+    },
+    {
+        "title": "Pertamina NRE Boosts Renewable Energy Capacity, Sees 14% Increase in 1H 2025",
+        "body": "Pertamina New & Renewable Energy (Pertamina NRE) has increased its renewable energy capacity by 14% to 2,842 MW in the first half of 2025, driven by its strategic acquisition of a 20% stake in Filipino energy company Citicore Renewable Energy Corporation (CREC). CREC's revenue grew 28% to \u20b12.66 billion, with EBITDA rising 22% to \u20b1932 million and net profit jumping 38% to \u20b1630 million.",
         "source": "https://www.ruangenergi.com/kapasitas-pembangkit-naik-14-buah-manis-investasi-pertamina-nre-di-perusahaan-energi-filipina-crec/",
         "timestamp": "2025-08-20 00:00:00",
         "commodities": []
