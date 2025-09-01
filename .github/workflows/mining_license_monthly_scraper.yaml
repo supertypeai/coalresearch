@@ -26,11 +26,11 @@ jobs:
 
       - name: Execute scraper
         run: |
-          python ./scrapper/esdm_minerba.py all
+          python -m scrapper.esdm_minerba all
 
       - name: Sort mining license data
         run: |
-          python ./scrapper/sort_mining_license.py
+          python -m scrapper.sort_mining_license
 
       - name: Pull remote changes
         run: git pull origin main
