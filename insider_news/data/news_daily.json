@@ -32,13 +32,6 @@
         "commodities": []
     },
     {
-        "title": "Indonesia president signals intention to go after illegal mines",
-        "body": "Indonesia will move to \u201crectify\u201d illegal mines estimated to have caused $19 billion in state losses.",
-        "source": "https://www.mining.com/web/prabowo-signals-intention-to-go-after-illegal-mines-in-indonesia/",
-        "timestamp": "2025-08-15 00:00:00",
-        "commodities": []
-    },
-    {
         "title": "Nickel surpasses coal as Indonesia\u2019s top export, Macquarie says",
         "body": "Earnings from overseas sales of nickel products were $16.5 billion in the first half of the year.",
         "source": "https://www.mining.com/web/nickel-surpasses-coal-as-indonesias-top-export-macquarie-says/",
@@ -56,15 +49,17 @@
         "commodities": []
     },
     {
-        "title": "Vale Indonesia to seek up to $1.2 billion financing in 2026-2027",
-        "body": "The first round of financing, around $500 million, will likely come from bank loans in early 2026.",
-        "source": "https://www.mining.com/web/vale-indonesia-to-seek-up-to-1-2-billion-financing-in-2026-2027-official-says/",
-        "timestamp": "2025-07-18 00:00:00",
-        "commodities": []
+        "title": "Indonesian Nickel Mining Industry Faces Challenges with B40 Implementation and Decreasing Nickel Prices",
+        "body": "The Indonesian nickel mining industry is experiencing significant challenges due to the implementation of B40, with production costs increasing by 3-5% and nickel prices reaching a 10-year low of $15,000 per metric ton. The Indonesian Nickel Miners Association (APNI) is calling for a comprehensive evaluation of the B40 policy, citing concerns over supply chain disruptions, decreased profit margins, and reduced tax revenues.",
+        "source": "https://nikel.co.id/2025/09/02/apni-soroti-dampak-implementasi-b40-terhadap-industri-nikel-dalam-fgd-ebtke/",
+        "timestamp": "2025-09-02 13:44:01",
+        "commodities": [
+            "Nickel"
+        ]
     },
     {
         "title": "Asosiasi Penambang Nikel Indonesia Releases Nickel Price Reference for September 2025",
-        "body": "The Indonesian Nickel Miners Association (APNI) has announced a decrease in the Nickel Price Reference (HMA) for the period of September 2025, with a price of US$ 14.899,64 per dry metric ton. The association also provided detailed pricing for nickel ore with varying moisture content and nickel grades, ranging from US$ 26.34 to US$ 43.80 per wet metric ton.",
+        "body": "The Indonesian Nickel Miners Association (APNI) has announced a decrease in the nickel price reference for the period of September 2025, with the price set at $14.899,64 per dry metric ton, down from $15.012,67 per dry metric ton in the previous period. The association also provided detailed pricing for nickel ore with varying moisture content and nickel grades, ranging from 1.60% to 2.00%.",
         "source": "https://nikel.co.id/2025/09/01/apni-rilis-hma-nikel-awal-september-2025-turun-jadi-us-14-89964-per-dmt/",
         "timestamp": "2025-09-01 15:09:55",
         "commodities": [
@@ -73,7 +68,7 @@
     },
     {
         "title": "Global Nickel Prices Remain Stable, Mixed Hydroxide Precipitate Sees Significant Increase",
-        "body": "The Indonesia Nickel Price Index reported stable prices for most nickel products, with the exception of Mixed Hydroxide Precipitate, which saw a significant increase of $97 per metric ton to $12,883 due to growing demand from the electric vehicle battery industry. Nickel prices, such as bijih nikel kadar 1.2 percent and 1.6 percent, remained unchanged at $24.5 and $52.15 per metric ton, respectively, reflecting a balance between global supply and demand.",
+        "body": "The Indonesia Nickel Price Index reported stable global nickel prices, with Mixed Hydroxide Precipitate (MHP) experiencing a significant increase of $97 per metric ton to $12,883 per metric ton, driven by growing demand from the Asian battery industry for electric vehicles. Nickel ore prices remained unchanged, with 1.2% and 1.6% grade ores trading at $24.5 and $52.15 per metric ton, respectively.",
         "source": "https://nikel.co.id/2025/09/01/inpi-harga-produk-nikel-stabil-mhp-naik-us-97-per-metrik-ton/",
         "timestamp": "2025-09-01 14:30:41",
         "commodities": [
@@ -82,7 +77,7 @@
     },
     {
         "title": "Indonesia's Nickel Industry Faces Trilemma in Implementing Environmental, Social, and Governance Standards",
-        "body": "Indonesia's nickel industry is expected to face a trilemma of global demand, community price, and Environmental, Social, and Governance (ESG) standards, with companies like PT Vale Indonesia and Ceria Corp already implementing ESG standards and remaining profitable. The industry aims to achieve a win-win situation by implementing ESG standards, with a focus on reducing carbon emissions, such as Vale's 28.7 ton CO2 per ton of nickel, and developing a green nickel market.",
+        "body": "Indonesia's nickel industry is expected to face a trilemma of global demand, community price, and Environmental, Social, and Governance (ESG) standards, with companies like PT Vale Indonesia and Ceria Corp already implementing ESG standards and remaining profitable. The industry aims to achieve a win-win situation by adopting ESG standards, with a focus on reducing carbon emissions, such as Vale's 28.7 ton CO2 per ton nickel, and developing a green nickel market.",
         "source": "https://nikel.co.id/2025/08/28/trilema-jadi-tantangan-industri-nikel-dalam-penerapan-standar-esg/",
         "timestamp": "2025-08-28 12:03:50",
         "commodities": [
@@ -90,8 +85,8 @@
         ]
     },
     {
-        "title": "Indonesian Nickel Mining Sector Faces Challenges from Illegal Mining and Environmental Concerns",
-        "body": "The Indonesian nickel mining sector is struggling with the issue of illegal mining, which is hindering the implementation of Environmental, Social, and Governance (ESG) principles and causing environmental damage and social unrest. The Asosiasi Penambang Nikel Indonesia (APNI) is working to address these issues and promote a more sustainable and responsible mining industry, including the development of a roadmap for decarbonization and the involvement of stakeholders such as local communities and NGOs.",
+        "title": "Indonesian Nickel Mining Sector Faces Challenges from Illegal Mining and ESG Concerns",
+        "body": "The Indonesian nickel mining sector is struggling with the issue of illegal mining, which is hindering the implementation of Environmental, Social, and Governance (ESG) principles, with 11 community members currently facing legal action for protesting against the practice. The Asosiasi Penambang Nikel Indonesia (APNI) is working to address these issues by synchronizing regulations with international ESG standards and promoting stakeholder engagement to achieve a more sustainable and low-carbon nickel industry.",
         "source": "https://nikel.co.id/2025/08/27/apni-soroti-penambangan-ilegal-dalam-fgd-dekarbonisasi-industri-nikel/",
         "timestamp": "2025-08-27 16:04:08",
         "commodities": [
@@ -100,7 +95,7 @@
     },
     {
         "title": "Asosiasi Penambang Nikel Indonesia Holds Training to Miners 2025, Receives Positive Response from National Mining Industry Players",
-        "body": "The Asosiasi Penambang Nikel Indonesia (APNI) held its annual Training to Miners (TTM) APNI 2025, which received a positive response from national mining industry players, providing updates on regulations and industry conditions. The event aimed to support the development of the national mining industry, addressing challenges such as regulatory pressures, decreasing commodity prices, and increasing production costs.",
+        "body": "The Training to Miners (TTM) APNI 2025 event, held by the Indonesian Nickel Miners Association, provided a platform for national mining industry players to update their knowledge on the latest regulations and industry conditions, with participants expressing appreciation for the informative event. The event also highlighted the challenges faced by the mining sector, including increasing regulatory burdens and declining commodity prices, which are affecting profit margins and requiring companies to adapt to remain competitive.",
         "source": "https://nikel.co.id/2025/08/22/ttm-apni-2025-dinilai-informatif-pelaku-usaha-tambang-harap-regulasi-lebih-berimbang/",
         "timestamp": "2025-08-22 10:17:46",
         "commodities": [
@@ -109,7 +104,7 @@
     },
     {
         "title": "Indonesian Mining Industry Faces Challenges Amid Global Dynamics, with Nickel and Coal Sectors Experiencing Significant Slowdown",
-        "body": "The Indonesian mining industry, particularly the nickel and coal sectors, is currently experiencing a significant slowdown due to global price dynamics and geopolitical factors, with nickel production reaching 250 million tons annually and coal reserves valued at US$3-4 trillion. Despite the challenges, the sector is expected to remain competitive, with the gold sector showing a positive trend, and the Indonesian government emphasizing the importance of enhancing competencies and adapting to environmental, social, and governance (ESG) strategies.",
+        "body": "The Indonesian mining industry, particularly the nickel and coal sectors, is currently experiencing a significant slowdown due to global price dynamics and geopolitical factors, with nickel reserves reaching 5.9 billion tons and annual production of 250 million tons. Despite the challenges, the gold sector is showing a positive trend, with profits reaching Rp5.1 trillion by June 2025, and the industry is urged to enhance competencies and adapt to environmental, social, and governance (ESG) strategies to remain competitive.",
         "source": "https://nikel.co.id/2025/08/21/prof-irwandy-industri-tambang-butuh-kompetensi-dan-strategi-hadapi-gejolak-global/",
         "timestamp": "2025-08-21 15:43:32",
         "commodities": [
@@ -117,30 +112,41 @@
         ]
     },
     {
-        "title": "Vale Indonesia Commits to Sustainable Mining Practices and Environmental Conservation",
-        "body": "Vale Indonesia has demonstrated its commitment to sustainable mining practices by investing in low-emission technology, energy efficiency, and rehabilitation programs, resulting in the reclamation of 3,800 hectares of land and the planting of 5 million trees in Sulawesi. The company has also reduced its greenhouse gas emissions by 838,000 tons of CO\u2082 equivalent from 2022 to 2024, exceeding its target and contributing to a better environment and quality of life for the surrounding communities.",
-        "source": "https://www.ruangenergi.com/vale-indonesia-perkuat-komitmen-pertambangan-berkelanjutan/",
-        "timestamp": "2025-08-31 00:00:00",
-        "commodities": [
-            "Nickel"
-        ]
+        "title": "Kementerian ESDM Tetapkan Harga Indeks Pasar Biodiesel untuk Periode September 2025 sebesar Rp 13.948 per liter",
+        "body": "Kementerian Energi dan Sumber Daya Mineral (ESDM) menetapkan Harga Indeks Pasar (HIP) Bahan Bakar Nabati (BBN) jenis biodiesel untuk periode September 2025 sebesar Rp 13.948 per liter, ditambah ongkos angkut yang berlaku efektif mulai 1 September 2025. Penetapan HIP ini didasarkan pada konversi Crude Palm Oil (CPO) menjadi biodiesel sebesar 85 USD/MT dan rata-rata harga CPO KPB periode 25 Juli hingga 24 Agustus 2025 sebesar Rp 14.645 per kilogram.",
+        "source": "https://www.ruangenergi.com/hip-biodiesel-september-2025-ditapkan-rp-13-948-per-liter/",
+        "timestamp": "2025-08-30 00:00:00",
+        "commodities": []
     },
     {
-        "title": "MIND ID Strengthens Strategic Role in Building Sustainable Industrial Ecosystem through Mineral Hilirisasi",
-        "body": "Holding Industri Pertambangan Indonesia MIND ID is enhancing its strategic role in building a sustainable industrial ecosystem through the hilirisasi of minerals, particularly bauksit, which can increase its value from $40 to $2,800 after being processed into aluminium. Through its subsidiary PT Indonesia Asahan Aluminium (INALUM), MIND ID aims to fully utilize domestic alumina by 2025, supporting the national dekarbonization agenda and reducing greenhouse gas emissions by 3,700 tCO2e per year.",
-        "source": "https://www.ruangenergi.com/mind-id-bangun-ekosistem-industri-berkelanjutan-lewat-hilirisasi-bauksit/",
-        "timestamp": "2025-08-28 00:00:00",
-        "commodities": [
-            "Bauxite"
-        ]
+        "title": "Nilai Ekonomi Karbon membuka peluang ekonomi baru dan meningkatkan efisiensi energi di Indonesia",
+        "body": "Penerapan Nilai Ekonomi Karbon (NEK) di Indonesia dapat membantu pencapaian target iklim, meningkatkan efisiensi energi, dan mendorong adopsi teknologi rendah karbon, serta membuka peluang ekonomi baru seperti pasar kredit karbon dan penguatan daya saing industri. Dengan demikian, Indonesia dapat mempersiapkan diri menghadapi kebijakan internasional seperti Carbon Border Adjustment Mechanism (CBAM) dan meningkatkan ketahanan ekonomi rumah tangga terhadap fluktuasi harga energi di masa depan.",
+        "source": "https://www.ruangenergi.com/nilai-ekonomi-karbon-tkdn-hijau-dan-dampaknya-pada-rantai-pasok-industri-kecil-menengah-dan-rumah-tangga/",
+        "timestamp": "2025-08-11 00:00:00",
+        "commodities": []
     },
     {
-        "title": "Indonesia's mining sector faces investment uncertainty due to regulatory and security concerns, hindering economic growth and development",
-        "body": "Indonesia's rich natural resources, particularly in the energy and mineral sectors, are not being fully utilized due to investment uncertainty and security concerns, leading to a decline in production and revenue. The country's failure to provide a conducive investment climate has resulted in the departure of major investors, such as Chevron and Shell, and has hindered the development of strategic projects, ultimately affecting the nation's economic growth and reputation as an attractive investment destination.",
-        "source": "https://www.ruangenergi.com/catatan-redaksi-kepastian-dan-keamanan-berusaha-kunci-investasi-di-sektor-energi-dan-sumber-daya-mineral-indonesia/",
-        "timestamp": "2025-07-14 00:00:00",
+        "title": "PT Bukit Makmur Mandiri Utama announces the issuance of its third rupiah conventional bond, Obligasi III BUMA Tahun 2025, with a principal value of up to Rp1.4 trillion",
+        "body": "PT Bukit Makmur Mandiri Utama has announced the issuance of its third rupiah conventional bond, Obligasi III BUMA Tahun 2025, with a principal value of up to Rp1.4 trillion to be used for debt repayment, capital expenditure, and working capital. The bond issuance is part of the company's strategy to diversify its funding sources, reduce risks, and strengthen its financial resilience to support its long-term growth in the mining sector.",
+        "source": "https://www.ruangenergi.com/buma-tawarkan-obligasi-rp14-triliun-untuk-perkuat-struktur-permodalan-dan-ekspansi-tambang/",
+        "timestamp": "2025-09-03 00:00:00",
+        "commodities": []
+    },
+    {
+        "title": "Kementerian ESDM Allocates Rp8.117 Trillion for Energy Infrastructure Development and Mining Sector Enhancement in 2025",
+        "body": "The Ministry of Energy and Mineral Resources has allocated Rp8.117 trillion for energy infrastructure development, including Rp2.9 trillion for gas network expansion and Rp460 billion for solar power plant construction, aiming to enhance energy accessibility and security. The budget also covers initiatives such as education and training programs, with Rp165.6 billion allocated for vocational training in the energy and mining sector, as well as mitigation and disaster management efforts.",
+        "source": "https://www.ruangenergi.com/plts-jargas-dan-hilirisasi-program-prioritas-esdm-di-2025-senilai-rp81-triliun/",
+        "timestamp": "2025-09-04 00:00:00",
+        "commodities": []
+    },
+    {
+        "title": "Indonesia's Energy Policy Requires Long-Term Planning to Avoid Crisis and Ensure Sustainability",
+        "body": "Indonesia's energy policy has been criticized for being driven by political motives rather than careful calculation, leading to inconsistent decisions that can have long-term negative impacts on the economy and environment. The government must prioritize data-driven, sustainable, and consistent policies to ensure a stable energy supply, protect the environment, and maintain the country's competitiveness.\n}",
+        "source": "https://www.ruangenergi.com/catatan-redaksi-jangan-main-main-dengan-energi-salah-kebijakan-panjang-urusan-catat-itu/",
+        "timestamp": "2025-09-03 00:00:00",
         "commodities": [
-            "Gold"
+            "Nickel",
+            "Coal"
         ]
     }
 ]
