@@ -53,13 +53,20 @@
         "source": "https://www.mining.com/web/nickel-surpasses-coal-as-indonesias-top-export-macquarie-says/",
         "timestamp": "2025-08-14 00:00:00",
         "commodities": [
-            "Coal",
-            "Nickel"
+            "Nickel",
+            "Coal"
         ]
     },
     {
+        "title": "Indonesia discussing strategic management of critical minerals trade",
+        "body": "Indonesia is one of only a only a handful of countries to strike a deal with Washington to lower US tariffs.",
+        "source": "https://www.mining.com/web/indonesia-discussing-strategic-management-of-critical-minerals-trade/",
+        "timestamp": "2025-07-24 00:00:00",
+        "commodities": []
+    },
+    {
         "title": "Indonesia Aims to Dominate Global Nickel and Electric Vehicle Battery Industries Through Strategic National Nickel Management",
-        "body": "Indonesia has the potential to become a major player in the global nickel industry, with over 700 million tons of nickel reserves and 54 smelter facilities, and is expected to produce 414,000 tons of nickel this year. However, the industry faces challenges such as reliance on imports, fluctuating prices, and regulatory issues, which the government needs to address to ensure the competitiveness of the national nickel industry.",
+        "body": "Indonesia has the potential to become a global hub for the nickel industry, with over 700 million tons of nickel reserves and 54 operational smelter facilities, as well as 49 others under construction. The country's nickel production is expected to fluctuate, with prices predicted to range from $15,000 to $16,000 next year, and the government is urged to address high production costs and regulatory challenges to maintain a competitive industry.",
         "source": "https://nikel.co.id/2025/09/03/apni-soroti-tantangan-dan-peluang-industri-nikel-di-aeis-2025/",
         "timestamp": "2025-09-03 17:39:36",
         "commodities": [
@@ -67,8 +74,8 @@
         ]
     },
     {
-        "title": "Indonesian Government Evaluates B40 Biodiesel Program Implementation in the Mining Sector",
-        "body": "The Indonesian government, through the Directorate General of New, Renewable, and Energy Conservation, is evaluating the implementation of the B40 biodiesel program in the mining sector, which has increased production costs by 3-5% for nickel miners amidst declining nickel prices. The evaluation aims to find solutions to ensure the program's sustainability, including considering flexibility in policy and supply chain issues, with industry associations calling for regular evaluations and involvement in the decision-making process.",
+        "title": "Indonesian Government Evaluates B40 Biodiesel Program Implementation with Mining Industry Stakeholders",
+        "body": "The Indonesian government, through the Directorate General of New, Renewable, and Energy Conservation, held a discussion on the implementation of the 40% biodiesel program in the industrial sector, which has increased production costs in the nickel mining sector by 3-5%. The evaluation aims to find solutions to ensure the program's sustainability, considering factors such as global commodity prices and supply chain issues, particularly in regions like Sulawesi and Maluku.",
         "source": "https://nikel.co.id/2025/09/02/evaluasi-implementasi-b40-di-sektor-industri-dirjen-ebtke-dorong-solusi-bersama-apni-minta-libatkan-asosiasi/",
         "timestamp": "2025-09-02 15:44:02",
         "commodities": [
@@ -77,7 +84,7 @@
     },
     {
         "title": "Asosiasi Penambang Nikel Indonesia Evaluates B40 Implementation Amidst Industry Challenges",
-        "body": "The Asosiasi Penambang Nikel Indonesia (APNI) has evaluated the implementation of B40, a program that has been in effect since January 2025, and noted a 3-5% increase in production costs in the nickel mining sector. The APNI has also reported delays in supply chains in several regions, including Sulawesi Tenggara, Sulawesi Tengah, and Maluku Utara, which have impacted operational efficiency.",
+        "body": "The Asosiasi Penambang Nikel Indonesia (APNI) has evaluated the implementation of B40, a program that has been in effect since January 2025, and reported a 3-5% increase in production costs in the nickel mining sector. The APNI also noted delays in supply chains in several regions, including Sulawesi Tenggara, Sulawesi Tengah, and Maluku Utara, which have impacted production operations.",
         "source": "https://nikel.co.id/2025/09/02/apni-soroti-dampak-implementasi-b40-terhadap-industri-nikel-dalam-fgd-ebtke/",
         "timestamp": "2025-09-02 13:44:01",
         "commodities": [
@@ -85,8 +92,8 @@
         ]
     },
     {
-        "title": "Asosiasi Penambang Nikel Indonesia Releases Nickel Price Reference for September 2025, Showing a Decline from the Previous Period",
-        "body": "The Indonesian Nickel Miners Association (APNI) has announced the Nickel Price Reference (HMA) for September 2025, with a price of US$ 14.899,64 per dry metric ton, representing a decrease from the previous period's price of US$ 15.012,67 per dmt. The association also provided detailed pricing for nickel ore with varying moisture content and nickel concentrations, ranging from US$ 28,37 to US$ 43,80 per wet metric ton.",
+        "title": "Asosiasi Penambang Nikel Indonesia Releases Nickel Price Reference for September 2025, Showing a Decrease from the Previous Period",
+        "body": "The Indonesian Nickel Miners Association (APNI) has announced the Nickel Price Reference (HMA) for September 2025, with a price of US$ 14.899,64 per dry metric ton, a decrease from the previous period's US$ 15.012,67 per dmt. The association also provided detailed pricing for nickel ore with varying moisture content and nickel grades, ranging from US$ 28,37 to US$ 43,80 per wet metric ton.",
         "source": "https://nikel.co.id/2025/09/01/apni-rilis-hma-nikel-awal-september-2025-turun-jadi-us-14-89964-per-dmt/",
         "timestamp": "2025-09-01 15:09:55",
         "commodities": [
@@ -94,8 +101,8 @@
         ]
     },
     {
-        "title": "Global Nickel Prices Remain Stable, Mixed Hydroxide Precipitate Sees Significant Increase",
-        "body": "The Indonesia Nickel Price Index (INPI) reported stable global nickel prices, with Mixed Hydroxide Precipitate (MHP) experiencing a significant increase of $97 per metric ton to $12,883 per metric ton. The price stability and MHP increase reflect a balance between supply and demand, as well as growing demand from the Asian battery industry for electric vehicles, which is expected to drive production of high-value nickel products.",
+        "title": "Global Nickel Prices Remain Stable, with Mixed Hydroxide Precipitate Experiencing a Significant Increase",
+        "body": "The Indonesia Nickel Price Index reported stable global nickel prices, with the exception of Mixed Hydroxide Precipitate (MHP) which saw a significant increase of $97 per metric ton to $12,883 per metric ton. The stability in nickel prices reflects a balance between global supply and demand, while the surge in MHP prices is driven by the growing need for nickel-based battery materials in the Asian electric vehicle industry.",
         "source": "https://nikel.co.id/2025/09/01/inpi-harga-produk-nikel-stabil-mhp-naik-us-97-per-metrik-ton/",
         "timestamp": "2025-09-01 14:30:41",
         "commodities": [
@@ -103,15 +110,8 @@
         ]
     },
     {
-        "title": "Indonesia Strengthens Inclusive and Sustainable Development Agenda Through Indonesia Energy & Engineering Series 2025",
-        "body": "The Indonesia Energy & Engineering Series 2025, a multi-sector industry exhibition, aims to promote sustainability and industrial transformation, featuring over 2,000 participants from 42 countries and showcasing innovations in energy, infrastructure, and technology. The event supports the country's commitment to Net Zero Emission 2060 and highlights the importance of hilirisasi and efisiensi industri in achieving a green economy.",
-        "source": "https://nikel.co.id/2025/08/28/iee-series-2025-dorong-hilirisasi-industri-nze-hadirkan-pameran-multi-sektor-terbesar-se-asia-tenggara/",
-        "timestamp": "2025-08-28 13:05:15",
-        "commodities": []
-    },
-    {
         "title": "Indonesia's Nickel Industry Faces Trilemma in Implementing Environmental, Social, and Governance Standards",
-        "body": "Indonesia's nickel industry is expected to face a trilemma of global demand, community price, and Environmental, Social, and Governance (ESG) standards, with companies like PT Vale Indonesia and Ceria Corp already implementing ESG standards and remaining profitable. The industry aims to achieve a win-win situation for all stakeholders through the implementation of ESG standards, with a focus on reducing carbon emissions, such as Vale's 28.7 ton CO2 per ton nickel intensity.",
+        "body": "Indonesia's nickel industry is expected to face a trilemma of global demand, community price, and Environmental, Social, and Governance (ESG) standards, with companies like PT Vale Indonesia and Ceria Corp already implementing ESG standards and remaining profitable. The industry aims to achieve a win-win situation by implementing ESG standards, with a focus on reducing carbon emissions, such as Vale's 28.7 ton CO2 per ton of nickel, and developing a green nickel market.",
         "source": "https://nikel.co.id/2025/08/28/trilema-jadi-tantangan-industri-nikel-dalam-penerapan-standar-esg/",
         "timestamp": "2025-08-28 12:03:50",
         "commodities": [
@@ -119,53 +119,24 @@
         ]
     },
     {
-        "title": "Indonesian Nickel Mining Sector Faces Challenges from Illegal Mining and Environmental Concerns",
-        "body": "The Indonesian nickel mining sector is struggling with issues of illegal mining, environmental degradation, and social unrest, with 11 community members currently imprisoned for protesting against illegal mining activities. The Indonesian Nickel Miners Association (APNI) is working to address these challenges by implementing Environmental, Social, and Governance (ESG) principles and advocating for a more realistic and inclusive approach to decarbonization in the industry.",
-        "source": "https://nikel.co.id/2025/08/27/apni-soroti-penambangan-ilegal-dalam-fgd-dekarbonisasi-industri-nikel/",
-        "timestamp": "2025-08-27 16:04:08",
-        "commodities": [
-            "Nickel"
-        ]
-    },
-    {
-        "title": "Nilai Ekonomi Karbon membuka peluang ekonomi baru dan meningkatkan efisiensi energi di Indonesia",
-        "body": "Penerapan Nilai Ekonomi Karbon (NEK) di Indonesia dapat membantu pencapaian target iklim, meningkatkan efisiensi energi, dan mendorong adopsi teknologi rendah karbon, serta membuka peluang ekonomi baru melalui pasar kredit karbon dan penguatan daya saing industri. Dengan demikian, Indonesia dapat mengurangi emisi gas rumah kaca, meningkatkan ketahanan ekonomi, dan mempersiapkan industri menghadapi kebijakan internasional seperti Carbon Border Adjustment Mechanism (CBAM).",
-        "source": "https://www.ruangenergi.com/nilai-ekonomi-karbon-tkdn-hijau-dan-dampaknya-pada-rantai-pasok-industri-kecil-menengah-dan-rumah-tangga/",
-        "timestamp": "2025-08-11 00:00:00",
-        "commodities": []
-    },
-    {
-        "title": "PT Bukit Asam Enhances Local Economic Empowerment Through Desa Impian Program With Local Heroes Approach",
-        "body": "PT Bukit Asam's Desa Impian program has successfully empowered local economies, with 80 beneficiaries and a collective annual revenue of Rp3.05 billion, and has also reduced illegal mining practices by transforming non-productive land into integrated agricultural centers. The program has achieved significant results, including a 50% reduction in former illegal miners and a carbon emission reduction of 2.28 tons CO\u2082 per year, with plans to expand and integrate community products into a larger value chain.",
+        "title": "PT Bukit Asam Strengthens Local Economic Empowerment Through Desa Impian Program With Local Heroes Approach",
+        "body": "PT Bukit Asam's Desa Impian program has successfully empowered local economies, with 80 beneficiaries and a collective annual revenue of Rp3.05 billion, and has also reduced illegal mining practices by transforming non-productive land into integrated agricultural centers. The program has also achieved significant environmental benefits, including the use of 12.5 tons of recycled conveyor belt waste and a reduction of 2.28 tons of CO\u2082 emissions per year through the use of solar-powered irrigation systems.",
         "source": "https://www.ruangenergi.com/ketika-mantan-penambang-ilegal-jadi-pahlawan-desa-wow-keren/",
         "timestamp": "2025-09-06 00:00:00",
         "commodities": []
     },
     {
-        "title": "Menteri Lingkungan Hidup Applauds PT Vale Indonesia's Progressive and Sustainable Environmental Investment",
-        "body": "PT Vale Indonesia Tbk has been recognized for its commitment to environmental preservation, having reclaimed 3,800 hectares of land in Sulawesi and operated three hydroelectric power plants with a total capacity of 365 MW. The company has also successfully implemented a 3R principle for waste management, with 100% of non-B3 waste being reused or recycled in 2024.",
+        "title": "Menteri Lingkungan Hidup Apresiasi PT Vale Indonesia sebagai Contoh Investasi Lingkungan yang Progresif dan Berkelanjutan",
+        "body": "PT Vale Indonesia Tbk telah mereklamasi lahan seluas 3.800 hektare di Sulawesi dan mengoperasikan tiga Pembangkit Listrik Tenaga Air dengan total kapasitas 365 MW, serta berhasil memanfaatkan kembali 100 persen limbah non-B3 pada 2024. Menteri Lingkungan Hidup Hanif Faisol Nurofiq menempatkan Vale Indonesia sebagai contoh nyata investasi lingkungan yang progresif dan berkelanjutan, dan berharap MIND ID dapat menjadi pemimpin dan penentu standar bagi industri pertambangan nasional.",
         "source": "https://www.ruangenergi.com/investasi-lingkungan-progresif-dari-mind-id-group-diharapkan-jadi-barometer-sektor-pertambangan/",
         "timestamp": "2025-09-04 00:00:00",
-        "commodities": [
-            "Gold",
-            "Nickel"
-        ]
-    },
-    {
-        "title": "BPMA Proposes New Initiatives for 2026 to Boost National Oil and Gas Development and Support Energy Transition",
-        "body": "The Badan Pengelola Migas Aceh (BPMA) has proposed new initiatives for 2026, including a Rp3.9 billion allocation for exploration development in the North Sumatra Basin and Sibolga Basin, and a Rp4.5 billion allocation for monitoring and evaluating Carbon Capture Storage (CCS) and Carbon Capture Utilization and Storage (CCUS) in Aceh. These initiatives aim to accelerate national oil and gas development, support the energy transition agenda, and reduce carbon emissions in line with Indonesia's net zero emission target by 2060.",
-        "source": "https://www.ruangenergi.com/bpma-siapkan-langkah-strategis-2026-eksplorasi-migas-ccs-masuk-pn/",
-        "timestamp": "2025-09-07 00:00:00",
         "commodities": []
     },
     {
-        "title": "Indonesia's energy policy requires careful consideration to avoid mistakes that can have long-term consequences for the economy and the environment",
-        "body": "The Indonesian government must make informed decisions regarding energy policy, avoiding mistakes such as inconsistent regulations and a lack of investment in renewable energy, which can lead to economic losses and environmental damage. A well-planned energy policy is crucial for the country's economic growth and environmental sustainability, requiring a balanced approach that considers the needs of the people, the environment, and the economy.",
-        "source": "https://www.ruangenergi.com/catatan-redaksi-jangan-main-main-dengan-energi-salah-kebijakan-panjang-urusan-catat-itu/",
-        "timestamp": "2025-09-03 00:00:00",
-        "commodities": [
-            "Nickel",
-            "Coal"
-        ]
+        "title": "Badan Pengelola Migas Aceh Proposes New Initiatives for 2026 to Boost National Oil and Gas Development and Support Energy Transition",
+        "body": "The Badan Pengelola Migas Aceh (BPMA) has proposed new initiatives for 2026, including allocating Rp3.9 billion for exploration development in the North Sumatra Basin and Sibolga Basin, and Rp4.5 billion for monitoring and evaluating Carbon Capture Storage (CCS) and Carbon Capture Utilization and Storage (CCUS) in Aceh. These initiatives aim to accelerate national oil and gas development, support the energy transition agenda, and reduce carbon emissions in line with Indonesia's net zero emission target by 2060.",
+        "source": "https://www.ruangenergi.com/bpma-siapkan-langkah-strategis-2026-eksplorasi-migas-ccs-masuk-pn/",
+        "timestamp": "2025-09-07 00:00:00",
+        "commodities": []
     }
 ]
