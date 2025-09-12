@@ -6,23 +6,14 @@ from insider_news.models.scrape_ima          import IMANewsScraper
 from insider_news.models.scrape_nikel        import NikelCoIdScraper
 from insider_news.models.scrape_ruang_energi import RuangEnergiScraper
 from insider_news.base_model.scraper         import ScraperCollection
+from insider_news.utils.config               import LOGGER
 
 import sqlite3
 import json
 import pandas as pd
 import os
-import logging 
 import argparse
 
-
-logging.basicConfig(
-    level=logging.INFO, # Set the logging level
-    format='%(asctime)s [%(levelname)s] - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-    )
-
-LOGGER = logging.getLogger(__name__)
-LOGGER.info("Init Global Variable")
 
 
 def get_connection(db_path: str = 'db.sqlite') -> sqlite3.Connection:

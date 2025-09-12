@@ -1,15 +1,6 @@
 from langchain.chat_models import init_chat_model
 
-from dotenv import load_dotenv
-import os 
-
-
-load_dotenv(override=True)
-
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-GROQ_API_KEY1 = os.getenv("GROQ_API_KEY1")
-GROQ_API_KEY2 = os.getenv("GROQ_API_KEY2")
-GROQ_API_KEY3 = os.getenv("GROQ_API_KEY3")
+from insider_news.utils.config import GROQ_API_KEY1, GROQ_API_KEY2, GROQ_API_KEY3
 
 
 class LLMCollection:
@@ -26,57 +17,34 @@ class LLMCollection:
         """
         if cls._instance is None:
             cls._instance = super(LLMCollection, cls).__new__(cls)
-            cls._instance._llms = [
-                init_chat_model(
-                    "llama3-70b-8192",
-                    model_provider="groq",
-                    temperature=0.2,
-                    max_retries=3,
-                    api_key=GROQ_API_KEY1
-                ),
-                init_chat_model(
-                   "llama-3.3-70b-versatile",
-                    model_provider="groq",
-                    temperature=0.2,
-                    max_retries=3,
-                    api_key=GROQ_API_KEY1
-                ),
-                init_chat_model(
-                    "llama3-70b-8192",
-                    model_provider="groq",
-                    temperature=0.2,
-                    max_retries=3,
-                    api_key=GROQ_API_KEY2
-                ),
-                init_chat_model(
-                   "llama-3.3-70b-versatile",
-                    model_provider="groq",
-                    temperature=0.2,
-                    max_retries=3,
-                    api_key=GROQ_API_KEY2
-                ), 
-                init_chat_model(
-                    "llama3-70b-8192",
-                    model_provider="groq",
-                    temperature=0.2,
-                    max_retries=3,
-                    api_key=GROQ_API_KEY3
-                ),
-                init_chat_model(
-                   "llama-3.3-70b-versatile",
-                    model_provider="groq",
-                    temperature=0.2,
-                    max_retries=3,
-                    api_key=GROQ_API_KEY3
-                ), 
-                init_chat_model(
-                   "gpt-4.1-mini",
-                    model_provider="openai",
-                    temperature=0.2,
-                    max_retries=3,
-                    api_key=OPENAI_API_KEY
-                ), 
-            ]
+            
+            model_providers = {
+                "openai/gpt-oss-20b": "groq",
+                "openai/gpt-oss-120b": "groq",
+                "qwen/qwen3-32b": "groq",
+                "deepseek-r1-distill-llama-70b": "groq",
+                "llama-3.3-70b-versatile": "groq",
+                "llama-3.1-8b-instant": "groq",
+            }
+
+            groq_api_keys = [GROQ_API_KEY1, GROQ_API_KEY2, GROQ_API_KEY3]
+
+            llms= []
+            for model, provider in model_providers.items():
+                if provider == 'groq':
+                    for groq_key in groq_api_keys:
+                        llms.append(
+                            init_chat_model(
+                                model,
+                                model_provider=provider,
+                                temperature=0.2,
+                                max_retries=3,
+                                api_key=groq_key,
+                            )
+                        )
+                
+            cls._instance._llms = llms 
+
         return cls._instance
 
     def add_llm(self, llm):
