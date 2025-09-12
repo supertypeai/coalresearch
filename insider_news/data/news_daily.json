@@ -1,5 +1,14 @@
 [
     {
+        "title": "Nickel shortage, higher costs pinch Indonesian producers",
+        "body": "Permitting issues are a key reason for the ore scarcity.",
+        "source": "https://www.mining.com/nickel-shortage-higher-costs-pinch-indonesian-producers/",
+        "timestamp": "2025-09-11 00:00:00",
+        "commodities": [
+            "Nickel"
+        ]
+    },
+    {
         "title": "Indonesia\u2019s Merdeka says its gold subsidiary will launch $300M IPO",
         "body": "Its flagship mine in Pani Mountain in Sulawesi is estimated to have 7 million ounces of gold resources.",
         "source": "https://www.mining.com/web/indonesias-merdeka-copper-gold-says-its-subsidiary-will-launch-300-million-ipo/",
@@ -7,6 +16,31 @@
         "commodities": [
             "Gold"
         ]
+    },
+    {
+        "title": "Anglo-Peabody mine tussle leaves Indonesian mining firm seeking new coal assets",
+        "body": "PT Buma Internasional is still on the hunt for coal assets, as uncertainty lingers about its planned purchase of a stake in the Dawson project.",
+        "source": "https://www.mining.com/web/anglo-peabody-mine-tussle-leaves-indonesian-mining-firm-seeking-new-coal-assets/",
+        "timestamp": "2025-09-05 00:00:00",
+        "commodities": [
+            "Coal"
+        ]
+    },
+    {
+        "title": "South32 sees limited risk of Indonesia replicating nickel success in alumina",
+        "body": "South32 reported a 75% surge in full-year profit on Thursday, helped by strong performance at its alumina division and higher commodity prices.",
+        "source": "https://www.mining.com/web/south32-sees-limited-risk-of-indonesia-replicating-nickel-success-in-alumina/",
+        "timestamp": "2025-08-27 00:00:00",
+        "commodities": [
+            "Nickel"
+        ]
+    },
+    {
+        "title": "Freeport Indonesia to wrap up Gresik plant repairs by early September",
+        "body": "Freeport expects to complete early next month repair work at its JV smelter in East Java.",
+        "source": "https://www.mining.com/web/freeport-indonesia-to-wrap-up-gresik-plant-repairs-by-early-september/",
+        "timestamp": "2025-08-27 00:00:00",
+        "commodities": []
     },
     {
         "title": "Indonesia scraps coal pricing rules after pushback from buyers",
@@ -25,18 +59,15 @@
         "commodities": []
     },
     {
-        "title": "Nickel surpasses coal as Indonesia\u2019s top export, Macquarie says",
-        "body": "Earnings from overseas sales of nickel products were $16.5 billion in the first half of the year.",
-        "source": "https://www.mining.com/web/nickel-surpasses-coal-as-indonesias-top-export-macquarie-says/",
-        "timestamp": "2025-08-14 00:00:00",
-        "commodities": [
-            "Coal",
-            "Nickel"
-        ]
+        "title": "Indonesia president signals intention to go after illegal mines",
+        "body": "Indonesia will move to \u201crectify\u201d illegal mines estimated to have caused $19 billion in state losses.",
+        "source": "https://www.mining.com/web/prabowo-signals-intention-to-go-after-illegal-mines-in-indonesia/",
+        "timestamp": "2025-08-15 00:00:00",
+        "commodities": []
     },
     {
-        "title": "Asosiasi Penambang Nikel Indonesia Stresses Importance of Harga Patokan Mineral Compliance in Domestic Nickel Ore Sales",
-        "body": "The Asosiasi Penambang Nikel Indonesia (APNI) emphasized the need for strict compliance with the Harga Patokan Mineral (HPM) in domestic nickel ore sales, despite existing regulations, to ensure fair transactions and support the sustainability of Indonesia's nickel industry. APNI's efforts aim to promote good governance and marketing strategies among its members, with the goal of enhancing the industry's competitiveness in the global market.",
+        "title": "Asosiasi Penambang Nikel Indonesia Emphasizes Importance of Harga Patokan Mineral Compliance in Domestic Nickel Ore Sales",
+        "body": "The Asosiasi Penambang Nikel Indonesia (APNI) has stressed the need for strict compliance with the Harga Patokan Mineral (HPM) in domestic nickel ore sales, despite existing regulations, to ensure fair pricing and legal operations. APNI's efforts aim to promote good governance and marketing strategies in the Indonesian nickel industry, supporting its competitiveness and sustainability in the global market.",
         "source": "https://nikel.co.id/2025/09/08/apni-pentingnya-pengawasan-pelaksanaan-hpm-dalam-transaksi-penjualan-nikel/",
         "timestamp": "2025-09-08 17:34:27",
         "commodities": [
@@ -44,8 +75,17 @@
         ]
     },
     {
-        "title": "Indonesia Emphasizes Regional Collaboration to Boost Electric Vehicle Ecosystem in Southeast Asia",
-        "body": "The 2nd Automotive Electrical Indonesia Summit highlighted the importance of regional collaboration, business strategy, and sustainable energy models to strengthen the electric vehicle ecosystem in Southeast Asia, with Indonesia poised to become a major production hub. Experts emphasized the need for international cooperation, investment, and innovation to support the growth of the electric vehicle industry, leveraging Indonesia's large market and nickel resources.",
+        "title": "PT Bintang Delapan Mineral Reklamasi Lahan Pascatambang Seluas 1.337 Hektare di Morowali",
+        "body": "PT Bintang Delapan Mineral (BDM) telah melakukan reklamasi lahan pascatambang seluas 1.337 hektare di wilayah izin usaha pertambangan (IUP) Morowali, Sulawesi Tengah, sejak 2010 hingga 2025, dengan tingkat kelangsungan hidup tanaman mencapai 75%-80%. Reklamasi ini dilakukan sebagai bentuk tanggung jawab perusahaan dalam menjaga keseimbangan lingkungan pascapenambangan serta pemulihan fungsi ekologi tanah, dan telah direalisasikan pada 950 ha lahan dengan penanaman sekitar 625 bibit per ha.",
+        "source": "https://nikel.co.id/2025/09/08/bintang-delapan-mineral-reklamasi-1-337-ha-lahan-pascatambang-di-morowali/",
+        "timestamp": "2025-09-08 11:04:52",
+        "commodities": [
+            "Nickel"
+        ]
+    },
+    {
+        "title": "Indonesia Emphasizes Collaboration and Regional Strategy to Become Electric Vehicle Hub in Southeast Asia",
+        "body": "The 2nd Automotive Electrical Indonesia Summit highlighted the importance of collaboration, regional strategy, and innovation in business models to strengthen the electric vehicle ecosystem in Southeast Asia, with Indonesia poised to become a major production hub. The country's large market, nickel resources, and potential for investment in processing and exporting batteries and other EV components make it an attractive location for regional growth.",
         "source": "https://nikel.co.id/2025/09/04/kolaborasi-regional-jadi-kunci-pengembangan-ekosistem-ev-asean/",
         "timestamp": "2025-09-04 17:02:19",
         "commodities": [
@@ -54,7 +94,7 @@
     },
     {
         "title": "Nickel Industries Ltd. Expands into Class 1 Nickel Production to Support Electric Vehicle Battery Development",
-        "body": "Nickel Industries Ltd. has begun operating a project to produce class 1 nickel, a key component in electric vehicle batteries, with plans to integrate it with the local steel and metal industry and achieve commercial production by early 2026. The company's strategy aims to strengthen Indonesia's position in the global electric vehicle supply chain and support the world's energy transition efforts.",
+        "body": "Nickel Industries Ltd. has begun operating a project to produce class 1 nickel, a key component in electric vehicle batteries, with plans to integrate it with the local steel and metal industry and achieve commercial production by early 2026. The company's strategy focuses on developing nickel-based EV batteries, leveraging Indonesia's position as the world's largest nickel producer to strengthen its role in the global electric vehicle supply chain.",
         "source": "https://nikel.co.id/2025/09/04/nickel-industries-produksi-nikel-kelas-1-telah-dimulai-2023/",
         "timestamp": "2025-09-04 15:24:40",
         "commodities": [
@@ -63,7 +103,7 @@
     },
     {
         "title": "Indonesia Aims to Dominate Global Nickel and Battery Industries with Strategic National Management",
-        "body": "Indonesia has the potential to become a major player in the global nickel and battery industries, with over 700 million tons of nickel reserves and 54 smelter facilities, but faces challenges such as raw material availability and import dependence. The country's nickel production is expected to fluctuate, with prices predicted to range from $15,000 to $16,000 next year, and the government is urged to provide strategic solutions to maintain competitiveness and support the national economy.",
+        "body": "Indonesia has the potential to become a major player in the global nickel and battery industries, with over 700 million tons of nickel reserves and 54 smelter facilities, but faces challenges such as raw material availability and import dependence. The country is expected to see fluctuations in nickel prices, with predictions of $15,000 to $16,000 per ton in the next year, and the government is urged to provide strategic solutions to maintain competitive prices and support the national industry.",
         "source": "https://nikel.co.id/2025/09/03/apni-soroti-tantangan-dan-peluang-industri-nikel-di-aeis-2025/",
         "timestamp": "2025-09-03 17:39:36",
         "commodities": [
@@ -72,7 +112,7 @@
     },
     {
         "title": "Indonesian Government Evaluates B40 Biodiesel Program Implementation with Mining Industry Stakeholders",
-        "body": "The Indonesian government, through the Directorate General of New, Renewable, and Energy Conservation, held a discussion with mining industry stakeholders to evaluate the implementation of the B40 biodiesel program, which has increased production costs by 3-5% in the nickel mining sector. The evaluation aims to find solutions to ensure the program's sustainability, considering factors such as global commodity prices and supply chain disruptions, with a focus on flexibility and coordination between industry associations and government agencies.",
+        "body": "The Indonesian government, through the Directorate General of New, Renewable, and Energy Conservation, is evaluating the implementation of the B40 biodiesel program with mining industry stakeholders, considering the program's impact on production costs and supply chain disruptions. The evaluation aims to find solutions to ensure the program's sustainability, with stakeholders highlighting issues such as increased production costs of 3-5% and supply chain disruptions in regions like Sulawesi Tenggara, Sulawesi Tengah, and Maluku Utara.",
         "source": "https://nikel.co.id/2025/09/02/evaluasi-implementasi-b40-di-sektor-industri-dirjen-ebtke-dorong-solusi-bersama-apni-minta-libatkan-asosiasi/",
         "timestamp": "2025-09-02 15:44:02",
         "commodities": [
@@ -80,7 +120,7 @@
         ]
     },
     {
-        "title": "Indonesian Nickel Mining Industry Faces Challenges with B40 Implementation and Declining Nickel Prices",
+        "title": "Indonesian Nickel Mining Industry Faces Challenges with B40 Implementation and Decreasing Nickel Prices",
         "body": "The Indonesian nickel mining industry is experiencing difficulties due to the implementation of B40, with production costs increasing by 3-5% and nickel prices reaching a 10-year low of $15,000 per metric ton. The Indonesian Nickel Mining Association (APNI) is calling for a comprehensive evaluation of the B40 policy, citing concerns over supply chain disruptions, decreased profit margins, and reduced tax revenues.",
         "source": "https://nikel.co.id/2025/09/02/apni-soroti-dampak-implementasi-b40-terhadap-industri-nikel-dalam-fgd-ebtke/",
         "timestamp": "2025-09-02 13:44:01",
@@ -89,8 +129,8 @@
         ]
     },
     {
-        "title": "Asosiasi Penambang Nikel Indonesia Releases September 2025 Nickel Price Reference with a Decrease to $14.899,64 per dry metric ton",
-        "body": "The Asosiasi Penambang Nikel Indonesia (APNI) has announced the September 2025 nickel price reference, which has decreased to $14.899,64 per dry metric ton, down from $15.012,67 per dry metric ton in the previous period. The new reference price will serve as a guideline for nickel mining businesses, both for domestic transactions and exports, and will be in effect until the next price setting period.",
+        "title": "Asosiasi Penambang Nikel Indonesia Releases Nickel Price Reference for September 2025",
+        "body": "The Asosiasi Penambang Nikel Indonesia (APNI) has announced the Nickel Price Reference (HMA) for September 2025, with a price of US$ 14.899,64 per dry metric ton, a decrease from the previous period's price of US$ 15.012,67 per dmt. The HMA will serve as a reference for nickel transactions, both domestic and export, and will be in effect until the next price determination period.",
         "source": "https://nikel.co.id/2025/09/01/apni-rilis-hma-nikel-awal-september-2025-turun-jadi-us-14-89964-per-dmt/",
         "timestamp": "2025-09-01 15:09:55",
         "commodities": [
@@ -98,8 +138,8 @@
         ]
     },
     {
-        "title": "Global Nickel Prices Remain Stable, Mixed Hydroxide Precipitate Sees Significant Increase",
-        "body": "The Indonesia Nickel Price Index reported stable prices for most nickel products, with the exception of Mixed Hydroxide Precipitate, which saw a significant increase of $97 per metric ton to $12,883 per metric ton. The price stability and increase in MHP reflect the balance of global supply and demand, as well as the growing need for nickel-based battery industry products in Asia, particularly for electric vehicles.",
+        "title": "Global Nickel Prices Remain Stable, with Mixed Hydroxide Precipitate Experiencing Significant Increase",
+        "body": "The Indonesia Nickel Price Index (INPI) reported stable prices for several nickel commodities as of September 1, 2025, while Mixed Hydroxide Precipitate (MHP) saw a significant increase of $97 per metric ton to $12,883 per metric ton. The stability in nickel prices reflects a balance between global supply and demand, while the surge in MHP prices is driven by growing demand from the Asian battery industry for electric vehicles.",
         "source": "https://nikel.co.id/2025/09/01/inpi-harga-produk-nikel-stabil-mhp-naik-us-97-per-metrik-ton/",
         "timestamp": "2025-09-01 14:30:41",
         "commodities": [
@@ -107,22 +147,45 @@
         ]
     },
     {
-        "title": "Warga Binaan Lapas Nusakambangan Menghasilkan Produk Konstruksi dari Limbah Batu Bara dengan Nilai Ekonomi",
-        "body": "Warga binaan Lapas Nusakambangan telah menghasilkan produk konstruksi seperti batako, paving block, roaster, dan buis beton dari limbah batu bara dengan kapasitas produksi hingga 2 juta paving block dan 1 juta batako per tahun, berpotensi menghasilkan omzet hingga Rp5,4 miliar per tahun. Program ini merupakan kolaborasi antara Kementerian Imigrasi dan Pemasyarakatan dengan PT PLN dan telah melibatkan 30 warga binaan yang telah aktif dan terampil memproduksi olahan limbah batu bara.",
-        "source": "https://www.ruangenergi.com/wajah-baru-nusakambangan-warga-binaan-makin-berdaya-dengan-faba/",
-        "timestamp": "2025-09-10 00:00:00",
+        "title": "Sumur Migas Tua Bisa Disulap Menjadi Sumber Listrik Ramah Lingkungan Melalui Teknologi Pembangkit Listrik Tenaga Panas Bumi",
+        "body": "Pakar migas dan panas bumi, Rudi Rubiandini, menyatakan bahwa sumur-sumur tua yang masih menyimpan panas bumi bisa disulap menjadi sumber listrik ramah lingkungan lewat teknologi Pembangkit Listrik Tenaga Panas Bumi (PLTP) dengan konsep geothermal co-production. Indonesia dan India menjajaki peluang kerja sama untuk mengadaptasi teknologi ini, dengan potensi besar untuk mengkonversi ribuan sumur migas tua menjadi sumber energi hijau.",
+        "source": "https://www.ruangenergi.com/tim-itb-terbang-ke-india-cari-cara-ubah-sumur-migas-jadi-mesin-listrik-hijau/",
+        "timestamp": "2025-09-03 00:00:00",
+        "commodities": []
+    },
+    {
+        "title": "ANTAM's Profitability Surges 240% in the First Semester of 2025, Driven by Strong Gold and Nickel Performance",
+        "body": "PT Aneka Tambang Tbk (ANTM) reported a 240% increase in profitability in the first semester of 2025, driven by strong performance in gold and nickel, with gold sales rising 163% to Rp49.54 trillion. The company's EBITDA also increased significantly by 194% to Rp7.11 trillion, reflecting the implementation of its strategy to strengthen its domestic customer base and effective business strategies.",
+        "source": "https://www.ruangenergi.com/lonjakan-laba-antam-prospek-saham-grup-mind-id-makin-solid-didukung/",
+        "timestamp": "2025-09-11 00:00:00",
         "commodities": [
+            "Nickel"
+        ]
+    },
+    {
+        "title": "Indonesia's energy policy requires careful decision-making to avoid crises and ensure a sustainable future for its economy and environment",
+        "body": "Indonesia's history of inconsistent energy policies, such as fluctuating subsidies and stop-and-go approaches to mineral exports, has hindered the development of its energy sector and led to economic losses. The government must prioritize data-driven, sustainable, and consistent decision-making to navigate the challenges of providing sufficient energy while promoting environmental protection and maintaining the country's competitiveness.",
+        "source": "https://www.ruangenergi.com/catatan-redaksi-jangan-main-main-dengan-energi-salah-kebijakan-panjang-urusan-catat-itu/",
+        "timestamp": "2025-09-03 00:00:00",
+        "commodities": [
+            "Nickel",
             "Coal"
         ]
     },
     {
-        "title": "Menteri Lingkungan Hidup Applauds PT Vale Indonesia's Progressive and Sustainable Environmental Investment",
-        "body": "PT Vale Indonesia Tbk has been recognized for its commitment to environmental preservation, having reclaimed 3,800 hectares of land in Sulawesi and operated three hydroelectric power plants with a total capacity of 365 MW. The company has also successfully implemented a 3R principle to manage all hazardous and non-hazardous waste, with 100% of non-hazardous waste being reused in 2024.",
-        "source": "https://www.ruangenergi.com/investasi-lingkungan-progresif-dari-mind-id-group-diharapkan-jadi-barometer-sektor-pertambangan/",
-        "timestamp": "2025-09-04 00:00:00",
+        "title": "Indonesia's Energy and Mineral Resources Sector Remains Crucial for National Development as the Country Celebrates its 80th Anniversary",
+        "body": "The energy and mineral resources sector in Indonesia continues to play a vital role in the country's economic growth, industrial development, and energy security, with its contributions extending beyond production to include issues of equity and justice. As the country looks to the future, the sector's transition to new and renewable energy sources, energy self-sufficiency, and sustainable exploration and production will be crucial in achieving Indonesia's development goals, including Net Zero Emission and the Indonesia Emas 2045 vision.",
+        "source": "https://www.ruangenergi.com/catatan-redaksi-esdm-untuk-indonesia-emas/",
+        "timestamp": "2025-08-07 00:00:00",
         "commodities": [
-            "Gold",
-            "Nickel"
+            "Gold"
         ]
+    },
+    {
+        "title": "Pertamina Develops Green Hydrogen Pilot Plant in Ulubelu, Lampung, to Support Indonesia's Energy Transition and Reduce Carbon Emissions",
+        "body": "Pertamina has invested $3 million in the development of a Green Hydrogen Pilot Plant in Ulubelu, Lampung, which is expected to create new job opportunities, reduce carbon emissions, and support Indonesia's energy transition goals. The project is part of Pertamina's strategy to develop a green hydrogen ecosystem, with plans to expand to other geothermal working areas and explore the production of green ammonia and green methanol.",
+        "source": "https://www.ruangenergi.com/green-hydrogen-ulubelu-ciptakan-serapan-tenaga-kerja-dan-investasi-energi-bersih/",
+        "timestamp": "2025-09-11 00:00:00",
+        "commodities": []
     }
 ]
