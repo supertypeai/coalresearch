@@ -3,9 +3,6 @@ from selenium.webdriver.chrome.service  import Service
 from webdriver_manager.chrome           import ChromeDriverManager
 from bs4                                import BeautifulSoup
 from urllib.parse                       import urljoin
-from sumy.summarizers.lex_rank          import LexRankSummarizer
-from sumy.parsers.plaintext             import PlaintextParser
-from sumy.nlp.tokenizers                import Tokenizer
 from selenium                           import webdriver
 from selenium.webdriver.common.by       import By
 from selenium.webdriver.support.ui      import WebDriverWait
@@ -15,9 +12,10 @@ from datetime                           import datetime, timedelta
 
 from scrapper.esdm_minerba                          import COMMODITY_MAP
 from insider_news.preprocessing_llm.scoring_engine  import get_scoring_news
+from insider_news.preprocessing_llm.summary_engine  import get_summary
+from insider_news.utils.config                      import LOGGER
 
 import pandas as pd
-import logging
 import time
 import re 
 import nltk 
@@ -28,16 +26,6 @@ nltk.download('punkt', quiet=True)
 nltk.download('punkt_tab', quiet=True)
 nltk.download('stopwords', quiet=True)
 
-logging.basicConfig(
-    # filename='app.log',
-    level=logging.INFO,  # Set the logging level
-    format='%(asctime)s [%(levelname)s] - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
-
-
-LOGGER = logging.getLogger(__name__)
-LOGGER.info("Init Global Variable")
 
 # --- Configuration ---
 BASE_URL = "https://coalmetal.asia"
@@ -78,7 +66,6 @@ def bypass_first_visit(url: str, timeout: float = 20.0) -> str:
     """
     driver = get_driver()
     
-    # Default return value
     html_content = None  
 
     try:
@@ -94,7 +81,6 @@ def bypass_first_visit(url: str, timeout: float = 20.0) -> str:
             thanks_button.click()
             time.sleep(timeout)
         except TimeoutException:
-            # means the pop-up didn't appear.
             LOGGER.warning("No pop-up found, continuing...")
 
         # Wait for the main article container to load
@@ -116,7 +102,6 @@ def bypass_first_visit(url: str, timeout: float = 20.0) -> str:
         LOGGER.error(f"An unexpected error occurred for URL {url}: {error}")
 
     finally:
-        # Close the browser to prevent memory leaks
         driver.quit()
         
     return html_content
@@ -264,25 +249,6 @@ def run_extract_commodities(title: str, body: str, full_body: str = None) -> lis
     return quick_matches
 
 
-def get_summarize_article(text: str, sentences_count: int = 2) -> str:
-    """  
-    Summarizes the given text using LexRank summarization.
-
-    Args:
-        text (str): The text to summarize.
-        sentences_count (int): The number of sentences to include in the summary.
-    
-    Returns:
-        str: The summarized text.
-    """
-    # Create a parser for the text
-    parser = PlaintextParser.from_string(text, Tokenizer('english'))        
-    summarizer = LexRankSummarizer()
-    # Summarize the text using LexRank
-    summary = summarizer(parser.document, sentences_count)
-    return ' '.join([str(sentence) for sentence in summary])
-
-
 def manual_scoring_time(date: str) -> int: 
     """ 
     Manually scores the article based on its publication date.
@@ -307,12 +273,10 @@ def manual_scoring_time(date: str) -> int:
 
     # Score 3: Recent (published within the last week)
     elif time_difference <= timedelta(days=7):
-        # Representative score for the 6-8 range
         return 3 
 
     # Score 2: Somewhat recent (published within the last 2 weeks)
     elif time_difference <= timedelta(days=14):
-        # Representative score for the 3-5 range
         return 2 
 
     # Score 1: Outdated (more than 2 weeks old)
@@ -340,8 +304,8 @@ def get_article_contents(article_links: list[str]) -> list[dict]:
             html_parsed = BeautifulSoup(html_content, 'html.parser')
 
             # Extract title
-            title_tag = html_parsed.find('p', class_='lg:text-4xl')
-            title = title_tag.get_text(strip=True) if title_tag else "Title not found"
+            # title_tag = html_parsed.find('p', class_='lg:text-4xl')
+            # title = title_tag.get_text(strip=True) if title_tag else "Title not found"
         
             # Extract category and date
             meta_p = html_parsed.find('p', class_='lg:text-xs')
@@ -370,13 +334,15 @@ def get_article_contents(article_links: list[str]) -> list[dict]:
                 article_text = "\n\n".join([paragraph.get_text(strip=True) for paragraph in paragraphs])
 
             # Get summarize from article content
-            summarize_article = get_summarize_article(article_text)
+            raw_summary = get_summary(article_text, article_url)
+            title = raw_summary.get('title')
+            body = raw_summary.get('body')
             
             # Get commodity terms on article
-            commodities = run_extract_commodities(title, summarize_article, article_text)
+            commodities = run_extract_commodities(title, body, article_text)
             
             # Get scoring system
-            scoring_result = get_scoring_news(title, summarize_article, cleaned_date)
+            scoring_result = get_scoring_news(title, body, cleaned_date)
             scoring_result = scoring_result.get('news_score')
             manual_score = manual_scoring_time(cleaned_date)
             final_score = scoring_result + manual_score
@@ -384,7 +350,7 @@ def get_article_contents(article_links: list[str]) -> list[dict]:
             # Output
             all_articles_data.append({
                 "title": title,
-                "body": summarize_article,
+                "body": body,
                 "source": article_url,
                 "timestamp": cleaned_date,
                 "commodities": commodities, 
@@ -415,6 +381,6 @@ def run_coalmetal_scraping(initial_run: bool, limit_articles: int) -> pd.DataFra
 
 
 if __name__ == '__main__':
-    df = run_coalmetal_scraping(False, limit_articles=10)
+    df = run_coalmetal_scraping(False, limit_articles=2)
     df.to_csv('coalmetal_news_test.csv', index=False)
     
