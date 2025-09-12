@@ -1,4 +1,4 @@
-name: Mining CoalMetal Weekly Pipeline
+name: Mining News Weekly Pipeline
 
 on:
   schedule:
@@ -45,6 +45,9 @@ jobs:
           chrome-version: 'latest'
           # also installs the matching ChromeDriver binary
           install-chromedriver: true
+          
+      - name: Pull Latest Changes
+        run: git pull origin main
 
       - name: Run Mining News and CoalMetal Scraping and Push Local
         run: python -m insider_news.scripts.pipeline --scrape-coalmetal --db db.sqlite --limit-coalmetal 5 --minimum-score 65
@@ -52,14 +55,13 @@ jobs:
       - name: Run Archive Old News
         run: python -m insider_news.scripts.pipeline --archive
 
-      - name: Pull Latest Changes
-        run: git pull origin main
-
       - name: Commit and Update Database
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          
           git add db.sqlite insider_news/data/
+
           git diff-index --quiet HEAD \
             || git commit -m "chore: daily scrape of mining news, update db.sqlite, and archive old data" --allow-empty
 
