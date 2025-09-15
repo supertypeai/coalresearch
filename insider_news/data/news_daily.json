@@ -54,15 +54,8 @@
         ]
     },
     {
-        "title": "Freeport Indonesia to wrap up Gresik plant repairs by early September",
-        "body": "Freeport expects to complete early next month repair work at its JV smelter in East Java.",
-        "source": "https://www.mining.com/web/freeport-indonesia-to-wrap-up-gresik-plant-repairs-by-early-september/",
-        "timestamp": "2025-08-27 00:00:00",
-        "commodities": []
-    },
-    {
-        "title": "Indonesia Eyes Global Nickel Leadership Amid Smelter Expansion and Price Forecasts",
-        "body": "APNI\u2019s Meidy Katrin Lengkey highlighted Indonesia\u2019s 414,000\u2011ton nickel consumption and 54 operating smelters (plus 49 under construction) as the country positions itself to dominate the global battery and stainless\u2011steel supply chain, while noting a 700\u2011million\u2011ton smelter demand and reliance on Philippine imports. She warned of a shift from a three\u2011year RKAB to a one\u2011year plan, projected 2026 start, and forecasted nickel\u2011based product prices at $15,000\u2013$16,000 next year, urging government action to keep costs competitive and avoid investment\u2011climate disruptions.",
+        "title": "Indonesia Aims to Dominate Global Nickel Supply Chain Amid Smelter Expansion and Price Forecasts",
+        "body": "APNI\u2019s Meidy Katrin Lengkey highlighted Indonesia\u2019s 414,000\u2011ton nickel consumption and 54 operating smelters (plus 49 under construction and 5 export\u2011focused) as the country positions itself to meet a projected 700\u2011million\u2011ton smelter demand this year, while warning of raw\u2011material shortages and a shift from a three\u2011year to a one\u2011year RKAB cycle. She projected next\u2011year nickel\u2011based product prices at $15,000\u2013$16,000 per ton and urged government action to keep costs competitive and secure the full value chain from NPI and MHP to EV battery production.",
         "source": "https://nikel.co.id/2025/09/03/apni-soroti-tantangan-dan-peluang-industri-nikel-di-aeis-2025/",
         "timestamp": "2025-09-03 17:39:36",
         "commodities": [
@@ -70,10 +63,19 @@
         ]
     },
     {
-        "title": "Indonesia Nickel Mining Sector Faces Rising Costs and Supply Challenges Amid Biodiesel B40 Program Review",
-        "body": "The Ministry of Energy and Mineral Resources convened a forum to assess the 40% biodiesel (B40) mandate, noting a 3\u20135% rise in nickel smelter production costs amid a 15,000\u2011per\u2011ton drop in nickel prices and added export and tax regulations. Stakeholders called for quarterly evaluations, supply chain guarantees, and potential policy flexibility ahead of a forthcoming B50 shift to avoid burdening the industry.",
+        "title": "Indonesia's B40 Biodiesel Policy Faces Challenges in Nickel Mining Sector",
+        "body": "A government forum led by the EBTKE Director General highlighted that the 40% biodiesel mandate has added 3\u20135% production costs to nickel mining, amid a 15\u2011thousand\u2011per\u2011ton drop in nickel prices and new export and tax regulations. Stakeholders called for quarterly evaluations, supply\u2011chain safeguards, and policy flexibility to address upcoming B50 considerations and prevent operational disruptions.",
         "source": "https://nikel.co.id/2025/09/02/evaluasi-implementasi-b40-di-sektor-industri-dirjen-ebtke-dorong-solusi-bersama-apni-minta-libatkan-asosiasi/",
         "timestamp": "2025-09-02 15:44:02",
+        "commodities": [
+            "Nickel"
+        ]
+    },
+    {
+        "title": "Indonesia Nickel Price Index Shows Stable Nickel Prices, but MHP Prices Surge Amid EV Battery Demand",
+        "body": "The INPI/Shanghai Metals Market report for September 1, 2025 indicates that nickel ore prices (1.2% CIF at $23.5\u2013$25.5/mt, 1.6% CIF at $50.5\u2013$53.8/mt) and downstream products such as NPI ($115.5/mt FOB) and high\u2011grade matte ($13,260/mt) remain unchanged, while Mixed Hydroxide Precipitate (MHP) prices jump $97 to $12,883/mt FOB, reflecting heightened demand from Asia\u2019s EV battery sector. This price spike suggests that nickel downstream operators will increasingly prioritize MHP and other high\u2011value products as the clean\u2011energy transition accelerates.",
+        "source": "https://nikel.co.id/2025/09/01/inpi-harga-produk-nikel-stabil-mhp-naik-us-97-per-metrik-ton/",
+        "timestamp": "2025-09-01 14:30:41",
         "commodities": [
             "Nickel"
         ]
