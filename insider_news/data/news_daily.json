@@ -1,20 +1,20 @@
 [
     {
+        "title": "Gold miner seeks $284 million in largest Indonesia IPO this year",
+        "body": "PT Merdeka Gold Resources will offer 1.62 billion shares, or a 10% stake.",
+        "source": "https://www.mining.com/web/gold-miner-seeks-284-million-in-largest-indonesia-ipo-this-year/",
+        "timestamp": "2025-09-16 00:00:00",
+        "commodities": [
+            "Gold"
+        ]
+    },
+    {
         "title": "Indonesia\u2019s United Tractors seeks expansion with gold miner acquisition",
         "body": "Indonesian heavy machinery distributor PT United Tractors is acquiring a 100% stake in PT Arafura Surya Alam.",
         "source": "https://www.mining.com/web/indonesias-united-tractors-seeks-expansion-with-gold-miner-acquisition/",
         "timestamp": "2025-09-15 00:00:00",
         "commodities": [
             "Gold"
-        ]
-    },
-    {
-        "title": "Indonesia cites lack of forestry permits in land seizures from nickel miners",
-        "body": "President Prabowo Subianto said last week that more than 1,000 illegal mining operations were identified.",
-        "source": "https://www.mining.com/web/indonesia-cites-lack-of-forestry-permits-in-land-seizures-from-nickel-miners/",
-        "timestamp": "2025-09-12 00:00:00",
-        "commodities": [
-            "Nickel"
         ]
     },
     {
@@ -45,28 +45,28 @@
         ]
     },
     {
-        "title": "Anglo-Peabody mine tussle leaves Indonesian mining firm seeking new coal assets",
-        "body": "PT Buma Internasional is still on the hunt for coal assets, as uncertainty lingers about its planned purchase of a stake in the Dawson project.",
-        "source": "https://www.mining.com/web/anglo-peabody-mine-tussle-leaves-indonesian-mining-firm-seeking-new-coal-assets/",
-        "timestamp": "2025-09-05 00:00:00",
-        "commodities": [
-            "Coal"
-        ]
-    },
-    {
-        "title": "Indonesia Aims to Dominate Global Nickel Supply Chain Amid Production Expansion and Import Challenges",
-        "body": "APNI\u2019s Meidy Katrin Lengkey highlighted Indonesia\u2019s 414k\u2011ton nickel consumption and 54 active smelters (plus 49 under construction) as the country positions itself to meet a projected 700m\u2011ton demand this year, while noting reliance on Philippine imports and a shift from a 3\u2011year to a 1\u2011year RKAB plan that may delay policy support until 2026. She forecasted nickel prices at $15,000\u2013$16,000 next year and urged government action to keep production costs competitive, stressing that Indonesia must add value through NPI, MHP, and battery manufacturing to fully capture the economic benefits.",
-        "source": "https://nikel.co.id/2025/09/03/apni-soroti-tantangan-dan-peluang-industri-nikel-di-aeis-2025/",
-        "timestamp": "2025-09-03 17:39:36",
+        "title": "Antam Posts 240% Surge in 1H 2025 Net Profit, Nickel Segment Drives Record Sales and ESG Milestones",
+        "body": "PT Antam\u2019s first\u2011half 2025 net profit jumped 240% to Rp5.14\u202ftrillion, largely thanks to a nickel boom that delivered Rp3.53\u202ftrillion in profit, 125% sales growth to Rp7.87\u202ftrillion, and 9.10\u202fMt of ore production, while gold sales rose 163% to Rp49.54\u202ftrillion. The company also advanced its ESG agenda with a 2030 decarbonization roadmap, 75% land rehabilitation, and a new alumina smelter project in Mempawah, positioning Antam as a leading Indonesian mining player.",
+        "source": "https://nikel.co.id/2025/09/16/nikel-dorong-lonjakan-laba-pt-antam-240-pada-semester-i-2025/",
+        "timestamp": "2025-09-16 15:16:36",
         "commodities": [
             "Nickel"
         ]
     },
     {
-        "title": "Indonesia's Nickel Mining Sector Faces Rising Costs as B40 Biodiesel Program Under Review",
-        "body": "The Ministry of Energy and Mineral Resources is evaluating the 40% biodiesel (B40) mandate, noting a 3\u20135% rise in nickel mining production costs amid a 15,000\u2011t/ton drop in nickel prices and added export\u2011regulation burdens. Stakeholders call for quarterly reviews, supply\u2011chain guarantees, and policy flexibility to avoid further strain on smelters and prepare for a potential 50% biodiesel (B50) shift next year.",
-        "source": "https://nikel.co.id/2025/09/02/evaluasi-implementasi-b40-di-sektor-industri-dirjen-ebtke-dorong-solusi-bersama-apni-minta-libatkan-asosiasi/",
-        "timestamp": "2025-09-02 15:44:02",
+        "title": "Indonesia Nickel HPM Climbs to $15,000.33/dmt in September 2025",
+        "body": "Indonesia's Association of Nickel Miners (APNI) reported that the benchmark price for nickel (HPM) rose to US$15,000.33 per dry metric ton in the second September 2025 period, up from US$14,899.64 in the first period, while FOB prices for 1.60% Ni ore ranged from US$28.56 to US$26.52 per wet metric ton depending on moisture content. The increase reflects a positive global market trend and is expected to support investment climate, fairness, and transparency in the domestic nickel industry.",
+        "source": "https://nikel.co.id/2025/09/15/harga-patokan-nikel-naik-jadi-us-15-00033-per-dmt-pada-september-periode-ii/",
+        "timestamp": "2025-09-15 13:34:33",
+        "commodities": [
+            "Nickel"
+        ]
+    },
+    {
+        "title": "Indonesia Seeks to Dominate Global Nickel Supply Chain Amid Production Expansion and Import Challenges",
+        "body": "APNI\u2019s Meidy Katrin Lengkey highlighted Indonesia\u2019s 414,000\u2011ton nickel consumption and 54 operating smelters (plus 49 under construction) as the country positions itself to meet a projected 700\u2011million\u2011ton demand this year, while noting reliance on Philippine imports for magnesium\u2011rich nickel and a shift of the 3\u2011year RKAB to a 1\u2011year plan that may not start until 2026. She warned that nickel sulphate, pure nickel and NPI prices could hover between US$15,000\u2013$16,000 next year, urging the government to provide strategic solutions to keep prices competitive and avoid high production costs that could deter investment.",
+        "source": "https://nikel.co.id/2025/09/03/apni-soroti-tantangan-dan-peluang-industri-nikel-di-aeis-2025/",
+        "timestamp": "2025-09-03 17:39:36",
         "commodities": [
             "Nickel"
         ]
