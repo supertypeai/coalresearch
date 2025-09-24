@@ -1,6 +1,6 @@
 [
     {
-        "title": "Merdeka Gold set for debut after Indonesia\u2019s largest IPO of year",
+        "title": "Merdeka Gold shares jump by limit after Indonesia\u2019s biggest IPO",
         "body": "Merdeka raised 4.66 trillion rupiah ($281 million) by selling a 10% stake in the IPO.",
         "source": "https://www.mining.com/web/merdeka-gold-set-for-debut-after-indonesias-largest-ipo-of-year/",
         "timestamp": "2025-09-22 00:00:00",
@@ -27,24 +27,6 @@
         ]
     },
     {
-        "title": "Indonesia cites lack of forestry permits in land seizures from nickel miners",
-        "body": "President Prabowo Subianto said last week that more than 1,000 illegal mining operations were identified.",
-        "source": "https://www.mining.com/web/indonesia-cites-lack-of-forestry-permits-in-land-seizures-from-nickel-miners/",
-        "timestamp": "2025-09-12 00:00:00",
-        "commodities": [
-            "Nickel"
-        ]
-    },
-    {
-        "title": "Nickel price gains after Indonesia seizes part of giant mine",
-        "body": "A government task force took control on Thursday of about 148 hectares of the operation owned by PT Weda Bay Nickel.",
-        "source": "https://www.mining.com/web/nickel-price-gains-after-indonesia-seizes-part-of-giant-tsingshan-mine/",
-        "timestamp": "2025-09-12 00:00:00",
-        "commodities": [
-            "Nickel"
-        ]
-    },
-    {
         "title": "Nickel shortage, higher costs pinch Indonesian producers",
         "body": "Permitting issues are a key reason for the ore scarcity.",
         "source": "https://www.mining.com/nickel-shortage-higher-costs-pinch-indonesian-producers/",
@@ -54,17 +36,8 @@
         ]
     },
     {
-        "title": "Indonesia\u2019s Merdeka says its gold subsidiary will launch $300M IPO",
-        "body": "Its flagship mine in Pani Mountain in Sulawesi is estimated to have 7 million ounces of gold resources.",
-        "source": "https://www.mining.com/web/indonesias-merdeka-copper-gold-says-its-subsidiary-will-launch-300-million-ipo/",
-        "timestamp": "2025-09-08 00:00:00",
-        "commodities": [
-            "Gold"
-        ]
-    },
-    {
-        "title": "Antam Posts 240% Profit Surge in 1H25, Nickel Drives Record Sales and ESG Commitments Strengthen Position",
-        "body": "Antam\u2019s net profit jumped 240% to Rp5.14\u202ftrillion in the first half of 2025, largely powered by a nickel segment that generated Rp3.53\u202ftrillion profit, saw sales rise 125% to Rp7.87\u202ftrillion, and produced 9.10\u202fMt of ore with 8.20\u202fMt sold, setting a quarterly record. Meanwhile gold sales hit Rp49.54\u202ftrillion (84% of total), the SGAR alumina refinery entered commissioning, and the company\u2019s ESG roadmap targets a 15.8% cut in Scope\u202f1\u20112 emissions by 2030, 10% renewable energy increase, 75% land rehabilitation, SROI >2, and a TRIFR better than the ICMM global average.",
+        "title": "Antam Posts 240% Net Profit Surge in 1H25, Fueled by Nickel Boom and Strong Gold Sales",
+        "body": "PT Aneka Tambang (Antam) recorded a 240% jump in net profit to Rp5.14 trillion in the first half of 2025, driven by a nickel profit of Rp3.53 trillion and a 125% rise in nickel sales to Rp7.87 trillion, while gold sales surged 163% to Rp49.54 trillion, representing 84% of total revenue. The company also achieved record quarterly nickel ore sales of 8.20\u202fmillion wet metric tons, launched a Smelter Grade Alumina Refinery in Mempawah with Inalum, and advanced its 2030 decarbonization roadmap, targeting a 15.8% cut in scope\u202f1 and\u202f2 emissions and a 10% increase in renewable energy mix, with ESG metrics such as SROI\u202f>\u202f2 and TRIFR below the global average.",
         "source": "https://nikel.co.id/2025/09/16/nikel-dorong-lonjakan-laba-pt-antam-240-pada-semester-i-2025/",
         "timestamp": "2025-09-16 15:16:36",
         "commodities": [
@@ -72,8 +45,8 @@
         ]
     },
     {
-        "title": "PT Timah Tbk Reports 32% Drop in Tin Ore Production, Seeks DPR Support to Overcome Regulatory Hurdles",
-        "body": "During a Rapat Dengar Pendapat on 22 September 2025, PT Timah Tbk disclosed a 32% YoY fall in tin ore production to 6,997\u202ft Sn and a 19% decline in revenue to Rp4.22\u202ftrillion, while average selling price rose 8% to USD\u202f32,816 per metric ton. The company outlined plans to open new mines in Beriga, Rias and Laut Oliver, expand its fleet of 60 production barges, launch a CSR\u2011driven cooperative program, and requested the DPR VI to expedite regulations for illegal\u2011mining reclamation, downstream processing, and zoning adjustments to restore output.",
+        "title": "PT Timah Tbk Reports 32% Production Drop, Seeks DPR Support to Revive Tin Mining",
+        "body": "During a 22 September 2025 RDP with DPR VI, PT Timah Tbk disclosed a 32% YoY decline in tin ore production and a 19% drop in revenue, yet its average selling price rose 8% to USD\u202f32,816 per metric ton. The company outlined plans to open new mines, expand KIP partnerships, launch CSR\u2011driven cooperatives, and requested regulatory backing to reintegrate illegal mining output, accelerate downstream processing, and address zoning changes that hinder offshore operations.",
         "source": "https://www.ruangenergi.com/tins-paparkan-rencana-strategis-di-tengah-penurunan-laba-minta-dukungan-dpr-atasi-masalah-hilirisasi/",
         "timestamp": "2025-09-22 00:00:00",
         "commodities": [
