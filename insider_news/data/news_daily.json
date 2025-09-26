@@ -1,5 +1,12 @@
 [
     {
+        "title": "Freeport mine setback risks fraying relations with Indonesia",
+        "body": "Grasberg has long been a flashpoint as Jakarta tries to gain a greater say over its resources.",
+        "source": "https://www.mining.com/web/freeport-grasberg-setback-risks-fraying-relations-with-indonesia/",
+        "timestamp": "2025-09-25 00:00:00",
+        "commodities": []
+    },
+    {
         "title": "Merdeka Gold shares jump by limit after Indonesia\u2019s biggest IPO",
         "body": "Merdeka raised 4.66 trillion rupiah ($281 million) by selling a 10% stake in the IPO.",
         "source": "https://www.mining.com/web/merdeka-gold-set-for-debut-after-indonesias-largest-ipo-of-year/",
@@ -36,26 +43,8 @@
         ]
     },
     {
-        "title": "Nickel price gains after Indonesia seizes part of giant mine",
-        "body": "A government task force took control on Thursday of about 148 hectares of the operation owned by PT Weda Bay Nickel.",
-        "source": "https://www.mining.com/web/nickel-price-gains-after-indonesia-seizes-part-of-giant-tsingshan-mine/",
-        "timestamp": "2025-09-12 00:00:00",
-        "commodities": [
-            "Nickel"
-        ]
-    },
-    {
-        "title": "Nickel shortage, higher costs pinch Indonesian producers",
-        "body": "Permitting issues are a key reason for the ore scarcity.",
-        "source": "https://www.mining.com/nickel-shortage-higher-costs-pinch-indonesian-producers/",
-        "timestamp": "2025-09-11 00:00:00",
-        "commodities": [
-            "Nickel"
-        ]
-    },
-    {
-        "title": "Antam Posts 240% Net Profit Surge in 1H25, Fueled by Nickel and Gold, While Advancing ESG and Smelter Projects",
-        "body": "PT Antam\u2019s first\u2011half 2025 net profit jumped 240% to Rp5.14\u202ftrillion, driven by nickel sales that rose 125% to Rp7.87\u202ftrillion and production of 9.10\u202fMt of ore, while gold sales climbed 163% to Rp49.54\u202ftrillion. The company also advanced its ESG roadmap\u2014cutting scope\u202f1/2 emissions by 15.8%, boosting renewable energy by 10%, and rehabilitating 75% of impacted land\u2014alongside commissioning its SGAR alumina smelter and expanding battery\u2011EV supply chain facilities.",
+        "title": "Antam Reports 240% Net Profit Surge in 1H25, Driven by Nickel Boom and Strong Gold Sales",
+        "body": "PT Antam posted a 240% jump in net profit to Rp5.14 trillion in the first half of 2025, largely thanks to a nickel profit of Rp3.53 trillion and sales of Rp7.87 trillion, with ore production up 117% to 9.10\u202fMt and sales volume 144% to 8.20\u202fMt, while gold sales rose 163% to Rp49.54 trillion and 29,305\u202fkg. The company also advanced its ESG agenda, launching a 2030 decarbonization roadmap, achieving 75% land rehabilitation, and progressing its SGAR alumina smelter project in Mempawah, positioning Antam as a leader in Indonesia\u2019s mining sector.",
         "source": "https://nikel.co.id/2025/09/16/nikel-dorong-lonjakan-laba-pt-antam-240-pada-semester-i-2025/",
         "timestamp": "2025-09-16 15:16:36",
         "commodities": [
@@ -63,8 +52,8 @@
         ]
     },
     {
-        "title": "PT Timah Tbk Reports 32% Drop in Tin Production, Seeks Regulatory Support in RDP with DPR VI",
-        "body": "During a Rapat Dengar Pendapat on 22 September 2025, PT Timah Tbk disclosed a 32% YoY decline in tin ore production to 6,997\u202ft Sn and a 29% drop in tin metal output to 6,870\u202ft, alongside a 19% revenue fall to Rp4.22\u202ftrillion, yet maintained an average selling price of USD\u202f32,816 (up 8%). The company outlined plans to open new mines, deploy 60 production suction vessels, expand CSR and cooperative mining, and requested DPR VI\u2019s support to streamline regulations on illegal mining, hilirisasi, and coastal zoning to revive output and boost national revenue.",
+        "title": "PT Timah Tbk Reports 2025 Q1 Production and Profit Declines, Outlines Recovery Plan and Seeks Regulatory Support",
+        "body": "PT Timah Tbk disclosed a 32% drop in tin ore production and a 19% revenue decline in the first half of 2025, while its average selling price rose 8% to USD 32,816 per metric ton. The company outlined a recovery roadmap that includes opening new mines, expanding KIP partnerships, boosting community cooperatives, and requested DPR VI support to streamline regulations on illegal mining, hilirisasi, and coastal zoning to restore output and enhance national revenue.",
         "source": "https://www.ruangenergi.com/tins-paparkan-rencana-strategis-di-tengah-penurunan-laba-minta-dukungan-dpr-atasi-masalah-hilirisasi/",
         "timestamp": "2025-09-22 00:00:00",
         "commodities": [
