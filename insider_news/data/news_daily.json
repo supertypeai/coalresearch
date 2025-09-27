@@ -1,5 +1,12 @@
 [
     {
+        "title": "Indonesia halts Grasberg operations to search for trapped workers",
+        "body": "Two workers have died and five remain missing following a large mudflow earlier this month.",
+        "source": "https://www.mining.com/indonesia-halts-grasberg-operations-to-search-for-trapped-workers/",
+        "timestamp": "2025-09-26 00:00:00",
+        "commodities": []
+    },
+    {
         "title": "Freeport mine setback risks fraying relations with Indonesia",
         "body": "Grasberg has long been a flashpoint as Jakarta tries to gain a greater say over its resources.",
         "source": "https://www.mining.com/web/freeport-grasberg-setback-risks-fraying-relations-with-indonesia/",
@@ -34,30 +41,12 @@
         ]
     },
     {
-        "title": "Indonesia cites lack of forestry permits in land seizures from nickel miners",
-        "body": "President Prabowo Subianto said last week that more than 1,000 illegal mining operations were identified.",
-        "source": "https://www.mining.com/web/indonesia-cites-lack-of-forestry-permits-in-land-seizures-from-nickel-miners/",
-        "timestamp": "2025-09-12 00:00:00",
-        "commodities": [
-            "Nickel"
-        ]
-    },
-    {
-        "title": "Antam Reports 240% Net Profit Surge in 1H25, Driven by Nickel Boom and Strong Gold Sales",
-        "body": "PT Antam posted a 240% jump in net profit to Rp5.14 trillion in the first half of 2025, largely thanks to a nickel profit of Rp3.53 trillion and sales of Rp7.87 trillion, with ore production up 117% to 9.10\u202fMt and sales volume 144% to 8.20\u202fMt, while gold sales rose 163% to Rp49.54 trillion and 29,305\u202fkg. The company also advanced its ESG agenda, launching a 2030 decarbonization roadmap, achieving 75% land rehabilitation, and progressing its SGAR alumina smelter project in Mempawah, positioning Antam as a leader in Indonesia\u2019s mining sector.",
+        "title": "Antam Posts 240% Net Profit Surge in 1H25, Nickel Drives Record Sales and ESG Commitments",
+        "body": "PT Antam\u2019s first\u2011half 2025 net profit jumped 240% to Rp5.14\u202ftrillion, largely thanks to a 125% rise in nickel sales to Rp7.87\u202ftrillion and a record 9.10\u202fMt production, while gold sales also surged 163% to Rp49.54\u202ftrillion. The company is advancing its ESG agenda with a 2030 decarbonization roadmap, a new SGAR alumina refinery in Mempawah, and a 75% land rehabilitation rate, positioning Antam as a leading Indonesian mining player.",
         "source": "https://nikel.co.id/2025/09/16/nikel-dorong-lonjakan-laba-pt-antam-240-pada-semester-i-2025/",
         "timestamp": "2025-09-16 15:16:36",
         "commodities": [
             "Nickel"
-        ]
-    },
-    {
-        "title": "PT Timah Tbk Reports 2025 Q1 Production and Profit Declines, Outlines Recovery Plan and Seeks Regulatory Support",
-        "body": "PT Timah Tbk disclosed a 32% drop in tin ore production and a 19% revenue decline in the first half of 2025, while its average selling price rose 8% to USD 32,816 per metric ton. The company outlined a recovery roadmap that includes opening new mines, expanding KIP partnerships, boosting community cooperatives, and requested DPR VI support to streamline regulations on illegal mining, hilirisasi, and coastal zoning to restore output and enhance national revenue.",
-        "source": "https://www.ruangenergi.com/tins-paparkan-rencana-strategis-di-tengah-penurunan-laba-minta-dukungan-dpr-atasi-masalah-hilirisasi/",
-        "timestamp": "2025-09-22 00:00:00",
-        "commodities": [
-            "Tin"
         ]
     }
 ]
