@@ -1,5 +1,19 @@
 [
     {
+        "title": "Freeport-McMoRan still in talks with Indonesia over Grasberg mine rights",
+        "body": "PT Freeport Indonesia is 51% owned by Indonesia's government but operated by Freeport.",
+        "source": "https://www.mining.com/web/freeport-mcmoran-still-in-talks-with-indonesia-over-grasberg-mine-rights-company-says/",
+        "timestamp": "2025-09-30 00:00:00",
+        "commodities": []
+    },
+    {
+        "title": "Freeport will divest 12% of local arm to Indonesia, CNBC says",
+        "body": "The divestment is part of an agreement to extend the company\u2019s license to operate the Grasberg mine.",
+        "source": "https://www.mining.com/web/freeport-will-divest-12-of-local-arm-to-indonesia-cnbc-says/",
+        "timestamp": "2025-09-30 00:00:00",
+        "commodities": []
+    },
+    {
         "title": "Indonesia halts Grasberg operations to search for trapped workers",
         "body": "Two workers have died and five remain missing following a large mudflow earlier this month.",
         "source": "https://www.mining.com/indonesia-halts-grasberg-operations-to-search-for-trapped-workers/",
@@ -41,17 +55,8 @@
         ]
     },
     {
-        "title": "APNI Releases Indonesia Nickel Price Index: Stable Prices, MHP Declines",
-        "body": "APNI\u2019s latest Indonesia Nickel Price Index shows most nickel products remain stable, with 1.2% ore at US$23/mt and 1.6% ore at US$52.15/mt, while nickel pig iron and high\u2011grade matte prices are unchanged; however, the key battery\u2011grade MHP fell by US$7/mt to US$13,145/mt, signalling a potential dip in global battery raw\u2011material demand amid the EV boom.",
-        "source": "https://nikel.co.id/2025/09/22/apni-rilis-harga-nikel-domestik-per-september-2025-produk-mhp-turun-us7-per-ton/",
-        "timestamp": "2025-09-22 14:37:44",
-        "commodities": [
-            "Nickel"
-        ]
-    },
-    {
-        "title": "Antam Posts 240% Surge in 1H 2025 Net Profit, Nickel Drives Record Sales and ESG Commitments",
-        "body": "PT Antam\u2019s first\u2011half 2025 net profit jumped 240% to Rp5.14\u202ftrillion, largely thanks to nickel, which generated Rp3.53\u202ftrillion in profit and saw sales rise 125% to Rp7.87\u202ftrillion with ore production at 9.10\u202fMt and sales at 8.20\u202fMt, setting a quarterly record. Meanwhile, gold sales surged 163% to Rp49.54\u202ftrillion (84% of total sales), and the company advanced its ESG agenda with a 2030 decarbonization roadmap, 15.8% scope\u20111/2 emission cuts, 10% renewable energy increase, and over 75% land rehabilitation completed. ",
+        "title": "Antam Posts 240% Net Profit Surge in 1H25, Powered by Nickel Boom and Strong Gold Sales",
+        "body": "PT Antam recorded a 240% jump in net profit to Rp5.14 trillion in the first half of 2025, largely driven by a nickel segment that generated Rp3.53 trillion in profit, with nickel sales up 125% to Rp7.87 trillion and ore production at 9.10\u202fMt. Gold sales remained dominant at Rp49.54 trillion (84% of total), while the company advanced its ESG agenda with a 2030 decarbonization roadmap, 75% land rehabilitation, and a new alumina refinery in Mempawah entering commissioning.",
         "source": "https://nikel.co.id/2025/09/16/nikel-dorong-lonjakan-laba-pt-antam-240-pada-semester-i-2025/",
         "timestamp": "2025-09-16 15:16:36",
         "commodities": [
