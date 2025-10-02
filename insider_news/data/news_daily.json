@@ -1,5 +1,14 @@
 [
     {
+        "title": "Indonesia\u2019s Merdeka starts mining at Pani gold project",
+        "body": "The company aims to produce 140,000 ounces of gold annually.",
+        "source": "https://www.mining.com/web/indonesias-merdeka-gold-resources-starts-mining-at-pani-gold-project/",
+        "timestamp": "2025-10-01 00:00:00",
+        "commodities": [
+            "Gold"
+        ]
+    },
+    {
         "title": "Freeport-McMoRan still in talks with Indonesia over Grasberg mine rights",
         "body": "PT Freeport Indonesia is 51% owned by Indonesia's government but operated by Freeport.",
         "source": "https://www.mining.com/web/freeport-mcmoran-still-in-talks-with-indonesia-over-grasberg-mine-rights-company-says/",
@@ -7,7 +16,7 @@
         "commodities": []
     },
     {
-        "title": "Freeport will divest 12% of local arm to Indonesia, CNBC says",
+        "title": "Freeport to divest 12% of mine to Indonesia, CNBC says",
         "body": "The divestment is part of an agreement to extend the company\u2019s license to operate the Grasberg mine.",
         "source": "https://www.mining.com/web/freeport-will-divest-12-of-local-arm-to-indonesia-cnbc-says/",
         "timestamp": "2025-09-30 00:00:00",
@@ -37,26 +46,17 @@
         ]
     },
     {
-        "title": "Gold miner seeks $284 million in largest Indonesia IPO this year",
-        "body": "PT Merdeka Gold Resources will offer 1.62 billion shares, or a 10% stake.",
-        "source": "https://www.mining.com/web/gold-miner-seeks-284-million-in-largest-indonesia-ipo-this-year/",
-        "timestamp": "2025-09-16 00:00:00",
+        "title": "Indonesia Secures 64% of Global Nickel Production, Calls for Consistent Regulation to Sustain Downstream Growth",
+        "body": "Indonesia now controls about 64% of worldwide nickel output, with 424 mining firms and 163 processing plants\u2014including 55 active in pyro\u2011metallurgy and HPAL\u2014according to APNI Secretary General Meidy Katrin Lengkey at the ICMMS 2025 summit. She urged the government to maintain stable, investor\u2011friendly regulations to support downstream sectors such as stainless steel and battery manufacturing, warning that sudden policy shifts could hinder investment and national revenue.",
+        "source": "https://nikel.co.id/2025/09/26/sekum-apni-indonesia-kuasai-produksi-nikel-dunia-tapi-perlu-regulasi-konsisten/",
+        "timestamp": "2025-09-26 13:00:25",
         "commodities": [
-            "Gold"
+            "Nickel"
         ]
     },
     {
-        "title": "Indonesia\u2019s United Tractors seeks expansion with gold miner acquisition",
-        "body": "Indonesian heavy machinery distributor PT United Tractors is acquiring a 100% stake in PT Arafura Surya Alam.",
-        "source": "https://www.mining.com/web/indonesias-united-tractors-seeks-expansion-with-gold-miner-acquisition/",
-        "timestamp": "2025-09-15 00:00:00",
-        "commodities": [
-            "Gold"
-        ]
-    },
-    {
-        "title": "Antam Posts 240% Net Profit Surge in 1H25, Powered by Nickel Boom and Strong Gold Sales",
-        "body": "PT Antam recorded a 240% jump in net profit to Rp5.14 trillion in the first half of 2025, largely driven by a nickel segment that generated Rp3.53 trillion in profit, with nickel sales up 125% to Rp7.87 trillion and ore production at 9.10\u202fMt. Gold sales remained dominant at Rp49.54 trillion (84% of total), while the company advanced its ESG agenda with a 2030 decarbonization roadmap, 75% land rehabilitation, and a new alumina refinery in Mempawah entering commissioning.",
+        "title": "Antam Posts 240% Surge in 1H 2025 Net Profit, Nickel Drives Record Sales and ESG Commitments",
+        "body": "PT Antam\u2019s first\u2011half 2025 net profit jumped 240% to Rp5.14\u202ftrillion, largely thanks to a nickel boom that lifted sales to Rp7.87\u202ftrillion and production to 9.10\u202fMt, while gold sales surged 163% to Rp49.54\u202ftrillion. The company also advanced its ESG agenda with a 2030 decarbonization roadmap, 75% land rehabilitation, and a new SGAR alumina smelter in Mempawah, positioning it as a leader in Indonesia\u2019s mining and EV battery supply chain.",
         "source": "https://nikel.co.id/2025/09/16/nikel-dorong-lonjakan-laba-pt-antam-240-pada-semester-i-2025/",
         "timestamp": "2025-09-16 15:16:36",
         "commodities": [
