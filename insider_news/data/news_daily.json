@@ -1,14 +1,5 @@
 [
     {
-        "title": "Indonesia\u2019s Merdeka starts mining at Pani gold project",
-        "body": "The company aims to produce 140,000 ounces of gold annually.",
-        "source": "https://www.mining.com/web/indonesias-merdeka-gold-resources-starts-mining-at-pani-gold-project/",
-        "timestamp": "2025-10-01 00:00:00",
-        "commodities": [
-            "Gold"
-        ]
-    },
-    {
         "title": "Freeport-McMoRan still in talks with Indonesia over Grasberg mine rights",
         "body": "PT Freeport Indonesia is 51% owned by Indonesia's government but operated by Freeport.",
         "source": "https://www.mining.com/web/freeport-mcmoran-still-in-talks-with-indonesia-over-grasberg-mine-rights-company-says/",
@@ -37,26 +28,8 @@
         "commodities": []
     },
     {
-        "title": "Merdeka Gold shares jump by limit after Indonesia\u2019s biggest IPO",
-        "body": "Merdeka raised 4.66 trillion rupiah ($281 million) by selling a 10% stake in the IPO.",
-        "source": "https://www.mining.com/web/merdeka-gold-set-for-debut-after-indonesias-largest-ipo-of-year/",
-        "timestamp": "2025-09-22 00:00:00",
-        "commodities": [
-            "Gold"
-        ]
-    },
-    {
-        "title": "Indonesia Secures 64% of Global Nickel Production, Calls for Consistent Regulation to Sustain Downstream Growth",
-        "body": "Indonesia now controls about 64% of worldwide nickel output, with 424 mining firms and 163 processing plants\u2014including 55 active in pyro\u2011metallurgy and HPAL\u2014according to APNI Secretary General Meidy Katrin Lengkey at the ICMMS 2025 summit. She urged the government to maintain stable, investor\u2011friendly regulations to support downstream sectors such as stainless steel and battery manufacturing, warning that sudden policy shifts could hinder investment and national revenue.",
-        "source": "https://nikel.co.id/2025/09/26/sekum-apni-indonesia-kuasai-produksi-nikel-dunia-tapi-perlu-regulasi-konsisten/",
-        "timestamp": "2025-09-26 13:00:25",
-        "commodities": [
-            "Nickel"
-        ]
-    },
-    {
-        "title": "Antam Posts 240% Surge in 1H 2025 Net Profit, Nickel Drives Record Sales and ESG Commitments",
-        "body": "PT Antam\u2019s first\u2011half 2025 net profit jumped 240% to Rp5.14\u202ftrillion, largely thanks to a nickel boom that lifted sales to Rp7.87\u202ftrillion and production to 9.10\u202fMt, while gold sales surged 163% to Rp49.54\u202ftrillion. The company also advanced its ESG agenda with a 2030 decarbonization roadmap, 75% land rehabilitation, and a new SGAR alumina smelter in Mempawah, positioning it as a leader in Indonesia\u2019s mining and EV battery supply chain.",
+        "title": "Antam Posts 240% Net Profit Surge in 1H25, Nickel Drives Record Sales and ESG Milestones",
+        "body": "PT Antam\u2019s first\u2011half 2025 net profit jumped 240% to Rp5.14\u202ftrillion, largely thanks to a nickel segment that generated Rp3.53\u202ftrillion in profit, saw sales rise 125% to Rp7.87\u202ftrillion, and produced 9.10\u202fMt of ore with 8.20\u202fMt sold, setting a quarterly record. Meanwhile gold sales surged 163% to Rp49.54\u202ftrillion (84% of total sales), and the company advanced its ESG agenda with a 2030 decarbonization roadmap, 15.8% scope\u20111/2 emission cut, 10% renewable energy increase, 75% land rehabilitation, and a Social Return on Investment score above 2. ",
         "source": "https://nikel.co.id/2025/09/16/nikel-dorong-lonjakan-laba-pt-antam-240-pada-semester-i-2025/",
         "timestamp": "2025-09-16 15:16:36",
         "commodities": [
