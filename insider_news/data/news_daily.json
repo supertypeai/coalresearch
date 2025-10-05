@@ -1,12 +1,10 @@
 [
     {
-        "title": "Freeport Indonesia says search for five trapped Grasberg workers still ongoing",
-        "body": "The incident has caused a jump in global copper prices.",
-        "source": "https://www.mining.com/web/freeport-indonesia-says-search-for-five-trapped-grasberg-workers-still-ongoing/",
-        "timestamp": "2025-10-02 00:00:00",
-        "commodities": [
-            "Copper"
-        ]
+        "title": "Indonesia expects deal soon with Freeport-McMoRan on divestment plan",
+        "body": "Last week, Freeport declared force majeure at Grasberg after torrential mudslides that killed two workers.",
+        "source": "https://www.mining.com/web/indonesia-expects-deal-soon-with-freeport-mcmoran-on-divestment-plan/",
+        "timestamp": "2025-10-01 00:00:00",
+        "commodities": []
     },
     {
         "title": "Freeport-McMoRan still in talks with Indonesia over Grasberg mine rights",
@@ -46,13 +44,12 @@
         ]
     },
     {
-        "title": "Antam Posts 240% Profit Surge in 1H25, Nickel Drives Record Sales and ESG Commitments Strengthen Position",
-        "body": "PT Antam\u2019s first\u2011half 2025 net profit surged 240% to Rp5.14\u202ftrillion, largely thanks to a 125% jump in nickel sales (Rp7.87\u202ftrillion) and 9.10\u202fMt ore production, while gold sales climbed 163% to Rp49.54\u202ftrillion. The company also advanced its bauxite smelter project with Inalum, launched a digital gold retail app, and rolled out a 2030 decarbonisation roadmap targeting 15.8% emission cuts and 10% renewable energy increase.",
+        "title": "Antam Posts 240% Profit Surge in 1H25, Nickel Drives Record Sales and ESG Commitments Strengthen",
+        "body": "PT Antam\u2019s first\u2011half 2025 net profit jumped 240% to Rp5.14\u202ftrillion, largely powered by a 125% rise in nickel sales to Rp7.87\u202ftrillion and 9.10\u202fMt ore production, setting a new quarterly record; gold sales also surged 163% to Rp49.54\u202ftrillion. The company is advancing its SGAR alumina smelter project, while its 2030 decarbonization roadmap targets a 15.8% cut in Scope\u202f1\u20112 emissions, 10% renewable energy share, 75% land rehabilitation, and maintains a Social Return on Investment above 2 with a TRIFR better than the ICMM global average.",
         "source": "https://nikel.co.id/2025/09/16/nikel-dorong-lonjakan-laba-pt-antam-240-pada-semester-i-2025/",
         "timestamp": "2025-09-16 15:16:36",
         "commodities": [
-            "Nickel",
-            "Bauxite"
+            "Nickel"
         ]
     }
 ]
