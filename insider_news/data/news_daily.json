@@ -1,5 +1,14 @@
 [
     {
+        "title": "Column: Tin breaks higher as Indonesia cracks down on illegal miners",
+        "body": "The tin market is once again bubbling on supply chain trouble, this time in Indonesia.",
+        "source": "https://www.mining.com/web/column-tin-breaks-higher-as-indonesia-cracks-down-on-illegal-miners/",
+        "timestamp": "2025-10-05 00:00:00",
+        "commodities": [
+            "Tin"
+        ]
+    },
+    {
         "title": "Indonesia expects deal soon with Freeport-McMoRan on divestment plan",
         "body": "Last week, Freeport declared force majeure at Grasberg after torrential mudslides that killed two workers.",
         "source": "https://www.mining.com/web/indonesia-expects-deal-soon-with-freeport-mcmoran-on-divestment-plan/",
@@ -44,12 +53,13 @@
         ]
     },
     {
-        "title": "Antam Posts 240% Profit Surge in 1H25, Nickel Drives Record Sales and ESG Commitments Strengthen",
-        "body": "PT Antam\u2019s first\u2011half 2025 net profit jumped 240% to Rp5.14\u202ftrillion, largely powered by a 125% rise in nickel sales to Rp7.87\u202ftrillion and 9.10\u202fMt ore production, setting a new quarterly record; gold sales also surged 163% to Rp49.54\u202ftrillion. The company is advancing its SGAR alumina smelter project, while its 2030 decarbonization roadmap targets a 15.8% cut in Scope\u202f1\u20112 emissions, 10% renewable energy share, 75% land rehabilitation, and maintains a Social Return on Investment above 2 with a TRIFR better than the ICMM global average.",
+        "title": "Antam Posts 240% Profit Surge in 1H\u202f2025, Driven by Nickel and Gold Sales, Strengthens ESG Commitment",
+        "body": "PT Antam\u2019s first\u2011half 2025 net profit jumped 240% to Rp5.14\u202ftrillion, largely from a Rp3.53\u202ftrillion nickel profit and a 163% rise in gold sales to Rp49.54\u202ftrillion, while nickel production climbed 117% to 9.10\u202fMt and sales hit Rp7.87\u202ftrillion. The company also advanced its ESG roadmap\u2014cutting scope\u202f1/2 emissions by 15.8% and boosting renewable energy by 10% by 2030\u2014while continuing bauxite smelter development and achieving over 75% land rehabilitation.\u201d}",
         "source": "https://nikel.co.id/2025/09/16/nikel-dorong-lonjakan-laba-pt-antam-240-pada-semester-i-2025/",
         "timestamp": "2025-09-16 15:16:36",
         "commodities": [
-            "Nickel"
+            "Nickel",
+            "Bauxite"
         ]
     }
 ]
