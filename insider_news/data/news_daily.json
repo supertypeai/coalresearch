@@ -1,5 +1,14 @@
 [
     {
+        "title": "Indonesia hands over six seized tin smelters to state miner",
+        "body": "Among the assets seized was PT Refined Bangka Tin, once one of the largest private players in the sector.",
+        "source": "https://www.mining.com/web/indonesia-hands-over-six-seized-tin-smelters-to-state-miner/",
+        "timestamp": "2025-10-06 00:00:00",
+        "commodities": [
+            "Tin"
+        ]
+    },
+    {
         "title": "Column: Tin breaks higher as Indonesia cracks down on illegal miners",
         "body": "The tin market is once again bubbling on supply chain trouble, this time in Indonesia.",
         "source": "https://www.mining.com/web/column-tin-breaks-higher-as-indonesia-cracks-down-on-illegal-miners/",
@@ -9,18 +18,13 @@
         ]
     },
     {
-        "title": "Indonesia expects deal soon with Freeport-McMoRan on divestment plan",
-        "body": "Last week, Freeport declared force majeure at Grasberg after torrential mudslides that killed two workers.",
-        "source": "https://www.mining.com/web/indonesia-expects-deal-soon-with-freeport-mcmoran-on-divestment-plan/",
+        "title": "Indonesia\u2019s Merdeka starts mining at Pani gold project",
+        "body": "The company aims to produce 140,000 ounces of gold annually.",
+        "source": "https://www.mining.com/web/indonesias-merdeka-gold-resources-starts-mining-at-pani-gold-project/",
         "timestamp": "2025-10-01 00:00:00",
-        "commodities": []
-    },
-    {
-        "title": "Freeport-McMoRan still in talks with Indonesia over Grasberg mine rights",
-        "body": "PT Freeport Indonesia is 51% owned by Indonesia's government but operated by Freeport.",
-        "source": "https://www.mining.com/web/freeport-mcmoran-still-in-talks-with-indonesia-over-grasberg-mine-rights-company-says/",
-        "timestamp": "2025-09-30 00:00:00",
-        "commodities": []
+        "commodities": [
+            "Gold"
+        ]
     },
     {
         "title": "Freeport to divest 12% of mine to Indonesia, CNBC says",
@@ -44,22 +48,19 @@
         "commodities": []
     },
     {
-        "title": "Merdeka Gold shares jump by limit after Indonesia\u2019s biggest IPO",
-        "body": "Merdeka raised 4.66 trillion rupiah ($281 million) by selling a 10% stake in the IPO.",
-        "source": "https://www.mining.com/web/merdeka-gold-set-for-debut-after-indonesias-largest-ipo-of-year/",
-        "timestamp": "2025-09-22 00:00:00",
-        "commodities": [
-            "Gold"
-        ]
-    },
-    {
-        "title": "Antam Posts 240% Profit Surge in 1H\u202f2025, Driven by Nickel and Gold Sales, Strengthens ESG Commitment",
-        "body": "PT Antam\u2019s first\u2011half 2025 net profit jumped 240% to Rp5.14\u202ftrillion, largely from a Rp3.53\u202ftrillion nickel profit and a 163% rise in gold sales to Rp49.54\u202ftrillion, while nickel production climbed 117% to 9.10\u202fMt and sales hit Rp7.87\u202ftrillion. The company also advanced its ESG roadmap\u2014cutting scope\u202f1/2 emissions by 15.8% and boosting renewable energy by 10% by 2030\u2014while continuing bauxite smelter development and achieving over 75% land rehabilitation.\u201d}",
+        "title": "Antam Posts 240% Net Profit Surge in H1 2025, Nickel Segment Drives Record Growth",
+        "body": "PT Antam\u2019s first\u2011half 2025 net profit jumped 240% to Rp5.14\u202ftrillion, largely thanks to a 240% rise in nickel earnings (Rp3.53\u202ftrillion) and a 125% increase in nickel sales to Rp7.87\u202ftrillion, with ore production up 117% to 9.10\u202fMt and sales volume up 144% to 8.20\u202fMt, setting a quarterly record. Meanwhile gold sales surged 163% to Rp49.54\u202ftrillion, and the company advanced its ESG agenda with a 2030 decarbonization roadmap, 75% land rehabilitation, and a new SGAR alumina smelter project entering commissioning.",
         "source": "https://nikel.co.id/2025/09/16/nikel-dorong-lonjakan-laba-pt-antam-240-pada-semester-i-2025/",
         "timestamp": "2025-09-16 15:16:36",
         "commodities": [
-            "Nickel",
-            "Bauxite"
+            "Nickel"
         ]
+    },
+    {
+        "title": "Indonesia Issues New Mining Regulation to Expand Access for SMEs, Cooperatives, and Religious Organizations",
+        "body": "The government issued PP 39/2025, a second amendment to PP 96/2021, to accelerate inclusion of SMEs, cooperatives, and religious organizations in mining and downstream activities, allowing priority allocation of up to 2,500\u202fha for SMEs and 25,000\u202fha for larger entities. The regulation also permits use of by\u2011product radioactive minerals as new energy sources, prioritizes domestic demand and value\u2011added processing, and revises license renewal terms to extend up to 10\u202fyears for integrated operations, with a one\u2011year grace period for expired permits.",
+        "source": "https://www.ruangenergi.com/telah-terbit-peraturan-pemerintah-pp-nomor-39-tahun-2025-begini-isinya-ya/",
+        "timestamp": "2025-10-06 00:00:00",
+        "commodities": []
     }
 ]
