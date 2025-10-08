@@ -27,6 +27,13 @@
         ]
     },
     {
+        "title": "Freeport-McMoRan still in talks with Indonesia over Grasberg mine rights",
+        "body": "PT Freeport Indonesia is 51% owned by Indonesia's government but operated by Freeport.",
+        "source": "https://www.mining.com/web/freeport-mcmoran-still-in-talks-with-indonesia-over-grasberg-mine-rights-company-says/",
+        "timestamp": "2025-09-30 00:00:00",
+        "commodities": []
+    },
+    {
         "title": "Freeport to divest 12% of mine to Indonesia, CNBC says",
         "body": "The divestment is part of an agreement to extend the company\u2019s license to operate the Grasberg mine.",
         "source": "https://www.mining.com/web/freeport-will-divest-12-of-local-arm-to-indonesia-cnbc-says/",
@@ -48,19 +55,21 @@
         "commodities": []
     },
     {
-        "title": "Antam Posts 240% Net Profit Surge in H1 2025, Nickel Segment Drives Record Growth",
-        "body": "PT Antam\u2019s first\u2011half 2025 net profit jumped 240% to Rp5.14\u202ftrillion, largely thanks to a 240% rise in nickel earnings (Rp3.53\u202ftrillion) and a 125% increase in nickel sales to Rp7.87\u202ftrillion, with ore production up 117% to 9.10\u202fMt and sales volume up 144% to 8.20\u202fMt, setting a quarterly record. Meanwhile gold sales surged 163% to Rp49.54\u202ftrillion, and the company advanced its ESG agenda with a 2030 decarbonization roadmap, 75% land rehabilitation, and a new SGAR alumina smelter project entering commissioning.",
-        "source": "https://nikel.co.id/2025/09/16/nikel-dorong-lonjakan-laba-pt-antam-240-pada-semester-i-2025/",
-        "timestamp": "2025-09-16 15:16:36",
+        "title": "Indonesia Nickel Prices Rise in Early October 2025, APNI Calls for Market\u2011Reflective Adjustments",
+        "body": "The price of nickel in the first half of October 2025 climbed to US$15,101.67 per dmt, up from US$15,000.33 in the second half of September, according to APNI\u2019s release. APNI praised the transparency of the calculation formula but urged the government to adjust the benchmark to better reflect market realities, especially for low\u2011grade domestic miners, while highlighting price variations across grades and moisture contents.",
+        "source": "https://nikel.co.id/2025/10/03/apni-rilis-kenaikan-harga-mineral-acuan-nikel-minggu-pertama-oktober-2025/",
+        "timestamp": "2025-10-03 17:09:47",
         "commodities": [
             "Nickel"
         ]
     },
     {
-        "title": "Indonesia Issues New Mining Regulation to Expand Access for SMEs, Cooperatives, and Religious Organizations",
-        "body": "The government issued PP 39/2025, a second amendment to PP 96/2021, to accelerate inclusion of SMEs, cooperatives, and religious organizations in mining and downstream activities, allowing priority allocation of up to 2,500\u202fha for SMEs and 25,000\u202fha for larger entities. The regulation also permits use of by\u2011product radioactive minerals as new energy sources, prioritizes domestic demand and value\u2011added processing, and revises license renewal terms to extend up to 10\u202fyears for integrated operations, with a one\u2011year grace period for expired permits.",
-        "source": "https://www.ruangenergi.com/telah-terbit-peraturan-pemerintah-pp-nomor-39-tahun-2025-begini-isinya-ya/",
-        "timestamp": "2025-10-06 00:00:00",
-        "commodities": []
+        "title": "Merdeka Battery Materials Sees 78% YoY Surge in Nickel Ore Production Despite 32% Revenue Drop",
+        "body": "In the first half of 2025, Merdeka Battery\u2019s nickel ore output jumped 78% to 6.9\u202fMt wmt, driven by 45% growth in limonite and 189% in saprolite, while its nickel pig iron production fell 23% to 33,045\u202ft due to RKEF smelter maintenance, yet cash costs dropped below $10k/ton. The company also sold 9,465\u202ft of mixed hydroxide precipitate via HPAL Train\u202fA, advanced a 90,000\u202ft/yr HPAL plant to 29% completion, and is building two feed preparation plants and a slurry pipeline to support future supply chain optimization, with EBITDA at $77\u202fM despite a 8% YoY decline.",
+        "source": "https://nikel.co.id/2025/10/03/merdeka-battery-catat-lonjakan-penjualan-bijih-nikel-di-paruh-pertama-2025/",
+        "timestamp": "2025-10-03 16:16:41",
+        "commodities": [
+            "Nickel"
+        ]
     }
 ]
