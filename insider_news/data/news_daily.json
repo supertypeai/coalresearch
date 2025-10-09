@@ -1,72 +1,64 @@
 [
     {
-        "title": "Gold miner seeks $284 million in largest Indonesia IPO this year",
-        "body": "PT Merdeka Gold Resources will offer 1.62 billion shares, or a 10% stake.",
-        "source": "https://www.mining.com/web/gold-miner-seeks-284-million-in-largest-indonesia-ipo-this-year/",
-        "timestamp": "2025-09-16 00:00:00",
+        "title": "Column: Tin breaks higher as Indonesia cracks down on illegal miners",
+        "body": "The tin market is once again bubbling on supply chain trouble, this time in Indonesia.",
+        "source": "https://www.mining.com/web/column-tin-breaks-higher-as-indonesia-cracks-down-on-illegal-miners/",
+        "timestamp": "2025-10-05 00:00:00",
+        "commodities": [
+            "Tin"
+        ]
+    },
+    {
+        "title": "Indonesia\u2019s Merdeka starts mining at Pani gold project",
+        "body": "The company aims to produce 140,000 ounces of gold annually.",
+        "source": "https://www.mining.com/web/indonesias-merdeka-gold-resources-starts-mining-at-pani-gold-project/",
+        "timestamp": "2025-10-01 00:00:00",
         "commodities": [
             "Gold"
         ]
     },
     {
-        "title": "Indonesia\u2019s United Tractors seeks expansion with gold miner acquisition",
-        "body": "Indonesian heavy machinery distributor PT United Tractors is acquiring a 100% stake in PT Arafura Surya Alam.",
-        "source": "https://www.mining.com/web/indonesias-united-tractors-seeks-expansion-with-gold-miner-acquisition/",
-        "timestamp": "2025-09-15 00:00:00",
-        "commodities": [
-            "Gold"
-        ]
+        "title": "Freeport-McMoRan still in talks with Indonesia over Grasberg mine rights",
+        "body": "PT Freeport Indonesia is 51% owned by Indonesia's government but operated by Freeport.",
+        "source": "https://www.mining.com/web/freeport-mcmoran-still-in-talks-with-indonesia-over-grasberg-mine-rights-company-says/",
+        "timestamp": "2025-09-30 00:00:00",
+        "commodities": []
     },
     {
-        "title": "Nickel price gains after Indonesia seizes part of giant mine",
-        "body": "A government task force took control on Thursday of about 148 hectares of the operation owned by PT Weda Bay Nickel.",
-        "source": "https://www.mining.com/web/nickel-price-gains-after-indonesia-seizes-part-of-giant-tsingshan-mine/",
-        "timestamp": "2025-09-12 00:00:00",
-        "commodities": [
-            "Nickel"
-        ]
+        "title": "Freeport to divest 12% of mine to Indonesia, CNBC says",
+        "body": "The divestment is part of an agreement to extend the company\u2019s license to operate the Grasberg mine.",
+        "source": "https://www.mining.com/web/freeport-will-divest-12-of-local-arm-to-indonesia-cnbc-says/",
+        "timestamp": "2025-09-30 00:00:00",
+        "commodities": []
     },
     {
-        "title": "Nickel shortage, higher costs pinch Indonesian producers",
-        "body": "Permitting issues are a key reason for the ore scarcity.",
-        "source": "https://www.mining.com/nickel-shortage-higher-costs-pinch-indonesian-producers/",
-        "timestamp": "2025-09-11 00:00:00",
-        "commodities": [
-            "Nickel"
-        ]
+        "title": "Indonesia halts Grasberg operations to search for trapped workers",
+        "body": "Two workers have died and five remain missing following a large mudflow earlier this month.",
+        "source": "https://www.mining.com/indonesia-halts-grasberg-operations-to-search-for-trapped-workers/",
+        "timestamp": "2025-09-26 00:00:00",
+        "commodities": []
     },
     {
-        "title": "Indonesia\u2019s Merdeka says its gold subsidiary will launch $300M IPO",
-        "body": "Its flagship mine in Pani Mountain in Sulawesi is estimated to have 7 million ounces of gold resources.",
-        "source": "https://www.mining.com/web/indonesias-merdeka-copper-gold-says-its-subsidiary-will-launch-300-million-ipo/",
-        "timestamp": "2025-09-08 00:00:00",
-        "commodities": [
-            "Gold"
-        ]
+        "title": "Freeport mine setback risks fraying relations with Indonesia",
+        "body": "Grasberg has long been a flashpoint as Jakarta tries to gain a greater say over its resources.",
+        "source": "https://www.mining.com/web/freeport-grasberg-setback-risks-fraying-relations-with-indonesia/",
+        "timestamp": "2025-09-25 00:00:00",
+        "commodities": []
     },
     {
-        "title": "Antam Posts 240% Surge in 1H 2025 Net Profit, Nickel Segment Drives Record Sales and ESG Milestones",
-        "body": "PT Antam\u2019s first\u2011half 2025 net profit jumped 240% to Rp5.14\u202ftrillion, largely thanks to a nickel boom that delivered Rp3.53\u202ftrillion in profit, 125% sales growth to Rp7.87\u202ftrillion, and 9.10\u202fMt of ore production, while gold sales rose 163% to Rp49.54\u202ftrillion. The company also advanced its ESG agenda with a 2030 decarbonization roadmap, 75% land rehabilitation, and a new alumina smelter project in Mempawah, positioning Antam as a leading Indonesian mining player.",
-        "source": "https://nikel.co.id/2025/09/16/nikel-dorong-lonjakan-laba-pt-antam-240-pada-semester-i-2025/",
-        "timestamp": "2025-09-16 15:16:36",
+        "title": "APNI Reports Early October 2025 Nickel Prices Rise to $15,101.67 per DMT, Calls for Benchmark Adjustments",
+        "body": "APNI announced that nickel prices in the first half of October 2025 climbed to US$15,101.67 per dmt, up from US$15,000.33 in mid\u2011September, with benchmark prices varying from US$28.75 to over US$40 per wmt depending on grade and moisture content. The association praised the transparency of the calculation formula but urged the government to adjust the benchmark to better reflect market realities, especially for low\u2011grade domestic miners.",
+        "source": "https://nikel.co.id/2025/10/03/apni-rilis-kenaikan-harga-mineral-acuan-nikel-minggu-pertama-oktober-2025/",
+        "timestamp": "2025-10-03 17:09:47",
         "commodities": [
             "Nickel"
         ]
     },
     {
-        "title": "Indonesia Nickel HPM Climbs to $15,000.33/dmt in September 2025",
-        "body": "Indonesia's Association of Nickel Miners (APNI) reported that the benchmark price for nickel (HPM) rose to US$15,000.33 per dry metric ton in the second September 2025 period, up from US$14,899.64 in the first period, while FOB prices for 1.60% Ni ore ranged from US$28.56 to US$26.52 per wet metric ton depending on moisture content. The increase reflects a positive global market trend and is expected to support investment climate, fairness, and transparency in the domestic nickel industry.",
-        "source": "https://nikel.co.id/2025/09/15/harga-patokan-nikel-naik-jadi-us-15-00033-per-dmt-pada-september-periode-ii/",
-        "timestamp": "2025-09-15 13:34:33",
-        "commodities": [
-            "Nickel"
-        ]
-    },
-    {
-        "title": "Indonesia Seeks to Dominate Global Nickel Supply Chain Amid Production Expansion and Import Challenges",
-        "body": "APNI\u2019s Meidy Katrin Lengkey highlighted Indonesia\u2019s 414,000\u2011ton nickel consumption and 54 operating smelters (plus 49 under construction) as the country positions itself to meet a projected 700\u2011million\u2011ton demand this year, while noting reliance on Philippine imports for magnesium\u2011rich nickel and a shift of the 3\u2011year RKAB to a 1\u2011year plan that may not start until 2026. She warned that nickel sulphate, pure nickel and NPI prices could hover between US$15,000\u2013$16,000 next year, urging the government to provide strategic solutions to keep prices competitive and avoid high production costs that could deter investment.",
-        "source": "https://nikel.co.id/2025/09/03/apni-soroti-tantangan-dan-peluang-industri-nikel-di-aeis-2025/",
-        "timestamp": "2025-09-03 17:39:36",
+        "title": "Merdeka Battery Reports 78% Rise in Nickel Ore Production Amid Revenue Decline, Focus on Upstream Expansion",
+        "body": "In the first half of 2025, Merdeka Battery\u2019s nickel ore output surged 78% to 6.9\u202fMt wmt, driven by 45% growth in limonite and 189% in saprolite, while revenue fell 32% to $628\u202fM; downstream NPI production dropped 23% to 33,045\u202ft due to smelter maintenance but cash cost fell below $10k/ton. The company also sold 9,465\u202ft of mixed hydroxide precipitate, advanced its HPAL and slurry pipeline projects toward mid\u20112026, and recorded a Q2 EBITDA up 33% YOY after adjusting for lower HGNM output.",
+        "source": "https://nikel.co.id/2025/10/03/merdeka-battery-catat-lonjakan-penjualan-bijih-nikel-di-paruh-pertama-2025/",
+        "timestamp": "2025-10-03 16:16:41",
         "commodities": [
             "Nickel"
         ]
