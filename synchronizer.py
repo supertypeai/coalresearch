@@ -16,8 +16,8 @@ from sheet_api.db.models import (
 )
 from sheet_api.google_sheets.client import getSheet, getSheetAll
 from sheet_api.core.toolbox import castTypes, mapPeeweeToPandasFields
-from sheet_api.core.company_performance_restructure import (
-    update_new_company_performance,
+from sheet_api.core.commodity_performance import (
+    update_commodity_performance,
 )
 from sheet_api.core.sync import (
     checkDeletedAndOrder,
@@ -97,7 +97,7 @@ def sync_company():
 
 
 def sync_company_performance():
-    update_new_company_performance()
+    update_commodity_performance()
     CompanyPerformance.truncate_table()
     sync_model("company_performance", CompanyPerformance)
 

@@ -8,7 +8,7 @@ import json
 
 
 SPREADSHEET_NAME = 'company performance'
-NEW_SHEET_NAMES = ['gold', 'coal', 'nickel', 'copper', 'silver']
+COMMODITY_PERFORMANCE_SHEET = ['gold', 'coal', 'nickel', 'copper', 'silver']
 COMMON_COLUMNS = ['id', 'company_id', '*company_name', 'year', 'commodity_type', 'commodity_sub_type']    
 
 
@@ -113,7 +113,7 @@ def create_new_sheets(spreadsheet: gspread.Spreadsheet, df: pd.DataFrame) -> Non
     print("\nSetting up new sheets")
 
     # Check if the DataFrame is empty
-    for new_sheet in NEW_SHEET_NAMES:
+    for new_sheet in COMMODITY_PERFORMANCE_SHEET:
         columns_from_json = get_json_columns(df, new_sheet)
         if not columns_from_json:
             print(f"No columns found for '{new_sheet}'. Skipping sheet creation.")
@@ -151,7 +151,7 @@ def migrate_data(spreadsheet: gspread.Spreadsheet, df: pd.DataFrame) -> None:
     print("\n Migrating data")
 
     # Check if the DataFrame is empty
-    for commodity_name in NEW_SHEET_NAMES:
+    for commodity_name in COMMODITY_PERFORMANCE_SHEET:
         sheet_name = f"{commodity_name}_performance"
         print(f"Processing data for '{sheet_name}'...")
         
@@ -303,7 +303,7 @@ def init_restructure() -> None:
     else:
         print("Could not retrieve data. Exiting.")
 
-def update_new_company_performance() -> None:   
+def update_commodity_performance() -> None:   
     client, spreadsheet_id = createClient()    
     spreadsheet = client.open_by_key(spreadsheet_id)
     new_sheet_name = 'company_performance'
@@ -313,15 +313,16 @@ def update_new_company_performance() -> None:
     renderMap = {
         'coal': renderCoalStats,
         'gold': renderGoldCopperStats,
+        'copper': renderGoldCopperStats,
         'nickel': renderNickelStats
     }
 
-    for n in NEW_SHEET_NAMES:
+    for n in COMMODITY_PERFORMANCE_SHEET:
         sheet_name = f'{n}_performance'
         _, df = getSheetAll(sheet_name)
         df['performance_id'] = f'{n}_' + df['id']
 
-        renderFunction = renderMap.get(n, renderGoldCopperStats)
+        renderFunction = renderMap[n]
         df['commodity_stats'] = df.apply(
             lambda row: json.dumps(renderFunction(row)), axis=1
         )
@@ -344,5 +345,5 @@ def update_new_company_performance() -> None:
     print(f"Successfully wrote {len(df_new)} rows to '{new_sheet_name}' with performance_id column.")
 
 if __name__ == '__main__':
-    update_new_company_performance()
+    update_commodity_performance()
     
