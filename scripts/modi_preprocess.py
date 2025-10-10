@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 
-df = pd.read_csv('datasets/modi_detailed_company_all.csv')
+df = pd.read_csv('datasets/modi_company_all_data_v2.csv')
 
 cols = [
     # 0 - 1: profil_perusahaan
@@ -74,4 +74,7 @@ for rowid, row in df_to_drop.iterrows():
 merge = merge[pd.to_numeric(merge['kode_wiup'], errors='coerce').notna()]
 merge = merge.reset_index(drop=True)
 
-merge.to_csv("datasets/modi_mining_license_merge.csv")
+merge.to_csv("datasets/modi_mining_license_merge_v2.csv")
+# if "komoditas" in df.columns:
+#     cleaned = df["komoditas"].str.upper().str.replace(r"\s+DMP$", "", regex=True)
+#     df["komoditas_mapped"] = cleaned.map(COMMODITY_MAP).fillna("Others")

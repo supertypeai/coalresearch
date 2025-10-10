@@ -11,3 +11,4 @@ sketch.py
 sheet_api/keys/*
 scrapper/*.csv
 .obsidian/
+checkpoints/
