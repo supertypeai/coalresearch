@@ -1,5 +1,14 @@
 [
     {
+        "title": "Indonesia hands over six seized tin smelters to state miner",
+        "body": "Among the assets seized was PT Refined Bangka Tin, once one of the largest private players in the sector.",
+        "source": "https://www.mining.com/web/indonesia-hands-over-six-seized-tin-smelters-to-state-miner/",
+        "timestamp": "2025-10-06 00:00:00",
+        "commodities": [
+            "Tin"
+        ]
+    },
+    {
         "title": "Column: Tin breaks higher as Indonesia cracks down on illegal miners",
         "body": "The tin market is once again bubbling on supply chain trouble, this time in Indonesia.",
         "source": "https://www.mining.com/web/column-tin-breaks-higher-as-indonesia-cracks-down-on-illegal-miners/",
@@ -9,11 +18,13 @@
         ]
     },
     {
-        "title": "Freeport-McMoRan still in talks with Indonesia over Grasberg mine rights",
-        "body": "PT Freeport Indonesia is 51% owned by Indonesia's government but operated by Freeport.",
-        "source": "https://www.mining.com/web/freeport-mcmoran-still-in-talks-with-indonesia-over-grasberg-mine-rights-company-says/",
-        "timestamp": "2025-09-30 00:00:00",
-        "commodities": []
+        "title": "Indonesia\u2019s Merdeka starts mining at Pani gold project",
+        "body": "The company aims to produce 140,000 ounces of gold annually.",
+        "source": "https://www.mining.com/web/indonesias-merdeka-gold-resources-starts-mining-at-pani-gold-project/",
+        "timestamp": "2025-10-01 00:00:00",
+        "commodities": [
+            "Gold"
+        ]
     },
     {
         "title": "Freeport to divest 12% of mine to Indonesia, CNBC says",
@@ -37,8 +48,26 @@
         "commodities": []
     },
     {
-        "title": "Merdeka Battery Drives 78% YoY Nickel Ore Production Surge Amid Cost Cuts and HPAL Expansion",
-        "body": "Merdeka Battery Materials Tbk. reported a 78% YoY jump in nickel ore production to 6.9\u202fMt wet metric tons in H1\u202f2025, driven by 45% growth in limonit and 189% in saprolit, while cash cost of nickel pig iron fell below $10k/ton despite a 23% drop in NPI output due to smelter maintenance. The company also advanced its HPAL strategy, selling 9,465\u202ft MHP via ESG\u2019s Train\u202fA, progressing a 90k\u202ft/yr HPAL at Sulawesi Nickel Cobalt to 29% completion, and building two FPPs and slurry pipelines to feed Morowali HPAL, all while EBITDA held at $77\u202fM despite a 32% revenue decline.",
+        "title": "Central Omega Resources Reports Record Production and Profit Surge in H1 2025",
+        "body": "PT Central Omega Resources Tbk reported a 140% jump in nickel ore production to 1.73\u202fMt and a 159% rise in sales to 1.83\u202fMt in the first half of 2025, driving net profit to Rp310.3\u202fbn and EBITDA to Rp481.4\u202fbn. The company attributes the surge to the full resumption of mining operations under a new 2024 RKAB, remains optimistic for the rest of 2025 amid stable global nickel prices, but cautions about potential US tariff uncertainties while pursuing new reserves and operational efficiencies.",
+        "source": "https://nikel.co.id/2025/10/07/produksi-dan-laba-melejit-pt-central-omega-resources-catat-kinerja-gemilang-di-semester-i-2025/",
+        "timestamp": "2025-10-07 13:47:11",
+        "commodities": [
+            "Nickel"
+        ]
+    },
+    {
+        "title": "Indonesia's Nickel Prices Rise in Early October 2025, APNI Calls for Market-Reflective Adjustments",
+        "body": "The Indonesian Nickel Association (APNI) reported that nickel benchmark prices rose to US$15,101.67 per dmt in the first half of October 2025, up from US$15,000.33 in the second half of September, with reference prices ranging from US$28.75 to over US$44 per wmt depending on grade and moisture content. APNI urged the government to adjust the benchmark to better reflect market realities, especially for low\u2011grade domestic miners, and reaffirmed its commitment to advocate for fair, sustainable pricing.",
+        "source": "https://nikel.co.id/2025/10/03/apni-rilis-kenaikan-harga-mineral-acuan-nikel-minggu-pertama-oktober-2025/",
+        "timestamp": "2025-10-03 17:09:47",
+        "commodities": [
+            "Nickel"
+        ]
+    },
+    {
+        "title": "Merdeka Battery's Nickel Ore Production Surges 78% in H1 2025 Amid Smelter Maintenance and Strategic MHP Sales",
+        "body": "PT Merdeka Battery Materials Tbk. reported a 78% YoY jump in nickel ore production to 6.9\u202fMt wmt in the first half of 2025, driven by 45% growth in limonite and 189% in saprolite, while its smelter RKEF maintenance cut downstream NPI output by 23% to 33,045\u202ft but lowered cash costs to $9,719/ton. The company also sold 9,465\u202ft of mixed hydroxide precipitate via ESG New Energy\u2019s Train\u202fA, is advancing a 90,000\u202ft/yr HPAL at Sulawesi Nickel Cobalt (29% complete, commissioning mid\u20112026), and is building two FPPs and a slurry pipeline to HPAL Morowali, with EBITDA at $77\u202fM (down 8% YoY) but a 33% YoY rise in Q2 after HGNM cuts.",
         "source": "https://nikel.co.id/2025/10/03/merdeka-battery-catat-lonjakan-penjualan-bijih-nikel-di-paruh-pertama-2025/",
         "timestamp": "2025-10-03 16:16:41",
         "commodities": [
