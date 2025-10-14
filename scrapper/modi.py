@@ -6,6 +6,8 @@ import random
 import os
 from datetime import datetime
 
+import constants
+
 from bs4 import BeautifulSoup
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
@@ -453,27 +455,28 @@ def get_company_mining_licenses_v2(url: str):
     if not data_list:
         return []
     
+    def safe_get(obj, keys, default=None):
+        """Safely access nested dictionary/list structures."""
+        try:
+            for key in keys:
+                obj = obj[key]
+            return obj
+        except (KeyError, TypeError, IndexError):
+            return default
+
     # Process each license in the list
     licenses = []
     for item in data_list:
         if not isinstance(item, dict):
             continue
             
-        # Safe nested access with better null checking
-        jenis_perizinan = item.get('jenis_perizinan')
-        jenis_perizinan_value = jenis_perizinan.get('jenis_perizinan') if isinstance(jenis_perizinan, dict) else None
-        
-        tahap_kegiatan = item.get('tahap_kegiatan')
-        tahap_kegiatan_value = tahap_kegiatan.get('deskripsi') if isinstance(tahap_kegiatan, dict) else None
-        
-        wiup = item.get('wiup')
-        wiup_value = wiup.get('nomor_wiup') if isinstance(wiup, dict) else None
-        
-        komoditas = item.get('komoditas')
-        komoditas_value = komoditas.get('nama_komoditas') if isinstance(komoditas, dict) else None
-        
-        status_cnc = item.get('status_cnc')
-        status_cnc_value = status_cnc.get('status_cnc') if isinstance(status_cnc, dict) else None
+        jenis_perizinan_value = safe_get(item, ['jenis_perizinan', 'jenis_perizinan'])
+        tahap_kegiatan_value = safe_get(item, ['tahap_kegiatan', 'deskripsi'])
+        wiup_value = safe_get(item, ['wiup', 'nomor_wiup'])
+        komoditas_value = safe_get(item, ['komoditas', 'nama_komoditas'])
+        status_cnc_value = safe_get(item, ['status_cnc', 'status_cnc'])
+        kabupaten = safe_get(item, ['perizinan_kabupaten', 0, 'kabupaten', 'nama_kabupaten'])
+        kode_provinsi = safe_get(item, ['perizinan_kabupaten', 0, 'kabupaten', 'kode_provinsi'])
         
         license_data = {
             "JenisPerizinan": jenis_perizinan_value,
@@ -485,10 +488,11 @@ def get_company_mining_licenses_v2(url: str):
             "TglMulaiBerlaku": item.get('tanggal_berlaku'),
             "TglBerakhir": item.get('tanggal_berakhir'),
             "Tahapan CNC": status_cnc_value,
-            "Lokasi": item.get('lokasi_perizinan')
+            "Lokasi": item.get('lokasi_perizinan'),
+            "Kabupaten": kabupaten,
+            "Provinsi": constants.PROVINCE_ID_MAP.get(kode_provinsi) if kode_provinsi else None,
         }
         licenses.append(license_data)
-    
     return licenses
 
 def extract_company_detail_v2(company_id: str):
