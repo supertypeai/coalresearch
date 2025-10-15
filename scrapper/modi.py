@@ -426,7 +426,14 @@ def get_company_profile_v2(url: str):
 
     company_name = data.get('nama_badan_usaha')
     company_type_id = data.get('id_jenis_badan_usaha')
-    company_type = {"4": "CV", "2": "PT", "6": "SDR"}.get(company_type_id) if company_type_id else None
+    company_type_map = {
+        "4": "CV", 
+        "2": "PT", 
+        "6": "SDR", 
+        "11": "Koperasi",
+        "7": "PD"
+    }
+    company_type = company_type_map.get(company_type_id) if company_type_id else None
 
     return {
         "Nama Perusahaan": company_name,

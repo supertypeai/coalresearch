@@ -3,102 +3,7 @@ import sqlite3
 import re
 
 from scripts.fuzzy_matcher import match_company_by_name
-
-def normalize_admin(name: str) -> str:
-    """
-    Normalize a province or city string:
-     - split on commas, strip each piece
-     - expand kab., prov., kota → full words
-     - remove stray dots/extra spaces
-     - title-case each word, except 'dan'
-     - re-join with ', ' (guaranteed space)
-    """
-    if pd.isna(name):
-        return ""
-    # 1) break into parts
-    parts = [part.strip() for part in str(name).split(",") if part.strip()]
-    cleaned = []
-    for part in parts:
-        s = part
-        # 2) expand abbreviations
-        exp = {
-            r"\bkab\.?\b": "kabupaten",
-            r"\bprov\.?\b": "provinsi",
-            r"\bkota\b": "kota",
-        }
-        for pat, sub in exp.items():
-            s = re.sub(pat, sub, s, flags=re.IGNORECASE)
-        # 3) remove dots & collapse spaces
-        s = s.replace(".", "")
-        s = re.sub(r"\s{2,}", " ", s).strip()
-
-        # 4) title-case words (except 'dan')
-        def _tc(w):
-            return w.lower() if w.lower() == "dan" else w.capitalize()
-
-        s = " ".join(_tc(w) for w in s.split())
-        cleaned.append(s)
-    # 5) re-join with comma+space
-    return ", ".join(cleaned)
-
-
-def normalize_location(row):
-    raw = str(row["lokasi"]).strip()
-
-    raw = re.sub(r"^[\.\s]+", "", raw)
-
-    # 1) DIGIT ONLY → "City, Province"
-    if raw.isdigit():
-        return f"{row['nama_kab'].title()}, {row['nama_prov'].title()}"
-
-    if re.search(r"https?://|goo\.gl/", raw, flags=re.IGNORECASE):
-        return f"{row['nama_kab']}, {row['nama_prov']}"
-
-    loc = raw
-
-    loc = re.sub(r"\bdesa/kelurahan\b", "Desa/Kelurahan", loc, flags=re.IGNORECASE)
-
-    # 2) Expand “Ds” or “Ds.” → “Desa ”
-    loc = re.sub(r"\bds\.?\b", "desa ", loc, flags=re.IGNORECASE)
-
-    # 3) Ensure “Jl.” and “No.”
-    loc = re.sub(r"\bJl\.?\b", "Jl.", loc)
-    loc = re.sub(r"\bNo\.?\b", "No.", loc)
-
-    # 4) Uppercase RT/RW
-    loc = re.sub(r"\bRt\b", "RT", loc, flags=re.IGNORECASE)
-    loc = re.sub(r"\bRw\b", "RW", loc, flags=re.IGNORECASE)
-
-    # 5) Expand other abbreviations
-    expansions = {
-        r"\bkec\.?\s*": "kecamatan ",
-        r"\bkab\.?\s*": "kabupaten ",
-        r"\bprov\.?\s*": "provinsi ",
-        r"\bkel\.?\s*": "kelurahan ",
-        r"\bdesa/kel\.?\s*": "desa/kelurahan ",
-    }
-    for pat, sub in expansions.items():
-        loc = re.sub(pat, sub, loc, flags=re.IGNORECASE)
-
-    # 6) Fix fused words, e.g. “Kecamatanmook”
-    loc = re.sub(
-        r"(?i)(kecamatan|kabupaten|provinsi|kelurahan)([A-Za-z])",
-        lambda m: m.group(1) + " " + m.group(2),
-        loc,
-    )
-
-    # 7) Normalize comma spacing & collapse multiple spaces
-    loc = re.sub(r"\s{2,}", " ", loc)
-    loc = re.sub(r"\s*,\s*", ", ", loc).strip(" ,")
-
-    # 8) Title-case words except 'dan'
-    def tc(w):
-        return w.lower() if w.lower() == "dan" else w.capitalize()
-
-    parts = [p.strip() for p in loc.split(",") if p.strip()]
-    cleaned = [" ".join(tc(w) for w in part.split()) for part in parts]
-    return ", ".join(cleaned)
-
+from lib.formatter import normalize_admin, normalize_location
 
 def clean_company_name(name):
     """Removes common corporate prefixes/suffixes and converts to lowercase."""
@@ -142,18 +47,15 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
         "tgl_akhir",  # permit_expiry_date
         "kegiatan",  # activity
         "luas_sk",  # licensed_area
-        "lokasi_norm",  # location
+        "lokasi",  # location
         "komoditas_mapped",  # commodity
         "nama_usaha",  # company_name
         "badan_usaha",
     ]
     df_sorted = df_sorted[required_cols]
-    df_sorted.rename(columns={"lokasi_norm": "lokasi"}, inplace=True)
 
     # Exclude rows where effective equals expiry date
     df_sorted = df_sorted[df_sorted["tgl_berlaku"] != df_sorted["tgl_akhir"]]
-
-    # Strip and filter out rows with empty or '-' in any string column
     excluded_columns = ["lokasi"]
     str_cols = df_sorted.select_dtypes(include=[object]).columns.difference(excluded_columns)
 
@@ -165,7 +67,7 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
         return True
 
     invalid_df = df_sorted[~df_sorted.apply(valid_row, axis=1)]
-    print(f"Dropping {len(invalid_df)} rows. Viewing first 5 rows: ")
+    print(f"Dropping {len(invalid_df)} invalid rows. Viewing first 5 rows: ")
     print(invalid_df.head(5), "\n")
 
     df_sorted = df_sorted[df_sorted.apply(valid_row, axis=1)]
@@ -189,15 +91,8 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
     df_sorted["cleaned_company_name_for_match"] = df_sorted["nama_usaha"].apply(
         clean_company_name
     )
-    no_location_mask = df_sorted["lokasi"] == "-"
-    df_sorted.loc[no_location_mask, "lokasi"] = (
-        "Kab. "
-        + df_sorted.loc[no_location_mask, "nama_kab"]
-        + ", "
-        + df_sorted.loc[no_location_mask, "nama_prov"]
-    )
-
-    # df_sorted["location"] = df_sorted.apply(normalize_location, axis=1)
+    df_sorted["location"] = df_sorted.apply(normalize_location, axis=1)
+    df_sorted.drop(columns="lokasi", inplace=True)
 
     return df_sorted
 
@@ -326,8 +221,7 @@ def scrape_and_upsert(csv_path: str, db_path: str):
     create_table(conn)
     upsert_records(conn, all_df)
     conn.close()
-    print(f"Upserted {len(all_df)} valid records (IDs 1-{len(all_df)}).")
-
-
+    print(f"Upserted {len(all_df)} valid records (IDs 1-{len(all_df)}")
+    
 if __name__ == "__main__":
-    scrape_and_upsert("datasets/modi_mining_license_merge.csv", "db.sqlite")
+    scrape_and_upsert("datasets/modi_mining_license_merge_v2.csv", "db.sqlite")

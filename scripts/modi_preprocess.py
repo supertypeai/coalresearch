@@ -1,80 +1,129 @@
 import pandas as pd
 import json
+from constants import COMMODITY_MAP
 
-df = pd.read_csv('datasets/modi_company_all_data_v2.csv')
+def process_mining_license_scraped_from_modi(csv_path: str):
+    """
+        Process mining license data scraped from modi.
+        important note on the excluded data:
+        1. perizinan_data: dict == pd.na
+        2. jenis_izin: str == 'IUP OPK' (IUP Operasi Produksi Khusus)
+        3. jenis_izin: str == 'IPP' (Izin Pengangkutan dan Penjualan)
+        4. badan_usaha: str == pd.na
+    """
 
-cols = [
-    # 0 - 1: profil_perusahaan
-    ("nama_usaha", "Nama Perusahaan"),
-    ("badan_usaha", "Jenis Badan Usaha"),
+    def _filter_1(df):
+        df = df[~pd.isna(df['perizinan_data'])]
+        return df
 
-    # 1 - end: perizinan_data
-    ("jenis_izin", "JenisPerizinan"),
-    ("sk_iup", "NomorPerizinan"),
-    ("kegiatan", "TahapanKegiatan"),
-    ("kode_wiup", "KodeWIUP"),
-    ("komoditas", "Komoditas"),
-    ("luas_sk", "Luas(ha)"),
-    ("tgl_berlaku", "TglMulaiBerlaku"),
-    ("tgl_akhir", "TglBerakhir"),
-    ("cnc", "Tahapan CNC"),
-    ("lokasi", "Lokasi")
-]
+    def _transform_1(df):
+        flattened_rows = []
+        for _, row in df.iterrows():
+            a_data = json.loads(row['profil_perusahaan'])
+            b_data = json.loads(row['perizinan_data'])
+        
+            for item in b_data:
+                combined = {**a_data, **item}
+                flattened_rows.append(combined)
+        return pd.DataFrame(flattened_rows)
 
-df = df[~pd.isna(df['perizinan_data'])]
+    def _filter_2(df):
+        df = df.rename(columns={
+            "Jenis Badan Usaha": "badan_usaha",
+            "Nama Perusahaan": "nama_usaha",
+            "JenisPerizinan": "jenis_izin",
+            "NomorPerizinan": "sk_iup",
+            "TahapanKegiatan": "kegiatan",
+            "KodeWIUP": "kode_wiup",
+            "Komoditas": "komoditas",
+            "Luas(ha)": "luas_sk",
+            "TglMulaiBerlaku": "tgl_berlaku",
+            "TglBerakhir": "tgl_akhir",
+            "Tahapan CNC": "cnc",
+            "Lokasi": "lokasi",
+            "Kabupaten": "nama_kab",
+            "Provinsi": "nama_prov"
+        })
+        df = df[df['jenis_izin'] != 'IUP OPK']
+        df = df[df['jenis_izin'] != 'IPP']
+        df = df[~pd.isna(df['badan_usaha'])]
+        df = df.drop_duplicates(keep='first')
+        return df
 
-flattened_rows = []
+    df = pd.read_csv(csv_path)
+    # ==== modi_company_all_data_v2 ====
+    #
+    # profil_perusahaan,perizinan_data,url
+    # "{
+    # ""Nama Perusahaan"": ""3G TRUST"",
+    # ""Jenis Badan Usaha"": ""CV""
+    # }","[
+    # {
+    #     ""JenisPerizinan"": ""IUP"",
+    #     ""NomorPerizinan"": ""02201043921450002"",
+    #     ""TahapanKegiatan"": ""OPERASI PRODUKSI"",
+    #     ""KodeWIUP"": ""2119064052019141"",
+    #     ""Komoditas"": ""Pasir Kuarsa"",
+    #     ""Luas(ha)"": ""123.90000000"",
+    #     ""TglMulaiBerlaku"": ""2023-03-30"",
+    #     ""TglBerakhir"": ""2043-03-30"",
+    #     ""Tahapan CNC"": ""CNC"",
+    #     ""Lokasi"": ""KAB. BELITUNG TIMUR"",
+    #     ""Kabupaten"": ""KAB. BELITUNG TIMUR"",
+    #     ""Provinsi"": ""Bangka Belitung""
+    # }
+    # ]",https://minerbaone.esdm.go.id/api/common/v2/publik/badan-usaha/611426735552075729
 
-# Iterate over rows
-for _, row in df.iterrows():
-    a_data = json.loads(row['profil_perusahaan'])
-    b_data = json.loads(row['perizinan_data'])
-   
-    for item in b_data:
-        # Merge a + b[i] into one row
-        combined = {**a_data, **item}
-        flattened_rows.append(combined)
+    df = _filter_1(df)
+    df = _transform_1(df)
+    df = _filter_2(df)
 
-# Create final DataFrame
-flat_df = pd.DataFrame(flattened_rows)
-modi_df = flat_df[flat_df['JenisPerizinan'] != 'IUP OPK']
+    return df
 
-modi_df = modi_df.rename(columns={o:t for t, o in cols})
-modi_df = modi_df[[t for t, o in cols]]
-modi_df = modi_df.sort_values(by=['nama_usaha', 'sk_iup'])
-modi_df = modi_df.drop_duplicates(keep='first')
+def process_mining_license_scraped_from_esdm(csv_path: str):
+    df = pd.read_csv(csv_path)
+    df = df[['kode_wiup', 'lokasi', 'nama_prov', 'nama_kab', 'generasi', 'geometry']]
+    return df
 
-minerba_df = pd.read_csv('datasets/esdm_minerba_all.csv')
-minerba_cols = ['kode_wiup', 'objectid', 'pulau', 'pejabat', 'id_prov', 'nama_prov', 'id_kab', 
-                'nama_kab', 'kode_golongan', 'kode_jnskom', 'generasi', 'geometry',
-                'komoditas_mapped', 'provinsi_norm', 'kabupaten_norm', 'kegiatan_norm', 'lokasi_norm']
-minerba_df = minerba_df[[c for c in minerba_cols]]
+if __name__ == "__main__":
+    modi_df = process_mining_license_scraped_from_modi('datasets/modi_company_all_data_v2_20251015_082601.csv')
+    minerba_df = process_mining_license_scraped_from_esdm('datasets/esdm_minerba_all.csv')
 
-merge = pd.merge(
-    modi_df,
-    minerba_df,
-    how='left',
-    on=['kode_wiup'],
-)
-merge = merge.sort_values(by=['nama_usaha', 'sk_iup'])
+    def _filter_1(df):
+        df_to_drop = df[df['kode_wiup'].isna() | (df['kode_wiup'] == '')]
 
-# No duplicated on merge['kode_wiup']
-merge.loc[pd.isna(merge['geometry']), 'geometry'] = "[]"
-merge = merge.fillna("-")
-merge['luas_sk'] = merge['luas_sk'].str.replace('.', '', regex=False) \
-                                   .str.replace(',', '.', regex=False)
+        print(f"Dropping {len(df_to_drop)} companies with no wiup_code")
+        for _, row in df_to_drop.iterrows():
+            print(row['nama_usaha'])
 
-wiup_code_numeric = pd.to_numeric(merge['kode_wiup'], errors='coerce')
-df_to_drop = merge[pd.isna(wiup_code_numeric)]
+        df = df[~df.index.isin(df_to_drop.index)]
+        return df
 
-print(f"Dropping {len(df_to_drop)} companies with no wiup_code")
-for rowid, row in df_to_drop.iterrows():
-    print(row['nama_usaha'])
+    def _transform_1(df):
+        df = df.sort_values(by=['nama_usaha', 'sk_iup'])
+        df['generasi'] = df['generasi'].fillna("-")
+        
+        df.loc[pd.isna(df['geometry']), 'geometry'] = "[]"
+        df['luas_sk'] = df['luas_sk'].str.replace('.', '', regex=False).str.replace(',', '.', regex=False)
+        df['luas_sk'] = (pd.to_numeric(df['luas_sk']) / (10 ** 8)).round(2)
 
-merge = merge[pd.to_numeric(merge['kode_wiup'], errors='coerce').notna()]
-merge = merge.reset_index(drop=True)
+        df['lokasi'] = df['lokasi_x'].fillna(df['lokasi_y'])
+        df['nama_prov'] = df['nama_prov_x'].fillna(df['nama_prov_y'])
+        df['nama_kab'] = df['nama_kab_x'].fillna(df['nama_kab_y'])
 
-merge.to_csv("datasets/modi_mining_license_merge_v2.csv")
-# if "komoditas" in df.columns:
-#     cleaned = df["komoditas"].str.upper().str.replace(r"\s+DMP$", "", regex=True)
-#     df["komoditas_mapped"] = cleaned.map(COMMODITY_MAP).fillna("Others")
+        komoditas_cleaned = df["komoditas"].str.upper().str.replace(r"\s+DMP$", "", regex=True)
+        df["komoditas_mapped"] = komoditas_cleaned.map(COMMODITY_MAP).fillna("Others")        
+        return df
+    
+    def _filter_2(df):
+        return df[["nama_usaha", "badan_usaha", "jenis_izin", "sk_iup", "kode_wiup",
+                "nama_prov", "nama_kab", "tgl_berlaku", "tgl_akhir", "kegiatan",
+                "luas_sk", "cnc", "generasi", "lokasi", "komoditas_mapped","geometry"]]
+
+    df = pd.merge(modi_df, minerba_df, how='left', on='kode_wiup')
+    df = _filter_1(df)
+    df = _transform_1(df)
+    df = _filter_2(df)
+
+    df.reset_index(drop=True, inplace=True)
+    df.to_csv("datasets/modi_mining_license_merge_v2.csv", index=False)
