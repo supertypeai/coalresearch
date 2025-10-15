@@ -91,8 +91,11 @@ if __name__ == "__main__":
 
     def _filter_1(df):
         df_to_drop = df[df['kode_wiup'].isna() | (df['kode_wiup'] == '')]
+        
+        duplicates = df[df.duplicated(subset='kode_wiup', keep='first')]
+        df_to_drop = pd.concat([df_to_drop, duplicates])
 
-        print(f"Dropping {len(df_to_drop)} companies with no wiup_code")
+        print(f"Dropping {len(df_to_drop)} companies with no wiup_code or duplicates")
         for _, row in df_to_drop.iterrows():
             print(row['nama_usaha'])
 
