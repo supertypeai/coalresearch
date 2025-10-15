@@ -1,40 +1,47 @@
 import pandas as pd
+from lib.formatter import normalize_admin, normalize_location
 
-def prepareMinerbaDf(filename: str = "datasets/modi_mining_license_merge.csv"):
+def prepareMinerbaDf(filename: str = "datasets/modi_mining_license_merge_v2.csv"):
     minerba_df = pd.read_csv(filename)
+
+    minerba_df["nama_prov"] = minerba_df["nama_prov"].apply(normalize_admin)
+    minerba_df["nama_kab"] = minerba_df["nama_kab"].apply(normalize_admin)
+    minerba_df["kegiatan"] = minerba_df["kegiatan"].apply(normalize_admin)
+    minerba_df["lokasi"] = minerba_df.apply(normalize_location, axis=1)
+
     minerba_df = minerba_df.rename(columns={
-        "Unnamed: 0": "row_id",
-        "objectid": "object_id",
-        "pulau": "island",
-        "pejabat": "official",
-        "id_prov": "province_id",
-        "nama_prov": "province",
-        "id_kab": "city_id",
-        "nama_kab": "city",
-        "jenis_izin": "license_type",
-        "badan_usaha": "business_entity",
         "nama_usaha": "company_name",
-        "kode_wiup": "wiup_code",
+        "jenis_izin": "license_type",
         "sk_iup": "license_number",
+        "kode_wiup": "wiup_code",
+        "nama_prov": "province",
+        "nama_kab": "city",
         "tgl_berlaku": "permit_effective_date",
         "tgl_akhir": "permit_expiry_date",
         "kegiatan": "activity",
         "luas_sk": "licensed_area",
-        "komoditas": "commodity",
-        "kode_golongan": "group_code",
-        "kode_jnskom": "commodity_type_code",
         "cnc": "cnc",
         "generasi": "generation",
-        "kode_wil": "region_code",
         "lokasi": "location",
-        "geometry": "geometry",
         "komoditas_mapped": "komoditas_mapped",
-        "provinsi_norm": "provinsi_norm",
-        "kabupaten_norm": "kabupaten_norm",
-        "kegiatan_norm": "kegiatan_norm",
-        "lokasi_norm": "lokasi_norm"
+        "geometry": "geometry",
     })
+
+    no_geometry_mask = minerba_df["geometry"] == "[]"
+    minerba_df_with_no_geometry = minerba_df[no_geometry_mask]
+    print(f"Excluding {len(minerba_df_with_no_geometry)} companies with no geometry data")
+    for rowid, row in minerba_df_with_no_geometry.head(5).iterrows():
+        print(row['company_name'])
+
+    minerba_df = minerba_df[~no_geometry_mask]
+
+    minerba_df["license_number"] = minerba_df["license_number"].fillna("-").str.strip()
+    minerba_df["commodity"] = (
+        minerba_df["komoditas_mapped"].astype(str).str.strip().str.title()
+    )
+
     included_columns = [
+        "company_name",
         "license_type",
         "license_number",
         "wiup_code",
@@ -50,36 +57,10 @@ def prepareMinerbaDf(filename: str = "datasets/modi_mining_license_merge.csv"):
         "commodity",
         "geometry",
     ]
-    minerba_df["province"] = minerba_df["provinsi_norm"]
-    minerba_df["city"] = minerba_df["kabupaten_norm"]
-    minerba_df["activity"] = minerba_df["kegiatan_norm"]
-    minerba_df["location"] = minerba_df["lokasi_norm"].fillna("-")
+    minerba_df = minerba_df[included_columns]
+    minerba_df.fillna("-", inplace=True)
 
-    # Temporary fix
-    no_geometry_mask = minerba_df["geometry"] == "[]"
-    minerba_df_with_no_geometry = minerba_df[no_geometry_mask]
-    print(f"Excluding {len(minerba_df_with_no_geometry)} companies with no geometry data")
-    for rowid, row in minerba_df_with_no_geometry.head(5).iterrows():
-        print(row['company_name'])
+    return minerba_df
 
-    minerba_df = minerba_df[~no_geometry_mask]
-
-    minerba_df["license_number"] = minerba_df["license_number"].fillna("-").str.strip()
-    # minerba_df["permit_effective_date"] = pd.to_datetime(
-    #     minerba_df["permit_effective_date"], unit="ms", errors="coerce"
-    # )
-    # minerba_df["permit_expiry_date"] = pd.to_datetime(
-    #     minerba_df["permit_expiry_date"], unit="ms", errors="coerce"
-    # )
-    # minerba_df["permit_effective_date"] = (
-    #     minerba_df["permit_effective_date"].dt.strftime("%Y-%m-%d").fillna("-")
-    # )
-    # minerba_df["permit_expiry_date"] = (
-    #     minerba_df["permit_expiry_date"].dt.strftime("%Y-%m-%d").fillna("-")
-    # )
-    minerba_df["commodity"] = (
-        minerba_df["komoditas_mapped"].astype(str).str.strip().str.title()
-    )
-    minerba_df["generation"] = minerba_df["generation"].fillna("-")
-
-    return minerba_df, included_columns
+if __name__ == "__main__":
+    df = prepareMinerbaDf()

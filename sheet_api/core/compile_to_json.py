@@ -360,10 +360,10 @@ def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
                       starts_from: int = 0, threshold: int = 93
                     ) -> pd.DataFrame:
     # Load and clean reference DataFrame
-    minerba_df, included_columns = prepareMinerbaDf()
+    minerba_df = prepareMinerbaDf()
     
-    df_company = clean_company_df(df, 'name')
-    df_minerba = clean_company_df(minerba_df,'company_name')
+    df_company = clean_company_df(df, 'name') # This function add two columns: ['name_cleaned', 'name_cleaned_no_space']
+    df_minerba = clean_company_df(minerba_df,'company_name') # Same goes here
 
     # Pre-extract the list of normalized names for fuzzy matching
     clean_list = df_minerba['name_cleaned'].tolist()
@@ -382,7 +382,9 @@ def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
         matches = matchingSequence(df_minerba, clean_list, key, key_no_space, threshold, is_debug)
 
         if not matches.empty:
-            records = matches[included_columns].to_dict(orient="records")
+            # Drop "company_name" column to finalize the payload
+            matches = matches.drop(columns=['company_name'], errors='ignore')
+            records = matches.to_dict(orient="records")
         else:
             # empty list when no matches
             records = []  
