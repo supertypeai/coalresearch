@@ -1,12 +1,10 @@
 [
     {
-        "title": "Indonesia hands over six seized tin smelters to state miner",
-        "body": "Among the assets seized was PT Refined Bangka Tin, once one of the largest private players in the sector.",
-        "source": "https://www.mining.com/web/indonesia-hands-over-six-seized-tin-smelters-to-state-miner/",
-        "timestamp": "2025-10-06 00:00:00",
-        "commodities": [
-            "Tin"
-        ]
+        "title": "Supply problems may force Freeport Indonesia to halt Manyar smelter",
+        "body": "The $3.7 billion Manyar smelter only resumed operations in May after a fire broke out in October last year.",
+        "source": "https://www.mining.com/web/supply-problems-may-force-freeport-indonesia-to-halt-manyar-smelter/",
+        "timestamp": "2025-10-14 00:00:00",
+        "commodities": []
     },
     {
         "title": "Column: Tin breaks higher as Indonesia cracks down on illegal miners",
@@ -32,15 +30,8 @@
         "commodities": []
     },
     {
-        "title": "Indonesia halts Grasberg operations to search for trapped workers",
-        "body": "Two workers have died and five remain missing following a large mudflow earlier this month.",
-        "source": "https://www.mining.com/indonesia-halts-grasberg-operations-to-search-for-trapped-workers/",
-        "timestamp": "2025-09-26 00:00:00",
-        "commodities": []
-    },
-    {
-        "title": "Central Omega Resources Reports Record Production and Profit Surge in First Half of 2025",
-        "body": "PT Central Omega Resources Tbk saw nickel ore production jump 140% to 1.73\u202fMt and sales rise 159% to 1.83\u202fMt in H1\u202f2025, while net profit climbed 38% to Rp310.3\u202fbn and EBITDA surged 219% to Rp481.4\u202fbn, driven by full\u2011scale mining operations and a new 2024 RKAB. The company remains optimistic for the rest of 2025 but warns of potential US tariff uncertainties, pledging to boost efficiency, explore new reserves, and adopt sustainable resource management.",
+        "title": "Central Omega Resources Reports Record Production and Profit Surge in H1 2025",
+        "body": "In the first half of 2025, PT Central Omega Resources Tbk achieved a 140% jump in nickel ore production to 1.73\u202fMt and a 159% increase in sales to 1.83\u202fMt, while net profit rose 38% to Rp310.3\u202fbn and EBITDA surged 219% to Rp481.4\u202fbn, driven by the full resumption of mining operations under a new 2024 RKAB. The company remains optimistic for the rest of the year, citing stable global nickel prices, but remains cautious of potential U.S. tariff uncertainties, pledging to sustain momentum through operational efficiency, new reserve exploration, and sustainable resource management.",
         "source": "https://nikel.co.id/2025/10/07/produksi-dan-laba-melejit-pt-central-omega-resources-catat-kinerja-gemilang-di-semester-i-2025/",
         "timestamp": "2025-10-07 13:47:11",
         "commodities": [
@@ -48,19 +39,19 @@
         ]
     },
     {
-        "title": "Indonesia's Nickel Prices Rise in Early October 2025, APNI Calls for Market\u2011Reflective Adjustments",
-        "body": "APNI released that nickel reference prices for the first half of October 2025 climbed to US$15,101.67 per dmt, up from US$15,000.33 in the second half of September, with detailed rates for grades ranging from 1.60% to 2.00% and MC variations. The association praised the transparency of the calculation formula but urged the government to adjust prices to better reflect market realities, especially for low\u2011grade domestic miners, and emphasized the need for continued dialogue to maintain a healthy industry climate.",
-        "source": "https://nikel.co.id/2025/10/03/apni-rilis-kenaikan-harga-mineral-acuan-nikel-minggu-pertama-oktober-2025/",
-        "timestamp": "2025-10-03 17:09:47",
+        "title": "Merdeka Battery Sees 78% Rise in Nickel Ore Production in H1 2025 Despite Revenue Drop",
+        "body": "In the first half of 2025, Merdeka Battery\u2019s nickel ore output surged 78% to 6.9\u202fMt wmt, driven by 45% growth in limonite and 189% in saprolite, while revenue fell 32% to US$628\u202fM; the company also cut NPI cash cost to US$9,719/ton and sold 9,465\u202ft of MHP through ESG\u2019s HPAL Train\u202fA, with ongoing HPAL and slurry\u2011pipeline projects set to boost downstream capacity. EBITDA stood at US$77\u202fM, down 8% YOY but up 33% in Q2 after HGNM cuts, underscoring resilient margins amid strategic focus on upstream\u2011to\u2011downstream integration.",
+        "source": "https://nikel.co.id/2025/10/03/merdeka-battery-catat-lonjakan-penjualan-bijih-nikel-di-paruh-pertama-2025/",
+        "timestamp": "2025-10-03 16:16:41",
         "commodities": [
             "Nickel"
         ]
     },
     {
-        "title": "Merdeka Battery's Nickel Ore Production Surges 78% in H1 2025 Despite Revenue Decline",
-        "body": "In the first half of 2025, Merdeka Battery\u2019s SCM mine produced 6.9\u202fMt of wet nickel ore\u2014a 78% YoY jump driven by 45% growth in limonit and 189% in saprolit\u2014while downstream NPI output fell 23% but its cash cost dropped below $10k/ton. The company also sold 9,465\u202ft of MHP from its ESG HPAL plant, advanced a 90k\u202ft/yr HPAL at Sulawesi Nickel Cobalt to 29% progress, and is building two FPPs and a slurry pipeline to feed Morowali HPAL, positioning it for a cost\u2011efficient, end\u2011to\u2011end nickel supply chain.",
-        "source": "https://nikel.co.id/2025/10/03/merdeka-battery-catat-lonjakan-penjualan-bijih-nikel-di-paruh-pertama-2025/",
-        "timestamp": "2025-10-03 16:16:41",
+        "title": "Indonesia Secures 64% of Global Nickel Production, Calls for Consistent Regulation to Boost Downstream Industry",
+        "body": "Indonesia now controls about 64% of worldwide nickel output, with 424 mining firms and 163 processing plants\u2014including 55 active in pyro\u2011metallurgy and HPAL\u2014according to APNI Secretary\u2011General Meidy Katrin Lengkey. She urged the government to maintain stable, investor\u2011friendly regulations to support the growth of downstream sectors such as stainless steel and battery manufacturing.",
+        "source": "https://nikel.co.id/2025/09/26/sekum-apni-indonesia-kuasai-produksi-nikel-dunia-tapi-perlu-regulasi-konsisten/",
+        "timestamp": "2025-09-26 13:00:25",
         "commodities": [
             "Nickel"
         ]
