@@ -1,10 +1,12 @@
 [
     {
-        "title": "Supply problems may force Freeport Indonesia to halt Manyar smelter",
-        "body": "The $3.7 billion Manyar smelter only resumed operations in May after a fire broke out in October last year.",
-        "source": "https://www.mining.com/web/supply-problems-may-force-freeport-indonesia-to-halt-manyar-smelter/",
-        "timestamp": "2025-10-14 00:00:00",
-        "commodities": []
+        "title": "Indonesian tin miner eyes mining asset in Canada",
+        "body": "Arsari Tambang says it will take advantage of an economic partnership deal signed with Canada last month to invest in a mining asset there.",
+        "source": "https://www.mining.com/web/indonesian-tin-miner-eyes-mining-asset-in-canada/",
+        "timestamp": "2025-10-15 00:00:00",
+        "commodities": [
+            "Tin"
+        ]
     },
     {
         "title": "Column: Tin breaks higher as Indonesia cracks down on illegal miners",
@@ -16,22 +18,8 @@
         ]
     },
     {
-        "title": "Freeport-McMoRan still in talks with Indonesia over Grasberg mine rights",
-        "body": "PT Freeport Indonesia is 51% owned by Indonesia's government but operated by Freeport.",
-        "source": "https://www.mining.com/web/freeport-mcmoran-still-in-talks-with-indonesia-over-grasberg-mine-rights-company-says/",
-        "timestamp": "2025-09-30 00:00:00",
-        "commodities": []
-    },
-    {
-        "title": "Freeport to divest 12% of mine to Indonesia, CNBC says",
-        "body": "The divestment is part of an agreement to extend the company\u2019s license to operate the Grasberg mine.",
-        "source": "https://www.mining.com/web/freeport-will-divest-12-of-local-arm-to-indonesia-cnbc-says/",
-        "timestamp": "2025-09-30 00:00:00",
-        "commodities": []
-    },
-    {
         "title": "Central Omega Resources Reports Record Production and Profit Surge in H1 2025",
-        "body": "In the first half of 2025, PT Central Omega Resources Tbk achieved a 140% jump in nickel ore production to 1.73\u202fMt and a 159% increase in sales to 1.83\u202fMt, while net profit rose 38% to Rp310.3\u202fbn and EBITDA surged 219% to Rp481.4\u202fbn, driven by the full resumption of mining operations under a new 2024 RKAB. The company remains optimistic for the rest of the year, citing stable global nickel prices, but remains cautious of potential U.S. tariff uncertainties, pledging to sustain momentum through operational efficiency, new reserve exploration, and sustainable resource management.",
+        "body": "PT Central Omega Resources Tbk reported a 140% jump in nickel ore production to 1.73\u202fMt and a 159% rise in sales to 1.83\u202fMt in the first half of 2025, driving net profit to Rp310.3\u202fbn and EBITDA to Rp481.4\u202fbn, up 38% and 219% respectively. The gains were attributed to full\u2011scale mining operations resumed after the 2024 RKAB, with the company optimistic for continued growth amid stable global nickel prices but wary of US tariff uncertainties.",
         "source": "https://nikel.co.id/2025/10/07/produksi-dan-laba-melejit-pt-central-omega-resources-catat-kinerja-gemilang-di-semester-i-2025/",
         "timestamp": "2025-10-07 13:47:11",
         "commodities": [
@@ -39,19 +27,10 @@
         ]
     },
     {
-        "title": "Merdeka Battery Sees 78% Rise in Nickel Ore Production in H1 2025 Despite Revenue Drop",
-        "body": "In the first half of 2025, Merdeka Battery\u2019s nickel ore output surged 78% to 6.9\u202fMt wmt, driven by 45% growth in limonite and 189% in saprolite, while revenue fell 32% to US$628\u202fM; the company also cut NPI cash cost to US$9,719/ton and sold 9,465\u202ft of MHP through ESG\u2019s HPAL Train\u202fA, with ongoing HPAL and slurry\u2011pipeline projects set to boost downstream capacity. EBITDA stood at US$77\u202fM, down 8% YOY but up 33% in Q2 after HGNM cuts, underscoring resilient margins amid strategic focus on upstream\u2011to\u2011downstream integration.",
+        "title": "Merdeka Battery Reports 78% Surge in Nickel Ore Production in H1 2025, Despite 32% Revenue Drop, While Advancing Smelter and HPAL Projects",
+        "body": "In the first half of 2025, Merdeka Battery\u2019s nickel ore output climbed 78% to 6.9\u202fMt wmt, driven by 45% growth in limonite and 189% in saprolite, even as revenue fell 32% to US$628\u202fM. The company cut NPI cost below US$10,000/ton, sold 9,465\u202ft of MHP via Train\u202fA, and progressed its 90,000\u202ft/yr HPAL at Sulawesi Nickel Cobalt to 29% completion, while EBITDA rose 33% YoY in Q2 after trimming HGNM output.",
         "source": "https://nikel.co.id/2025/10/03/merdeka-battery-catat-lonjakan-penjualan-bijih-nikel-di-paruh-pertama-2025/",
         "timestamp": "2025-10-03 16:16:41",
-        "commodities": [
-            "Nickel"
-        ]
-    },
-    {
-        "title": "Indonesia Secures 64% of Global Nickel Production, Calls for Consistent Regulation to Boost Downstream Industry",
-        "body": "Indonesia now controls about 64% of worldwide nickel output, with 424 mining firms and 163 processing plants\u2014including 55 active in pyro\u2011metallurgy and HPAL\u2014according to APNI Secretary\u2011General Meidy Katrin Lengkey. She urged the government to maintain stable, investor\u2011friendly regulations to support the growth of downstream sectors such as stainless steel and battery manufacturing.",
-        "source": "https://nikel.co.id/2025/09/26/sekum-apni-indonesia-kuasai-produksi-nikel-dunia-tapi-perlu-regulasi-konsisten/",
-        "timestamp": "2025-09-26 13:00:25",
         "commodities": [
             "Nickel"
         ]
