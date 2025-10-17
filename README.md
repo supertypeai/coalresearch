@@ -242,8 +242,40 @@ Notes: Currently running semi-manually to sync to `db.sqlite` every time there i
 
 Company mining permits.
 
-Source: 
-- The 'mining_license' data is sourced from the [esdm_minerba.py](https://github.com/supertypeai/coalresearch/blob/main/scrapper/esdm_minerba.py) script, which will scrape https://geoportal.esdm.go.id website. This script operates on a weekly basis, generating the [esdm_minerba_all.csv](https://github.com/supertypeai/coalresearch/blob/main/esdm_minerba_all.csv) output. Subsequently, the [sort_mining_license.py](https://github.com/supertypeai/coalresearch/blob/main/scrapper/sort_mining_license.py) script (also running in weekly basis) transfer this data from the CSV directly to `db.sqlite`.
+### Data Sources & Flow
+
+The `mining_license` data is a **merged dataset** derived from two primary sources, with the final result being uploaded to the local `db.sqlite` database.
+
+#### 1. Data Sources
+
+| Source Name | Script | Website/Output | Scraping Frequency |
+| :--- | :--- | :--- | :--- |
+| **ESDM Minerba** | `esdm_minerba.py` | Scrapes **[https://geoportal.esdm.go.id](https://geoportal.esdm.go.id)** | Monthly |
+| **MoDI (Minerba One Data Indonesia)** | `modi_v2.py` | Scrapes **MoDI V2** | Monthly |
+
+#### 2. Data Processing and Upload Pipeline
+
+The entire process is orchestrated via a series of scripts and associated YAML workflows, typically running on a **monthly** basis:
+
+1.  **Scrape Source 1 (ESDM Minerba):**
+    * **Script:** `esdm_minerba.py`
+    * **Workflow:** `mining_license_monthly_scraper.yaml`
+    * *Result: Raw ESDM data.*
+
+2.  **Scrape Source 2 (MoDI V2):**
+    * **Script:** `modi_v2.py`
+    * **Workflow:** `modi_monthly_scraper.yaml`
+    * *Result: Raw MoDI data.*
+
+3.  **Merge Data:**
+    * **Script:** `modi_n_esdm_mining_license.py`
+    * This script combines the data from both ESDM and MoDI sources.
+    * **Output:** `datasets/modi_mining_license_merge_v2.csv`
+
+4.  **Upload Data (Upsert):**
+    * **Script:** `sort_mining_license.py`
+    * **Workflow:** `mining_license_merge_upsert.yaml` (This single workflow handles both the merge and the final upload steps.)
+    * This script takes the merged CSV file (`datasets/modi_mining_license_merge_v2.csv`) and loads (upserts) it into the **`db.sqlite`** database.
 
 | **Column**              | **Type** | **PK** | **Description**                                         |
 | ----------------------- | -------- | ------ | ------------------------------------------------------- |
