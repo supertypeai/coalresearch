@@ -1,4 +1,4 @@
-name: Monthly Mining License Data Processor
+name: Monthly Mining License Data Upsert
 
 on:
   schedule:
@@ -26,7 +26,7 @@ jobs:
 
       - name: Merge mining license data
         run: |
-          python -m scripts.modi_n_esdm_mining_license.py
+          python -m scripts.modi_n_esdm_mining_license
 
       - name: Sort and upsert mining license data
         run: |
