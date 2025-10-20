@@ -1,5 +1,14 @@
 [
     {
+        "title": "Indonesian tin miner eyes mining asset in Canada",
+        "body": "Arsari Tambang says it will take advantage of an economic partnership deal signed with Canada last month to invest in a mining asset there.",
+        "source": "https://www.mining.com/web/indonesian-tin-miner-eyes-mining-asset-in-canada/",
+        "timestamp": "2025-10-15 00:00:00",
+        "commodities": [
+            "Tin"
+        ]
+    },
+    {
         "title": "Column: Tin breaks higher as Indonesia cracks down on illegal miners",
         "body": "The tin market is once again bubbling on supply chain trouble, this time in Indonesia.",
         "source": "https://www.mining.com/web/column-tin-breaks-higher-as-indonesia-cracks-down-on-illegal-miners/",
@@ -9,12 +18,27 @@
         ]
     },
     {
-        "title": "Freeport Indonesia says search for five trapped Grasberg workers still ongoing",
-        "body": "The incident has caused a jump in global copper prices.",
-        "source": "https://www.mining.com/web/freeport-indonesia-says-search-for-five-trapped-grasberg-workers-still-ongoing/",
-        "timestamp": "2025-10-02 00:00:00",
+        "title": "Indonesia expects deal soon with Freeport-McMoRan on divestment plan",
+        "body": "Last week, Freeport declared force majeure at Grasberg after torrential mudslides that killed two workers.",
+        "source": "https://www.mining.com/web/indonesia-expects-deal-soon-with-freeport-mcmoran-on-divestment-plan/",
+        "timestamp": "2025-10-01 00:00:00",
+        "commodities": []
+    },
+    {
+        "title": "Minerba Convex 2025 Opens in Jakarta, Showcasing Digitalization, Inclusive Mining, and Indonesia\u2019s Export Growth",
+        "body": "The Minerba Convex 2025 forum opened in Jakarta with over 6,000 participants, unveiling the Minerba One digital platform and stressing inclusive mining, while highlighting Indonesia\u2019s nikel export surge to US$40\u202fbillion in 2024 and a PNBP contribution of Rp654\u202ftrillion from 2019\u20112024. The event also called for redistributing mining permits to local UMKM, expanding community education programs, and accelerating downstream processing for commodities such as copper, bauxite, and low\u2011calorific coal for DME projects.",
+        "source": "https://nikel.co.id/2025/10/15/minerba-convex-2025-dibuka-dorong-pertambangan-inklusif-dan-berkelanjutan-melalui-inovasi-dan-kolaborasi/",
+        "timestamp": "2025-10-15 16:45:50",
         "commodities": [
-            "Copper"
+            "Nickel",
+            "Bauxite"
         ]
+    },
+    {
+        "title": "No article content provided",
+        "body": "No summary can be generated because the article content is missing.",
+        "source": "https://www.ruangenergi.com/supreme-energy-dan-sejuta-asa-dari-solok-selatan-sumatera-barat/",
+        "timestamp": "2025-10-16 00:00:00",
+        "commodities": []
     }
 ]
