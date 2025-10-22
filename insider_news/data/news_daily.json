@@ -9,10 +9,28 @@
         ]
     },
     {
+        "title": "Freeport Indonesia says search for five trapped Grasberg workers still ongoing",
+        "body": "The incident has caused a jump in global copper prices.",
+        "source": "https://www.mining.com/web/freeport-indonesia-says-search-for-five-trapped-grasberg-workers-still-ongoing/",
+        "timestamp": "2025-10-02 00:00:00",
+        "commodities": [
+            "Copper"
+        ]
+    },
+    {
         "title": "Indonesia expects deal soon with Freeport-McMoRan on divestment plan",
         "body": "Last week, Freeport declared force majeure at Grasberg after torrential mudslides that killed two workers.",
         "source": "https://www.mining.com/web/indonesia-expects-deal-soon-with-freeport-mcmoran-on-divestment-plan/",
         "timestamp": "2025-10-01 00:00:00",
         "commodities": []
+    },
+    {
+        "title": "Indonesia\u2019s Merdeka starts mining at Pani gold project",
+        "body": "The company aims to produce 140,000 ounces of gold annually.",
+        "source": "https://www.mining.com/web/indonesias-merdeka-gold-resources-starts-mining-at-pani-gold-project/",
+        "timestamp": "2025-10-01 00:00:00",
+        "commodities": [
+            "Gold"
+        ]
     }
 ]
