@@ -1,11 +1,38 @@
 [
     {
+        "title": "Indonesian tin miner eyes mining asset in Canada",
+        "body": "Arsari Tambang says it will take advantage of an economic partnership deal signed with Canada last month to invest in a mining asset there.",
+        "source": "https://www.mining.com/web/indonesian-tin-miner-eyes-mining-asset-in-canada/",
+        "timestamp": "2025-10-15 00:00:00",
+        "commodities": [
+            "Tin"
+        ]
+    },
+    {
+        "title": "Indonesia hands over six seized tin smelters to state miner",
+        "body": "Among the assets seized was PT Refined Bangka Tin, once one of the largest private players in the sector.",
+        "source": "https://www.mining.com/web/indonesia-hands-over-six-seized-tin-smelters-to-state-miner/",
+        "timestamp": "2025-10-06 00:00:00",
+        "commodities": [
+            "Tin"
+        ]
+    },
+    {
         "title": "Column: Tin breaks higher as Indonesia cracks down on illegal miners",
         "body": "The tin market is once again bubbling on supply chain trouble, this time in Indonesia.",
         "source": "https://www.mining.com/web/column-tin-breaks-higher-as-indonesia-cracks-down-on-illegal-miners/",
         "timestamp": "2025-10-05 00:00:00",
         "commodities": [
             "Tin"
+        ]
+    },
+    {
+        "title": "Indonesia\u2019s Merdeka starts mining at Pani gold project",
+        "body": "The company aims to produce 140,000 ounces of gold annually.",
+        "source": "https://www.mining.com/web/indonesias-merdeka-gold-resources-starts-mining-at-pani-gold-project/",
+        "timestamp": "2025-10-01 00:00:00",
+        "commodities": [
+            "Gold"
         ]
     }
 ]
