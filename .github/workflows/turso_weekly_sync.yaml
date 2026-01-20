@@ -1,14 +1,14 @@
-name: Turso Daily Sync
+name: Turso Weekly Sync
 
 on:
   schedule:
-    # Run every day at 01:00 UTC
-    - cron: "0 1 * * *"
+    # Run every Tuesday at 00:00 UTC (Early morning)
+    - cron: "0 0 * * 2"
   workflow_dispatch:
 
 jobs:
-  sync-turso:
-    name: Sync Turso
+  sync-turso-weekly:
+    name: Sync Turso Weekly
     runs-on: ubuntu-latest
 
     steps:
@@ -25,9 +25,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r turso/turso_requirements.txt
 
-      - name: Execute Turso sync script
+      - name: Execute Turso sync script (Weekly)
         env:
           TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
           TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
         run: |
-          python turso/sync.py --mode daily
+          python turso/sync.py --mode weekly
