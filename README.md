@@ -490,27 +490,27 @@ Contains detailed information about mining license auctions, including participa
 - The script runs on a monthly schedule via the "Monthly Mining License Auction Scraper" GitHub Action, ensuring the data is kept up-to-date.
 
 
-| **Column**         | **Type**    | **PK** | **Description**                                                                                                        |
-| ------------------ | ----------- | ------ | ---------------------------------------------------------------------------------------------------------------------- |
-| `id`               | INTEGER     | Yes    | Unique identifier for the auction record.                                                                              |
-| `commodity`        | TEXT        | No     | The type of commodity being auctioned (e.g., "Nickel", "Coal").                                                        |
-| `city`             | TEXT        | No     | The city or regency where the mining area is located.                                                                  |
-| `province`         | TEXT        | No     | The province where the mining area is located.                                                                         |
-| `company_name`     | TEXT        | No     | The name of the winning company.                                                                                       |
-| `date_winner`      | TEXT        | No     | The date when the winner of the auction was officially declared.                                                       |
-| `luas_sk`          | REAL        | No     | The total area of the license in hectares.                                                                             |
-| `nomor`            | TEXT        | No     | The official number of the auction decree.                                                                             |
-| `jenis_izin`       | TEXT        | No     | The type of license being auctioned (e.g., "WIUPK").                                                                   |
-| `kdi`              | TEXT        | No     | KDI (Kode Data Indonesia) identifier for the auction.                                                                  |
-| `code_wiup`        | TEXT        | No     | The unique code for the Mining Business License Area (WIUP).                                                           |
-| `auction_status`   | TEXT        | No     | The current status of the auction (e.g., "Lelang Selesai").                                                            |
-| `created_at`       | TEXT        | No     | The timestamp when the auction record was first created in the source system.                                          |
-| `last_modified`    | TEXT        | No     | The timestamp of the last modification to the auction record.                                                          |
-| `jumlah_peserta`   | INTEGER     | No     | The total number of participants in the auction.                                                                       |
-| `tahapan`          | TEXT (JSON) | No     | A JSON array detailing the various stages of the auction, including descriptions and dates.                            |
-| `peserta`          | TEXT (JSON) | No     | A JSON array listing all participants in the auction and their qualification status.                                   |
-| `winner`           | TEXT        | No     | A boolean flag (`True`/`False`) indicating if the listed company was the winner.                                       |
-| `company_id`       | INTEGER     | No     | Foreign key referencing the winning company's ID in the `company` table (↔︎ `company.id`).                              |
+| **Column**          | **Type**    | **PK** | **Description**                                                                                                        |
+| ------------------- | ----------- | ------ | ---------------------------------------------------------------------------------------------------------------------- |
+| `id`                | INTEGER     | Yes    | Unique identifier for the auction record.                                                                              |
+| `commodity`         | TEXT        | No     | The type of commodity being auctioned (e.g., "Nickel", "Coal").                                                        |
+| `city`              | TEXT        | No     | The city or regency where the mining area is located.                                                                  |
+| `province`          | TEXT        | No     | The province where the mining area is located.                                                                         |
+| `company_name`      | TEXT        | No     | The name of the winning company.                                                                                       |
+| `date_winner`       | TEXT        | No     | The date when the winner of the auction was officially declared.                                                       |
+| `permit_area`       | REAL        | No     | The total area of the license in hectares.                                                                             |
+| `number`            | TEXT        | No     | The official number of the auction decree.                                                                             |
+| `permit_type`       | TEXT        | No     | The type of license being auctioned (e.g., "WIUPK").                                                                   |
+| `kdi`               | TEXT        | No     | KDI (Kode Data Indonesia) identifier for the auction.                                                                  |
+| `code_wiup`         | TEXT        | No     | The unique code for the Mining Business License Area (WIUP).                                                           |
+| `auction_status`    | TEXT        | No     | The current status of the auction (e.g., "Lelang Selesai").                                                            |
+| `created_at`        | TEXT        | No     | The timestamp when the auction record was first created in the source system.                                          |
+| `last_modified`     | TEXT        | No     | The timestamp of the last modification to the auction record.                                                          |
+| `participant_count` | INTEGER     | No     | The total number of participants in the auction.                                                                       |
+| `phase`             | TEXT (JSON) | No     | A JSON array detailing the various stages of the auction, including descriptions and dates.                            |
+| `participant`       | TEXT (JSON) | No     | A JSON array listing all participants in the auction and their qualification status.                                   |
+| `winner`            | TEXT        | No     | A boolean flag (`True`/`False`) indicating if the listed company was the winner.                                       |
+| `company_id`        | INTEGER     | No     | Foreign key referencing the winning company's ID in the `company` table (↔︎ `company.id`).                              |
 
 ---
 

@@ -37,6 +37,7 @@ TABLES = [
     "global_commodity_data",
     "mining_license",
     "mining_license_auctions",
+    "mining_license_auctions_v2",
     "mining_news",
     "sales_destination",
     "company_financials",
@@ -56,6 +57,7 @@ CONFLICT_TARGET = {
     "global_commodity_data": ["id"],
     "mining_license": ["id"],
     "mining_license_auctions": ["nomor"],
+    "mining_license_auctions_v2": ["number"],
     "mining_news": ["source"],
     "sales_destination": ["id"],
     "company_financials": ["idx_ticker", "year"],
@@ -254,6 +256,7 @@ def main():
         "company_financials",
         "mineral_company_report",
         "commodity_report",
+        "mining_license_auctions_v2",
         # "company",
     ]
 

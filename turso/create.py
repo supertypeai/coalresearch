@@ -184,6 +184,30 @@ TABLE_STATEMENTS = [
     )
     """,
     """ 
+    CREATE TABLE IF NOT EXISTS mining_license_auctions_v2 (
+        id INTEGER PRIMARY KEY NOT NULL,
+        commodity TEXT,
+        city TEXT,
+        province TEXT,
+        company_name TEXT,
+        date_winner TEXT,
+        permit_area REAL,          -- Renamed from luas_sk
+        number TEXT UNIQUE,        -- Renamed from nomor
+        permit_type TEXT,          -- Renamed from jenis_izin
+        kdi TEXT,
+        code_wiup TEXT,
+        auction_status TEXT,
+        created_at TEXT,
+        last_modified TEXT,
+        participant_count INTEGER, -- Renamed from jumlah_peserta
+        phase TEXT,                -- Renamed from tahapan
+        participant TEXT,          -- Renamed from peserta
+        winner TEXT,
+        company_id INTEGER,
+        FOREIGN KEY (company_id) REFERENCES company(id)
+    )
+    """,
+    """ 
     CREATE TABLE IF NOT EXISTS mining_news (
         id INTEGER PRIMARY KEY, 
         title TEXT NOT NULL,
