@@ -217,12 +217,40 @@ def replace_table(client, table: str, rows: list):
     LOGGER.info(f"[{table}] inserted {len(rows)} rows.")
 
 
+import argparse
+
+# Tables to always sync daily (high frequency)
+DAILY_TABLES = [
+    "mining_news",
+]
+
+
 def main():
     """
     Main function to sync data from SQLite to Turso.
     This function retrieves the database URL and auth token from environment variables,
     normalizes the URL, and then creates a synchronous client to execute the sync operations.
+    Supports --mode daily (only mining_news) and --mode weekly (everything else).
     """
+    parser = argparse.ArgumentParser(description="Sync SQLite to Turso")
+    parser.add_argument(
+        "--mode",
+        choices=["daily", "weekly", "all"],
+        default="all",
+        help="Sync mode: 'daily' for high-freq tables, 'weekly' for the rest, 'all' for everything.",
+    )
+    args = parser.parse_args()
+
+    # Filter tables based on mode
+    if args.mode == "daily":
+        target_tables = [t for t in TABLES if t in DAILY_TABLES]
+    elif args.mode == "weekly":
+        target_tables = [t for t in TABLES if t not in DAILY_TABLES]
+    else:  # all
+        target_tables = TABLES
+
+    LOGGER.info(f"Starting Turso sync. Mode: {args.mode}. Tables: {len(target_tables)}")
+
     db_url, auth_token = get_turso_credentials()
     db_url_normalized = normalize_db_url(db_url)
 
@@ -242,7 +270,10 @@ def main():
     # 2) Define which table to upsert and replace
     TO_REPLACE_TABLES = []
 
-    TO_UPSERT_TABLES = [tbl for tbl in TABLES if tbl not in TO_REPLACE_TABLES]
+    # Filter target tables for UPSERT vs REPLACE
+    # Since TO_REPLACE_TABLES is empty, everything in target_tables goes to UPSERT
+    tables_to_upsert = [tbl for tbl in target_tables if tbl not in TO_REPLACE_TABLES]
+    tables_to_replace = [tbl for tbl in target_tables if tbl in TO_REPLACE_TABLES]
 
     conn = None
     try:
@@ -251,7 +282,7 @@ def main():
         LOGGER.info(f"Connected to SQLite at {LOCAL_DB_PATH}")
 
         # 4) Sync: upsert table
-        for tbl in TO_UPSERT_TABLES:
+        for tbl in tables_to_upsert:
             try:
                 LOGGER.info(f"\nSyncing (upsert) {tbl}…")
                 rows = get_sqlite_rows(conn, tbl)
@@ -260,7 +291,7 @@ def main():
                 LOGGER.error(f"Error syncing (upsert) '{tbl}': {table_err}")
 
         # 5) Sync: replace table
-        for tbl in TO_REPLACE_TABLES:
+        for tbl in tables_to_replace:
             try:
                 LOGGER.info(f"\nSyncing (replace) {tbl}…")
                 rows = get_sqlite_rows(conn, tbl)
