@@ -240,25 +240,7 @@ def main():
         return
 
     # 2) Define which table to upsert and replace
-    TO_REPLACE_TABLES = [
-        "company_ownership",
-        "company_performance",
-        "export_destination",
-        "mining_site",
-        "resources_and_reserves",
-        "total_commodities_production",
-        "commodity_price",
-        "global_commodity_data",
-        "mining_license",
-        "mining_license_auctions",
-        "mining_news",
-        "sales_destination",
-        "company_financials",
-        "mineral_company_report",
-        "commodity_report",
-        "mining_license_auctions_v2",
-        # "company",
-    ]
+    TO_REPLACE_TABLES = []
 
     TO_UPSERT_TABLES = [tbl for tbl in TABLES if tbl not in TO_REPLACE_TABLES]
 
