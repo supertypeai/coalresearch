@@ -129,6 +129,15 @@ TABLE_STATEMENTS = [
     );
     """,
     """
+    CREATE TABLE IF NOT EXISTS commodity_price_v2 (
+        name TEXT NOT NULL,
+        date TEXT NOT NULL,
+        price TEXT,
+        currency TEXT,
+        PRIMARY KEY (name, date)
+    );
+    """,
+    """
     CREATE TABLE IF NOT EXISTS global_commodity_data (
         id                INTEGER PRIMARY KEY NOT NULL, -- Changed: Added NOT NULL constraint
         country           TEXT    NOT NULL,

@@ -41,9 +41,9 @@ graph TD
 
 | **Column**     | **Type**          | **PK** | **Description**                                                                                                                                                       |
 | -------------- | ----------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `commodity_id` | INTEGER           | Yes    | Commodity identifier.                                                                                                                                                 |
-| `name`         | TEXT              | No     | Commodity name (e.g. “Batubara”).                                                                                                                                     |
-| `price`        | TEXT (JSON Array) | No     | JSON Array: each element is an object mapping `YYYY-MM-DD`→`price`. <br><br>Example:<br>`[{"2020-06-01": "97.22"},{"2020-07-01": "96.65"},…,{"2025-06-15": "98.61"}]` |
+| `name`         | TEXT              | Yes(1) | Commodity name (e.g. “Batubara”).                                                                                                                                     |
+| `date`         | TEXT              | Yes(2) | Date of the price (YYYY-MM-DD).                                                                                                                                       |
+| `price`        | TEXT              | No     | Price value.                                                       |
 
 
 

@@ -94,21 +94,19 @@ def parse_header_to_date(header: str) -> date:
 def init_db(path):
     """
     Initializes the SQLite database.
-    Drops the existing commodity table and creates a new one to ensure a fresh start.
+    Creates commodity_price_v2 table.
     """
     conn = sqlite3.connect(path)
     c = conn.cursor()
 
-    # Drop the table if it already exists
-    c.execute("DROP TABLE IF EXISTS commodity_price;")
-    print("Dropped existing 'commodity_price' table.")
-
+    # Create V2 table
     c.execute(
         """
-        CREATE TABLE IF NOT EXISTS commodity_price (
-            commodity_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name         TEXT    NOT NULL UNIQUE,
-            price        TEXT
+        CREATE TABLE IF NOT EXISTS commodity_price_v2 (
+            name  TEXT    NOT NULL,
+            date  TEXT    NOT NULL,
+            price TEXT,
+            PRIMARY KEY (name, date)
         );
         """
     )
@@ -149,8 +147,9 @@ def parse_minerba_table(html):
 
 
 def upsert_minerba_data(conn, df):
-    """Upserts Minerba commodity data into the local database."""
+    """Upserts Minerba commodity data into the local database (commodity_price_v2)."""
     c = conn.cursor()
+    count = 0
     for _, row in df.iterrows():
         full = row["Komoditas"]
         m = re.match(r"^(.*?)\s*\(([^)]+)\)$", full)
@@ -159,30 +158,32 @@ def upsert_minerba_data(conn, df):
         name, unit = m.groups()
         english_name = COMMODITY_NAME_MAP.get(name.strip(), name.strip())
 
-        price_entries = []
+        # Collect rows to insert
+        rows_to_insert = []
         for hdr in df.columns[1:]:
             val = row[hdr]
             if pd.isna(val):
                 continue
             dt = parse_header_to_date(str(hdr))
-            price_entries.append({dt.isoformat(): str(val)})
+            # Insert each price point as a row
+            rows_to_insert.append((english_name, dt.isoformat(), str(val)))
 
-        if not price_entries:
+        if not rows_to_insert:
             continue
 
-        price_json = json.dumps(price_entries, ensure_ascii=False)
-
-        c.execute(
+        c.executemany(
             """
-            INSERT INTO commodity_price (name, price)
-            VALUES (?, ?)
-            ON CONFLICT(name) DO UPDATE
+            INSERT INTO commodity_price_v2 (name, date, price)
+            VALUES (?, ?, ?)
+            ON CONFLICT(name, date) DO UPDATE
               SET price = excluded.price
             """,
-            (english_name, price_json),
+            rows_to_insert,
         )
+        count += len(rows_to_insert)
+
     conn.commit()
-    print("Upserted Minerba data into the database.")
+    print(f"Upserted {count} rows of Minerba data into commodity_price_v2.")
 
 
 # ─── LBMA SCRAPING FUNCTIONS ────────────────────────────────────────────────────
@@ -213,24 +214,30 @@ def compute_lbma_monthly_high(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def upsert_lbma_data(conn, data: dict):
-    """Upserts LBMA monthly high data for each commodity into the database."""
+    """Upserts LBMA monthly high data for each commodity into the database (commodity_price_v2)."""
     cur = conn.cursor()
+    total_rows = 0
     for name, df in data.items():
-        price_list = [
-            {row["month"]: f"{row['monthly_high']}"} for _, row in df.iterrows()
-        ]
-        price_json = json.dumps(price_list)
+        rows_to_insert = []
+        for _, row in df.iterrows():
+            # row['month'] is typically YYYY-MM
+            rows_to_insert.append((name, str(row["month"]), str(row["monthly_high"])))
 
-        cur.execute(
+        if not rows_to_insert:
+            continue
+
+        cur.executemany(
             """
-            INSERT INTO commodity_price (name, price)
-            VALUES (?, ?)
-            ON CONFLICT(name) DO UPDATE SET price=excluded.price
+            INSERT INTO commodity_price_v2 (name, date, price)
+            VALUES (?, ?, ?)
+            ON CONFLICT(name, date) DO UPDATE SET price=excluded.price
             """,
-            (name, price_json),
+            rows_to_insert,
         )
+        total_rows += len(rows_to_insert)
+
     conn.commit()
-    print("Upserted LBMA data into the database.")
+    print(f"Upserted {total_rows} rows of LBMA data into commodity_price_v2.")
 
 
 # ─── MAIN EXECUTION ─────────────────────────────────────────────────────────────
