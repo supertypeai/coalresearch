@@ -1,5 +1,8 @@
 import os
 from libsql_client import create_client_sync
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Grab Turso credentials from environment
 raw_url = os.getenv("TURSO_DATABASE_URL", "")
