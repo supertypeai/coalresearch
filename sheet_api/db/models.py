@@ -55,7 +55,7 @@ company_type_constraints = (
     "Consultant",
     "Contractor",
     "Trader",
-    "Manufacturer"
+    "Manufacturer",
 )
 key_operation_constraints = (
     "Mining",
@@ -68,7 +68,7 @@ key_operation_constraints = (
     "Barging, Port & Transshipment",
     "Investment",
     "Mineral Refining",
-    "Construction"
+    "Construction",
 )
 commodity_type_constraints = (
     "Coal",
@@ -80,7 +80,7 @@ commodity_type_constraints = (
     "Copper",
     "Silver",
     "Tin",
-    "Cobalt"
+    "Cobalt",
 )
 mineral_type_constraints = (
     "Coal",
@@ -90,7 +90,7 @@ mineral_type_constraints = (
     "Oil",
     "Nickel",
     "Copper",
-    "Silver"
+    "Silver",
 )
 mining_operation_status_constraints = ("production", "development", "inactive")
 
@@ -253,3 +253,78 @@ class ExportDestination(Model):
     class Meta:
         database = db
         table_name = "export_destination"
+
+
+# V2 Models with slug support
+class CompanyV2(Model):
+    id = IntegerField(primary_key=True)
+    name = TextField()
+    slug = TextField(unique=True)
+    idx_ticker = TextField(null=True)
+    operation_province = TextField(
+        null=True,
+        constraints=[Check(f"operation_province IN {province_constraints}")],
+    )
+    operation_kabkot = TextField(null=True)
+    representative_address = TextField(null=True)
+    company_type = TextField(
+        null=True, constraints=[Check(f"company_type IN {company_type_constraints}")]
+    )
+    key_operation = TextField(
+        constraints=[Check(f"key_operation IN {key_operation_constraints}")]
+    )
+    activities = TextField(null=True, constraints=[Check("json_valid(activities)")])
+    website = TextField(null=True)
+    phone_number = IntegerField(null=True)
+    email = TextField(null=True)
+    mining_license = TextField(
+        null=True, constraints=[Check("json_valid(mining_license)")]
+    )
+    mining_contract = TextField(
+        null=True, constraints=[Check("json_valid(mining_contract)")]
+    )
+    commodity = TextField(null=True, constraints=[Check("json_valid(commodity)")])
+
+    class Meta:
+        database = db
+        table_name = "company_v2"
+
+
+class CompanyPerformanceV2(Model):
+    id = IntegerField(primary_key=True)
+    company_id = ForeignKeyField(CompanyV2, column_name="company_id")
+    slug = TextField(null=True)
+    year = IntegerField()
+    commodity_type = TextField(
+        null=True,
+        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")],
+    )
+    commodity_sub_type = TextField(null=True)
+    commodity_stats = TextField(constraints=[Check("json_valid(commodity_stats)")])
+
+    class Meta:
+        database = db
+        table_name = "company_performance_v2"
+
+
+class CompanyFinancialsV2(Model):
+    company_id = IntegerField(null=True)
+    idx_ticker = TextField()
+    name = TextField()
+    slug = TextField()
+    year = IntegerField()
+    assets = DecimalField(null=True)
+    revenue = DecimalField(null=True)
+    revenue_breakdown = TextField(
+        null=True, constraints=[Check("json_valid(revenue_breakdown)")]
+    )
+    cost_of_revenue = DecimalField(null=True)
+    cost_of_revenue_breakdown = TextField(
+        null=True, constraints=[Check("json_valid(cost_of_revenue_breakdown)")]
+    )
+    net_profit = DecimalField(null=True)
+
+    class Meta:
+        database = db
+        table_name = "company_financials_v2"
+        primary_key = CompositeKey("idx_ticker", "year")

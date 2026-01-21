@@ -258,6 +258,58 @@ TABLE_STATEMENTS = [
         FOREIGN KEY (company_id) REFERENCES company(id)
     );
     """,
+    """
+    CREATE TABLE IF NOT EXISTS company_v2 (
+        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        name TEXT NOT NULL,
+        slug TEXT NOT NULL UNIQUE,
+        idx_ticker TEXT,
+        operation_province TEXT,
+        operation_kabkot TEXT,
+        representative_address TEXT,
+        company_type TEXT,
+        key_operation TEXT NOT NULL,
+        activities TEXT,
+        website TEXT,
+        phone_number INTEGER,
+        email TEXT,
+        mining_license TEXT,
+        mining_contract TEXT,
+        commodity TEXT
+    );
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS company_performance_v2 (
+        id INTEGER PRIMARY KEY NOT NULL,
+        company_id INTEGER NOT NULL,
+        slug TEXT,
+        year INTEGER NOT NULL,
+        commodity_type TEXT,
+        commodity_sub_type TEXT,
+        commodity_stats TEXT NOT NULL,
+        FOREIGN KEY (company_id)
+          REFERENCES company_v2(id)
+            ON UPDATE NO ACTION
+            ON DELETE NO ACTION
+    );
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS company_financials_v2 (
+        company_id INTEGER,
+        idx_ticker TEXT,
+        name TEXT,
+        slug TEXT,
+        year INTEGER,
+        assets REAL,
+        revenue REAL,
+        revenue_breakdown TEXT,
+        cost_of_revenue REAL,
+        cost_of_revenue_breakdown TEXT,
+        net_profit REAL,
+        PRIMARY KEY (idx_ticker, year),
+        FOREIGN KEY (company_id) REFERENCES company_v2(id)
+    );
+    """,
     # """
     # CREATE TABLE IF NOT EXISTS commodity_report (
     #     commodity_id INTEGER PRIMARY KEY,

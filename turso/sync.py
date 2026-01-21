@@ -42,6 +42,10 @@ TABLES = [
     "mining_news",
     "sales_destination",
     "company_financials",
+    # V2 tables - uncomment when ready to sync to Turso
+    # "company_v2",
+    # "company_performance_v2",
+    # "company_financials_v2",
 ]
 
 # Primary-key columns for each table
@@ -63,6 +67,10 @@ CONFLICT_TARGET = {
     "mining_news": ["source"],
     "sales_destination": ["id"],
     "company_financials": ["idx_ticker", "year"],
+    # V2 tables - uncomment when ready to sync to Turso
+    "company_v2": ["id"],
+    "company_performance_v2": ["id"],
+    "company_financials_v2": ["idx_ticker", "year"],
 }
 
 
