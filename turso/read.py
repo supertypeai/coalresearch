@@ -25,23 +25,47 @@ client = create_client_sync(url=db_url, auth_token=auth_token)
 
 
 def fetch_and_print(table_name: str, limit: int = 5):
-    # Get column info
+    print(f"\n{'='*60}")
+    print(f"TABLE: {table_name}")
+    print(f"{'='*60}")
+
+    # 1. Get column info (Schema)
+    # PRAGMA table_info values: (cid, name, type, notnull, dflt_value, pk)
     pragma = client.execute(f"PRAGMA table_info('{table_name}');")
-    cols = [col_row[1] for col_row in pragma.rows]
 
-    # Fetch sample rows
-    sample = client.execute(f"SELECT * FROM {table_name} LIMIT {limit};")
+    print("\n--- Schema ---")
+    print(
+        f"{'cid':<4} | {'name':<20} | {'type':<15} | {'notnull':<8} | {'dflt':<10} | {'pk':<3}"
+    )
+    print("-" * 75)
 
-    # Print header
-    header = " | ".join(cols)
-    separator = "-" * len(header)
-    print(f"\nTable: {table_name}")
-    print(header)
-    print(separator)
+    col_names = []
+    for row in pragma.rows:
+        # row is a tuple-like object or list depending on the client, usually indexed
+        # row[0]=cid, row[1]=name, row[2]=type, row[3]=notnull, row[4]=dflt_value, row[5]=pk
+        cid, name, ctype, notnull, dflt, pk = row
+        col_names.append(name)
+        print(
+            f"{str(cid):<4} | {str(name):<20} | {str(ctype):<15} | {str(notnull):<8} | {str(dflt):<10} | {str(pk):<3}"
+        )
 
-    # Print rows
-    for row in sample.rows:
-        print(" | ".join(str(item) for item in row))
+    # 2. Get Foreign Keys
+    # PRAGMA foreign_key_list values: (id, seq, table, from, to, on_update, on_delete, match)
+    fk_pragma = client.execute(f"PRAGMA foreign_key_list('{table_name}');")
+
+    if fk_pragma.rows:
+        print("\n--- Foreign Keys ---")
+        print(
+            f"{'id':<3} | {'seq':<3} | {'table':<20} | {'from':<15} | {'to':<15} | {'on_upd':<10} | {'on_del':<10}"
+        )
+        print("-" * 90)
+        for row in fk_pragma.rows:
+            fid, seq, table, from_col, to_col, on_upd, on_del, match = row
+            print(
+                f"{str(fid):<3} | {str(seq):<3} | {str(table):<20} | {str(from_col):<15} | {str(to_col):<15} | {str(on_upd):<10} | {str(on_del):<10}"
+            )
+    else:
+        print("\n--- Foreign Keys: None ---")
 
 
 try:

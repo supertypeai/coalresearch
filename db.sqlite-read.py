@@ -57,58 +57,36 @@ def list_tables_with_structure_and_indexes(db_path: str, sample_limit: int = 5):
 
         # 2) For each table: describe schema, sample data, indexes, and FKs
         for table in tables:
-            print(f"\nStructure of `{table}`:")
+            print(f"\n{'='*60}")
+            print(f"TABLE: {table}")
+            print(f"{'='*60}")
+
+            # 1. Get column info (Schema)
             cursor.execute(f"PRAGMA table_info('{table}');")
-            cols = cursor.fetchall()  # (cid, name, type, notnull, dflt_value, pk)
+            cols = cursor.fetchall()
 
-            col_names = [col[1] for col in cols]
-            header = " | ".join(col_names)
-            separator = "-" * len(header)
+            print("\n--- Schema ---")
+            print(
+                f"{'cid':<4} | {'name':<20} | {'type':<15} | {'notnull':<8} | {'dflt':<10} | {'pk':<3}"
+            )
+            print("-" * 75)
 
-            print("cid | name | type | notnull | default | pk")
-            print("-" * 50)
             for cid, name, col_type, notnull, dflt, pk in cols:
-                print(f"{cid} | {name} | {col_type} | {notnull} | {dflt} | {pk}")
-
-            # Sample data
-            cursor.execute(f"SELECT * FROM '{table}' LIMIT {sample_limit};")
-            rows = cursor.fetchall()
-            if rows:
-                print(f"\nSample data from `{table}` (up to {sample_limit} rows):")
-                print(header)
-                print(separator)
-                for row in rows:
-                    print(" | ".join(str(val) for val in row))
-            else:
-                print(f"\n`{table}` is empty.")
-
-            # Indexes
-            cursor.execute(f"PRAGMA index_list('{table}');")
-            index_list = cursor.fetchall()  # (seq, name, unique, origin, partial)
-            if index_list:
-                print(f"\nIndexes on `{table}`:")
-                print("seq | name | unique | origin | partial")
-                print("-" * 50)
-                for seq, idx_name, unique, origin, partial in index_list:
-                    print(f"{seq} | {idx_name} | {unique} | {origin} | {partial}")
-                    cursor.execute(f"PRAGMA index_info('{idx_name}');")
-                    idx_info = cursor.fetchall()  # (seqno, cid, name)
-                    cols = [info[2] for info in idx_info]
-                    print(f"    -> Columns: {', '.join(cols)}")
-            else:
-                print(f"\nNo indexes found on `{table}`.")
-
-            # Foreign keys
-            cursor.execute(f"PRAGMA foreign_key_list('{table}');")
-            fkeys = (
-                cursor.fetchall()
-            )  # (id, seq, table, from, to, on_update, on_delete, match)
-            if fkeys:
-                print(f"\nForeign keys for `{table}`:")
                 print(
-                    "id | seq | foreign_table | from_column | to_column | on_update | on_delete | match"
+                    f"{str(cid):<4} | {str(name):<20} | {str(col_type):<15} | {str(notnull):<8} | {str(dflt):<10} | {str(pk):<3}"
                 )
-                print("-" * 80)
+
+            # 2. Foreign keys
+            cursor.execute(f"PRAGMA foreign_key_list('{table}');")
+            fkeys = cursor.fetchall()
+
+            if fkeys:
+                print("\n--- Foreign Keys ---")
+                print(
+                    f"{'id':<3} | {'seq':<3} | {'table':<20} | {'from':<15} | {'to':<15} | {'on_upd':<10} | {'on_del':<10}"
+                )
+                print("-" * 90)
+                # PRAGMA foreign_key_list returns: (id, seq, table, from, to, on_update, on_delete, match)
                 for (
                     fid,
                     seq,
@@ -120,10 +98,10 @@ def list_tables_with_structure_and_indexes(db_path: str, sample_limit: int = 5):
                     match,
                 ) in fkeys:
                     print(
-                        f"{fid} | {seq} | {ref_table} | {from_col} | {to_col} | {on_upd} | {on_del} | {match}"
+                        f"{str(fid):<3} | {str(seq):<3} | {str(ref_table):<20} | {str(from_col):<15} | {str(to_col):<15} | {str(on_upd):<10} | {str(on_del):<10}"
                     )
             else:
-                print(f"\nNo foreign keys defined on `{table}`.")
+                print("\n--- Foreign Keys: None ---")
 
     cursor.close()
     conn.close()
