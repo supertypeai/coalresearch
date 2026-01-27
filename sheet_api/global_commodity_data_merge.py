@@ -133,177 +133,184 @@ def get_dataframe_from_range(sheet, range_name):
 
 
 def process_resources_reserves(df, country_list):
-    """Processes the 'Global Coal Resource and Reserves 2020' dataframe."""
     print("Processing 'Global Coal Resource and Reserves 2020' data...")
+    
     if df.empty:
+        return pd.DataFrame(columns=["country", "resources_reserves"])
+    
+    required_cols = ["Country", "Anthracite", "Sub-bituminous & Bituminous & Lignite"]
+    if not all(col in df.columns for col in required_cols):
+        missing = [c for c in required_cols if c not in df.columns]
+        print(f"Error: Missing columns {missing}")
         return pd.DataFrame(columns=["country", "resources_reserves"])
 
     processed_data = []
+    country_set = {c.strip() for c in country_list}
+
     for _, row in df.iterrows():
-        country = row.get("Country")
-        if country and country.strip() in country_list:
-            try:
-                anthracite_val = pd.to_numeric(row["Anthracite"], errors="coerce")
-                sub_bit_val = pd.to_numeric(
-                    row["Sub-bituminous & Bituminous & Lignite"], errors="coerce"
-                )
+        country_raw = row.get("Country")
+        country = country_raw.strip() if isinstance(country_raw, str) else None
 
-                payload = []
-                if pd.notna(anthracite_val):
-                    payload.append({"Anthracite": anthracite_val.item()})
-                if pd.notna(sub_bit_val):
-                    payload.append(
-                        {"Sub-bituminous & Bituminous & Lignite": sub_bit_val.item()}
-                    )
+        if not country or country not in country_set:
+            print(f"{country} is not registered in country_list, skipping this.")
+            continue
 
-                if payload:
-                    json_data = {"2020": payload}
-                    json_string = json.dumps(json_data)
-                    processed_data.append(
-                        {"country": country.strip(), "resources_reserves": json_string}
-                    )
-            except (KeyError, ValueError) as e:
-                print(f"Skipping row for '{country}' in resources due to error: {e}")
-                continue
+        anthracite_val = pd.to_numeric(row["Anthracite"], errors="coerce")
+        sub_bit_val = pd.to_numeric(row["Sub-bituminous & Bituminous & Lignite"], errors="coerce")
+
+        if pd.isna(anthracite_val) or pd.isna(sub_bit_val):
+            print(f"Skipping row for '{country}' due to NaN values")
+            continue
+
+        processed_data.append({
+            "country": country, 
+            "resources_reserves": json.dumps({
+                "2020": {
+                    "anthracite": anthracite_val.item(),
+                    "sub_bituminous_bituminous_lignite": sub_bit_val.item()
+                }
+            })
+        })
 
     return pd.DataFrame(processed_data)
 
 def process_resources_reserves_shares(df, country_list):
-    """Processes the 'Global Coal Resource and Reserves 2020 Shares' dataframe."""
     print("Processing 'Global Coal Resource and Reserves 2020 Shares' data...")
+    
     if df.empty:
-        return pd.DataFrame(columns=["country", "resources_reserves_shares"])
+        return pd.DataFrame(columns=["country", "resources_reserves_share"])
+    
+    required_cols = ["Country", "Anthracite", "Sub-bituminous & Bituminous & Lignite"]
+    if not all(col in df.columns for col in required_cols):
+        missing = [c for c in required_cols if c not in df.columns]
+        print(f"Error: Missing columns {missing}")
+        return pd.DataFrame(columns=["country", "resources_reserves_share"])
 
-    cols = ["Anthracite", "Sub-bituminous & Bituminous & Lignite"]
-    df[cols] = df[cols].apply(lambda x: pd.to_numeric(x, errors="coerce").fillna(0))
+    work_df = df.copy()
+    cols_to_share = ["Anthracite", "Sub-bituminous & Bituminous & Lignite"]
+    
+    for col in cols_to_share:
+        work_df[col] = pd.to_numeric(work_df[col], errors="coerce").fillna(0)
+        col_sum = work_df[col].sum()
+        # Vectorized share calculation: (Series / total) * 100
+        share_col_name = f"{col}_share"
+        if col_sum > 0:
+            work_df[share_col_name] = (work_df[col] / col_sum * 100).round(2)
+        else:
+            work_df[share_col_name] = 0.0
 
-    resources_reserves_sum = {c: df[c].sum() for c in cols}
+    country_set = {c.strip() for c in country_list}
+    work_df["Country"] = work_df["Country"].astype(str).str.strip()
+    filtered_df = work_df[work_df["Country"].isin(country_set)]
 
     processed_data = []
-    for _, row in df.iterrows():
-        country = row.get("Country")
-        if country and country.strip() in country_list:
-            try:
-                anthracite_share = round((row["Anthracite"] / resources_reserves_sum["Anthracite"]) * 100, 2)
-                sub_bit_share = round((row["Sub-bituminous & Bituminous & Lignite"] / resources_reserves_sum["Sub-bituminous & Bituminous & Lignite"]) * 100, 2)
-
-                payload = []
-                if pd.notna(anthracite_share):
-                    payload.append({"Anthracite": anthracite_share})
-                if pd.notna(anthracite_share):
-                    payload.append(
-                        {"Sub-bituminous & Bituminous & Lignite": sub_bit_share}
-                    )
-
-                if payload:
-                    json_data = {"2020": payload}
-                    json_string = json.dumps(json_data)
-                    processed_data.append(
-                        {"country": country.strip(), "resources_reserves_share": json_string}
-                    )
-            except (KeyError, ValueError) as e:
-                print(f"Skipping row for '{country}' in resources due to error: {e}")
-                continue
+    for _, row in filtered_df.iterrows():
+        processed_data.append({
+            "country": row["Country"], 
+            "resources_reserves_share": json.dumps({
+                "2020": {
+                    "anthracite": row["Anthracite_share"],
+                    "sub_bituminous_bituminous_lignite": row["Sub-bituminous & Bituminous & Lignite_share"]
+                }
+            })
+        })
 
     return pd.DataFrame(processed_data)
 
 def process_production_volume(df, country_list):
-    """Processes the 'Coal Production Volume' dataframe."""
     print("Processing 'Coal Production Volume' data...")
     if df.empty:
         return pd.DataFrame(columns=["country", "production_volume"])
 
-    processed_data = []
+    # Clean numeric columns once
     year_cols = [col for col in df.columns if col.isdigit()]
+    df_clean = df.copy()
+    for col in year_cols:
+        # Regex replaces spaces/commas; errors='coerce' handles junk strings
+        df_clean[col] = pd.to_numeric(df_clean[col].astype(str).str.replace(r"[\s,]", "", regex=True), errors="coerce")
 
-    for _, row in df.iterrows():
-        country = row.get("Country")
-        if country and country.strip() in country_list:
-            production_data = {}
-            for year in year_cols:
-                try:
-                    value_str = str(row[year]).replace(" ", "")
-                    value = pd.to_numeric(value_str, errors="coerce")
-                    if pd.notna(value):
-                        production_data[year] = value.item()
-                except (KeyError, ValueError):
-                    continue
+    country_set = {c.strip() for c in country_list}
+    processed_data = []
 
-            if production_data:
-                json_string = json.dumps(production_data)
-                processed_data.append(
-                    {"country": country.strip(), "production_volume": json_string}
-                )
+    for _, row in df_clean.iterrows():
+        country = row["Country"].strip() if isinstance(row.get("Country"), str) else None
+
+        if country not in country_set:
+            print(f"{country} is not registered in country_set, skipping.")
+            continue
+
+        production_data = {yr: row[yr] for yr in year_cols if pd.notna(row[yr])}
+        if not production_data:
+            continue
+        
+        processed_data.append({
+            "country": country, 
+            "production_volume": json.dumps(production_data)
+        })
 
     return pd.DataFrame(processed_data)
 
 def process_production_share(df, country_list):
-    """Processes the 'Commodity Production Share' dataframe."""
     print("Processing 'Commodity Production Share' data...")
     if df.empty:
         return pd.DataFrame(columns=["country", "production_share"])
 
-    processed_data = []
     year_cols = [col for col in df.columns if col.isdigit()]
+    country_set = {c.strip() for c in country_list}
+    
+    work_df = df.copy()
+    for col in year_cols:
+        work_df[col] = pd.to_numeric(work_df[col], errors="coerce").fillna(0)
+    
+    sums = work_df[year_cols].sum()
 
-    df[year_cols] = df[year_cols].apply(
-        lambda col: pd.to_numeric(col, errors="coerce").fillna(0)
-    )
+    share_df = work_df[year_cols].apply(lambda x: (x / sums[x.name] * 100).round(2) if sums[x.name] > 0 else 0)
+    share_df["Country"] = work_df["Country"].astype(str).str.strip()
 
-    yearly_production_sum = {year: df[year].sum() for year in year_cols}
-
-    for _, row in df.iterrows():
-        country = row.get("Country")
-        if country and country.strip() in country_list:
-            production_share = {}
-            for year in year_cols:
-                production = row[year]
-                # Assuming yearly_production_sum[year] is non zero
-                production_share[year] = round((production / yearly_production_sum[year]) * 100, 2)
-        
-            if production_share:
-                json_string = json.dumps(production_share)
-                processed_data.append(
-                    {"country": country.strip(), "production_share": json_string}
-                )
+    final_df = share_df[share_df["Country"].isin(country_set)]
+    processed_data = [
+        {
+            "country": row["Country"],
+            "production_share": json.dumps(row[year_cols].to_dict())
+        }
+        for _, row in final_df.iterrows()
+    ]
 
     return pd.DataFrame(processed_data)
 
 def process_export_import(df, country_list):
-    """Processes the 'Coal Export Import' dataframe."""
     print("Processing 'Coal Export Import' data...")
     if df.empty:
         return pd.DataFrame(columns=["country", "export_import"])
 
+    cols = {"export": "Exports Value (US$)", "import": "Imports Value (US$)"}
+    country_set = {c.strip() for c in country_list}
+    
+    work_df = df.copy()
+    # Clean both columns at once
+    for key, col in cols.items():
+        if col in work_df.columns:
+            work_df[key] = pd.to_numeric(work_df[col].astype(str).str.replace(r"[\s,]", "", regex=True), errors="coerce")
+        else:
+            work_df[key] = pd.NA
+
     processed_data = []
-    export_col = "Exports Value (US$)"
-    import_col = "Imports Value (US$)"
-
-    for _, row in df.iterrows():
-        country = row.get("Country")
-        if country and country.strip() in country_list:
-            try:
-                export_val_str = str(row.get(export_col, "")).replace(",", "")
-                import_val_str = str(row.get(import_col, "")).replace(",", "")
-
-                export_val = pd.to_numeric(export_val_str, errors="coerce")
-                import_val = pd.to_numeric(import_val_str, errors="coerce")
-
-                if pd.notna(export_val) or pd.notna(import_val):
-                    payload = [
-                        {"Export": export_val.item() if pd.notna(export_val) else None},
-                        {"Import": import_val.item() if pd.notna(import_val) else None},
-                    ]
-                    json_data = {"2023": payload}
-                    json_string = json.dumps(json_data)
-                    processed_data.append(
-                        {"country": country.strip(), "export_import": json_string}
-                    )
-            except (KeyError, ValueError) as e:
-                print(
-                    f"Skipping row for '{country}' in export/import due to error: {e}"
-                )
+    for _, row in work_df.iterrows():
+        country = str(row.get("Country", "")).strip()
+        if country in country_set:
+            # Check if at least one value exists
+            if pd.isna(row["export"]) and pd.isna(row["import"]):
                 continue
+
+            processed_data.append({
+                "country": country, 
+                "export_import": json.dumps({
+                    "2023": {
+                        "Export": row["export"] if pd.notna(row["export"]) else None,
+                        "Import": row["import"] if pd.notna(row["export"]) else None
+                    }
+                })
+            })
 
     return pd.DataFrame(processed_data)
 

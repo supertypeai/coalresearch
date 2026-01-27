@@ -36,7 +36,16 @@ from sheet_api.core.compile_to_json import (
     fillMiningLicense,
     fillMiningContract,
 )
+from gspread import Worksheet
+from typing import Dict, Tuple
 
+def execute_preprocess_callback(
+        df: pd.DataFrame, 
+        field_types: Dict, 
+        sheet: Worksheet,
+        function: Callable
+) -> Tuple[pd.DataFrame, Dict, Worksheet]:
+    return function(df, field_types, sheet)
 
 def sync_model(
     sheet_name: str,
@@ -53,7 +62,12 @@ def sync_model(
     field_types = mapPeeweeToPandasFields(pw_field_types)
 
     if preprocess is not None:
-        df, field_types, sheet = preprocess(df, field_types, sheet)
+        df, field_types, sheet = execute_preprocess_callback(
+            df=df,
+            field_types=field_types,
+            sheet=sheet,
+            function=preprocess
+        )
 
     df = castTypes(df, field_types)
 
@@ -93,7 +107,7 @@ def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
     return df, field_types, sheet
 
 
-def resourcesAndReservesPreprocess(df: pd.DataFrame, field_types: dict, sheet):
+def resourcesAndReservesPreprocess(df: pd.DataFrame, field_types: dict, sheet: Worksheet):
     df = jsonifyProvincesResourcesReserves(df)
     return df, field_types, sheet
 
