@@ -4,6 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 from scrapper.esdm_minerba import COMMODITY_MAP
 from scripts.fuzzy_matcher import match_company_by_name
+from datetime import datetime, timedelta, timezone
 
 import logging
 import requests
@@ -26,6 +27,7 @@ LOGGER.info("Init Global Variable")
 API_URL = "https://minerba.esdm.go.id/lelang/api/pub/lelang_done?page=1"
 # DB local
 DB_PATH = "db.sqlite"
+TIME_OFFSET = timezone(timedelta(hours=7))
 
 
 def get_wire_driver(is_headless: bool = True) -> webdriver.Chrome:
@@ -155,6 +157,9 @@ def drop_data_dict(datas: list[dict], columns_to_filter: list[str]) -> list[dict
         filtered_list.append(cleaned)
     return filtered_list
 
+def parse_timestamp(timestamp: int) -> str:
+    date = datetime.fromtimestamp(timestamp / 1_000_000, tz=TIME_OFFSET)
+    return date.strftime("%Y-%m-%d")    
 
 def format_data(
     result_data: list, data: dict, participant: dict, date_winner: str
@@ -184,12 +189,32 @@ def format_data(
     # Drop unwanted keys from the tahapan and peserta data
     filtered_tahapan = drop_data_dict(
         data.get("tahapan", []),
-        ["id", "tahapanName", "tahapanAkhirTimestamp", "perubahan"],
+        ["id", "tahapanName", "tahapanTanggalMulai", "tahapanAkhirTimestamp", "perubahan"],
     )
     filtered_peserta = drop_data_dict(
         data.get("peserta", []),
         ["id", "lelangId", "perusahaanId", "posisiPenetapanPemenangLelang", "isWinner"],
     )
+
+    # Map tahapan and peserta items to English snake_case
+    mapped_tahapan = [
+        {
+            "order": step["tahapanUrut"],
+            "description": step["tahapanDeskripsi"],
+            "start_date": parse_timestamp(step["tahapanMulaiTimestamp"]),
+            "end_date": step["tahapanTanggalAkhir"],
+        }
+        for step in filtered_tahapan
+    ]
+    mapped_peserta = [
+        {
+            "NIB": p["perusahaanNib"],
+            "company_name": p["perusahaanNama"],
+            "email": p["perusahaanUserEmail"],
+            "qualification_result": p["hasilAkhirPra"],
+        }
+        for p in filtered_peserta
+    ]
 
     # Format the necessary data
     result_data.append(
@@ -210,8 +235,8 @@ def format_data(
             "participant_count": data.get(
                 "jumlahPeserta"
             ),  # Renamed from jumlah_peserta
-            "phase": filtered_tahapan,  # Renamed from tahapan
-            "participant": filtered_peserta,  # Renamed from peserta
+            "phases": mapped_tahapan,  # Renamed from tahapan
+            "participants": mapped_peserta,  # Renamed from peserta
             "winner": participant.get("isWinner"),
         }
     )
@@ -235,7 +260,7 @@ def clean_data(result_data: list[dict]) -> pd.DataFrame:
         isinstance(d, dict) for d in result_data
     ):
         LOGGER.error("Invalid result_data format. Expected a list of dictionaries.")
-        return []
+        return pd.DataFrame()
 
     df_auction = pd.DataFrame(result_data)
 
@@ -247,13 +272,13 @@ def clean_data(result_data: list[dict]) -> pd.DataFrame:
         df_auction["last_modified"],
     ).dt.strftime("%Y-%m-%d")
 
-    for data_tahapan in df_auction["phase"]:
-        if isinstance(data_tahapan, list):
-            for tahapan in data_tahapan:
-                if "tahapanMulaiTimestamp" in tahapan:
-                    tahapan["tahapanMulaiTimestamp"] = pd.to_datetime(
-                        tahapan["tahapanMulaiTimestamp"], unit="ns"
-                    ).strftime("%Y-%m-%d")
+    # for data_tahapan in df_auction["phase"]:
+    #     if isinstance(data_tahapan, list):
+    #         for tahapan in data_tahapan:
+    #             if "tahapanMulaiTimestamp" in tahapan:
+    #                 tahapan["tahapanMulaiTimestamp"] = pd.to_datetime(
+    #                     tahapan["tahapanMulaiTimestamp"], unit="ns"
+    #                 ).strftime("%Y-%m-%d")
 
     # Normalized province, city, and company names
     df_auction["province"] = df_auction["province"].str.title().str.strip()
@@ -310,19 +335,22 @@ def get_specific_data(data_json: list[dict]) -> pd.DataFrame:
                 for step in steps:
                     status_step = step.get("id", "")
                     if status_step.lower().strip() == "penetapanpemenanglelang":
-                        date_winner = step.get("tahapanTanggalMulai")
-                        if date_winner:
-                            date_winner_value = date_winner
+                        # date_winner = step.get("tahapanTanggalMulai")
+                        date_winner = step.get("tahapanMulaiTimestamp")
+                        
+                        if date_winner:   
+                            assert isinstance(date_winner, int)
+                            date_winner_value = parse_timestamp(date_winner)
 
                 # Prepare data output
                 LOGGER.info(
                     f"Processing auction for {commodity} in {data.get('namaKab')}, {data.get('namaProv')}"
                 )
-                data_formatted = format_data(
+                format_data(
                     result_data, data, participant, date_winner_value
                 )
 
-    df_cleaned = clean_data(data_formatted)
+    df_cleaned = clean_data(result_data)
     LOGGER.info(f"Total auctions processed: {len(df_cleaned)}")
     return df_cleaned
 
@@ -369,8 +397,8 @@ def create_table(path):
             created_at TEXT,
             last_modified TEXT,
             participant_count INTEGER,
-            phase TEXT,
-            participant TEXT,
+            phases TEXT,
+            participants TEXT,
             winner TEXT,
             company_id INTEGER,
             FOREIGN KEY (company_id) REFERENCES company(id)
@@ -445,8 +473,8 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
 
     for _, row in df.iterrows():
         # Convert complex data types to JSON strings
-        tahapan_json = safe_json_dumps(row["phase"])
-        peserta_json = safe_json_dumps(row["participant"])
+        tahapan_json = safe_json_dumps(row["phases"])
+        peserta_json = safe_json_dumps(row["participants"])
 
         data_tuple = (
             row["id"],
@@ -478,7 +506,7 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
             id, commodity, city, province, company_name, date_winner, 
             permit_area, number, permit_type, kdi, code_wiup, 
             auction_status, created_at, last_modified, participant_count,
-            phase, participant, winner, company_id
+            phases, participants, winner, company_id
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(number) DO UPDATE SET
@@ -495,8 +523,8 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
             created_at = excluded.created_at,
             last_modified = excluded.last_modified,
             participant_count = excluded.participant_count,
-            phase = excluded.phase,
-            participant = excluded.participant,
+            phases = excluded.phases,
+            participants = excluded.participants,
             winner = excluded.winner,
             company_id = excluded.company_id
     """
@@ -520,7 +548,16 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
 
 if __name__ == "__main__":
     data = get_data_lelang_json()
+    # See structure at datasets/auction_data_sample.json
+
+    # import json
+    # with open("datasets/auction_data_sample.json", "r") as f:
+    #     data = json.load(f)
+
     df_cleaned = get_specific_data(data)
+
+    # print(json.dumps(df_cleaned.iloc[0].to_dict(), indent=2))
+
     df_cleaned = sync_company_id(df_cleaned)
     conn = create_table(DB_PATH)
     check_upsert_local(conn, df_cleaned)
