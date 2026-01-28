@@ -35,10 +35,11 @@ def prepareMinerbaDf(filename: str = "datasets/modi_mining_license_merge_v2.csv"
 
     minerba_df = minerba_df[~no_geometry_mask]
 
-    minerba_df["license_number"] = minerba_df["license_number"].fillna("-").str.strip()
     minerba_df["commodity"] = (
         minerba_df["komoditas_mapped"].astype(str).str.strip().str.title()
     )
+    minerba_df["cnc"] = minerba_df["cnc"].fillna("-").replace("-", None)
+    minerba_df["generation"] = minerba_df["generation"].fillna("-").replace("-", None)
 
     included_columns = [
         "company_name",
@@ -58,8 +59,6 @@ def prepareMinerbaDf(filename: str = "datasets/modi_mining_license_merge_v2.csv"
         "geometry",
     ]
     minerba_df = minerba_df[included_columns]
-    minerba_df.fillna("-", inplace=True)
-
     return minerba_df
 
 if __name__ == "__main__":

@@ -79,7 +79,7 @@ def parse_breakdown_string(s):
     return breakdown_dict
 
 
-def create_and_connect_db(table_name=None, use_v2=False):
+def create_and_connect_db(table_name=None):
     """Connects to SQLite and creates the new, flattened table if it doesn't exist."""
     table = table_name or TABLE_NAME
     print(f"Connecting to SQLite database: {DB_NAME}...")
@@ -88,41 +88,23 @@ def create_and_connect_db(table_name=None, use_v2=False):
 
     print(f"Ensuring table '{table}' exists...")
     # New schema: one row per company per year
-    if use_v2:
-        create_table_query = f"""
-        CREATE TABLE IF NOT EXISTS {table} (
-            company_id INTEGER,
-            idx_ticker TEXT,
-            name TEXT,
-            slug TEXT,
-            year INTEGER,
-            assets REAL,
-            revenue REAL,
-            revenue_breakdown TEXT CHECK (json_valid(revenue_breakdown)),
-            cost_of_revenue REAL,
-            cost_of_revenue_breakdown TEXT CHECK (json_valid(cost_of_revenue_breakdown)),
-            net_profit REAL,
-            PRIMARY KEY (idx_ticker, year),
-            FOREIGN KEY (company_id) REFERENCES company_v2(id)
-        );
-        """
-    else:
-        create_table_query = f"""
-        CREATE TABLE IF NOT EXISTS {table} (
-            company_id INTEGER,
-            idx_ticker TEXT,
-            name TEXT,
-            year INTEGER,
-            assets REAL,
-            revenue REAL,
-            revenue_breakdown TEXT CHECK (json_valid(revenue_breakdown)),
-            cost_of_revenue REAL,
-            cost_of_revenue_breakdown TEXT CHECK (json_valid(cost_of_revenue_breakdown)),
-            net_profit REAL,
-            PRIMARY KEY (idx_ticker, year),
-            FOREIGN KEY (company_id) REFERENCES company(id)
-        );
-        """
+    create_table_query = f"""
+    CREATE TABLE IF NOT EXISTS {table} (
+        company_id INTEGER,
+        idx_ticker TEXT,
+        name TEXT,
+        slug TEXT,
+        year INTEGER,
+        assets REAL,
+        revenue REAL,
+        revenue_breakdown TEXT CHECK (json_valid(revenue_breakdown)),
+        cost_of_revenue REAL,
+        cost_of_revenue_breakdown TEXT CHECK (json_valid(cost_of_revenue_breakdown)),
+        net_profit REAL,
+        PRIMARY KEY (idx_ticker, year),
+        FOREIGN KEY (company_id) REFERENCES company(id)
+    );
+    """
     cursor.execute(create_table_query)
     conn.commit()
     print("Database and table are ready.")
@@ -222,11 +204,11 @@ def parse_company_row(headers, sub_headers, values):
     return final_records
 
 
-def main(table_name=None, use_v2=False):
+def main(table_name=None):
     """Main function to run the entire process."""
     conn = None
     try:
-        conn, cursor, table = create_and_connect_db(table_name, use_v2)
+        conn, cursor, table = create_and_connect_db(table_name)
 
         print("Connecting to Google Sheets...")
         client, spreadsheet_id = createClient()
@@ -270,72 +252,40 @@ def main(table_name=None, use_v2=False):
                 ticker = record.get("idx_ticker")
 
                 if ticker:
-                    # Look up company_id (and slug for V2) from the appropriate table
-                    if use_v2:
-                        cursor.execute(
-                            "SELECT id, slug FROM company_v2 WHERE idx_ticker = ?",
-                            (ticker,),
-                        )
-                        result = cursor.fetchone()
-                        if result:
-                            company_id = result[0]
-                            slug = result[1]
-                        else:
-                            print(
-                                f"  > WARNING: Ticker '{ticker}' not found in 'company_v2' table. company_id will be set to NULL."
-                            )
+                    # Look up company_id and slug from the company table
+                    cursor.execute(
+                        "SELECT id, slug FROM company WHERE idx_ticker = ?",
+                        (ticker,),
+                    )
+                    result = cursor.fetchone()
+                    if result:
+                        company_id = result[0]
+                        slug = result[1]
                     else:
-                        cursor.execute(
-                            "SELECT id FROM company WHERE idx_ticker = ?", (ticker,)
+                        print(
+                            f"  > WARNING: Ticker '{ticker}' not found in 'company' table. company_id will be set to NULL."
                         )
-                        result = cursor.fetchone()
-                        if result:
-                            company_id = result[0]
-                        else:
-                            print(
-                                f"  > WARNING: Ticker '{ticker}' not found in 'company' table. company_id will be set to NULL."
-                            )
 
-                # Build insert query based on table version
-                if use_v2:
-                    db_tuple = (
-                        company_id,
-                        record["idx_ticker"],
-                        record["name"],
-                        slug,
-                        record["year"],
-                        record["assets"],
-                        record["revenue"],
-                        json.dumps(record["revenue_breakdown"]),
-                        record["cost_of_revenue"],
-                        json.dumps(record["cost_of_revenue_breakdown"]),
-                        record["net_profit"],
-                    )
-                    insert_query = f"""
-                    INSERT OR REPLACE INTO {table} (
-                        company_id, idx_ticker, name, slug, year, assets, revenue, revenue_breakdown, 
-                        cost_of_revenue, cost_of_revenue_breakdown, net_profit
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-                    """
-                else:
-                    db_tuple = (
-                        company_id,
-                        record["idx_ticker"],
-                        record["name"],
-                        record["year"],
-                        record["assets"],
-                        record["revenue"],
-                        json.dumps(record["revenue_breakdown"]),
-                        record["cost_of_revenue"],
-                        json.dumps(record["cost_of_revenue_breakdown"]),
-                        record["net_profit"],
-                    )
-                    insert_query = f"""
-                    INSERT OR REPLACE INTO {table} (
-                        company_id, idx_ticker, name, year, assets, revenue, revenue_breakdown, 
-                        cost_of_revenue, cost_of_revenue_breakdown, net_profit
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-                    """
+                # Build insert query
+                db_tuple = (
+                    company_id,
+                    record["idx_ticker"],
+                    record["name"],
+                    slug,
+                    record["year"],
+                    record["assets"],
+                    record["revenue"],
+                    json.dumps(record["revenue_breakdown"]),
+                    record["cost_of_revenue"],
+                    json.dumps(record["cost_of_revenue_breakdown"]),
+                    record["net_profit"],
+                )
+                insert_query = f"""
+                INSERT OR REPLACE INTO {table} (
+                    company_id, idx_ticker, name, slug, year, assets, revenue, revenue_breakdown, 
+                    cost_of_revenue, cost_of_revenue_breakdown, net_profit
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                """
 
                 cursor.execute(insert_query, db_tuple)
                 processed_count += 1

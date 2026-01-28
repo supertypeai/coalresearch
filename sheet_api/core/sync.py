@@ -1,8 +1,12 @@
 from tabulate import tabulate
 import pandas as pd
-from typing import Callable
+import peewee as pw
+from typing import Callable, Optional, Dict, Tuple
 from decimal import Decimal
+from gspread import Worksheet
 
+from sheet_api.google_sheets.client import getSheet, getSheetAll
+from sheet_api.core.toolbox import castTypes, mapPeeweeToPandasFields
 
 def deleteID(model, id: int) -> None:
     q = model.get_by_id(id)
@@ -84,6 +88,7 @@ def checkNewData(model, df, field_types: dict, execute=False) -> bool:
                     for ft in field_types
                     if ft != "id"
                 }
+                print(inputs)
                 model(**inputs).save()
             else:
                 print(f"New data to add: {row[[ft for ft in field_types]].to_dict()}")
@@ -123,3 +128,35 @@ def replaceCO(co_model, c_model, df) -> None:
             ).execute()
 
             print(f"Inserted parent_id: {parent.id}, company_id: {company.id}")
+
+
+def execute_preprocess_callback(
+    df: pd.DataFrame, field_types: Dict, sheet: Worksheet, function: Callable
+) -> Tuple[pd.DataFrame, Dict, Worksheet]:
+    return function(df, field_types, sheet)
+
+
+def sync_model(
+    sheet_name: str,
+    model: pw.ModelBase,
+    range: Optional[str] = None,
+    preprocess: Optional[Callable] = None,
+) -> None:
+    if range:
+        sheet, df = getSheet(sheet_name, range)
+    else:
+        sheet, df = getSheetAll(sheet_name)
+
+    pw_field_types = {fn.name: type(fn).__name__ for fn in model._meta.sorted_fields}
+    field_types = mapPeeweeToPandasFields(pw_field_types)
+
+    if preprocess is not None:
+        df, field_types, sheet = execute_preprocess_callback(
+            df=df, field_types=field_types, sheet=sheet, function=preprocess
+        )
+
+    df = castTypes(df, field_types)
+
+    confirmChange(checkDeletedAndOrder, model, df)
+    confirmChange(compareDBSheet, model, df)
+    confirmChange(checkNewData, model, df, field_types)

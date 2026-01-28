@@ -94,20 +94,18 @@ mineral_type_constraints = (
 )
 mining_operation_status_constraints = ("production", "development", "inactive")
 
-# %%
 db = SqliteDatabase("db.sqlite")
 
-
-# %%
 class Company(Model):
     id = IntegerField(primary_key=True)
     name = TextField()
+    slug = TextField(unique=True)
     idx_ticker = TextField(null=True)
     operation_province = TextField(
         null=True,
         constraints=[Check(f"operation_province IN {province_constraints}")],
     )
-    operation_kabkot = TextField(null=True)
+    operation_district = TextField(null=True)
     representative_address = TextField(null=True)
     company_type = TextField(
         null=True, constraints=[Check(f"company_type IN {company_type_constraints}")]
@@ -171,6 +169,7 @@ class CompanyOwnership(Model):
 class CompanyPerformance(Model):
     id = IntegerField(primary_key=True)
     company_id = ForeignKeyField(Company, column_name="company_id")
+    slug = TextField(null=True)
     year = IntegerField()
     commodity_type = TextField(
         null=True,
@@ -205,27 +204,6 @@ class MiningSite(Model):
         database = db
         table_name = "mining_site"
 
-class MiningSiteV2(Model):
-    id = IntegerField(primary_key=True)
-    name = TextField()
-    project_name = TextField(null=True)
-    year = IntegerField()
-    mineral_type = TextField(
-        null=True, constraints=[Check(f"mineral_type IN {mineral_type_constraints}")]
-    )
-    company_id = ForeignKeyField(Company, column_name="company_id")
-    production_volume = DecimalField(null=True)
-    overburden_removal_volume = DecimalField(null=True)
-    strip_ratio = DecimalField(null=True)
-    resources_reserves = TextField(
-        null=True, constraints=[Check("json_valid(resources_reserves)")]
-    )
-    location = TextField(null=True, constraints=[Check("json_valid(location)")])
-
-    class Meta:
-        database = db
-        table_name = "mining_site_v2"
-
 class ResourcesAndReserves(Model):
     id = IntegerField(primary_key=True)
     province = TextField(constraints=[Check(f"province IN {province_constraints}")])
@@ -242,21 +220,6 @@ class ResourcesAndReserves(Model):
         database = db
         table_name = "resources_and_reserves"
 
-class ResourcesAndReservesV2(Model):
-    id = IntegerField(primary_key=True)
-    province = TextField(constraints=[Check(f"province IN {province_constraints}")])
-    year = IntegerField()
-    commodity_type = TextField(
-        null=True,
-        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")],
-    )
-    resources_reserves = TextField(
-        null=True, constraints=[Check("json_valid(resources_reserves)")]
-    )
-
-    class Meta:
-        database = db
-        table_name = "resources_and_reserves_v2"
 
 class TotalCommoditiesProduction(Model):
     id = IntegerField(primary_key=True)
@@ -289,60 +252,7 @@ class ExportDestination(Model):
         database = db
         table_name = "export_destination"
 
-
-# V2 Models with slug support
-class CompanyV2(Model):
-    id = IntegerField(primary_key=True)
-    name = TextField()
-    slug = TextField(unique=True)
-    idx_ticker = TextField(null=True)
-    operation_province = TextField(
-        null=True,
-        constraints=[Check(f"operation_province IN {province_constraints}")],
-    )
-    operation_kabkot = TextField(null=True)
-    representative_address = TextField(null=True)
-    company_type = TextField(
-        null=True, constraints=[Check(f"company_type IN {company_type_constraints}")]
-    )
-    key_operation = TextField(
-        constraints=[Check(f"key_operation IN {key_operation_constraints}")]
-    )
-    activities = TextField(null=True, constraints=[Check("json_valid(activities)")])
-    website = TextField(null=True)
-    phone_number = IntegerField(null=True)
-    email = TextField(null=True)
-    mining_license = TextField(
-        null=True, constraints=[Check("json_valid(mining_license)")]
-    )
-    mining_contract = TextField(
-        null=True, constraints=[Check("json_valid(mining_contract)")]
-    )
-    commodity = TextField(null=True, constraints=[Check("json_valid(commodity)")])
-
-    class Meta:
-        database = db
-        table_name = "company_v2"
-
-
-class CompanyPerformanceV2(Model):
-    id = IntegerField(primary_key=True)
-    company_id = ForeignKeyField(CompanyV2, column_name="company_id")
-    slug = TextField(null=True)
-    year = IntegerField()
-    commodity_type = TextField(
-        null=True,
-        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")],
-    )
-    commodity_sub_type = TextField(null=True)
-    commodity_stats = TextField(constraints=[Check("json_valid(commodity_stats)")])
-
-    class Meta:
-        database = db
-        table_name = "company_performance_v2"
-
-
-class CompanyFinancialsV2(Model):
+class CompanyFinancials(Model):
     company_id = IntegerField(null=True)
     idx_ticker = TextField()
     name = TextField()
@@ -361,5 +271,5 @@ class CompanyFinancialsV2(Model):
 
     class Meta:
         database = db
-        table_name = "company_financials_v2"
+        table_name = "company_financials"
         primary_key = CompositeKey("idx_ticker", "year")

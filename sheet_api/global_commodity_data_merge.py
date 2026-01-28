@@ -306,8 +306,8 @@ def process_export_import(df, country_list):
                 "country": country, 
                 "export_import": json.dumps({
                     "2023": {
-                        "Export": row["export"] if pd.notna(row["export"]) else None,
-                        "Import": row["import"] if pd.notna(row["export"]) else None
+                        "export": row["export"] if pd.notna(row["export"]) else None,
+                        "import": row["import"] if pd.notna(row["export"]) else None
                     }
                 })
             })

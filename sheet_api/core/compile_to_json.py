@@ -370,6 +370,7 @@ def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
     df_company = clean_company_df(df, 'name') # This function add two columns: ['name_cleaned', 'name_cleaned_no_space']
     df_minerba = clean_company_df(minerba_df,'company_name') # Same goes here
 
+
     # Pre-extract the list of normalized names for fuzzy matching
     clean_list = df_minerba['name_cleaned'].tolist()
     
@@ -388,13 +389,13 @@ def fillMiningLicense(df: pd.DataFrame, sheet_id: int, is_debug: bool =False,
 
         if not matches.empty:
             # Drop "company_name" column to finalize the payload
-            matches = matches.drop(columns=['company_name'], errors='ignore')
+            matches = matches.drop(columns=['company_name', 'name_cleaned', 'name_cleaned_no_space'], errors='ignore')
             records = matches.to_dict(orient="records")
         else:
             # empty list when no matches
             records = []  
 
-        ### CHANGED: dump the list (even if empty) as your JSON array
+        
         license_json = json.dumps(records, ensure_ascii=False)
         df_company.at[row_id, 'mining_license'] = license_json
 
