@@ -205,6 +205,26 @@ class MiningSite(Model):
         database = db
         table_name = "mining_site"
 
+class MiningSiteV2(Model):
+    id = IntegerField(primary_key=True)
+    name = TextField()
+    project_name = TextField(null=True)
+    year = IntegerField()
+    mineral_type = TextField(
+        null=True, constraints=[Check(f"mineral_type IN {mineral_type_constraints}")]
+    )
+    company_id = ForeignKeyField(Company, column_name="company_id")
+    production_volume = DecimalField(null=True)
+    overburden_removal_volume = DecimalField(null=True)
+    strip_ratio = DecimalField(null=True)
+    resources_reserves = TextField(
+        null=True, constraints=[Check("json_valid(resources_reserves)")]
+    )
+    location = TextField(null=True, constraints=[Check("json_valid(location)")])
+
+    class Meta:
+        database = db
+        table_name = "mining_site_v2"
 
 class ResourcesAndReserves(Model):
     id = IntegerField(primary_key=True)
@@ -222,6 +242,21 @@ class ResourcesAndReserves(Model):
         database = db
         table_name = "resources_and_reserves"
 
+class ResourcesAndReservesV2(Model):
+    id = IntegerField(primary_key=True)
+    province = TextField(constraints=[Check(f"province IN {province_constraints}")])
+    year = IntegerField()
+    commodity_type = TextField(
+        null=True,
+        constraints=[Check(f"commodity_type IN {commodity_type_constraints}")],
+    )
+    resources_reserves = TextField(
+        null=True, constraints=[Check("json_valid(resources_reserves)")]
+    )
+
+    class Meta:
+        database = db
+        table_name = "resources_and_reserves_v2"
 
 class TotalCommoditiesProduction(Model):
     id = IntegerField(primary_key=True)

@@ -4,6 +4,7 @@ from sheet_api.google_sheets.auth     import createClient, createService
 from sheet_api.google_sheets.client   import getSheetAll
 from sheet_api.minerba_merge          import prepareMinerbaDf
 from rapidfuzz                        import process, fuzz
+from typing                           import List
 
 import pandas as pd
 import json
@@ -23,97 +24,98 @@ COAL_STATS = MINERAL_STATS + [
     ("strip_ratio", float),
 ]
 COAL_RESERVES_RESOURCES = [
-    ("year_measured", int),
-    ("reserves probable (Mt)", float),
-    ("reserves proved (Mt)", float),
-    ("reserves total (Mt)", float),
-    ("resources inferred (Mt)", float),
-    ("resources indicated (Mt)", float),
-    ("resources measured (Mt)", float),
-    ("resources total (Mt)", float)
+    ("measurement_year",       int),
+    ("probable_reserves_Mt",   float),
+    ("proven_reserves_Mt",     float),
+    ("total_reserves_Mt",      float),
+    ("inferred_resources_Mt",  float),
+    ("indicated_resources_Mt", float),
+    ("measured_resources_Mt",  float),
+    ("total_resources_Mt",     float),
 ]
 GOLD_COPPER_TEMPLATE = [
-    ("total (Mt)", float),
-    ("g/ton Au", float),
-    ("Au (koz)", float),
-    ("g/ton Ag", float),
-    ("Ag (koz)", float),
-    ("% Cu", float),
-    ("Cu (Mt)", float)
+    ("total", "Mt",         float),
+    ("Au",    "g_per_ton",  float),
+    ("Au",    "koz",        float),
+    ("Ag",    "g_per_ton",  float),
+    ("Ag",    "koz",        float),
+    ("Cu",    "pct",        float),
+    ("Cu",    "Mt",         float)
 ]
 GOLD_COPPER_RESERVES_RESOURCES = [
-    ("year_measured", int),
+    ("measurement_year", int),
 ] + [
-    (f"reserves {t}", typ) for t, typ in GOLD_COPPER_TEMPLATE
+    (f"{subject}_reserves_{unit}", typ) for subject, unit, typ in GOLD_COPPER_TEMPLATE
 ] + [
-    (f"resources {t}", typ) for t, typ in GOLD_COPPER_TEMPLATE
+    (f"{subject}_resources_{unit}", typ) for subject, unit, typ in GOLD_COPPER_TEMPLATE
 ]
 NICKEL_TEMPLATE = [
-    ("total (wmt)", float),
-    ("total (dmt)", float),
-    ("% Ni", float),
-    ("Ni (Kt)", float),
-    ("% Co", float),
-    ("Co (Kt)", float),
-    ("% Fe", float),
-    ("% SiO₂", float),
-    ("% MgO", float),
-    ("% Al₂O₃", float),
+    ("total", "wmt", float),
+    ("total", "dmt", float),
+    ("Ni",    "pct", float),
+    ("Ni",    "Kt",  float),
+    ("Co",    "pct", float),
+    ("Co",    "Kt",  float),
+    ("Fe",    "pct", float),
+    ("SiO2",  "pct", float),
+    ("MgO",   "pct", float),
+    ("Al2O3", "pct", float),
 ]
 NICKEL_RESERVES_RESOURCES = [
-    ("year_measured", int),
+    ("measurement_year", int),
 ] + [
-    (f"reserves {t}", typ) for t, typ in NICKEL_TEMPLATE
+    (f"{subject}_reserves_{unit}", typ) for subject, unit, typ in NICKEL_TEMPLATE
 ] + [
-    (f"resources {t}", typ) for t, typ in NICKEL_TEMPLATE
+    (f"{subject}_resources_{unit}", typ) for subject, unit, typ in NICKEL_TEMPLATE
 ]
-
+ 
 # Mining Sites
 COAL_MINE = [
     (f"coal {c}", typ) for c, typ in COAL_RESERVES_RESOURCES
 ] + [
-    ("coal calorific value", str)
+    ("coal calorific_value_kcal", str)
 ]
 GOLD_COPPER_MINE = [
     (f"gold {c}", typ) for c, typ in GOLD_COPPER_RESERVES_RESOURCES
 ]
 SAPROLITE_MINE = [
-    (f"sap reserves {t}", typ) for t, typ in NICKEL_TEMPLATE
+    (f"sap {subject}_reserves_{unit}", typ) for subject, unit, typ in NICKEL_TEMPLATE
 ] + [
-    (f"sap resources {t}", typ) for t, typ in NICKEL_TEMPLATE
+    (f"sap {subject}_resources_{unit}", typ) for subject, unit, typ in NICKEL_TEMPLATE
 ]
 LIMONITE_MINE = [
-    (f"lim reserves {t}", typ) for t, typ in NICKEL_TEMPLATE
+    (f"lim {subject}_reserves_{unit}", typ) for subject, unit, typ in NICKEL_TEMPLATE
 ] + [
-    (f"lim resources {t}", typ) for t, typ in NICKEL_TEMPLATE
+    (f"lim {subject}_resources_{unit}", typ) for subject, unit, typ in NICKEL_TEMPLATE
 ]
 
 # Resources and Reserves
 RESERVES_RESOURCES_COAL = [
-    ("exploration_target_1", float),
-    ("total_inventory_1", float),
-    ("resources_inferred", float),
-    ("resources_indicated", float),
-    ("resources_measured", float),
-    ("resources_total", float),
-    ("resources_total_verify_2", float),
-    ("reserves_total", float),
-    ("reserves_total_verify_2", float)
+    ("exploration_target", float),
+    ("total_inventory", float),
+    ("inferred_resources_Mt", float),
+    ("indicated_resources_Mt", float),
+    ("measured_resources_Mt", float),
+    ("total_resources_Mt", float),
+    ("total_resources_verify_Mt", float),
+    ("total_reserves_Mt", float),
+    ("total_reserves_verify_Mt", float)
 ]
 RESERVES_RESOURCES_METAL = [
-    ("ore_resources_inferred", float),
-    ("resources_inferred", float),
-    ("ore_resources_indicated", float),
-    ("resources_indicated", float),
-    ("ore_resources_measured", float),
-    ("ore_resources_total", float),
-    ("resources_total", float),
-    ("ore_reserves_probable", float),
-    ("reserves_probable", float),
-    ("ore_reserves_proven", float),
-    ("reserves_proven", float),
-    ("ore_reserves_total", float),
-    ("reserves_total", float)
+    ("ore_inferred_resources_Mt", float),
+    ("inferred_resources_Mt", float),
+    ("ore_indicated_resources_Mt", float),
+    ("indicated_resources_Mt", float),
+    ("ore_measured_resources_Mt", float),
+    ("measured_resources_Mt", float),
+    ("ore_total_resources_Mt", float),
+    ("total_resources_Mt", float),
+    ("ore_probable_reserves_Mt", float),
+    ("probable_reserves_Mt", float),
+    ("ore_proven_reserves_Mt", float),
+    ("proven_reserves_Mt", float),
+    ("ore_total_reserves_Mt", float),
+    ("total_reserves_Mt", float)
 ]		
 
 def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=0):
@@ -166,25 +168,25 @@ def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=0
 def default_key_formatter(col):
     return col.lstrip("*")
 
-def renderDict(row, field_types, key_formatter=default_key_formatter):
+def renderDict(row: pd.Series, field_types: List, key_formatter=default_key_formatter):
     return {
         key_formatter(col): safeCast(row[col], dtype)
         for col, dtype in field_types
     }
 
-def renderCoalStats(row):
+def renderCoalStats(row: pd.Series):
     data_dict = renderDict(row, COAL_STATS)
     data_dict["resources_reserves"] = renderDict(row, COAL_RESERVES_RESOURCES)
     data_dict["product"] = safeCast(row["product"], dict)
     return data_dict
 
-def renderGoldCopperStats(row):
+def renderGoldSilverCopperStats(row: pd.Series):
     data_dict = renderDict(row, MINERAL_STATS)
     data_dict["resources_reserves"] = renderDict(row, GOLD_COPPER_RESERVES_RESOURCES)
     data_dict["product"] = safeCast(row["product"], dict)
     return data_dict
 
-def renderNickelStats(row):
+def renderNickelStats(row: pd.Series):
     data_dict = renderDict(row, MINERAL_STATS)
     data_dict["resources_reserves"] = renderDict(row, NICKEL_RESERVES_RESOURCES)
     data_dict["product"] = safeCast(row["product"], dict)
@@ -199,10 +201,13 @@ def jsonifyCommodityStats(df: pd.DataFrame, sheet_id: int, starts_from: int = 0)
         if row_id < starts_from:
             continue
 
-        if row["commodity_type"] != "Coal":
-            data_dict = renderGoldCopperStats(row)
-        else:
+        commodity = row["commodity_type"]
+        if commodity == "Coal":
             data_dict = renderCoalStats(row)
+        elif commodity == "Nickel":
+            data_dict = renderNickelStats(row)
+        else:
+            data_dict = renderGoldSilverCopperStats(row)
             
         rr_cols_json = json.dumps(data_dict)
         to_use_value = {'stringValue':f'{rr_cols_json}'}
@@ -247,9 +252,9 @@ def renderCoalMine(row):
     return renderDict(row, COAL_MINE, lambda col: col.replace("coal ", ""))
 
 def renderNickelMine(row):
-    data_dict = {'year_measured': safeCast(row['nickel year_measured'], int)}
-    data_dict['limonite'] = renderDict(row, LIMONITE_MINE)
-    data_dict['saprolite'] = renderDict(row, SAPROLITE_MINE)
+    data_dict = {'measurement_year': safeCast(row['nickel measurement_year'], int)}
+    data_dict['limonite'] = renderDict(row, LIMONITE_MINE, lambda col: col.replace("lim ", ""))
+    data_dict['saprolite'] = renderDict(row, SAPROLITE_MINE, lambda col: col.replace("sap ", ""))
     return data_dict
 
 def jsonifyMineReservesAndResources(df: pd.DataFrame, sheet_id: int, starts_from: int = 0):
@@ -474,3 +479,4 @@ def jsonifyProvincesResourcesReserves(df: pd.DataFrame) -> pd.DataFrame:
         df.at[rowid, 'resources_reserves'] = json.dumps(renderFunction(row))
 
     return df
+# %%

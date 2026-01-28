@@ -23,22 +23,22 @@ coal_specs = [
 
 gold_specs = [
 	("product_name", str),
-	("g/ton Au", str),
+	("Au_g_per_ton", str),
 ]
 
 copper_specs = [
 	("product_name", str),
-	("% Cu", str)
+	("Cu_pct", str)
 ]
 
 nickel_specs = [
 	("product_name", str),
-	("% Ni", str),
-	("% Co", str),
-	("% Fe", str),
-	("% SiO₂", str),
-	("% MgO", str),
-	("% Al₂O₃", str)
+	("Ni_pct", str),
+	("Co_pct", str),
+	("Fe_pct", str),
+	("SiO2_pct", str),
+	("MgO_pct", str),
+	("Al2O3_pct", str)
 ]
 
 SPECS_MAP = {

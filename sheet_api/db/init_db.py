@@ -1,4 +1,4 @@
-from db.models import (
+from sheet_api.db.models import (
     db,
     Company,
     CompanyOwnership,
@@ -8,6 +8,8 @@ from db.models import (
     TotalCommoditiesProduction,
     ExportDestination,
     GlobalCommodityData,
+    MiningSiteV2,
+    ResourcesAndReservesV2
 )
 
 
@@ -17,12 +19,14 @@ def create_tables():
         [
             # Company,
             # CompanyOwnership,
-            CompanyPerformance,
+            # CompanyPerformance,
             # MiningSite,
             # ResourcesAndReserves,
             # TotalCommoditiesProduction,
             # ExportDestination,
             # GlobalCommodityData,
+            MiningSiteV2,
+            ResourcesAndReservesV2
         ]
     )
     print("All tables created successfully.")

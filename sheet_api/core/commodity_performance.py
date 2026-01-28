@@ -2,7 +2,7 @@ from sheet_api.google_sheets.auth import createClient
 from sheet_api.google_sheets.client import getSheetAll
 from sheet_api.core.compile_to_json import (
     renderCoalStats,
-    renderGoldCopperStats,
+    renderGoldSilverCopperStats,
     renderNickelStats,
 )
 
@@ -12,8 +12,7 @@ import json
 
 
 SPREADSHEET_NAME = "company performance"
-# COMMODITY_PERFORMANCE_SHEET = ['gold', 'coal', 'nickel', 'copper', 'silver']
-COMMODITY_PERFORMANCE_SHEET = ["gold", "coal", "nickel", "copper"]
+COMMODITY_PERFORMANCE_SHEET = ['gold', 'coal', 'nickel', 'copper', 'silver']
 COMMON_COLUMNS = [
     "id",
     "company_id",
@@ -355,9 +354,10 @@ def update_commodity_performance() -> None:
     df_list = []
     renderMap = {
         "coal": renderCoalStats,
-        "gold": renderGoldCopperStats,
-        "copper": renderGoldCopperStats,
+        "gold": renderGoldSilverCopperStats,
+        "copper": renderGoldSilverCopperStats,
         "nickel": renderNickelStats,
+        "silver": renderGoldSilverCopperStats,
     }
 
     for n in COMMODITY_PERFORMANCE_SHEET:
@@ -366,6 +366,7 @@ def update_commodity_performance() -> None:
         df["performance_id"] = f"{n}_" + df["id"]
 
         renderFunction = renderMap[n]
+        print(n)
         df["commodity_stats"] = df.apply(
             lambda row: json.dumps(renderFunction(row)), axis=1
         )

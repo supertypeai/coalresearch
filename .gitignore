@@ -4,7 +4,7 @@ resources/
 updates/
 .venv/
 __pycache__/
-keys/*
+keys
 sketch.py
 .env
 .vscode/*

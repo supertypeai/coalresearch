@@ -16,6 +16,8 @@ from sheet_api.db.models import (
     CompanyV2,
     CompanyPerformanceV2,
     CompanyFinancialsV2,
+    MiningSiteV2,
+    ResourcesAndReservesV2
 )
 from sheet_api.google_sheets.client import getSheet, getSheetAll
 from sheet_api.core.toolbox import castTypes, mapPeeweeToPandasFields
@@ -125,6 +127,9 @@ def sync_company_performance():
 def sync_mining_site():
     sync_model("mining_site", MiningSite, "A1:CD157", miningSitePreprocess)
 
+def sync_mining_site_v2():
+    sync_model("mining_site", MiningSiteV2, "A1:CD157", miningSitePreprocess)
+
 
 def sync_process_ownership():
     sync = SyncCompanyId()
@@ -143,6 +148,12 @@ def sync_resources_and_reserves():
         preprocess=resourcesAndReservesPreprocess,
     )
 
+def sync_resources_and_reserves_v2():
+    sync_model(
+        "resources_and_reserves",
+        ResourcesAndReservesV2,
+        preprocess=resourcesAndReservesPreprocess,
+    )
 
 def sync_total_commodities_production():
     sync_model("total_commodities_production", TotalCommoditiesProduction)
@@ -153,6 +164,9 @@ def sync_export_destination():
 
 
 def sync_global_commodity_data():
+    from sheet_api import global_commodity_data_merge
+
+    global_commodity_data_merge.main()
     sync_model("global_commodity_data", GlobalCommodityData, "A1:H137")
 
 
@@ -317,6 +331,8 @@ MODEL_SYNC_MAP = {
     "company_v2": sync_company_v2,
     "company_performance_v2": sync_company_performance_v2,
     "company_financials_v2": sync_company_financials_v2,
+    "mining_site_v2": sync_mining_site_v2,
+    "resources_and_reserves_v2": sync_resources_and_reserves_v2,
 }
 
 
