@@ -550,14 +550,7 @@ if __name__ == "__main__":
     data = get_data_lelang_json()
     # See structure at datasets/auction_data_sample.json
 
-    # import json
-    # with open("datasets/auction_data_sample.json", "r") as f:
-    #     data = json.load(f)
-
     df_cleaned = get_specific_data(data)
-
-    # print(json.dumps(df_cleaned.iloc[0].to_dict(), indent=2))
-
     df_cleaned = sync_company_id(df_cleaned)
     conn = create_table(DB_PATH)
     check_upsert_local(conn, df_cleaned)
