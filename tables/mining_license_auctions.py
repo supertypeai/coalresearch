@@ -381,7 +381,7 @@ def create_table(path):
     cursor = connection.cursor()
     cursor.execute(
         """
-        CREATE TABLE IF NOT EXISTS mining_license_auctions_v2 (
+        CREATE TABLE IF NOT EXISTS mining_license_auctions (
             id INTEGER PRIMARY KEY NOT NULL,
             commodity TEXT,
             city TEXT,
@@ -446,7 +446,7 @@ def prepare_id(conn: sqlite3.Connection, df: pd.DataFrame) -> pd.DataFrame:
         pd.DataFrame: A copy of `df` with a new integer `id` column prepended.
     """
     cursor = conn.cursor()
-    cursor.execute("SELECT MAX(id) FROM mining_license_auctions_v2")
+    cursor.execute("SELECT MAX(id) FROM mining_license_auctions")
     max_id = cursor.fetchone()[0] or 0
     cursor.close()
 
@@ -502,7 +502,7 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
     # UPSERT query - using number as unique identifier
     # The id field will auto-increment for new records
     upsert_query = """
-        INSERT INTO mining_license_auctions_v2 (
+        INSERT INTO mining_license_auctions (
             id, commodity, city, province, company_name, date_winner, 
             permit_area, number, permit_type, kdi, code_wiup, 
             auction_status, created_at, last_modified, participant_count,

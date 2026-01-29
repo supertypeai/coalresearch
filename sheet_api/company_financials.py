@@ -29,6 +29,42 @@ def to_float(value_str):
         return None
 
 
+def normalize_revenue_breakdown_key(key: str) -> str:
+    """
+    Normalizes a breakdown key to snake_case.
+    Examples:
+    "Barging" -> "barging"
+    "Stripping & Mining" -> "stripping_and_mining"
+    "% Coal" -> "coal_pct"
+    """
+    if not key:
+        return ""
+
+    # Handle % at the beginning or elsewhere
+    has_pct = False
+    if "%" in key:
+        has_pct = True
+        key = key.replace("%", "").strip()
+
+    # Replace & with _and_
+    key = key.replace("&", " and ")
+
+    # Lowercase
+    key = key.lower()
+
+    # Replace non-alphanumeric characters with underscores
+    key = re.sub(r"[^a-z0-9]+", "_", key)
+
+    # Append _pct if it had %
+    if has_pct:
+        key = f"{key}_pct"
+
+    # Clean up multi-underscores and leading/trailing underscores
+    key = re.sub(r"_+", "_", key).strip("_")
+
+    return key
+
+
 def parse_breakdown_string(s):
     """
     Parses a complex breakdown string into a dictionary.
@@ -50,6 +86,7 @@ def parse_breakdown_string(s):
         if ":" in p_content:
             parts = p_content.split(":")
             if len(parts) == 2:
+                key = normalize_revenue_breakdown_key(parts[0].strip())
                 key = parts[0].strip()
                 val = to_float(parts[1].strip())
                 if key and val is not None:
@@ -72,7 +109,7 @@ def parse_breakdown_string(s):
             value_str = num_match.group(0)
             value = to_float(value_str)
             # The key is what's left after removing the number
-            key = item.replace(value_str, "").strip()
+            key = normalize_revenue_breakdown_key(item.replace(value_str, "").strip())
             if key and value is not None:
                 breakdown_dict[key] = value
 
@@ -280,6 +317,7 @@ def main(table_name=None):
                     json.dumps(record["cost_of_revenue_breakdown"]),
                     record["net_profit"],
                 )
+
                 insert_query = f"""
                 INSERT OR REPLACE INTO {table} (
                     company_id, idx_ticker, name, slug, year, assets, revenue, revenue_breakdown, 
