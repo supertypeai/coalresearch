@@ -246,7 +246,15 @@ def jsonifyCommodityStats(df: pd.DataFrame, sheet_id: int, starts_from: int = 0)
 
 
 def renderGoldCopperMine(row):
-    return renderDict(row, GOLD_COPPER_MINE, lambda col: col.replace("gold ", ""))
+    data_dict = renderDict(row, GOLD_COPPER_MINE, lambda col: col.replace("gold ", ""))
+    
+    quality_suffixes = ("_g_per_ton", "_pct")
+
+    for k, v in data_dict.items():
+        if k.endswith(quality_suffixes):
+            data_dict[k] = parse_spec_value(v)
+
+    return data_dict
 
 def renderCoalMine(row):
     data_dict = renderDict(row, COAL_MINE, lambda col: col.replace("coal ", ""))
@@ -257,6 +265,17 @@ def renderNickelMine(row):
     data_dict = {'measurement_year': safeCast(row['nickel measurement_year'], int)}
     data_dict['limonite'] = renderDict(row, LIMONITE_MINE, lambda col: col.replace("lim ", ""))
     data_dict['saprolite'] = renderDict(row, SAPROLITE_MINE, lambda col: col.replace("sap ", ""))
+
+    quality_suffixes = ("_pct")
+
+    for k, v in data_dict['limonite'].items():
+        if k.endswith(quality_suffixes):
+            data_dict['limonite'][k] = parse_spec_value(v)
+
+    for k, v in data_dict['saprolite'].items():
+        if k.endswith(quality_suffixes):
+            data_dict['saprolite'][k] = parse_spec_value(v)
+
     return data_dict
 
 def jsonifyMineReservesAndResources(df: pd.DataFrame, sheet_id: int, starts_from: int = 0):
