@@ -94,3 +94,40 @@ def clean_company_df(df: pd.DataFrame, company_column: str) -> pd.DataFrame:
     )
 
     return df
+
+def parse_spec_value(val):
+	if val is None or val == "" or (isinstance(val, float) and pd.isna(val)):
+		return None
+	
+	s_val = str(val).strip().replace(',', '.') 
+	
+	# Range: 1.5-1.7
+	range_match = re.match(r"^([\d.]+)\s*-\s*([\d.]+)$", s_val)
+	if range_match:
+		try:
+			return {"max": float(range_match.group(2)), "min": float(range_match.group(1))}
+		except ValueError:
+			pass
+			
+	# Less than: <1
+	lt_match = re.match(r"^<\s*([\d.]+)$", s_val)
+	if lt_match:
+		try:
+			return {"max": float(lt_match.group(1)), "min": None}
+		except ValueError:
+			pass
+
+	# Greater than: >1
+	gt_match = re.match(r"^>\s*([\d.]+)$", s_val)
+	if gt_match:
+		try:
+			return {"max": None, "min": float(gt_match.group(1))}
+		except ValueError:
+			pass
+
+	# Single value: 6.85
+	try:
+		v = float(s_val)
+		return {"max": v, "min": v}
+	except ValueError:
+		return s_val

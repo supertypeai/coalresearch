@@ -1,8 +1,9 @@
 import json
 import pandas as pd
+import re
 
 from sheet_api.google_sheets.client import getSheetAll
-from sheet_api.core.toolbox import safeCast
+from sheet_api.core.toolbox import safeCast, parse_spec_value
 from gspread import Cell
 from typing import Optional
 
@@ -11,8 +12,8 @@ cp_df.columns = [col.lstrip("*") for col in cp_df.columns]
 
 coal_specs = [
 	("product_name", str),
-	("calorific_value", str),
-	("total_moisture", str),
+	("calorific_value_kcal", str),
+	("total_moisture_pct", str),
 	("ash_content_arb", str),
 	("total_sulphur_arb", str),
 	("ash_content_adb", str),
@@ -115,6 +116,8 @@ def updateProduct(commodity: str, commodity_sub_type: bool = False, starts_from 
 			product_dict = {}
 			for in_col, type in SPECS_MAP[commodity]:
 				val = safeCast(group_row[in_col], type)
+				if in_col != 'product_name':
+					val = parse_spec_value(val)
 				product_dict[in_col] = val
 			product_list.append(product_dict)
 			

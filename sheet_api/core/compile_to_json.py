@@ -1,5 +1,5 @@
 # %%
-from sheet_api.core.toolbox           import safeCast, clean_company_df
+from sheet_api.core.toolbox           import safeCast, clean_company_df, parse_spec_value
 from sheet_api.google_sheets.auth     import createClient, createService
 from sheet_api.google_sheets.client   import getSheetAll
 from sheet_api.minerba_merge          import prepareMinerbaDf
@@ -249,7 +249,9 @@ def renderGoldCopperMine(row):
     return renderDict(row, GOLD_COPPER_MINE, lambda col: col.replace("gold ", ""))
 
 def renderCoalMine(row):
-    return renderDict(row, COAL_MINE, lambda col: col.replace("coal ", ""))
+    data_dict = renderDict(row, COAL_MINE, lambda col: col.replace("coal ", ""))
+    data_dict["calorific_value_kcal"] = parse_spec_value(data_dict.get("calorific_value_kcal"))
+    return data_dict
 
 def renderNickelMine(row):
     data_dict = {'measurement_year': safeCast(row['nickel measurement_year'], int)}
