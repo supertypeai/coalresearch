@@ -82,7 +82,7 @@ def getQ(ccp_row: pd.Series, commodity_type_mask: pd.Series, key: str = 'company
 def updateProduct(commodity: str, commodity_sub_type: bool = False, starts_from = 0 ):
 	cell_updates = []
 	commodity_sheet, commodity_df = getSheetAll(SHEET_MAP[commodity])
-	col_id = list(commodity_df.columns).index('product') + 1
+	col_id = list(commodity_df.columns).index('products') + 1
 		
 	for ccp_idx, ccp_row in commodity_df.iterrows():		
 		assert isinstance(ccp_idx, int)

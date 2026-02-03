@@ -43,7 +43,7 @@ graph TD
 | -------------- | ----------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `name`         | TEXT              | Yes(1) | Commodity name (e.g. “Batubara”).                                                                                                                                     |
 | `date`         | TEXT              | Yes(2) | Date of the price (YYYY-MM-DD).                                                                                                                                       |
-| `price`        | TEXT              | No     | Price value.                                                       |
+| `price`        | REAL              | No     | Price value.                                                       |
 
 
 
@@ -80,13 +80,13 @@ graph TD
 | `slug`                   | TEXT              | Unique | URL-friendly slug (e.g., "pt-adaro-andalan-indonesia-tbk"). Auto-generated from name. |
 | `idx_ticker`             | TEXT              | No     | IDX stock ticker (if listed).                                                        |
 | `operation_province`     | TEXT              | No     | Province of main operations.                                                         |
-| `operation_kabkot`       | TEXT              | No     | Regency/City of operations.                                                          |
+| `operation_district`     | TEXT              | No     | Regency/City of operations.                                                          |
 | `representative_address` | TEXT              | No     | Registered corporate address.                                                        |
 | `company_type`           | TEXT              | No     | e.g. "Holding", "Trader".                                                            |
 | `key_operation`          | TEXT              | No     | Primary business line (e.g. "Coal Trading").                                         |
 | `activities`             | TEXT (JSON Array) | No     | List of activity strings (e.g. `["Trading"]`).                                       |
 | `website`                | TEXT              | No     | Corporate website URL.                                                               |
-| `phone_number`           | TEXT              | No     | Contact phone.                                                                       |
+| `phone_number`           | INTEGER           | No     | Contact phone.                                                                       |
 | `email`                  | TEXT              | No     | Contact email.                                                                       |
 | `mining_license`         | TEXT (JSON Array) | No     | List of linked license IDs.                                                          |
 | `mining_contract`        | TEXT (JSON Array) | No     | List of contractor IDs.                                                              |
@@ -116,11 +116,11 @@ graph TD
   click B "https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=1820286624#gid=1820286624" _blank
 ```
 
-| **Column**             | **Type**      | **PK**  | **Description**                                                     |
-| ---------------------- | ------------- | ------- | ------------------------------------------------------------------- |
-| `parent_company_id`    | INTEGER       | Yes (1) | ID of the holding/parent company (↔︎ `company.id`).                 |
-| `company_id`           | INTEGER       | Yes (2) | ID of the subsidiary company (↔︎ `company.id`).                     |
-| `percentage_ownership` | DECIMAL(10,5) | No      | Ownership stake (%) that `parent_company_id` holds in `company_id`. |
+| **Column**             | **Type** | **PK**  | **Description**                                                     |
+| ---------------------- | -------- | ------- | ------------------------------------------------------------------- |
+| `parent_company_id`    | INTEGER  | Yes (1) | ID of the holding/parent company (↔︎ `company.id`).                 |
+| `company_id`           | INTEGER  | Yes (2) | ID of the subsidiary company (↔︎ `company.id`).                     |
+| `percentage_ownership` | REAL     | No      | Ownership stake (%) that `parent_company_id` holds in `company_id`. |
 
 
 
@@ -147,6 +147,130 @@ Notes: Currently running semi-manually to sync to `db.sqlite` every time there i
 | `commodity_type`     | TEXT        | No     | Commodity produced (e.g. "Coal").                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `commodity_sub_type` | TEXT        | No     | Sub-category (e.g. "Sub-Bituminous").                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `commodity_stats`    | TEXT (JSON) | No     | The commodity_stats column is a TEXT field that stores dynamic JSON objects. This means its content and structure can vary based on the specific commodity_type and commodity_sub_type.<br><br>Includes:<br>- **Operational Metrics:** Such as `mining_operation_status`, `production_volume`, `sales_volume`, `overburden_removal_volume`, and `strip_ratio`.<br>- **Resources & Reserves:** A nested object detailing `total_reserve`, `total_resource`, and breakdowns like `resources_inferred`, `resources_indicated`, `resources_measured`, `reserves_proved`, and `reserves_probable`.<br>- **Product Specifications:** An array of objects, where each object describes a specific product with its quality parameters (e.g., `product_name`, `calorific_value`, `total_moisture`, various `ash_content` and `sulphur_content` metrics, etc.). These specific fields are dynamic and will change depending on the commodity. |
+
+Currently we have `Coal`, `Copper`, `Gold`, `Nickel`, and `Silver` commodities available in our database. Each commodity has unique properties; therefore, the data models differ for each.
+
+**Data Model**
+```typescript
+interface ProductSpecs {
+  min: number | null;
+  max: number | null;
+}
+
+export type OperationStatus = "production" | "development" | "inactive";
+```
+
+**`Coal`**
+```typescript
+interface CoalProduct {
+  product_name        : string;
+  calorific_value_kcal: ProductSpecs | null;
+  total_moisture_pct  : ProductSpecs | null;
+  ash_content_arb     : ProductSpecs | null;
+  total_sulphur_arb   : ProductSpecs | null;
+  ash_content_adb     : ProductSpecs | null;
+  total_sulphur_adb   : ProductSpecs | null;
+  volatile_matter_adb : ProductSpecs | null;
+  fixed_carbon_adb    : ProductSpecs | null;
+}
+
+interface CoalCommodityStats {
+  unit                     : string;
+  mining_operation_status  : OperationStatus;
+  production_volume        : number | null;
+  sales_volume             : number | null;
+  overburden_removal_volume: number | null;
+  strip_ratio              : number | null;
+  resources_reserves: {
+    measurement_year  : number | null;
+    total_reserves_Mt : number | null;
+    total_resources_Mt: number | null;
+  };
+  products: CoalProduct[] | null;
+}
+```
+
+**`Copper, Gold, Silver`**
+```typescript
+interface GoldSilverProduct {
+  product_name: string;
+  Au_g_per_ton: ProductSpecs | null;
+  Ag_g_per_ton: ProductSpecs | null;
+}
+
+interface CopperProduct {
+  product_name: string;
+  Cu_pct      : ProductSpecs | null;
+}
+
+interface MetalCommodityStats {
+  unit                     : string;
+  mining_operation_status  : OperationStatus;
+  production_volume        : number | null;
+  sales_volume             : number | null;
+  resources_reserves: {
+    measurement_year      : number | null;
+    total_reserves_Mt     : number | null;
+    Au_reserves_g_per_ton : number | null;
+    Au_reserves_koz       : number | null;
+    Ag_reserves_g_per_ton : number | null;
+    Ag_reserves_koz       : number | null;
+    Cu_reserves_pct       : number | null;
+    Cu_reserves_Mt        : number | null;
+    total_resources_Mt    : number | null;
+    Au_resources_g_per_ton: number | null;
+    Au_resources_koz      : number | null;
+    Ag_resources_g_per_ton: number | null;
+    Ag_resources_koz      : number | null;
+    Cu_resources_pct      : number | null;
+    Cu_resources_Mt       : number | null;
+  };
+  products: GoldSilverProduct[] | CopperProduct[] | null;
+}
+```
+
+**`Nickel`**
+```typescript
+interface NickelProduct {
+  product_name: string;
+  Ni_pct      : ProductSpecs | null;
+  Co_pct      : ProductSpecs | null;
+  Fe_pct      : ProductSpecs | null;
+  SiO2_pct    : ProductSpecs | null;
+  MgO_pct     : ProductSpecs | null;
+  Al2O3_pct   : ProductSpecs | null;
+}
+
+interface NickelCommodityStats {
+  unit                   : string;
+  mining_operation_status: OperationStatus;
+  production_volume      : number | null;
+  sales_volume           : number | null;
+  resources_reserves: {
+    measurement_year    : number | null;
+    total_reserves_wmt  : number | null;
+    total_reserves_dmt  : number | null;
+    Ni_reserves_pct     : number | null;
+    Ni_reserves_Kt      : number | null;
+    Co_reserves_pct     : number | null;
+    Co_reserves_Kt      : number | null;
+    Fe_reserves_pct     : number | null;
+    SiO2_reserves_pct   : number | null;
+    MgO_reserves_pct    : number | null;
+    Al2O3_reserves_pct  : number | null;
+    total_resources_wmt : number | null;
+    total_resources_dmt : number | null;
+    Ni_resources_pct    : number | null;
+    Ni_resources_Kt     : number | null;
+    Co_resources_Kt     : number | null;
+    Fe_resources_pct    : number | null;
+    SiO2_resources_pct  : number | null;
+    MgO_resources_pct   : number | null;
+    Al2O3_resources_pct : number | null;
+  };
+  products: NickelProduct[] | null;
+}
+```
 
 ---
 
@@ -183,15 +307,15 @@ graph TD
   click B "https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=847935271#gid=847935271" _blank
 ```
 
-| **Column**           | **Type**      | **PK** | **Description**                             |
-| -------------------- | ------------- | ------ | ------------------------------------------- |
-| `id`                 | INTEGER       | Yes    | Unique row identifier.                      |
-| `country`            | TEXT          | No     | Destination country name.                   |
-| `year`               | INTEGER       | No     | Calendar year of the data.                  |
-| `commodity_type`     | TEXT          | No     | Commodity category (e.g. “Coal”, "Copper"). |
-| `export_USD`         | DECIMAL(10,5) | No     | Export value in million USD.                |
-| `export_volume_BPS`  | DECIMAL(10,5) | No     | Export volume per BPS measure.              |
-| `export_volume_ESDM` | DECIMAL(10,5) | No     | Export volume per ESDM reporting.           |
+| **Column**           | **Type** | **PK** | **Description**                             |
+| -------------------- | -------- | ------ | ------------------------------------------- |
+| `id`                 | INTEGER  | Yes    | Unique row identifier.                      |
+| `country`            | TEXT     | No     | Destination country name.                   |
+| `year`               | INTEGER  | No     | Calendar year of the data.                  |
+| `commodity_type`     | TEXT     | No     | Commodity category (e.g. “Coal”, "Copper"). |
+| `export_USD`         | REAL     | No     | Export value in million USD.                |
+| `export_volume_BPS`  | REAL     | No     | Export volume per BPS measure.              |
+| `export_volume_ESDM` | REAL     | No     | Export volume per ESDM reporting.           |
 
 
 
@@ -210,15 +334,40 @@ Notes:
 
 | **Column**           | **Type**    | **PK** | **Description**                                                                                   |
 | -------------------- | ----------- | ------ | ------------------------------------------------------------------------------------------------- |
-| `id`                 | INTEGER     | Yes    | Unique record ID.                                                                                 |
-| `country`            | TEXT        | No     | Country name.                                                                                     |
-| `resources_reserves` | TEXT (JSON) | No     | JSON: mapping years → list of `{type: value}` objects (e.g. `{"2020":[{"Anthracite":73719},…]}`). |
-| `export_import`      | TEXT (JSON) | No     | JSON: mapping years → `[{"Export":…},{"Import":…}]`.                                              |
-| `production_volume`  | TEXT (JSON) | No     | JSON: mapping years → numeric volumes (e.g. `{"2013":428.9,…,"2023":455.8}`).                     |
-| `commodity_type`     | TEXT        | No     | Commodity category (e.g. “Coal”, “Copper”, “Nickel”).                                             |
+| `id`                       | INTEGER     | Yes    | Unique record ID.                                                                                 |
+| `country`                  | TEXT        | No     | Country name.                                                                                     |
+| `resources_reserves`       | TEXT (JSON) | No     | JSON: mapping years → list of `{type: value}` objects (e.g. `{"2020":[{"Anthracite":73719},…]}`). |
+| `resources_reserves_share` | TEXT (JSON) | No     | JSON: global share percentage of reserves.                                                        |
+| `export_import`            | TEXT (JSON) | No     | JSON: mapping years → `[{"Export":…},{"Import":…}]`.                                              |
+| `production_volume`        | TEXT (JSON) | No     | JSON: mapping years → numeric volumes (e.g. `{"2013":428.9,…,"2023":455.8}`).                     |
+| `production_share`         | TEXT (JSON) | No     | JSON: global share percentage of production.                                                      |
+| `commodity_type`           | TEXT        | No     | Commodity category (e.g. “Coal”, “Copper”, “Nickel”).                                             |
 
-
-
+**Data Model**
+```typescript
+interface CoalCategoryMetrics {
+  anthracite: number;
+  sub_bituminous_bituminous_lignite: number;
+}
+interface ResourcesReserves {
+  [year: string]: CoalCategoryMetrics;
+}
+interface ResourcesReservesShare {
+  [year: string]: CoalCategoryMetrics;
+}
+interface ExportImport {
+  [year: string]: {
+    export: number | null;
+    import: number | null;
+  };
+}
+interface ProductionVolume {
+  [year: string]: number;
+}
+interface ProductionShare {
+  [year: string]: number;
+}
+```
 ---
 
 ## `mining_contract`
@@ -281,17 +430,18 @@ The entire process is orchestrated via a series of scripts and associated YAML w
 
 | **Column**              | **Type** | **PK** | **Description**                                         |
 | ----------------------- | -------- | ------ | ------------------------------------------------------- |
-| `id`                    | TEXT     | Yes    | License identifier.                                     |
+| `id`                    | INTEGER  | Yes    | License identifier.                                     |
 | `license_type`          | TEXT     | No     | e.g. “IUP”.                                             |
 | `license_number`        | TEXT     | No     | Official permit number.                                 |
+| `wiup_code`             | TEXT     | No     | The unique code for the Mining Business License Area (WIUP). |
 | `province`              | TEXT     | No     | Permit location province.                               |
 | `city`                  | TEXT     | No     | Permit location city/regency.                           |
-| `permit_effective_date` | TEXT     | No     | Start date (YYYY-MM-DD).                                |
-| `permit_expiry_date`    | TEXT     | No     | End date (YYYY-MM-DD).                                  |
+| `license_effective_date` | TEXT     | No     | Start date (YYYY-MM-DD).                                |
+| `license_expiry_date`    | TEXT     | No     | End date (YYYY-MM-DD).                                  |
 | `activity`              | TEXT     | No     | Activity phase (e.g. “Operasi Produksi”, “Eksplorasi”). |
-| `licensed_area`         | DECIMAL  | No     | Area in hectares.                                       |
+| `licensed_area`         | REAL     | No     | Area in hectares.                                       |
 | `location`              | TEXT     | No     | Detailed location description.                          |
-| `commodity`             | TEXT     | No     | Commodity covered (e.g. “Coal”, “Nickel”).              |
+| `commodity_type`        | TEXT     | No     | Commodity covered (e.g. “Coal”, “Nickel”).              |
 | `company_name`          | TEXT     | No     | Name of licensee company.                               |
 | `company_id`            | INTEGER  | No     | Back-reference to `company.id` (if available).          |
 
@@ -321,6 +471,93 @@ Notes: Currently running semi-manually to sync to `db.sqlite` every time there i
 | `strip_ratio`               | DECIMAL(10,5) | No     | Overburden/ore ratio.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `resources_reserves`        | TEXT (JSON)   | No     | A JSON string containing detailed information about the mineral resources and reserves, including:<br><br>- `year_measured`: The year the resources/reserves were measured.<br>- `calorific_value`: The energy content of the coal (if `mineral_type` is Coal).<br>- `total_reserve`: Total proven and probable reserves.<br>- `total_resource`: Total measured, indicated, and inferred resources.<br>- `resources_inferred`: Estimated resources based on limited geological evidence.<br>- `resources_indicated`: Resources estimated with a moderate level of geological confidence.<br>- `resources_measured`: Resources estimated with a high level of geological confidence.<br>- `reserves_proved`: Quantities of mineral that can be economically and legally extracted with a high degree of confidence.<br>- `reserves_probable`: Quantities of mineral that can be economically and legally extracted with a moderate degree of confidence. |
 | `location`                  | TEXT (JSON)   | No     | A JSON string containing geographical information about the mining site, including:<br><br>- `province`: The province where the mining site is located.<br>- `city`: The city or regency within the province.<br>- `latitude`: The geographical latitude coordinate of the site.<br>- `longitude`: The geographical longitude coordinate of the site.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+**Data Model**
+
+```typescript
+interface MineralGrade {
+  max: number | null;
+  min: number | null;
+}
+```
+
+**`Coal`**
+```typescript
+interface CoalMiningSiteResources {
+  measurement_year      : number | null;
+  total_reserves_Mt     : number | null;
+  total_resources_Mt    : number | null;
+  probable_reserves_Mt  : number | null;
+  proven_reserves_Mt    : number | null;
+  inferred_resources_Mt : number | null;
+  indicated_resources_Mt: number | null;
+  measured_resources_Mt : number | null;
+  calorific_value_kcal  : MineralGrade | null;
+}
+```
+
+**`Copper, Gold, Silver`**
+```typescript
+interface MetalMiningSiteResources {
+  measurement_year      : number | null;
+  total_reserves_Mt     : number | null;
+  Au_reserves_g_per_ton : MineralGrade | null;
+  Au_reserves_koz       : number | null;
+  Ag_reserves_g_per_ton : MineralGrade | null;
+  Ag_reserves_koz       : number | null;
+  Cu_reserves_pct       : MineralGrade | null;
+  Cu_reserves_Mt        : number | null;
+  total_resources_Mt    : number | null;
+  Au_resources_g_per_ton: MineralGrade | null;
+  Au_resources_koz      : number | null;
+  Ag_resources_g_per_ton: MineralGrade | null;
+  Ag_resources_koz      : number | null;
+  Cu_resources_pct      : MineralGrade | null;
+  Cu_resources_Mt       : number | null;
+}
+```
+
+**`Nickel`**
+```typescript
+interface NickelMiningSiteDetail {
+    total_reserves_wmt : number | null;
+    total_reserves_dmt : number | null;
+    Ni_reserves_pct    : MineralGrade | null;
+    Ni_reserves_Kt     : number | null;
+    Co_reserves_pct    : MineralGrade | null;
+    Co_reserves_Kt     : number | null;
+    Fe_reserves_pct    : MineralGrade | null;
+    SiO2_reserves_pct  : MineralGrade | null;
+    MgO_reserves_pct   : MineralGrade | null;
+    Al2O3_reserves_pct : MineralGrade | null;
+    total_resources_wmt: number | null;
+    total_resources_dmt: number | null;
+    Ni_resources_pct   : MineralGrade | null;
+    Ni_resources_Kt    : number | null;
+    Co_resources_pct   : MineralGrade | null;
+    Co_resources_Kt    : number | null;
+    Fe_resources_pct   : MineralGrade | null;
+    SiO2_resources_pct : MineralGrade | null;
+    MgO_resources_pct  : MineralGrade | null;
+    Al2O3_resources_pct: MineralGrade | null;
+}
+
+interface NickelMiningSiteResources {
+    measurement_year: number | null;
+    limonite        : NickelMiningSiteDetail;
+    saprolite       : NickelMiningSiteDetail;
+}
+```
+
+**`Location`**
+```typescript
+interface Location {
+  province : string;
+  city     : string;
+  latitude : number;
+  longitude: number;
+}
+```
+
 
 
 
@@ -356,30 +593,51 @@ graph TD
   click B "https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2049719033#gid=2049719033" _blank
 ```
 
-| **Column**                 | **Type**      | **PK** | **Description**                               |
-| -------------------------- | ------------- | ------ | --------------------------------------------- |
-| `id`                       | INTEGER       | Yes    | Unique identifier.                            |
-| `province`                 | TEXT          | No     | Province name.                                |
-| `year`                     | INTEGER       | No     | Reporting year.                               |
-| `commodity_type`           | TEXT          | No     | Commodity type (e.g., "Coal", "Nickel").      |
-| `exploration_target_1`     | DECIMAL(10,5) | No     | Early-stage exploration target.               |
-| `total_inventory_1`        | DECIMAL(10,5) | No     | Raw total inventory estimate.                 |
-| `ore_resources_inferred`   | DECIMAL(10,5) | No     | Ore volume classified as inferred.            |
-| `resources_inferred`       | DECIMAL(10,5) | No     | Contained metal (inferred resource).          |
-| `ore_resources_indicated`  | DECIMAL(10,5) | No     | Ore volume classified as indicated.           |
-| `resources_indicated`      | DECIMAL(10,5) | No     | Contained metal (indicated resource).         |
-| `ore_resources_measured`   | DECIMAL(10,5) | No     | Ore volume classified as measured.            |
-| `resources_measured`       | DECIMAL(10,5) | No     | Contained metal (measured resource).          |
-| `ore_resources_total`      | DECIMAL(10,5) | No     | Sum of all ore resource categories.           |
-| `resources_total`          | DECIMAL(10,5) | No     | Sum of all contained metal resources.         |
-| `resources_total_verify_2` | DECIMAL(10,5) | No     | Government-verified total resources.          |
-| `ore_reserves_probable`    | DECIMAL(10,5) | No     | Ore volume classified as probable reserve.    |
-| `reserves_probable`        | DECIMAL(10,5) | No     | Contained metal (probable reserve).           |
-| `ore_reserves_proven`      | DECIMAL(10,5) | No     | Ore volume classified as proven reserve.      |
-| `reserves_proven`          | DECIMAL(10,5) | No     | Contained metal (proven reserve).             |
-| `ore_reserves_total`       | DECIMAL(10,5) | No     | Total ore reserves (proven + probable).       |
-| `reserves_total`           | DECIMAL(10,5) | No     | Total contained reserves (proven + probable). |
-| `reserves_total_verify_2`  | DECIMAL(10,5) | No     | Government-verified total reserves.           |
+| **Column**           | **Type**    | **PK** | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| -------------------- | ----------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                 | INTEGER     | Yes    | Unique identifier.                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `province`           | TEXT        | No     | Province name.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `year`               | INTEGER     | No     | Reporting year.                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `commodity_type`     | TEXT        | No     | Commodity type (e.g., "Coal", "Nickel").                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `resources_reserves` | TEXT (JSON) | No     | A JSON string containing detailed provincial statistics including:<br><br>- `exploration_target`: Early-stage exploration target.<br>- `total_inventory`: Raw total inventory estimate.<br>- `inferred_resources_Mt`: Inferred resources in Million Tons.<br>- `indicated_resources_Mt`: Indicated resources in Million Tons.<br>- `measured_resources_Mt`: Measured resources in Million Tons.<br>- `total_resources_Mt`: Total resources.<br>- `total_reserves_Mt`: Total reserves. |
+
+**Data Model (TypeScript)**
+
+**`Coal`**
+```typescript
+interface CoalProvincialResources {
+  exploration_target        : number;
+  total_inventory           : number;
+  inferred_resources_Mt     : number;
+  indicated_resources_Mt    : number;
+  measured_resources_Mt     : number;
+  total_resources_Mt        : number;
+  total_resources_verify_Mt : number;
+  total_reserves_Mt         : number;
+  total_reserves_verify_Mt  : number;
+}
+```
+
+**`Minerals (Nickel, Copper, Gold, Silver, Tin, Cobalt)`**
+```typescript
+interface MineralProvincialResources {
+  ore_inferred_resources_Mt : number;
+  inferred_resources_Mt     : number;
+  ore_indicated_resources_Mt: number;
+  indicated_resources_Mt    : number;
+  ore_measured_resources_Mt : number;
+  measured_resources_Mt     : number;
+  ore_total_resources_Mt    : number;
+  total_resources_Mt        : number;
+  ore_probable_reserves_Mt  : number;
+  probable_reserves_Mt      : number;
+  ore_proven_reserves_Mt    : number;
+  proven_reserves_Mt        : number;
+  ore_total_reserves_Mt     : number;
+  total_reserves_Mt         : number;
+}
+```
+
 
 ---
 
@@ -471,15 +729,13 @@ Aggregates news articles related to the mining industry from various online sour
 - **Weekly Scraping:** The `coalmetal.com` source is scraped weekly via the "Mining News Weekly Pipeline" GitHub Action. This process includes an LLM-based scoring system to filter for relevance, and only articles with a score above 65 are saved.
 - An automated process also archives news articles older than 182 days into a CSV file to keep the database focused on recent events.
 
-| **Column**    | **Type**    | **PK** | **Description**                                                                               |
-| ------------- | ----------- | ------ | --------------------------------------------------------------------------------------------- |
-| `id`          | INTEGER     | Yes    | Unique identifier for the news article.                                                       |
-| `title`       | TEXT        | No     | The headline of the news article.                                                             |
-| `body`        | TEXT        | No     | The main content or a summary of the news article.                                            |
-| `source`      | TEXT        | No     | The URL of the original news article. This is a unique field to prevent duplicate entries.    |
-| `timestamp`   | TEXT        | No     | The publication date and time of the article.                                                 |
-| `commodities` | TEXT (JSON) | No     | A JSON array of commodities mentioned in the article (e.g., `["Nickel", "Gold"]`).            |
-| `created_at`  | TEXT        | No     | The timestamp indicating when the record was inserted into the database.                      |
+| `id`             | INTEGER     | Yes    | Unique identifier for the news article.                                                    |
+| `title`          | TEXT        | No     | The headline of the news article.                                                          |
+| `body`           | TEXT        | No     | The main content or a summary of the news article.                                         |
+| `source`         | TEXT        | No     | The URL of the original news article. This is a unique field to prevent duplicate entries. |
+| `timestamp`      | TEXT        | No     | The publication date and time of the article.                                              |
+| `commodity_type` | TEXT        | No     | The commodity type mentioned in the article.                                               |
+| `created_at`     | TEXT        | No     | The timestamp indicating when the record was inserted into the database.                   |
 
 ---
 
@@ -509,10 +765,31 @@ Contains detailed information about mining license auctions, including participa
 | `created_at`        | TEXT        | No     | The timestamp when the auction record was first created in the source system.                                          |
 | `last_modified`     | TEXT        | No     | The timestamp of the last modification to the auction record.                                                          |
 | `participant_count` | INTEGER     | No     | The total number of participants in the auction.                                                                       |
-| `phase`             | TEXT (JSON) | No     | A JSON array detailing the various stages of the auction, including descriptions and dates.                            |
-| `participant`       | TEXT (JSON) | No     | A JSON array listing all participants in the auction and their qualification status.                                   |
+| `phases`            | TEXT (JSON) | No     | A JSON array detailing the various stages of the auction, including descriptions and dates.                            |
+| `participants`      | TEXT (JSON) | No     | A JSON array listing all participants in the auction and their qualification status.                                   |
 | `winner`            | TEXT        | No     | A boolean flag (`True`/`False`) indicating if the listed company was the winner.                                       |
 | `company_id`        | INTEGER     | No     | Foreign key referencing the winning company's ID in the `company` table (↔︎ `company.id`).                              |
+
+**Data Model**
+```typescript
+interface AuctionPhase {
+  order       : number;
+  description : string;
+  start_date  : string;
+  end_date    : string;
+}
+
+interface AuctionParticipant {
+  NIB         : string;
+  company_name: string;
+  email       : string;
+  qualification_result: string;
+}
+
+type AuctionPhases = AuctionPhase[];
+type AuctionParticipants = AuctionParticipant[];
+```
+
 
 ---
 
@@ -542,5 +819,13 @@ Financial data (assets, revenue, profit) by company and year, with slug support.
 | `cost_of_revenue`           | REAL        | No      | Total cost of revenue (cost of goods sold).                                                        |
 | `cost_of_revenue_breakdown` | TEXT (JSON) | No      | A JSON object detailing the components of revenue costs (e.g., `{"Royalty": 50}`).                 |
 | `net_profit`                | REAL        | No      | The net profit for the year.                                                                       |
+
+**Data Model**
+```typescript
+interface FinancialBreakdown {
+  [category: string]: number;
+}
+```
+
 
 ---

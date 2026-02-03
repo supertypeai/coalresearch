@@ -198,8 +198,8 @@ def migrate_data(spreadsheet: gspread.Spreadsheet, df: pd.DataFrame) -> None:
                     stats_data = json.loads(row["commodity_stats"])
 
                     # Write product as a json serializable string
-                    if stats_data["product"] is not None:
-                        stats_data["product"] = json.dumps(stats_data["product"])
+                    if stats_data["products"] is not None:
+                        stats_data["products"] = json.dumps(stats_data["products"])
 
                     # Flatten the JSON data based on the commodity type
                     if commodity_name == "coal":
@@ -366,7 +366,7 @@ def update_commodity_performance() -> None:
         df["performance_id"] = f"{n}_" + df["id"]
 
         renderFunction = renderMap[n]
-        print(n)
+        print(f"Processing {n}")
         df["commodity_stats"] = df.apply(
             lambda row: json.dumps(renderFunction(row)), axis=1
         )

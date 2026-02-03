@@ -2,7 +2,7 @@ import pandas as pd
 import sqlite3
 from sheet_api.db.models import CompanyPerformance
 from sheet_api.core.sync import sync_model
-from sheet_api.core.commodity_performance import update_commodity_performance
+from tables.company_performance.commodity import update_commodity_performance
 
 def companyPerformancePreprocess(df: pd.DataFrame, field_types: dict, sheet):
     """Preprocess for company_performance to add placeholder slug and sequential IDs."""

@@ -177,19 +177,19 @@ def renderDict(row: pd.Series, field_types: List, key_formatter=default_key_form
 def renderCoalStats(row: pd.Series):
     data_dict = renderDict(row, COAL_STATS)
     data_dict["resources_reserves"] = renderDict(row, COAL_RESERVES_RESOURCES)
-    data_dict["product"] = safeCast(row["product"], dict)
+    data_dict["products"] = safeCast(row["products"], dict)
     return data_dict
 
 def renderGoldSilverCopperStats(row: pd.Series):
     data_dict = renderDict(row, MINERAL_STATS)
     data_dict["resources_reserves"] = renderDict(row, GOLD_COPPER_RESERVES_RESOURCES)
-    data_dict["product"] = safeCast(row["product"], dict)
+    data_dict["products"] = safeCast(row["products"], dict)
     return data_dict
 
 def renderNickelStats(row: pd.Series):
     data_dict = renderDict(row, MINERAL_STATS)
     data_dict["resources_reserves"] = renderDict(row, NICKEL_RESERVES_RESOURCES)
-    data_dict["product"] = safeCast(row["product"], dict)
+    data_dict["products"] = safeCast(row["products"], dict)
     return data_dict
 
 def jsonifyCommodityStats(df: pd.DataFrame, sheet_id: int, starts_from: int = 0):
