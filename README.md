@@ -262,6 +262,7 @@ interface NickelCommodityStats {
     total_resources_dmt : number | null;
     Ni_resources_pct    : number | null;
     Ni_resources_Kt     : number | null;
+	Co_resources_pct	: number | null;
     Co_resources_Kt     : number | null;
     Fe_resources_pct    : number | null;
     SiO2_resources_pct  : number | null;
