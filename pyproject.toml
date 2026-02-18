@@ -33,4 +33,6 @@ dependencies = [
     "selenium-wire==5.1.0",
     "setuptools==80.9.0",
     "gspread-dataframe>=4.0.0",
+    "undetected-chromedriver>=3.5.5",
+    "typer>=0.24.0",
 ]
