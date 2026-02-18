@@ -1,13 +1,19 @@
-from bs4        import BeautifulSoup
-from goose3     import Goose
-from requests   import Response, Session
+from bs4 import BeautifulSoup
+from goose3 import Goose
+from requests import Response, Session
+from insider_news.scrapers.base import SeleniumScraper
 
 import requests
 import os
 import cloudscraper
+import logging 
+import time 
 
 
-USER_AGENT = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Mobile Safari/537.36"
+LOGGER = logging.getLogger(__name__)
+
+
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 HEADERS = {
     "User-Agent": USER_AGENT,
     "Accept": "*/*",
@@ -23,16 +29,20 @@ HEADERS = {
 
 
 def get_article_body(url: str) -> str:
-    """ 
-    Extracts the body of an article from a given URL using Goose3.
+    if 'coalmetal.asia' in url: 
+        selenium_scraper = SeleniumScraper()
+        selenium_scraper.driver.get(url)
+        time.sleep(3) 
 
-    Args:
-        url (str): The URL of the article to be extracted.
-    
-    Returns:
-        str: The cleaned text of the article body. If extraction fails, returns an empty string
-    """
-    # First attempt try to get full article with goose3 proxy and soup as fallback
+        soup = BeautifulSoup(selenium_scraper.driver.page_source, 'html.parser')
+        content_container = soup.find('div', class_='lg:content')
+        article_text = "Content not found"
+
+        if content_container:
+            paragraphs = content_container.find_all('p')
+            article_text = "\n\n".join([p.get_text(strip=True) for p in paragraphs])
+            return article_text 
+            
     try:
         proxy = os.environ.get("PROXY_KEY")
         proxy_support = {"http": proxy, "https": proxy}
@@ -44,13 +54,13 @@ def get_article_body(url: str) -> str:
         # g = Goose({'http_proxies': proxy_support, 'https_proxies': proxy_support})
         g = Goose({"http_session": session})
         article = g.extract(url=url)
-        print(f"[SUCCESS] Article from url {url} inferenced")
+        LOGGER.info(f"[SUCCESS] Article from url {url} inferenced")
 
         if article.cleaned_text:
             return article.cleaned_text
         else:
             # If fail, get the HTML and extract the text
-            print("[REQUEST FAIL] Goose3 returned empty string, trying with soup")
+            LOGGER.info("[REQUEST FAIL] Goose3 returned empty string, trying with soup")
             response: Response = requests.get(url)
             response.raise_for_status()
 
@@ -58,48 +68,47 @@ def get_article_body(url: str) -> str:
 
             content = soup.find("div", class_="content")
             if content and content.get_text(strip=True):
-                print(f"[SUCCESS] Article inferenced from url {url} using soup")
+                LOGGER.info(f"[SUCCESS] Article inferenced from url {url} using soup")
                 return content.get_text(strip=True)
 
             # Fallback for ruang energi news 
             content = soup.find("div", class_="elementor-widget-theme-post-content")
             if content and content.get_text(strip=True):
-                print(f"[SUCCESS] Article inferenced from url {url} using soup (.elementor-widget-theme-post-content)")
+                LOGGER.info(f"[SUCCESS] Article inferenced from url {url} using soup (.elementor-widget-theme-post-content)")
                 return content.get_text(separator=" ", strip=True)
         
     except Exception as error:
-        print(
+        LOGGER.error(
             f"[PROXY FAIL] Goose3 failed with error {error} for url {url}"
         )
 
-    # Fallback two if first attempt is completly failed
     try:
-        print("[FALLBACK] Attempt 2: Trying with cloudscraper...")
+        LOGGER.info("[FALLBACK] Attempt 2: Trying with cloudscraper...")
 
         scraper = cloudscraper.create_scraper() 
         g = Goose({'browser_user_agent': USER_AGENT, 'http_session': scraper})
 
         article = g.extract(url=url)
-        print(article)
+        
         if article.cleaned_text:
-            print(f"[SUCCESS] Extracted using cloudscraper for url {url}.")
-
+            LOGGER.info(f"[SUCCESS] Extracted using cloudscraper for url {url}.")
             return article.cleaned_text
         
     except Exception as error:
-        print(f"[ERROR] Cloudscraper failed: {error}")
+        LOGGER.error(f"[ERROR] Cloudscraper failed: {error}")
 
-    # Last fallback if first and second are failed
     try:
-        print("[FALLBACK] Attempt 3: Trying with no PROXY...")
+        LOGGER.info("[FALLBACK] Attempt 3: Trying with no PROXY...")
 
         g = Goose()
         article = g.extract(url=url)
-        print(article)
-        print(f"[SUCCESS] Article inferenced from url {url} with no PROXY")
+
+        LOGGER.info(article)
+        LOGGER.info(f"[SUCCESS] Article inferenced from url {url} with no PROXY")
         return article.cleaned_text
     
     except Exception as error:
-        print(f"[ERROR] Goose3 with no PROXY failed with error: {error}")
+        LOGGER.error(f"[ERROR] Goose3 with no PROXY failed with error: {error}")
     
-    return ""
+    LOGGER.info('All approach get article body failed, return None')
+    return None
