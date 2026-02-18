@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import datetime, timedelta
 
 from insider_news.preprocessing.article_enricher import build_enriched_article 
 from insider_news.scrapers.base import SeleniumScraper
@@ -8,8 +9,7 @@ import shutil
 import logging 
 import time 
 import json 
-import os 
-
+import csv 
 
 LOGGER = logging.getLogger(__name__)
 
@@ -53,7 +53,7 @@ def create_news_table(conn: sqlite3.Connection):
         body TEXT,
         source TEXT,
         timestamp TEXT,
-        commodities TEXT,
+        commodity_type TEXT,
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
         UNIQUE(source)
     );
@@ -91,9 +91,9 @@ def insert_news_records(
 
     insert_sql = """
     INSERT INTO mining_news (
-        id, title, body, source, timestamp, commodities
+        id, title, body, source, timestamp, commodity_type
     ) VALUES (
-        :id, :title, :body, :source, :timestamp, :commodities
+        :id, :title, :body, :source, :timestamp, :commodity_type
     );
     """
 
@@ -106,8 +106,9 @@ def insert_news_records(
                 continue
 
             commodity_values = processed_article.get("commodity_type")
+
             if commodity_values is None:
-                commodity_values = processed_article.get("commodities", [])
+                commodity_values = []
             if not isinstance(commodity_values, list):
                 commodity_values = []
 
@@ -120,7 +121,7 @@ def insert_news_records(
                         "body": processed_article.get("body") or "",
                         "source": article_source,
                         "timestamp": processed_article.get("timestamp"),
-                        "commodities": json.dumps(commodity_values, ensure_ascii=False),
+                        "commodity_type": json.dumps(commodity_values, ensure_ascii=False),
                     },
                 )
                 next_available_id += 1
@@ -368,6 +369,9 @@ def process_articles(
 
                 if processed_article.get("score", 0) > minimum_score:
                     successful_articles.append(processed_article)
+                    LOGGER.info(
+                        f'Added article with score {processed_article.get('score')}'
+                    )
                 else:
                     LOGGER.info(
                         f"Skipped due to low score: "
@@ -416,3 +420,129 @@ def process_articles(
     finally:
         database_connection.close()
 
+
+def load_existing_archived_sources(archive_csv_path: Path) -> set[str]:
+    existing_archived_sources = set()
+
+    if not archive_csv_path.exists():
+        return existing_archived_sources
+
+    try:
+        with archive_csv_path.open("r", encoding="utf-8", newline="") as archive_file:
+            csv_reader = csv.DictReader(archive_file)
+            for row in csv_reader:
+                normalized_source = norm_source(row.get("source"))
+                if normalized_source:
+                    existing_archived_sources.add(normalized_source)
+
+    except Exception as error:
+        LOGGER.error("Could not read archive file %s: %s", archive_csv_path, error)
+
+    return existing_archived_sources
+
+
+def archive_old_news(
+    days_old: int = 182,
+    db_path: str = "db.sqlite",
+    archive_path: str = "insider_news/data/archive",
+    delete_from_database: bool = False,
+) -> int:
+    database_connection = get_connection(db_path)
+    database_connection.row_factory = sqlite3.Row
+
+    try:
+        create_news_table(database_connection)
+
+        cutoff_datetime = datetime.now() - timedelta(days=days_old)
+        cutoff_date_string = cutoff_datetime.strftime("%Y-%m-%d")
+
+        query = """
+            SELECT id, title, body, source, timestamp, commodities, created_at
+            FROM mining_news
+            WHERE timestamp IS NOT NULL
+              AND timestamp < ?
+        """
+        old_articles = database_connection.execute(query, (cutoff_date_string,)).fetchall()
+
+        if not old_articles:
+            LOGGER.info("No articles older than %s days found to archive.", days_old)
+            return 0
+
+        archive_directory = Path(archive_path)
+        archive_directory.mkdir(parents=True, exist_ok=True)
+        archive_csv_path = archive_directory / "mining_news_all_archived.csv"
+
+        existing_archived_sources = load_existing_archived_sources(archive_csv_path)
+
+        archived_date_value = datetime.now().strftime("%Y-%m-%d")
+        seen_sources_in_this_run = set()
+        unique_articles_to_archive = []
+
+        for old_article in old_articles:
+            article_source = old_article["source"] or ""
+            normalized_source = norm_source(article_source)
+
+            if not normalized_source:
+                continue
+            if normalized_source in existing_archived_sources:
+                continue
+            if normalized_source in seen_sources_in_this_run:
+                continue
+
+            seen_sources_in_this_run.add(normalized_source)
+
+            unique_articles_to_archive.append(
+                {
+                    "id": old_article["id"],
+                    "title": old_article["title"],
+                    "body": old_article["body"],
+                    "source": old_article["source"],
+                    "timestamp": old_article["timestamp"],
+                    "commodities": old_article["commodities"],
+                    "created_at": old_article["created_at"],
+                    "archived_date": archived_date_value,
+                }
+            )
+
+        if not unique_articles_to_archive:
+            LOGGER.info("All old articles are already archived.")
+            return 0
+
+        csv_field_names = [
+            "id",
+            "title",
+            "body",
+            "source",
+            "timestamp",
+            "commodities",
+            "created_at",
+            "archived_date",
+        ]
+
+        write_header = not archive_csv_path.exists() or archive_csv_path.stat().st_size == 0
+        with archive_csv_path.open("a", encoding="utf-8", newline="") as archive_file:
+            csv_writer = csv.DictWriter(archive_file, fieldnames=csv_field_names)
+            if write_header:
+                csv_writer.writeheader()
+            csv_writer.writerows(unique_articles_to_archive)
+
+        if delete_from_database:
+            sources_to_delete = [article["source"] for article in unique_articles_to_archive if article["source"]]
+            for index in range(0, len(sources_to_delete), 900):
+                source_chunk = sources_to_delete[index:index + 900]
+                placeholders = ",".join(["?"] * len(source_chunk))
+                delete_query = f"DELETE FROM mining_news WHERE source IN ({placeholders})"
+                database_connection.execute(delete_query, source_chunk)
+            database_connection.commit()
+
+        LOGGER.info(
+            "Archived %s articles to %s. delete_from_database=%s",
+            len(unique_articles_to_archive),
+            archive_csv_path,
+            delete_from_database,
+        )
+
+        return len(unique_articles_to_archive)
+
+    finally:
+        database_connection.close()
