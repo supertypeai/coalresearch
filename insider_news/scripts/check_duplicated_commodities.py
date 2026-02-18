@@ -1,5 +1,5 @@
 import json
-from insider_news.utils.db import get_connection
+from insider_news.processor import get_connection
 from typing import Any
 
 def cast_value(value: Any, target_type: Any) -> Any:
