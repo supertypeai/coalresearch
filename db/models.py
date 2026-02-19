@@ -3,7 +3,7 @@ from peewee import (
     SqliteDatabase,
     TextField,
     IntegerField,
-    DecimalField,
+    FloatField,
     ForeignKeyField,
     Check,
     CompositeKey,
@@ -101,7 +101,7 @@ db = SqliteDatabase("db.sqlite")
 
 class Company(Model):
     id = IntegerField(primary_key=True)
-    name = TextField()
+    name = TextField()  # NOT NULL by default
     slug = TextField(unique=True)
     idx_ticker = TextField(null=True)
     operation_province = TextField(
@@ -118,7 +118,7 @@ class Company(Model):
     )
     activities = TextField(null=True, constraints=[Check("json_valid(activities)")])
     website = TextField(null=True)
-    phone_number = IntegerField(null=True)
+    phone_number = TextField(null=True) # Changed from Integer to Text
     email = TextField(null=True)
     mining_license = TextField(
         null=True, constraints=[Check("json_valid(mining_license)")]
@@ -126,12 +126,11 @@ class Company(Model):
     mining_contract = TextField(
         null=True, constraints=[Check("json_valid(mining_contract)")]
     )
-    commodity = TextField(null=True, constraints=[Check("json_valid(commodity)")])
+    commodity_type = TextField(null=True, constraints=[Check("json_valid(commodity_type)")])
 
     class Meta:
         database = db
         table_name = "company"
-
 
 class MiningContract(Model):
     mine_owner = ForeignKeyField(
@@ -171,7 +170,7 @@ class CompanyOwnership(Model):
         on_delete="NO ACTION",
         on_update="NO ACTION",
     )
-    percentage_ownership = DecimalField()
+    percentage_ownership = FloatField()
 
     class Meta:
         database = db
@@ -188,9 +187,9 @@ class CompanyPerformance(Model):
         on_update="NO ACTION",
     )
     year = IntegerField()
-    commodity_type = TextField()
+    commodity_type = TextField(constraints=[Check(f"commodity_type IN {commodity_type_constraints}")])
     commodity_sub_type = TextField(null=True)
-    commodity_stats = TextField()
+    commodity_stats = TextField(constraints=[Check("json_valid(commodity_stats)")])
     slug = TextField()
 
     class Meta:
@@ -201,10 +200,10 @@ class CompanyPerformance(Model):
 class ExportDestination(Model):
     country = TextField()
     year = IntegerField()
-    commodity_type = TextField()
-    export_USD = DecimalField(null=True)
-    export_volume_BPS = DecimalField(null=True)
-    export_volume_ESDM = DecimalField(null=True)
+    commodity_type = TextField(constraints=[Check(f"commodity_type IN {commodity_type_constraints}")])
+    export_USD = FloatField(null=True)
+    export_volume_BPS = FloatField(null=True)
+    export_volume_ESDM = FloatField(null=True)
 
     class Meta:
         database = db
@@ -212,10 +211,10 @@ class ExportDestination(Model):
 
 
 class ResourcesAndReserves(Model):
-    province = TextField()
+    province = TextField(constraints=[Check(f"province IN {province_constraints}")])
     year = IntegerField()
-    commodity_type = TextField()
-    resources_reserves = TextField()
+    commodity_type = TextField(constraints=[Check(f"commodity_type IN {commodity_type_constraints}")])
+    resources_reserves = TextField( constraints=[Check("json_valid(resources_reserves)")])
 
     class Meta:
         database = db
@@ -223,8 +222,8 @@ class ResourcesAndReserves(Model):
 
 
 class TotalCommoditiesProduction(Model):
-    commodity_type = TextField()
-    production_volume = DecimalField()
+    commodity_type = TextField(constraints=[Check(f"commodity_type IN {commodity_type_constraints}")])
+    production_volume = FloatField()
     unit = TextField()
     year = IntegerField()
 
@@ -235,8 +234,8 @@ class TotalCommoditiesProduction(Model):
 
 class CommodityPrice(Model):
     name = TextField()
-    price = DecimalField()
-    date = TextField()
+    price = FloatField()
+    date = DateField()
 
     class Meta:
         database = db
@@ -246,11 +245,21 @@ class CommodityPrice(Model):
 
 class GlobalCommodityData(Model):
     country = TextField()
-    resources_reserves = TextField(null=True)
-    resources_reserves_share = TextField(null=True)
-    export_import = TextField(null=True)
-    production_volume = TextField(null=True)
-    production_share = TextField(null=True)
+    resources_reserves = TextField(
+        null=True, constraints=[Check("json_valid(resources_reserves)")]
+    )
+    resources_reserves_share = TextField(
+        null=True, constraints=[Check("json_valid(resources_reserves_share)")]
+    )
+    export_import = TextField(
+        null=True, constraints=[Check("json_valid(export_import)")]
+    )
+    production_volume = TextField(
+        null=True, constraints=[Check("json_valid(production_volume)")]
+    )
+    production_share = TextField(
+        null=True, constraints=[Check("json_valid(production_share)")]
+    )
     commodity_type = TextField()
 
     class Meta:
@@ -267,7 +276,7 @@ class MiningLicense(Model):
     license_effective_date = DateField()
     license_expiry_date = DateField()
     activity = TextField()
-    licensed_area = DecimalField()
+    licensed_area = FloatField()
     location = TextField()
     commodity_type = TextField()
     company_name = TextField()
@@ -310,10 +319,10 @@ class SalesDestination(Model):
     country = TextField()
     idx_ticker = TextField()
     year = IntegerField()
-    revenue = DecimalField(null=True)
-    percentage_of_total_revenue = DecimalField(null=True)
-    volume = DecimalField(null=True)
-    percentage_of_sales_volume = DecimalField(null=True)
+    revenue = FloatField(null=True)
+    percentage_of_total_revenue = FloatField(null=True)
+    volume = FloatField(null=True)
+    percentage_of_sales_volume = FloatField(null=True)
 
     class Meta:
         database = db
@@ -331,12 +340,12 @@ class CompanyFinancials(Model):
     idx_ticker = TextField()
     name = TextField()
     year = IntegerField()
-    assets = DecimalField()
-    revenue = DecimalField()
-    revenue_breakdown = TextField()
-    cost_of_revenue = DecimalField()
-    cost_of_revenue_breakdown = TextField()
-    net_profit = DecimalField()
+    assets = FloatField()
+    revenue = FloatField()
+    revenue_breakdown = TextField(constraints=[Check("json_valid(revenue_breakdown)")])
+    cost_of_revenue = FloatField()
+    cost_of_revenue_breakdown = TextField(constraints=[Check("json_valid(cost_of_revenue_breakdown)")])
+    net_profit = FloatField()
     slug = TextField()
 
     class Meta:
@@ -349,8 +358,8 @@ class MiningSite(Model):
     name = TextField()
     project_name = TextField(null=True)
     year = IntegerField()
-    mineral_type = TextField(
-        constraints=[Check(f"mineral_type IN {mineral_type_constraints}")]
+    commodity_type = TextField(
+        constraints=[Check(f"commodity_type IN {mineral_type_constraints}")]
     )
     company = ForeignKeyField(
         Company,
@@ -358,13 +367,11 @@ class MiningSite(Model):
         on_delete="NO ACTION",
         on_update="NO ACTION",
     )
-    production_volume = DecimalField(max_digits=10, decimal_places=5, null=True)
-    overburden_removal_volume = DecimalField(max_digits=10, decimal_places=5, null=True)
-    strip_ratio = DecimalField(max_digits=10, decimal_places=5, null=True)
-    resources_reserves = TextField(
-        null=True, constraints=[Check("json_valid(resources_reserves)")]
-    )
-    location = TextField(null=True, constraints=[Check("json_valid(location)")])
+    production_volume = FloatField(null=True)
+    overburden_removal_volume = FloatField(null=True)
+    strip_ratio = FloatField(null=True)
+    resources_reserves = TextField(constraints=[Check("json_valid(resources_reserves)")])
+    location = TextField(constraints=[Check("json_valid(location)")])
 
     class Meta:
         database = db
@@ -372,23 +379,25 @@ class MiningSite(Model):
 
 
 class MiningLicenseAuction(Model):
-    commodity = TextField()
-    city = TextField(null=True)
-    province = TextField(null=True)
-    company_name = TextField(null=True)
-    date_winner = TextField(null=True)
-    permit_area = DecimalField(null=True)
-    number = TextField(null=True, unique=True)
-    permit_type = TextField(null=True)
-    kdi = TextField(null=True)
-    code_wiup = TextField(null=True)
-    auction_status = TextField(null=True)
-    created_at = DateTimeField(null=True)
-    last_modified = DateTimeField(null=True)
-    participant_count = IntegerField(null=True)
-    phases = TextField(null=True)
-    participants = TextField(null=True)
-    winner = TextField(null=True)
+    commodity_type = TextField(
+        constraints=[Check(f"commodity_type IN {mineral_type_constraints}")]
+    )
+    city = TextField()
+    province = TextField()
+    company_name = TextField()
+    winner_date = TextField()
+    licensed_area  = FloatField()
+    license_number = TextField()
+    license_type = TextField()
+    kdi = TextField()
+    wiup_code = TextField()
+    auction_status = TextField()
+    created_at = TextField()
+    last_modified = TextField()
+    participant_count = IntegerField()
+    phases = TextField(constraints=[Check("json_valid(phases)")])
+    participants = TextField(constraints=[Check("json_valid(participants)")])
+    winner = TextField()
     company = ForeignKeyField(
         Company,
         backref="license_auctions",
