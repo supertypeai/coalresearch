@@ -309,7 +309,7 @@ def run_lbma_scraper(conn):
 if __name__ == "__main__":
     db_conn = init_db(DB_PATH)
 
-    # run_minerba_scraper(db_conn)
+    run_minerba_scraper(db_conn)
     run_lbma_scraper(db_conn)
 
     db_conn.close()
