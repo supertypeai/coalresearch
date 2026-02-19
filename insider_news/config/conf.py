@@ -11,4 +11,7 @@ GROQ_API_KEY1 = os.getenv("GROQ_API_KEY1")
 GROQ_API_KEY_DEV = os.getenv("GROQ_API_KEY_DEV")
 GROQ_API_KEY2 = os.getenv("GROQ_API_KEY2")
 GROQ_API_KEY3 = os.getenv("GROQ_API_KEY3")
+GEMINI_API_KEY1 = os.getenv("GEMINI_API_KEY1")
+
+
 PROXY = os.getenv("PROXY")
