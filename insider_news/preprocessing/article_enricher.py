@@ -19,7 +19,10 @@ def build_enriched_article(
 
     try:
         article_content = get_article_body(source)
-
+        
+        if not article_content: 
+            return None
+         
         title, body = get_summary(article_content)
         if title and body:
             LOGGER.info(f'[SUCCES] Summarize for url {source}')
@@ -41,7 +44,7 @@ def build_enriched_article(
             'score': final_score
         })
 
-        time.sleep(2)
+        time.sleep(5)
         return final_data
 
     except Exception as error:

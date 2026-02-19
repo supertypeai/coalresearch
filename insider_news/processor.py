@@ -21,12 +21,6 @@ def norm_source(value: object) -> str:
 def get_connection(db_path: str = 'db.sqlite') -> sqlite3.Connection:
     """
     Create a SQLite connection to the specified database.
-    
-    Args:
-        db_path: Path to the SQLite database file
-    
-    Returns:
-        sqlite3.Connection: Connection object to the SQLite database
     """
     try:
         conn = sqlite3.connect(db_path)
@@ -41,9 +35,6 @@ def get_connection(db_path: str = 'db.sqlite') -> sqlite3.Connection:
 def create_news_table(conn: sqlite3.Connection):
     """
     Create mining_news table if it doesn't exist.
-    
-    Args:
-        conn: SQLite connection object
     """
     conn.execute(
         """
@@ -65,12 +56,6 @@ def create_news_table(conn: sqlite3.Connection):
 def get_next_id(conn: sqlite3.Connection) -> int:
     """
     Get the next available ID by finding the maximum existing ID.
-    
-    Args:
-        conn: SQLite connection object
-    
-    Returns:
-        int: Next available ID for insertion
     """
     cur = conn.cursor()
     cur.execute("SELECT MAX(id) FROM mining_news;")
@@ -82,6 +67,9 @@ def insert_news_records(
     connection: sqlite3.Connection,
     processed_articles: list[dict],
 ):
+    """  
+    Insert enriched articles into `mining_news` and return how many rows were inserted.
+    """
     if not processed_articles:
         LOGGER.info("No processed articles to insert.")
         return 0
@@ -140,6 +128,8 @@ def load_articles(source_file: Path) -> list[dict]:
     """
     with source_file.open("r", encoding="utf-8") as file:
         loaded_articles = json.load(file)
+
+    LOGGER.info(f'Total scraping: {len(loaded_articles)}')
 
     if not isinstance(loaded_articles, list):
         LOGGER.warning(
@@ -336,6 +326,9 @@ def process_articles(
     frequency: str,  # "daily"/"weekly"
     minimum_score: int = 60
 ):
+    """  
+    Process one batch of scraped articles, enrich them with LLM pipeline, and insert valid results.
+    """
     successful_articles = []
     failed_articles_queue = []
 
@@ -365,9 +358,15 @@ def process_articles(
                     record_article
                 )
 
-                time.sleep(2)
+                if not processed_article:
+                    LOGGER.info(
+                        f'Return None article content failed to extract, skipping {source_url}'
+                    )
+                    continue
 
-                if processed_article.get("score", 0) > minimum_score:
+                time.sleep(3)
+
+                if processed_article.get("score", 0) >= minimum_score:
                     successful_articles.append(processed_article)
                     LOGGER.info(
                         f'Added article with score {processed_article.get('score')}'
@@ -391,7 +390,7 @@ def process_articles(
                     failed_data
                 )
 
-                time.sleep(2)
+                time.sleep(10)
 
                 if not processed_article:
                     LOGGER.info("retry: generate_article returned None.") 
@@ -447,6 +446,9 @@ def archive_old_news(
     archive_path: str = "insider_news/data/archive",
     delete_from_database: bool = False,
 ) -> int:
+    """  
+    Archive old news records to CSV and optionally delete archived rows from the database.
+    """
     database_connection = get_connection(db_path)
     database_connection.row_factory = sqlite3.Row
 

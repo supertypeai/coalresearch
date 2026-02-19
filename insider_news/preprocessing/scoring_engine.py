@@ -48,7 +48,7 @@ def get_scoring_news(
                 LOGGER.info('Scoring response not complete, trying next llm')
                 continue 
 
-            LOGGER.info(f'[SUCCES] Scoring for url: {article_title}')
+            LOGGER.info(f'[SUCCES] Scoring')
             return response_scoring.get('news_score')
             
         except json.JSONDecodeError as error: 
