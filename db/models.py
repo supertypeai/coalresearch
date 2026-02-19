@@ -388,7 +388,7 @@ class MiningLicenseAuction(Model):
     winner_date = TextField()
     licensed_area  = FloatField()
     license_number = TextField()
-    license_type = TextField()
+    area_type = TextField()
     kdi = TextField()
     wiup_code = TextField()
     auction_status = TextField()
