@@ -22,7 +22,6 @@ dependencies = [
     "libsql-client>=0.3.1",
     "selenium>=4.34.0",
     "sumy>=0.11.0",
-    "beautifulsoup4>=4.13.4",
     "webdriver-manager>=4.0.2",
     "langchain>=0.3.26",
     "langchain-core>=0.3.68",
@@ -37,4 +36,9 @@ dependencies = [
     "typer>=0.24.0",
     "langchain-google-genai>=2.1.12",
     "goose3>=3.1.21",
+    "cloudscraper>=1.2.71",
+    "langchain-groq>=0.3.8",
+    "requests>=2.32.3",
+    "pydantic>=2.11.7",
+    "typing-extensions>=4.14.1",
 ]
