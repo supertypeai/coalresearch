@@ -94,7 +94,7 @@ def parse_header_to_date(header: str) -> date:
 def init_db(path):
     """
     Initializes the SQLite database.
-    Creates commodity_price_v2 table.
+    Creates commodity_price table.
     """
     conn = sqlite3.connect(path)
     c = conn.cursor()
@@ -102,7 +102,7 @@ def init_db(path):
     # Create V2 table
     c.execute(
         """
-        CREATE TABLE IF NOT EXISTS commodity_price_v2 (
+        CREATE TABLE IF NOT EXISTS commodity_price (
             name  TEXT    NOT NULL,
             date  TEXT    NOT NULL,
             price TEXT,
@@ -147,7 +147,7 @@ def parse_minerba_table(html):
 
 
 def upsert_minerba_data(conn, df):
-    """Upserts Minerba commodity data into the local database (commodity_price_v2)."""
+    """Upserts Minerba commodity data into the local database (commodity_price)."""
     c = conn.cursor()
     count = 0
     for _, row in df.iterrows():
@@ -173,7 +173,7 @@ def upsert_minerba_data(conn, df):
 
         c.executemany(
             """
-            INSERT INTO commodity_price_v2 (name, date, price)
+            INSERT INTO commodity_price (name, date, price)
             VALUES (?, ?, ?)
             ON CONFLICT(name, date) DO UPDATE
               SET price = excluded.price
@@ -183,7 +183,7 @@ def upsert_minerba_data(conn, df):
         count += len(rows_to_insert)
 
     conn.commit()
-    print(f"Upserted {count} rows of Minerba data into commodity_price_v2.")
+    print(f"Upserted {count} rows of Minerba data into commodity_price.")
 
 
 # ─── LBMA SCRAPING FUNCTIONS ────────────────────────────────────────────────────
@@ -205,30 +205,47 @@ def fetch_lbma_price_data(url: str) -> pd.DataFrame:
     return df
 
 
-def compute_lbma_monthly_high(df: pd.DataFrame) -> pd.DataFrame:
-    """Computes the maximum daily high for each month."""
-    df.set_index("date", inplace=True)
-    monthly = df["high"].resample("M").max().reset_index()
-    monthly["month"] = monthly["date"].dt.to_period("M").astype(str)
-    return monthly[["month", "high"]].rename(columns={"high": "monthly_high"})
+def compute_lbma_monthly_avg(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Computes the Average (Mean) daily high for each month
+    and sets the date to the 1st of the month to match Minerba format.
+    """
+    # 1. Convert the exact date to the 'First of the Month'
+    #    e.g., 2024-01-23 becomes 2024-01-01
+    df["month_start"] = df["date"].values.astype("datetime64[M]")
+
+    # 2. Group by this new monthly date and calculate the Mean (Average)
+    #    (If you strictly want the 'Max' price, change .mean() to .max())
+    monthly = df.groupby("month_start")["high"].mean().reset_index()
+
+    # 3. Rename columns for consistency
+    monthly.rename(
+        columns={"month_start": "date", "high": "monthly_price"}, inplace=True
+    )
+
+    return monthly
 
 
 def upsert_lbma_data(conn, data: dict):
-    """Upserts LBMA monthly high data for each commodity into the database (commodity_price_v2)."""
     cur = conn.cursor()
     total_rows = 0
     for name, df in data.items():
         rows_to_insert = []
         for _, row in df.iterrows():
-            # row['month'] is typically YYYY-MM
-            rows_to_insert.append((name, str(row["month"]), str(row["monthly_high"])))
+            # Date is already the 1st of the month from the compute function
+            date_str = row["date"].strftime("%Y-%m-%d")
+
+            # Rounding to 2 decimal places looks cleaner for averages
+            price_str = "{:.2f}".format(row["monthly_price"])
+
+            rows_to_insert.append((name, date_str, price_str))
 
         if not rows_to_insert:
             continue
 
         cur.executemany(
             """
-            INSERT INTO commodity_price_v2 (name, date, price)
+            INSERT INTO commodity_price (name, date, price)
             VALUES (?, ?, ?)
             ON CONFLICT(name, date) DO UPDATE SET price=excluded.price
             """,
@@ -237,7 +254,7 @@ def upsert_lbma_data(conn, data: dict):
         total_rows += len(rows_to_insert)
 
     conn.commit()
-    print(f"Upserted {total_rows} rows of LBMA data into commodity_price_v2.")
+    print(f"Upserted {total_rows} rows of LBMA data into commodity_price.")
 
 
 # ─── MAIN EXECUTION ─────────────────────────────────────────────────────────────
@@ -271,9 +288,12 @@ def run_lbma_scraper(conn):
         try:
             print(f"Fetching LBMA data for {name}...")
             df = fetch_lbma_price_data(url)
-            monthly_high = compute_lbma_monthly_high(df)
-            all_data[english_name] = monthly_high
-            print(f"Successfully processed monthly highs for {name}.")
+
+            # --- CHANGED HERE: Use the new Average/First-of-Month logic ---
+            monthly_data = compute_lbma_monthly_avg(df)
+
+            all_data[english_name] = monthly_data
+            print(f"Successfully processed monthly data for {name}.")
         except requests.RequestException as e:
             print(f"Error fetching LBMA data for {name}: {e}")
         except Exception as e:
@@ -289,7 +309,7 @@ def run_lbma_scraper(conn):
 if __name__ == "__main__":
     db_conn = init_db(DB_PATH)
 
-    run_minerba_scraper(db_conn)
+    # run_minerba_scraper(db_conn)
     run_lbma_scraper(db_conn)
 
     db_conn.close()

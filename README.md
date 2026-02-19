@@ -19,7 +19,7 @@ Source:
 	- This script [minerba_commodities_scraper.py](https://github.com/supertypeai/coalresearch/blob/main/minerba_commodities_scraper.py) scrapes from [ESDM Minerba](https://www.minerba.esdm.go.id/harga_acuan)
 	- Running on weekly basis and will automatically sync to `db.sqlite`
 - gold & silver: 
-	- This script [commodity_gold_silver.py](https://github.com/supertypeai/coalresearch/blob/main/commodity_gold_silver.py) scrapes from [Gold](https://prices.lbma.org.uk/json/gold_am.json) and [Silver](https://prices.lbma.org.uk/json/silver.json)
+	- This script [minerba_commodities_scraper.py](https://github.com/supertypeai/coalresearch/blob/main/minerba_commodities_scraper.py) also scrapes from [Gold](https://prices.lbma.org.uk/json/gold_am.json) and [Silver](https://prices.lbma.org.uk/json/silver.json)
 	- Running on weekly basis and will automatically sync to `db.sqlite`
 
 Data Flow:
@@ -36,7 +36,7 @@ graph TD
   click A2 "https://prices.lbma.org.uk/json/gold_am.json" _blank
   click A3 "https://prices.lbma.org.uk/json/silver.json" _blank
   click B1 "https://github.com/supertypeai/coalresearch/blob/main/minerba_commodities_scraper.py" _blank
-  click B2 "https://github.com/supertypeai/coalresearch/blob/main/commodity_gold_silver.py" _blank
+  click B2 "https://github.com/supertypeai/coalresearch/blob/main/minerba_commodities_scraper" _blank
 ```
 
 | **Column**     | **Type**          | **PK** | **Description**                                                                                                                                                       |
