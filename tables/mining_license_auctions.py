@@ -12,6 +12,7 @@ import json
 import pandas as pd
 import sqlite3
 import re
+from enum import Enum
 
 logging.basicConfig(
     # no filename → logs go to stderr by default
@@ -28,6 +29,11 @@ API_URL = "https://minerba.esdm.go.id/lelang/api/pub/lelang_done?page=1"
 # DB local
 DB_PATH = "db.sqlite"
 TIME_OFFSET = timezone(timedelta(hours=7))
+
+
+class QualificationResult(str, Enum):
+    LOLOS = "Lolos"
+    TIDAK_LOLOS = "Tidak Lolos"
 
 
 def get_wire_driver(is_headless: bool = True) -> webdriver.Chrome:
@@ -201,17 +207,25 @@ def format_data(
         {
             "order": step["tahapanUrut"],
             "description": step["tahapanDeskripsi"],
-            "start_date": parse_timestamp(step["tahapanMulaiTimestamp"]),
-            "end_date": step["tahapanTanggalAkhir"],
+            "start_date": (
+                parse_timestamp(step["tahapanMulaiTimestamp"]) if step["tahapanMulaiTimestamp"] else None
+            ),
+            "end_date": (
+                parse_timestamp(step["tahapanTanggalAkhir"]) if step["tahapanTanggalAkhir"] else None
+            ),
         }
         for step in filtered_tahapan
     ]
     mapped_peserta = [
         {
             "NIB": p["perusahaanNib"],
-            "company_name": p["perusahaanNama"],
+            "company_name": str(p["perusahaanNama"]).title(),
             "email": p["perusahaanUserEmail"],
-            "qualification_result": p["hasilAkhirPra"],
+            "qualification_result": (
+                QualificationResult.LOLOS.value
+                if p["hasilAkhirPra"] == "Lolos"
+                else QualificationResult.TIDAK_LOLOS.value
+            ),
         }
         for p in filtered_peserta
     ]

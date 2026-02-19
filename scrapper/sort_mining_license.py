@@ -51,12 +51,18 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
         "komoditas_mapped",  # commodity_type
         "nama_usaha",  # company_name
         "badan_usaha",
+        "cnc",
+        "generasi",
+        "geometry",
     ]
     df_sorted = df_sorted[required_cols]
 
     # Exclude rows where effective equals expiry date
     df_sorted = df_sorted[df_sorted["tgl_berlaku"] != df_sorted["tgl_akhir"]]
-    excluded_columns = ["lokasi"]
+    df_sorted["cnc"] = df_sorted["cnc"].fillna("-").replace("-", None)
+    df_sorted["generasi"] = df_sorted["generasi"].fillna("-").replace("-", None)
+
+    excluded_columns = ["lokasi", "cnc", "generasi"]
     str_cols = df_sorted.select_dtypes(include=[object]).columns.difference(excluded_columns)
 
     def valid_row(row):
@@ -141,7 +147,10 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
             "nama_kab": "city",
             "kegiatan": "activity",
             "luas_sk": "licensed_area",
+            "cnc": "cnc",
+            "generasi": "generation",
             "lokasi": "location",
+            "geometry": "geometry",
         }
     ).copy()
 
@@ -165,11 +174,13 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
     INSERT INTO mining_license (
       id, license_type, license_number, wiup_code, province, city,
       license_effective_date, license_expiry_date, activity,
-      licensed_area, location, commodity_type, company_name, company_id
+      licensed_area, location, commodity_type, company_name, company_id,
+      cnc, generation, geometry
     ) VALUES (
       :id, :license_type, :license_number, :wiup_code, :province, :city,
       :license_effective_date, :license_expiry_date, :activity,
-      :licensed_area, :location, :commodity_type, :company_name, :company_id
+      :licensed_area, :location, :commodity_type, :company_name, :company_id,
+      :cnc, :generation, :geometry
     )
     ON CONFLICT(id) DO UPDATE SET
       license_type          = excluded.license_type,
@@ -177,18 +188,23 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
       wiup_code             = excluded.wiup_code,
       province              = excluded.province,
       city                  = excluded.city,
-      license_effective_date = excluded.license_effective_date,
-      license_expiry_date    = excluded.license_expiry_date,
+      license_effective_date= excluded.license_effective_date,
+      license_expiry_date   = excluded.license_expiry_date,
       activity              = excluded.activity,
       licensed_area         = excluded.licensed_area,
       location              = excluded.location,
-      commodity_type             = excluded.commodity_type,
+      commodity_type        = excluded.commodity_type,
       company_name          = excluded.company_name,
-      company_id            = excluded.company_id;
+      company_id            = excluded.company_id,
+      cnc                   = excluded.cnc,
+      generation            = excluded.generation,
+      geometry              = excluded.geometry;
     """
 
     cols = [
         "id",
+        "company_name",
+        "company_id",
         "license_type",
         "license_number",
         "wiup_code",
@@ -198,10 +214,11 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
         "license_expiry_date",
         "activity",
         "licensed_area",
+        "cnc",
+        "generation",
         "location",
         "commodity_type",
-        "company_name",
-        "company_id",
+        "geometry"
     ]
     with conn:
         conn.executemany(upsert_sql, df_up[cols].to_dict(orient="records"))

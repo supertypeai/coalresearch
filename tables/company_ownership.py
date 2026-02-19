@@ -1,4 +1,3 @@
-import pandas as pd
 from scripts.sync_company_name_id import SyncCompanyId
 from sheet_api.google_sheets.client import getSheetAll
 from sheet_api.core.sync import replaceCO

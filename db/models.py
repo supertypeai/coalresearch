@@ -133,14 +133,14 @@ class Company(Model):
         table_name = "company"
 
 class MiningContract(Model):
-    mine_owner = ForeignKeyField(
+    mine_owner_id = ForeignKeyField(
         Company,
         backref="contracts_as_mine_owner",
         column_name="mine_owner_id",
         on_delete="NO ACTION",
         on_update="NO ACTION",
     )
-    contractor = ForeignKeyField(
+    contractor_id = ForeignKeyField(
         Company,
         backref="contracts_as_contractor",
         column_name="contractor_id",
@@ -152,7 +152,7 @@ class MiningContract(Model):
     class Meta:
         database = db
         table_name = "mining_contract"
-        primary_key = CompositeKey("mine_owner", "contractor")
+        # primary_key = CompositeKey("mine_owner", "contractor")
 
 
 class CompanyOwnership(Model):
@@ -277,6 +277,8 @@ class MiningLicense(Model):
     license_expiry_date = DateField()
     activity = TextField()
     licensed_area = FloatField()
+    cnc = TextField(null=True)
+    generation = TextField(null=True)
     location = TextField()
     commodity_type = TextField()
     company_name = TextField()
@@ -287,6 +289,9 @@ class MiningLicense(Model):
         null=True,
         on_delete="NO ACTION",
         on_update="NO ACTION",
+    )
+    geometry = TextField(
+        null=True, constraints=[Check("json_valid(geometry)")]
     )
 
     class Meta:

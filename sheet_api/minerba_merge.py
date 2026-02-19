@@ -16,8 +16,8 @@ def prepareMinerbaDf(filename: str = "datasets/modi_mining_license_merge_v2.csv"
         "kode_wiup": "wiup_code",
         "nama_prov": "province",
         "nama_kab": "city",
-        "tgl_berlaku": "permit_effective_date",
-        "tgl_akhir": "permit_expiry_date",
+        "tgl_berlaku": "license_effective_date",
+        "tgl_akhir": "license_expiry_date",
         "kegiatan": "activity",
         "luas_sk": "licensed_area",
         "cnc": "cnc",
@@ -35,7 +35,7 @@ def prepareMinerbaDf(filename: str = "datasets/modi_mining_license_merge_v2.csv"
 
     minerba_df = minerba_df[~no_geometry_mask]
 
-    minerba_df["commodity"] = (
+    minerba_df["commodity_type"] = (
         minerba_df["komoditas_mapped"].astype(str).str.strip().str.title()
     )
     minerba_df["cnc"] = minerba_df["cnc"].fillna("-").replace("-", None)
@@ -48,14 +48,14 @@ def prepareMinerbaDf(filename: str = "datasets/modi_mining_license_merge_v2.csv"
         "wiup_code",
         "province",
         "city",
-        "permit_effective_date",
-        "permit_expiry_date",
+        "license_effective_date",
+        "license_expiry_date",
         "activity",
         "licensed_area",
         "cnc",
         "generation",
         "location",
-        "commodity",
+        "commodity_type",
         "geometry",
     ]
     minerba_df = minerba_df[included_columns]
