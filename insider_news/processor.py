@@ -459,7 +459,7 @@ def archive_old_news(
         cutoff_date_string = cutoff_datetime.strftime("%Y-%m-%d")
 
         query = """
-            SELECT id, title, body, source, timestamp, commodities, created_at
+            SELECT id, title, body, source, timestamp, commodity_type, created_at
             FROM mining_news
             WHERE timestamp IS NOT NULL
               AND timestamp < ?
@@ -500,7 +500,7 @@ def archive_old_news(
                     "body": old_article["body"],
                     "source": old_article["source"],
                     "timestamp": old_article["timestamp"],
-                    "commodities": old_article["commodities"],
+                    "commodities": old_article["commodity_type"],
                     "created_at": old_article["created_at"],
                     "archived_date": archived_date_value,
                 }
