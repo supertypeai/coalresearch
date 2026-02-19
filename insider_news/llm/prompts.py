@@ -52,8 +52,9 @@ class PromptsCollections:
                 - Include the primary commodity name if applicable.
 
             2. Summary: 
-                Produce a structured summary covering only what is explicitly stated in the article with logical structure.
-                Address the following fields in order, and omit a field entirely if the information is absent:
+                Write a single cohesive paragraph in professional analyst prose. Do not use bullet points,
+                labeled fields, or headings. Weave the following elements naturally into the paragraph
+                if and only if they are explicitly stated in the article:
 
                 - Company: Legal entity name and stock ticker if stated.
                 - Project or Asset: Mine name, deposit, or project name.
@@ -66,12 +67,14 @@ class PromptsCollections:
                 - Market Impact: Only include if the article explicitly states price movement, analyst rating change, or volume reaction. Do not infer impact from context.
                 - Forward-Looking Statements: Verbatim targets or guidance ranges if quoted, flagged as company-stated projections.
                 - Risks or Caveats: Any stated operational, regulatory, or financial risks.
-                    
+                
+                The paragraph should read as a professional intelligence brief, not a news recap.
+                
             Constraints: 
                 - Language: Return the Title and Summary in English.
                 - Do not use hedging language such as "appears to" or "seems like" unless it appears in the source text.
-                - Summary prose should be 2 sentences maximum if a narrative field is required.
-            
+                - Summary is strictly 2 sentences maximum, no exceptions.
+                
             Ensure to return the title and summary in the following JSON format:
             {format_instructions}
         """
