@@ -1,6 +1,10 @@
 from langchain.chat_models import init_chat_model
 
-from insider_news.config.conf import GROQ_API_KEY1, GROQ_API_KEY2, GROQ_API_KEY3, GROQ_API_KEY_DEV
+from insider_news.config.conf import (
+    GROQ_API_KEY1, GROQ_API_KEY2, 
+    GROQ_API_KEY3, GROQ_API_KEY_DEV, 
+    GEMINI_API_KEY1, 
+)
 
 
 class LLMCollection:
@@ -21,10 +25,18 @@ class LLMCollection:
             model_providers = {
                 "openai/gpt-oss-120b": "groq",
                 "openai/gpt-oss-20b": "groq",
+                "gemini-2.5-flash": "google-genai",
                 "llama-3.3-70b-versatile": "groq",
+                "gemini-2.5-flash-lite": "google-genai",
             }
 
-            groq_api_keys = [GROQ_API_KEY1, GROQ_API_KEY_DEV, GROQ_API_KEY2, GROQ_API_KEY3]
+            groq_api_keys = [
+                GROQ_API_KEY1, GROQ_API_KEY2, GROQ_API_KEY3, GROQ_API_KEY_DEV
+            ]
+
+            gemini_api_keys = [
+                GEMINI_API_KEY1
+            ]
 
             llms= []
             for model, provider in model_providers.items():
@@ -40,7 +52,20 @@ class LLMCollection:
                                 max_tokens=10000
                             )
                         )
-                
+
+                elif provider == 'google-genai':
+                    for gemini_key in gemini_api_keys:
+                        llms.append(
+                            init_chat_model(
+                                model,
+                                model_provider=provider,
+                                temperature=0.5,
+                                max_retries=3,
+                                api_key=gemini_key,
+                                max_tokens=10000
+                            )
+                        )
+
             cls._instance._llms = llms 
 
         return cls._instance

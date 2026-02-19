@@ -39,12 +39,9 @@ class PromptsCollections:
     @staticmethod 
     def get_summary_prompts():
         return """ 
-            You are an expert mining and commodities analyst.
-
-            First, assess whether the article is relevant to mining, mineral commodities, 
-            or energy resources (e.g., coal, nickel, gold, copper, tin, bauxite, oil, gas, etc).
-
-            Your task is to generate a clear title and a concise summary based strictly on the provided 'Article Content'.  
+            You are an expert mining and commodities analyst intelligence.
+            Your task is to extract structured intelligence from the provided article. 
+            Generate a clear title and a concise summary based strictly on the provided 'Article Content'.  
             
             Article Content:
             {article}
@@ -55,14 +52,25 @@ class PromptsCollections:
                 - Include the primary commodity name if applicable.
 
             2. Summary: 
-                - State the commodity first, then the event, then quantitative data if present.
-                - Include production volumes (tonnes, oz), ore grades (g/t, %), or financial 
-                  figures ($) if stated in the article.
-                - Do not infer, extrapolate, or add information not present in the article.
-                - State company name if present in the article content
+                Produce a structured summary covering only what is explicitly stated in the article with logical structure.
+                Address the following fields in order, and omit a field entirely if the information is absent:
+
+                - Company: Legal entity name and stock ticker if stated.
+                - Project or Asset: Mine name, deposit, or project name.
+                - Location: Country, region, or jurisdiction.
+                - Commodity: Primary and secondary commodities involved.
+                - Project Stage: One of [Exploration, Resource Definition, Feasibility, Development, Production, Care and Maintenance, Closure].
+                - Operational Metrics: Production volumes (units: tonnes, oz, lbs), ore grade (g/t, %, ppm), recovery rate (%), throughput (tpd or tpa) if stated.
+                - Financial Metrics: Revenue, EBITDA, AISC, capex, or any stated financial figures with currency and period.
+                - Key Event: The primary event or announcement driving the article (e.g., resource upgrade, production guidance, acquisition, regulatory decision).
+                - Market Impact: Only include if the article explicitly states price movement, analyst rating change, or volume reaction. Do not infer impact from context.
+                - Forward-Looking Statements: Verbatim targets or guidance ranges if quoted, flagged as company-stated projections.
+                - Risks or Caveats: Any stated operational, regulatory, or financial risks.
                     
             Constraints: 
                 - Language: Return the Title and Summary in English.
+                - Do not use hedging language such as "appears to" or "seems like" unless it appears in the source text.
+                - Summary prose should be 2 sentences maximum if a narrative field is required.
             
             Ensure to return the title and summary in the following JSON format:
             {format_instructions}
