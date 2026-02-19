@@ -1,6 +1,6 @@
 import pandas as pd
 from gspread import Worksheet
-from sheet_api.db.models import ResourcesAndReserves
+from db.models import ResourcesAndReserves
 from sheet_api.core.sync import sync_model
 from sheet_api.core.compile_to_json import jsonifyProvincesResourcesReserves
 

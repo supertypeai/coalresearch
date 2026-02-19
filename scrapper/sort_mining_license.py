@@ -43,12 +43,12 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
         "kode_wiup", # wiup_code
         "nama_prov",  # province
         "nama_kab",  # city
-        "tgl_berlaku", # permit_effective_date
-        "tgl_akhir",  # permit_expiry_date
+        "tgl_berlaku", # license_effective_date
+        "tgl_akhir",  # license_expiry_date
         "kegiatan",  # activity
         "luas_sk",  # licensed_area
         "lokasi",  # location
-        "komoditas_mapped",  # commodity
+        "komoditas_mapped",  # commodity_type
         "nama_usaha",  # company_name
         "badan_usaha",
     ]
@@ -80,14 +80,14 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
     df_sorted = df_sorted[df_sorted['kegiatan'] != 'Wil Penunjang']
 
     # Reformat dates
-    df_sorted["permit_effective_date"] = df_sorted["tgl_berlaku"].dt.strftime(
+    df_sorted["license_effective_date"] = df_sorted["tgl_berlaku"].dt.strftime(
         "%Y-%m-%d"
     )
-    df_sorted["permit_expiry_date"] = df_sorted["tgl_akhir"].dt.strftime("%Y-%m-%d")
+    df_sorted["license_expiry_date"] = df_sorted["tgl_akhir"].dt.strftime("%Y-%m-%d")
 
     # Assign sequential IDs
     df_sorted["id"] = range(1, len(df_sorted) + 1)
-    df_sorted["commodity"] = df_sorted["komoditas_mapped"].astype(str)
+    df_sorted["commodity_type"] = df_sorted["komoditas_mapped"].astype(str)
     df_sorted["cleaned_company_name_for_match"] = df_sorted["nama_usaha"].apply(
         clean_company_name
     )
@@ -97,32 +97,32 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
     return df_sorted
 
 
-def create_table(conn: sqlite3.Connection):
-    """
-    Create mining_license table if it doesn't exist.
-    """
-    conn.execute(
-        """
-    CREATE TABLE IF NOT EXISTS mining_license (
-        id TEXT PRIMARY KEY NOT NULL,
-        license_type TEXT,
-        license_number TEXT,
-        wiup_code TEXT,
-        province TEXT,
-        city TEXT,
-        permit_effective_date TEXT,
-        permit_expiry_date TEXT,
-        activity TEXT,
-        licensed_area INTEGER,
-        location TEXT,
-        commodity TEXT,
-        company_name TEXT,
-        company_id INTEGER,
-        FOREIGN KEY (company_id) REFERENCES company(id)
-    );
-    """
-    )
-    conn.commit()
+# def create_table(conn: sqlite3.Connection):
+#     """
+#     Create mining_license table if it doesn't exist.
+#     """
+#     conn.execute(
+#         """
+#     CREATE TABLE IF NOT EXISTS mining_license (
+#         id TEXT PRIMARY KEY NOT NULL,
+#         license_type TEXT,
+#         license_number TEXT,
+#         wiup_code TEXT,
+#         province TEXT,
+#         city TEXT,
+#         license_effective_date TEXT,
+#         license_expiry_date TEXT,
+#         activity TEXT,
+#         licensed_area INTEGER,
+#         location TEXT,
+#         commodity_type TEXT,
+#         company_name TEXT,
+#         company_id INTEGER,
+#         FOREIGN KEY (company_id) REFERENCES company(id)
+#     );
+#     """
+#     )
+#     conn.commit()
 
 
 def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
@@ -164,12 +164,12 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
     upsert_sql = """
     INSERT INTO mining_license (
       id, license_type, license_number, wiup_code, province, city,
-      permit_effective_date, permit_expiry_date, activity,
-      licensed_area, location, commodity, company_name, company_id
+      license_effective_date, license_expiry_date, activity,
+      licensed_area, location, commodity_type, company_name, company_id
     ) VALUES (
       :id, :license_type, :license_number, :wiup_code, :province, :city,
-      :permit_effective_date, :permit_expiry_date, :activity,
-      :licensed_area, :location, :commodity, :company_name, :company_id
+      :license_effective_date, :license_expiry_date, :activity,
+      :licensed_area, :location, :commodity_type, :company_name, :company_id
     )
     ON CONFLICT(id) DO UPDATE SET
       license_type          = excluded.license_type,
@@ -177,12 +177,12 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
       wiup_code             = excluded.wiup_code,
       province              = excluded.province,
       city                  = excluded.city,
-      permit_effective_date = excluded.permit_effective_date,
-      permit_expiry_date    = excluded.permit_expiry_date,
+      license_effective_date = excluded.license_effective_date,
+      license_expiry_date    = excluded.license_expiry_date,
       activity              = excluded.activity,
       licensed_area         = excluded.licensed_area,
       location              = excluded.location,
-      commodity             = excluded.commodity,
+      commodity_type             = excluded.commodity_type,
       company_name          = excluded.company_name,
       company_id            = excluded.company_id;
     """
@@ -194,12 +194,12 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
         "wiup_code",
         "province",
         "city",
-        "permit_effective_date",
-        "permit_expiry_date",
+        "license_effective_date",
+        "license_expiry_date",
         "activity",
         "licensed_area",
         "location",
-        "commodity",
+        "commodity_type",
         "company_name",
         "company_id",
     ]
@@ -218,7 +218,7 @@ def scrape_and_upsert(csv_path: str, db_path: str):
     df = load_and_parse(csv_path)
     all_df = prepare_all(df)
     conn = sqlite3.connect(db_path)
-    create_table(conn)
+    # create_table(conn)
     upsert_records(conn, all_df)
     conn.close()
     print(f"Upserted {len(all_df)} valid records (IDs 1-{len(all_df)}")

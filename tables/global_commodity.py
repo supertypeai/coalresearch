@@ -1,4 +1,4 @@
-from sheet_api.db.models import GlobalCommodityData
+from db.models import GlobalCommodityData
 from sheet_api.core.sync import sync_model
 from sheet_api import global_commodity_data_merge
 

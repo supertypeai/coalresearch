@@ -9,6 +9,7 @@ from tables.global_commodity import sync_global_commodity_data
 from tables.mining_site import sync_mining_site
 from tables.reserves_resources import sync_resources_and_reserves
 from tables.total_commodities_production import sync_total_commodities_production
+from tables.sales_destination import sync_sales_destination
 
 
 MODEL_SYNC_MAP = {
@@ -17,6 +18,7 @@ MODEL_SYNC_MAP = {
     "company_financials": sync_company_financials,
     "company_ownership": sync_process_ownership,
     "export_destination": sync_export_destination,
+    "sales_destination": sync_sales_destination,
     "global_commodity_data": sync_global_commodity_data,
     "mining_site": sync_mining_site,
     "resources_and_reserves": sync_resources_and_reserves,

@@ -156,14 +156,14 @@ class MiningContract(Model):
 
 
 class CompanyOwnership(Model):
-    parent_company = ForeignKeyField(
+    parent_company_id = ForeignKeyField(
         Company,
         backref="child_ownerships",
         column_name="parent_company_id",
         on_delete="NO ACTION",
         on_update="NO ACTION",
     )
-    company = ForeignKeyField(
+    company_id = ForeignKeyField(
         Company,
         backref="parent_ownerships",
         column_name="company_id",
@@ -179,7 +179,7 @@ class CompanyOwnership(Model):
 
 
 class CompanyPerformance(Model):
-    company = ForeignKeyField(
+    company_id = ForeignKeyField(
         Company,
         backref="performance_records",
         column_name="company_id",
@@ -280,7 +280,7 @@ class MiningLicense(Model):
     location = TextField()
     commodity_type = TextField()
     company_name = TextField()
-    company = ForeignKeyField(
+    company_id = ForeignKeyField(
         Company,
         backref="licenses",
         column_name="company_id",
@@ -308,7 +308,7 @@ class MiningNews(Model):
 
 
 class SalesDestination(Model):
-    company = ForeignKeyField(
+    company_id = ForeignKeyField(
         Company,
         backref="sales_destinations",
         column_name="company_id",
@@ -330,7 +330,7 @@ class SalesDestination(Model):
 
 
 class CompanyFinancials(Model):
-    company = ForeignKeyField(
+    company_id = ForeignKeyField(
         Company,
         backref="financials",
         column_name="company_id",
@@ -361,11 +361,12 @@ class MiningSite(Model):
     commodity_type = TextField(
         constraints=[Check(f"commodity_type IN {mineral_type_constraints}")]
     )
-    company = ForeignKeyField(
+    company_id = ForeignKeyField(
         Company,
         backref="mining_sites",
         on_delete="NO ACTION",
         on_update="NO ACTION",
+        column_name="company_id"
     )
     production_volume = FloatField(null=True)
     overburden_removal_volume = FloatField(null=True)
@@ -387,7 +388,7 @@ class MiningLicenseAuction(Model):
     company_name = TextField()
     winner_date = TextField()
     licensed_area  = FloatField()
-    license_number = TextField()
+    license_number = TextField(unique=True)
     area_type = TextField()
     kdi = TextField()
     wiup_code = TextField()
@@ -398,7 +399,7 @@ class MiningLicenseAuction(Model):
     phases = TextField(constraints=[Check("json_valid(phases)")])
     participants = TextField(constraints=[Check("json_valid(participants)")])
     winner = TextField()
-    company = ForeignKeyField(
+    company_id = ForeignKeyField(
         Company,
         backref="license_auctions",
         column_name="company_id",

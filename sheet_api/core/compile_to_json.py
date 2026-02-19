@@ -294,7 +294,7 @@ def jsonifyMineReservesAndResources(df: pd.DataFrame, sheet_id: int, starts_from
         if row_id < starts_from:
             continue
 
-        renderFunction = renderMap.get(row['mineral_type'], renderCoalMine)
+        renderFunction = renderMap.get(row['commodity_type'], renderCoalMine)
         data_dict = renderFunction(row)
             
         rr_cols_json = json.dumps(data_dict)

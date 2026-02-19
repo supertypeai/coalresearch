@@ -1,7 +1,7 @@
 from sheet_api.google_sheets.client import getSheetAll
 from gspread_dataframe import set_with_dataframe
 from scripts.sync_company_name_id import SyncCompanyId
-from sheet_api.db.models import Company
+from db.models import Company
 import synchronizer
 
 def main():

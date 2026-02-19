@@ -162,7 +162,7 @@ def parse_timestamp(timestamp: int) -> str:
     return date.strftime("%Y-%m-%d")    
 
 def format_data(
-    result_data: list, data: dict, participant: dict, date_winner: str
+    result_data: list, data: dict, participant: dict, winner_date: str
 ) -> list[dict]:
     """
     Format the data into a specific structure and append it to result_data.
@@ -172,7 +172,7 @@ def format_data(
         result_data (list[dict]): The list to append the formatted data to.
         data (dict): The main data dictionary containing auction information.
         participant (dict): The participant dictionary containing company information.
-        date_winner (str): The date when the auction winner was determined.
+        winner_date (str): The date when the auction winner was determined.
 
     Returns:
         list[dict]: The updated result_data with the formatted entry appended.
@@ -219,16 +219,16 @@ def format_data(
     # Format the necessary data
     result_data.append(
         {
-            "commodity": data.get("komoditas"),
+            "commodity_type": data.get("komoditas"),
             "city": data.get("namaKab"),
             "province": data.get("namaProv"),
             "company_name": participant.get("perusahaanNama"),
-            "date_winner": date_winner,
-            "permit_area": data.get("luasSk"),  # Renamed from luas_sk
-            "number": data.get("nomor"),  # Renamed from nomor
-            "permit_type": data.get("jenisIzin"),  # Renamed from jenis_izin
+            "winner_date": winner_date,
+            "licensed_area": data.get("luasSk"),  # Renamed from luas_sk
+            "license_number": data.get("nomor"),  # Renamed from nomor
+            "area_type": data.get("jenisIzin"),  # Renamed from jenis_izin
             "kdi": data.get("kdi"),
-            "code_wiup": data.get("kodeWiup"),
+            "wiup_code": data.get("kodeWiup"),
             "auction_status": data.get("tahapanSaatIni"),
             "created_at": data.get("createdAt"),
             "last_modified": data.get("lastModified"),
@@ -289,7 +289,7 @@ def clean_data(result_data: list[dict]) -> pd.DataFrame:
     df_auction["winner"] = df_auction["winner"].astype(str)
 
     # Normalized commodity
-    df_auction["commodity"] = df_auction["commodity"].map(COMMODITY_MAP)
+    df_auction["commodity_type"] = df_auction["commodity_type"].map(COMMODITY_MAP)
     return df_auction
 
 
@@ -328,26 +328,26 @@ def get_specific_data(data_json: list[dict]) -> pd.DataFrame:
         # Loop data key peserta
         for participant in data.get("peserta", []):
             if participant.get("isWinner"):
-                date_winner_value = None
+                winner_date_value = None
                 steps = data.get("tahapan", [])
 
                 # Getting date for auction winner
                 for step in steps:
                     status_step = step.get("id", "")
                     if status_step.lower().strip() == "penetapanpemenanglelang":
-                        # date_winner = step.get("tahapanTanggalMulai")
-                        date_winner = step.get("tahapanMulaiTimestamp")
+                        # winner_date = step.get("tahapanTanggalMulai")
+                        winner_date = step.get("tahapanMulaiTimestamp")
                         
-                        if date_winner:   
-                            assert isinstance(date_winner, int)
-                            date_winner_value = parse_timestamp(date_winner)
+                        if winner_date:   
+                            assert isinstance(winner_date, int)
+                            winner_date_value = parse_timestamp(winner_date)
 
                 # Prepare data output
                 LOGGER.info(
                     f"Processing auction for {commodity} in {data.get('namaKab')}, {data.get('namaProv')}"
                 )
                 format_data(
-                    result_data, data, participant, date_winner_value
+                    result_data, data, participant, winner_date_value
                 )
 
     df_cleaned = clean_data(result_data)
@@ -378,34 +378,34 @@ def create_table(path):
     This function connects to the SQLite database at the specified path and creates a table
     """
     connection = sqlite3.connect(path)
-    cursor = connection.cursor()
-    cursor.execute(
-        """
-        CREATE TABLE IF NOT EXISTS mining_license_auctions (
-            id INTEGER PRIMARY KEY NOT NULL,
-            commodity TEXT,
-            city TEXT,
-            province TEXT,
-            company_name TEXT,
-            date_winner TEXT,
-            permit_area REAL,
-            number TEXT UNIQUE,  --  unique identifier
-            permit_type TEXT,
-            kdi TEXT,
-            code_wiup TEXT,
-            auction_status TEXT,
-            created_at TEXT,
-            last_modified TEXT,
-            participant_count INTEGER,
-            phases TEXT,
-            participants TEXT,
-            winner TEXT,
-            company_id INTEGER,
-            FOREIGN KEY (company_id) REFERENCES company(id)
-        )
-    """
-    )
-    connection.commit()
+    # cursor = connection.cursor()
+    # cursor.execute(
+    #     """
+    #     CREATE TABLE IF NOT EXISTS mining_license_auctions (
+    #         id INTEGER PRIMARY KEY NOT NULL,
+    #         commodity_type TEXT,
+    #         city TEXT,
+    #         province TEXT,
+    #         company_name TEXT,
+    #         winner_date TEXT,
+    #         licensed_area REAL,
+    #         license_number TEXT UNIQUE,  --  unique identifier
+    #         area_type TEXT,
+    #         kdi TEXT,
+    #         wiup_code TEXT,
+    #         auction_status TEXT,
+    #         created_at TEXT,
+    #         last_modified TEXT,
+    #         participant_count INTEGER,
+    #         phases TEXT,
+    #         participants TEXT,
+    #         winner TEXT,
+    #         company_id INTEGER,
+    #         FOREIGN KEY (company_id) REFERENCES company(id)
+    #     )
+    # """
+    # )
+    # connection.commit()
     return connection
 
 
@@ -478,16 +478,16 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
 
         data_tuple = (
             row["id"],
-            row["commodity"],
+            row["commodity_type"],
             row["city"],
             row["province"],
             row["company_name"],
-            row["date_winner"],
-            row["permit_area"],
-            row["number"],
-            row["permit_type"],
+            row["winner_date"],
+            row["licensed_area"],
+            row["license_number"],
+            row["area_type"],
             row["kdi"],
-            row["code_wiup"],
+            row["wiup_code"],
             row["auction_status"],
             row["created_at"],
             row["last_modified"],
@@ -499,26 +499,26 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
         )
         data_to_insert.append(data_tuple)
 
-    # UPSERT query - using number as unique identifier
+    # UPSERT query - using license_number as unique identifier
     # The id field will auto-increment for new records
     upsert_query = """
         INSERT INTO mining_license_auctions (
-            id, commodity, city, province, company_name, date_winner, 
-            permit_area, number, permit_type, kdi, code_wiup, 
+            id, commodity_type, city, province, company_name, winner_date, 
+            licensed_area, license_number, area_type, kdi, wiup_code, 
             auction_status, created_at, last_modified, participant_count,
             phases, participants, winner, company_id
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ON CONFLICT(number) DO UPDATE SET
-            commodity = excluded.commodity,
+        ON CONFLICT(license_number) DO UPDATE SET
+            commodity_type = excluded.commodity_type,
             city = excluded.city,
             province = excluded.province,
             company_name = excluded.company_name,
-            date_winner = excluded.date_winner,
-            permit_area = excluded.permit_area,
-            permit_type = excluded.permit_type,
+            winner_date = excluded.winner_date,
+            licensed_area = excluded.licensed_area,
+            area_type = excluded.area_type,
             kdi = excluded.kdi,
-            code_wiup = excluded.code_wiup,
+            wiup_code = excluded.wiup_code,
             auction_status = excluded.auction_status,
             created_at = excluded.created_at,
             last_modified = excluded.last_modified,

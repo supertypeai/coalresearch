@@ -14,35 +14,32 @@ TABLE_NAME = "sales_destination"  # This table will now be structured differentl
 
 
 def setup_database(db_name, table_name):
-    """
-    Connects to SQLite DB and creates/recreates the table with the correct schema.
-    """
     print(f"Connecting to database at '{db_name}'...")
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
 
     # Drop the old table to ensure a clean slate and apply the correct schema
-    cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
-    print(f"Dropped existing table '{table_name}' to apply new schema.")
+    # cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
+    # print(f"Dropped existing table '{table_name}' to apply new schema.")
 
-    # Create the table with company_id and a foreign key link
-    create_table_query = f"""
-    CREATE TABLE IF NOT EXISTS {table_name} (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        company_id INTEGER,
-        country TEXT NOT NULL,
-        idx_ticker TEXT NOT NULL,
-        year INTEGER NOT NULL,
-        revenue REAL,
-        percentage_of_total_revenue REAL,
-        volume REAL,
-        percentage_of_sales_volume REAL,
-        UNIQUE(country, idx_ticker, year),
-        FOREIGN KEY (company_id) REFERENCES company(id)
-    );
-    """
-    cursor.execute(create_table_query)
-    print(f"Table '{table_name}' created successfully with company_id.")
+    # # Create the table with company_id and a foreign key link
+    # create_table_query = f"""
+    # CREATE TABLE IF NOT EXISTS {table_name} (
+    #     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    #     company_id INTEGER,
+    #     country TEXT NOT NULL,
+    #     idx_ticker TEXT NOT NULL,
+    #     year INTEGER NOT NULL,
+    #     revenue REAL,
+    #     percentage_of_total_revenue REAL,
+    #     volume REAL,
+    #     percentage_of_sales_volume REAL,
+    #     UNIQUE(country, idx_ticker, year),
+    #     FOREIGN KEY (company_id) REFERENCES company(id)
+    # );
+    # """
+    # cursor.execute(create_table_query)
+    # print(f"Table '{table_name}' created successfully with company_id.")
     conn.commit()
     return conn, cursor
 

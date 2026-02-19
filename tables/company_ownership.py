@@ -2,7 +2,7 @@ import pandas as pd
 from scripts.sync_company_name_id import SyncCompanyId
 from sheet_api.google_sheets.client import getSheetAll
 from sheet_api.core.sync import replaceCO
-from sheet_api.db.models import CompanyOwnership, Company
+from db.models import CompanyOwnership, Company
 
 def sync_process_ownership():
     sync = SyncCompanyId()

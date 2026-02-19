@@ -1,5 +1,5 @@
 import pandas as pd
-from sheet_api.db.models import MiningSite
+from db.models import MiningSite
 from sheet_api.core.sync import sync_model
 from sheet_api.core.compile_to_json import jsonifyMineReservesAndResources, compileToJsonBatch
 

@@ -1,6 +1,6 @@
 import pandas as pd
 import sqlite3
-from sheet_api.db.models import CompanyPerformance
+from db.models import CompanyPerformance
 from sheet_api.core.sync import sync_model
 from tables.company_performance.commodity import update_commodity_performance
 

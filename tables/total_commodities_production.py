@@ -1,4 +1,4 @@
-from sheet_api.db.models import TotalCommoditiesProduction
+from db.models import TotalCommoditiesProduction
 from sheet_api.core.sync import sync_model
 
 def sync_total_commodities_production():

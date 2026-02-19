@@ -1,5 +1,5 @@
 import pandas as pd
-from sheet_api.db.models import Company
+from db.models import Company
 from sheet_api.core.sync import sync_model
 from sheet_api.core.compile_to_json import fillMiningLicense, fillMiningContract
 from sheet_api.utils.slug_utils import generate_slug
