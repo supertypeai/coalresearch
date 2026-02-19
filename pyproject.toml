@@ -35,4 +35,5 @@ dependencies = [
     "gspread-dataframe>=4.0.0",
     "undetected-chromedriver>=3.5.5",
     "typer>=0.24.0",
+    "langchain-google-genai>=2.1.12",
 ]
