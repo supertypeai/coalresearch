@@ -16,10 +16,10 @@ Monthly price history per commodity.
 
 Source:
 - non-gold/silver: 
-	- This script [commodity_price.py](https://github.com/supertypeai/coalresearch/blob/v2/tables/commodity_price.py) scrapes from [ESDM Minerba](https://www.minerba.esdm.go.id/harga_acuan)
+	- This script [commodity_price.py](https://github.com/supertypeai/coalresearch/blob/main/tables/commodity_price.py) scrapes from [ESDM Minerba](https://www.minerba.esdm.go.id/harga_acuan)
 	- Running on weekly basis and will automatically sync to `db.sqlite`
 - gold & silver: 
-	- This script [commodity_price.py](https://github.com/supertypeai/coalresearch/blob/v2/tables/commodity_price.py)  also scrapes from [Gold](https://prices.lbma.org.uk/json/gold_am.json) and [Silver](https://prices.lbma.org.uk/json/silver.json)
+	- This script [commodity_price.py](https://github.com/supertypeai/coalresearch/blob/main/tables/commodity_price.py)  also scrapes from [Gold](https://prices.lbma.org.uk/json/gold_am.json) and [Silver](https://prices.lbma.org.uk/json/silver.json)
 	- Running on weekly basis and will automatically sync to `db.sqlite`
 
 Data Flow:
@@ -35,8 +35,8 @@ graph TD
   click A1 "https://www.minerba.esdm.go.id/harga_acuan" _blank
   click A2 "https://prices.lbma.org.uk/json/gold_am.json" _blank
   click A3 "https://prices.lbma.org.uk/json/silver.json" _blank
-  click B1 "https://github.com/supertypeai/coalresearch/blob/v2/tables/commodity_price.py" _blank
-  click B2 "https://github.com/supertypeai/coalresearch/blob/v2/tables/commodity_price.py" _blank
+  click B1 "https://github.com/supertypeai/coalresearch/blob/main/tables/commodity_price.py" _blank
+  click B2 "https://github.com/supertypeai/coalresearch/blob/main/tables/commodity_price.py" _blank
 ```
 
 | **Column**     | **Type**          | **PK** | **Description**                                                                                                                                                       |
@@ -55,7 +55,7 @@ Basic metadata on mining companies with URL-friendly slug support.
 
 Source: 
 - Most of the Stuff (Manual Input & Sync): For everything except `mining_license`, and `mining_contract`, we manually enter the data from company annual reports or trusted websites to [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) in `company` tab. Then, [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) into the `db.sqlite`.
-- The 'mining_license' data is dynamically sourced from the [esdm_minerba.py](https://github.com/supertypeai/coalresearch/blob/main/scrapper/esdm_minerba.py) script, which will scrape https://geoportal.esdm.go.id website. This script operates on a weekly basis, generating the [esdm_minerba_all.csv](https://github.com/supertypeai/coalresearch/blob/v2/datasets/esdm_minerba_all.csv) output. Subsequently, the [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from the CSV to a [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502), which is then replicated into the `db.sqlite`.
+- The 'mining_license' data is dynamically sourced from the [esdm_minerba.py](https://github.com/supertypeai/coalresearch/blob/main/scrapper/esdm_minerba.py) script, which will scrape https://geoportal.esdm.go.id website. This script operates on a weekly basis, generating the [esdm_minerba_all.csv](https://github.com/supertypeai/coalresearch/blob/main/datasets/esdm_minerba_all.csv) output. Subsequently, the [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from the CSV to a [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502), which is then replicated into the `db.sqlite`.
 - mining_contract: Manual input to the [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502), especially on `mining_contract` tab. Then, [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2011566502#gid=2011566502) into the `db.sqlite`. 
 - Slug is automatically generated from the company name during sync (lowercase with spaces replaced by hyphens)
 
@@ -415,17 +415,17 @@ The entire process is orchestrated via a series of scripts and associated YAML w
     * *Result: Raw ESDM data.*
 
 2.  **Scrape Source 2 (MoDI V2):**
-    * **Script:** [modi_v2.py](https://github.com/supertypeai/coalresearch/blob/v2/scrapper/modi_v2.py)
+    * **Script:** [modi_v2.py](https://github.com/supertypeai/coalresearch/blob/main/scrapper/modi_v2.py)
     * **Workflow:** `modi_monthly_scraper.yaml`
     * *Result: Raw MoDI data.*
 
 3.  **Merge Data:**
-    * **Script:** [modi_n_esdm_mining_license.py](https://github.com/supertypeai/coalresearch/blob/v2/scripts/modi_n_esdm_mining_license.py)
+    * **Script:** [modi_n_esdm_mining_license.py](https://github.com/supertypeai/coalresearch/blob/main/scripts/modi_n_esdm_mining_license.py)
     * This script combines the data from both ESDM and MoDI sources.
     * **Output:** `datasets/modi_mining_license_merge_v2.csv`
 
 4.  **Upload Data (Upsert):**
-    * **Script:** [sort_mining_license.py](https://github.com/supertypeai/coalresearch/blob/v2/scrapper/sort_mining_license.py)
+    * **Script:** [sort_mining_license.py](https://github.com/supertypeai/coalresearch/blob/main/scrapper/sort_mining_license.py)
     * **Workflow:** `mining_license_merge_upsert.yaml` (This single workflow handles both the merge and the final upload steps.)
     * This script takes the merged CSV file (`datasets/modi_mining_license_merge_v2.csv`) and loads (upserts) it into the **`db.sqlite`** database.
 
@@ -745,7 +745,7 @@ Aggregates news articles related to the mining industry from various online sour
 Contains detailed information about mining license auctions, including participants, stages, and winners.
 
 **Source:**
-- Data is automatically scraped from the official ESDM Minerba auction portal (`https://minerba.esdm.go.id/lelang/`) by the [mining_license_auctions.py](https://github.com/supertypeai/coalresearch/blob/v2/tables/mining_license_auctions.py) script.
+- Data is automatically scraped from the official ESDM Minerba auction portal (`https://minerba.esdm.go.id/lelang/`) by the [mining_license_auctions.py](https://github.com/supertypeai/coalresearch/blob/main/tables/mining_license_auctions.py) script.
 - The script runs on a monthly schedule via the "Monthly Mining License Auction Scraper" GitHub Action, ensuring the data is kept up-to-date.
 
 
@@ -802,7 +802,7 @@ Financial data (assets, revenue, profit) by company and year, with slug support.
 
 **Source:**
 - Financial data is manually collected from company annual reports and entered into [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2112285298#gid=2112285298) in the `company_financials` tab
-- The [sheet_api/company_financials.py](https://github.com/supertypeai/coalresearch/blob/main/sheet_api/company_financials.py) script reads this data from Google Sheets and processes it into yearly records
+- The [tables/company_financials.py](https://github.com/supertypeai/coalresearch/blob/main/tables/company_financials.py) script reads this data from Google Sheets and processes it into yearly records
 - Slug is automatically populated from company table based on `idx_ticker`
 
 **Notes:**
