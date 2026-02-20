@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 import re
+from rapidfuzz import process, fuzz
 
 def convertColType(df:pd.DataFrame, col:str, c_type:type) -> pd.Series:
     return df[col].replace('', pd.NA).astype(c_type)
@@ -131,3 +132,34 @@ def parse_spec_value(val):
 		return {"max": v, "min": v}
 	except ValueError:
 		return s_val
+      
+def fuzzy_match_company_name(
+    df: pd.DataFrame, 
+    clean_list: list, 
+    key: str, 
+    key_no_space: str, 
+    threshold: int = 93, 
+    is_debug: bool = False
+) -> pd.DataFrame:
+    
+    matches = df[df['name_cleaned'] == key]
+    if is_debug:
+        if not matches.empty: 
+            print(f"[EXACT] '{key}' matched '{matches.iloc[0]['name_cleaned']}'")
+    
+    # No space matching
+    if matches.empty:
+        matches = df[df['name_cleaned_no_space'] == key_no_space]
+        if is_debug:
+            if not matches.empty: 
+                print(f"[NOSPACE] '{key}' matched '{matches.iloc[0]['name_cleaned']}'")
+
+    # Fuzzy matching
+    if matches.empty: 
+        match, score, idx = process.extractOne(key, clean_list, scorer=fuzz.token_sort_ratio)
+        if score >= threshold:
+            matches = df.iloc[[idx]]
+            if is_debug:
+                print(f"[FUZZY] '{key}' → '{match}' (score: {score})")
+
+    return matches

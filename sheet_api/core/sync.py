@@ -102,68 +102,6 @@ def confirmChange(func: Callable, model, df, *args, **kwargs) -> None:
             func(model, df, *args, execute=True, **kwargs)
 
 
-def replaceCO(co_model, c_model, df) -> None:
-    def safeCast(val, tp=int):
-        if pd.isna(val) or val == "":
-            return None
-        else:
-            return tp(val)
-
-    co_model.delete().execute()
-
-    print("All Company Ownership records have been deleted")
-
-    for _, row in df.iterrows():
-        parent = c_model.get_or_none(
-            c_model.name == safeCast(row["*parent_company_name"], str)
-        )
-        company = c_model.get_or_none(c_model.name == safeCast(row["name"], str))
-        ownership = safeCast(row["*percentage_ownership"], float)
-
-        if parent and company and ownership:
-            co_model.insert(
-                parent_company_id=parent.id,
-                company_id=company.id,
-                percentage_ownership=ownership,
-            ).execute()
-
-            print(f"Inserted parent_id: {parent.id}, company_id: {company.id}")
-
-
-def replaceMC(mc_model, company_model, df) -> None:
-    def safeCast(val, tp=int):
-        if pd.isna(val) or val == "":
-            return None
-        return tp(val)
-
-    def parse_date(val):
-        if pd.isna(val) or val == "":
-            return None
-        ts = pd.to_datetime(val, errors="coerce")
-        if pd.isna(ts):
-            return None
-        return ts.date()
-
-    mc_model.delete().execute()
-    print("All Mining Contract records have been deleted")
-
-    for _, row in df.iterrows():
-        mine_owner_id = safeCast(row.get("mine_owner_id"), int)
-        contractor_id = safeCast(row.get("contractor_id"), int)
-        contract_end = parse_date(row.get("contract_period_end"))
-
-        if mine_owner_id and contractor_id:
-            mc_model.insert(
-                mine_owner_id=mine_owner_id,
-                contractor_id=contractor_id,
-                contract_period_end=contract_end,
-            ).execute()
-            print(
-                f"Inserted mining contract mine_owner_id: {mine_owner_id}, "
-                f"contractor_id: {contractor_id}, contract_period_end: {contract_end}"
-            )
-
-
 def execute_preprocess_callback(
     df: pd.DataFrame, field_types: Dict, sheet: Worksheet, function: Callable
 ) -> Tuple[pd.DataFrame, Dict, Worksheet]:

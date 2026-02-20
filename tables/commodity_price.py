@@ -113,6 +113,9 @@ def init_db(path):
     conn.commit()
     return conn
 
+def get_db_conn(path):
+    return sqlite3.connect(path)
+
 
 # ─── MINERBA (ESDM) SCRAPING FUNCTIONS ──────────────────────────────────────────
 
@@ -306,8 +309,8 @@ def run_lbma_scraper(conn):
     print("--- LBMA Scraper Finished ---")
 
 
-if __name__ == "__main__":
-    db_conn = init_db(DB_PATH)
+def sync_commodity_price():
+    db_conn = get_db_conn(DB_PATH)
 
     run_minerba_scraper(db_conn)
     run_lbma_scraper(db_conn)
@@ -315,3 +318,6 @@ if __name__ == "__main__":
     db_conn.close()
 
     print(f"\nProcess complete. Local database updated: {DB_PATH}")
+
+if __name__ == "__main__":
+    sync_commodity_price()
