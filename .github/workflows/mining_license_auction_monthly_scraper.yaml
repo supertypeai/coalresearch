@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
+
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
@@ -26,7 +26,7 @@ jobs:
 
       - name: Execute scraper
         run: |
-          python mining_license_auctions_scraper.py
+          python -m tables.mining_license_auctions
 
       - name: Pull remote changes
         run: git pull origin main
