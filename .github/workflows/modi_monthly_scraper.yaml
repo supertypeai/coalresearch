@@ -1,4 +1,4 @@
-name: Monthly Minerba Company Scraper
+name: Monthly Minerba Company (MODI V2) Scraper
 on:
   schedule:
     # 00:00 (midnight) on the 1st day of every month
@@ -48,7 +48,7 @@ jobs:
           git add datasets/
 
           git diff-index --quiet HEAD \
-            || git commit -m "chore: automated monthly update of Minerba company data" \
+            || git commit -m "chore: monthly update of Minerba company (modi v2) data" \
             || true
 
       - name: Push changes
