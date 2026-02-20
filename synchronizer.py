@@ -1,32 +1,19 @@
 import argparse
-
-from tables.company import sync_company
-from tables.company_performance import sync_company_performance
-from tables.company_financials import sync_company_financials
-from tables.company_ownership import sync_process_ownership
-from tables.export_destination import sync_export_destination
-from tables.global_commodity import sync_global_commodity_data
-from tables.mining_site import sync_mining_site
-from tables.reserves_resources import sync_resources_and_reserves
-from tables.total_commodities_production import sync_total_commodities_production
-from tables.sales_destination import sync_sales_destination
-from tables.mining_contract import sync_mining_contract
-from tables.commodity_price import sync_commodity_price
-
+import importlib
 
 MODEL_SYNC_MAP = {
-    "company": sync_company,
-    "company_performance": sync_company_performance,
-    "company_financials": sync_company_financials,
-    "company_ownership": sync_process_ownership,
-    "commodity_price": sync_commodity_price,
-    "mining_contract": sync_mining_contract,
-    "export_destination": sync_export_destination,
-    "sales_destination": sync_sales_destination,
-    "global_commodity_data": sync_global_commodity_data,
-    "mining_site": sync_mining_site,
-    "resources_and_reserves": sync_resources_and_reserves,
-    "total_commodities_production": sync_total_commodities_production
+    "company"                       : ("tables.company"                     , "sync_company"),
+    "company_performance"           : ("tables.company_performance"         , "sync_company_performance"),
+    "company_financials"            : ("tables.company_financials"          , "sync_company_financials"),
+    "company_ownership"             : ("tables.company_ownership"           , "sync_process_ownership"),
+    "commodity_price"               : ("tables.commodity_price"             , "sync_commodity_price"),
+    "mining_contract"               : ("tables.mining_contract"             , "sync_mining_contract"),
+    "export_destination"            : ("tables.export_destination"          , "sync_export_destination"),
+    "sales_destination"             : ("tables.sales_destination"           , "sync_sales_destination"),
+    "global_commodity_data"         : ("tables.global_commodity"            , "sync_global_commodity_data"),
+    "mining_site"                   : ("tables.mining_site"                 , "sync_mining_site"),
+    "resources_and_reserves"        : ("tables.reserves_resources"          , "sync_resources_and_reserves"),
+    "total_commodities_production"  : ("tables.total_commodities_production", "sync_total_commodities_production")
 }
 
 
@@ -42,7 +29,11 @@ def main():
     args = parser.parse_args()
 
     if args.action == "sync":
-        MODEL_SYNC_MAP[args.model]()
+        module_path, func_name = MODEL_SYNC_MAP[args.model]
+        module = importlib.import_module(module_path)
+        sync_func = getattr(module, func_name)
+        
+        sync_func()
         print(f"{args.model} synced.")
 
 
