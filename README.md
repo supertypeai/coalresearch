@@ -16,10 +16,10 @@ Monthly price history per commodity.
 
 Source:
 - non-gold/silver: 
-	- This script [minerba_commodities_scraper.py](https://github.com/supertypeai/coalresearch/blob/main/minerba_commodities_scraper.py) scrapes from [ESDM Minerba](https://www.minerba.esdm.go.id/harga_acuan)
+	- This script [commodity_price.py](https://github.com/supertypeai/coalresearch/blob/v2/tables/commodity_price.py) scrapes from [ESDM Minerba](https://www.minerba.esdm.go.id/harga_acuan)
 	- Running on weekly basis and will automatically sync to `db.sqlite`
 - gold & silver: 
-	- This script [minerba_commodities_scraper.py](https://github.com/supertypeai/coalresearch/blob/main/minerba_commodities_scraper.py) also scrapes from [Gold](https://prices.lbma.org.uk/json/gold_am.json) and [Silver](https://prices.lbma.org.uk/json/silver.json)
+	- This script [commodity_price.py](https://github.com/supertypeai/coalresearch/blob/v2/tables/commodity_price.py)  also scrapes from [Gold](https://prices.lbma.org.uk/json/gold_am.json) and [Silver](https://prices.lbma.org.uk/json/silver.json)
 	- Running on weekly basis and will automatically sync to `db.sqlite`
 
 Data Flow:
@@ -35,8 +35,8 @@ graph TD
   click A1 "https://www.minerba.esdm.go.id/harga_acuan" _blank
   click A2 "https://prices.lbma.org.uk/json/gold_am.json" _blank
   click A3 "https://prices.lbma.org.uk/json/silver.json" _blank
-  click B1 "https://github.com/supertypeai/coalresearch/blob/main/minerba_commodities_scraper.py" _blank
-  click B2 "https://github.com/supertypeai/coalresearch/blob/main/minerba_commodities_scraper" _blank
+  click B1 "https://github.com/supertypeai/coalresearch/blob/v2/tables/commodity_price.py" _blank
+  click B2 "https://github.com/supertypeai/coalresearch/blob/v2/tables/commodity_price.py" _blank
 ```
 
 | **Column**     | **Type**          | **PK** | **Description**                                                                                                                                                       |
