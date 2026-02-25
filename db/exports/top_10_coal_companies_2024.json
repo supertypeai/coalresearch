@@ -1,0 +1,82 @@
+[
+    {
+        "name": "PT Bumi Resources Tbk",
+        "idx_ticker": "BUMI.JK",
+        "production_volume_Mt": 74.7,
+        "revenue": 21968341245261,
+        "total_assets": 67268071201089,
+        "market_cap": 109172605267992
+    },
+    {
+        "name": "PT Alamtri Resources Indonesia Tbk",
+        "idx_ticker": "ADRO.JK",
+        "production_volume_Mt": 64.64,
+        "revenue": 33585378173000,
+        "total_assets": 108286265939000,
+        "market_cap": 67596285620000
+    },
+    {
+        "name": "PT Kaltim Prima Coal",
+        "idx_ticker": null,
+        "production_volume_Mt": 55.0,
+        "revenue": null,
+        "total_assets": null,
+        "market_cap": null
+    },
+    {
+        "name": "PT Dian Swastatika Sentosa Tbk",
+        "idx_ticker": "DSSA.JK",
+        "production_volume_Mt": 53.1,
+        "revenue": 48758530456710,
+        "total_assets": 59701266331663,
+        "market_cap": 670380518400000
+    },
+    {
+        "name": "PT Golden Energy Mines Tbk",
+        "idx_ticker": "GEMS.JK",
+        "production_volume_Mt": 50.69,
+        "revenue": 43713100922788,
+        "total_assets": 20027762978259,
+        "market_cap": 46176471050000
+    },
+    {
+        "name": "PT Bayan Resources Tbk",
+        "idx_ticker": "BYAN.JK",
+        "production_volume_Mt": 50.5,
+        "revenue": 55680495011778,
+        "total_assets": 56896163525638,
+        "market_cap": 468333356750000
+    },
+    {
+        "name": "PT Adaro Andalan Indonesia Tbk",
+        "idx_ticker": "AADI.JK",
+        "production_volume_Mt": 48.11,
+        "revenue": 85948486374000,
+        "total_assets": 96823375306000,
+        "market_cap": 72612765662000
+    },
+    {
+        "name": "PT Borneo Indobara",
+        "idx_ticker": null,
+        "production_volume_Mt": 46.8,
+        "revenue": null,
+        "total_assets": null,
+        "market_cap": null
+    },
+    {
+        "name": "PT Bukit Asam Tbk",
+        "idx_ticker": "PTBA.JK",
+        "production_volume_Mt": 43.28,
+        "revenue": 42764968000000,
+        "total_assets": 41854334000000,
+        "market_cap": 30184127235000
+    },
+    {
+        "name": "PT Berau Coal Energy Tbk",
+        "idx_ticker": null,
+        "production_volume_Mt": 35.9,
+        "revenue": null,
+        "total_assets": null,
+        "market_cap": null
+    }
+]

@@ -1,0 +1,110 @@
+[
+    {
+        "name": "PT BUMA Internasional Group Tbk",
+        "idx_ticker": "DOID.JK",
+        "production_volume": 90.0,
+        "unit": "Mt",
+        "total_revenue": null,
+        "total_assets": null,
+        "market_cap": "N/A"
+    },
+    {
+        "name": "PT Bumi Resources Tbk",
+        "idx_ticker": "BUMI.JK",
+        "production_volume": 74.7,
+        "unit": "Mt",
+        "total_revenue": 1360.0,
+        "total_assets": 4163.0,
+        "market_cap": "N/A"
+    },
+    {
+        "name": "PT Alamtri Resources Indonesia Tbk",
+        "idx_ticker": "ADRO.JK",
+        "production_volume": 64.64,
+        "unit": "Mt",
+        "total_revenue": 2079.0,
+        "total_assets": 6702.0,
+        "market_cap": "N/A"
+    },
+    {
+        "name": "PT Kaltim Prima Coal",
+        "idx_ticker": null,
+        "production_volume": 55.0,
+        "unit": "Mt",
+        "total_revenue": null,
+        "total_assets": null,
+        "market_cap": "N/A"
+    },
+    {
+        "name": "PT Dian Swastatika Sentosa Tbk",
+        "idx_ticker": "DSSA.JK",
+        "production_volume": 53.1,
+        "unit": "Mt",
+        "total_revenue": 3018.0,
+        "total_assets": 3695.0,
+        "market_cap": "N/A"
+    },
+    {
+        "name": "PT Golden Energy Mines Tbk",
+        "idx_ticker": "GEMS.JK",
+        "production_volume": 50.69,
+        "unit": "Mt",
+        "total_revenue": 2705.0,
+        "total_assets": 1240.0,
+        "market_cap": "N/A"
+    },
+    {
+        "name": "PT Bayan Resources Tbk",
+        "idx_ticker": "BYAN.JK",
+        "production_volume": 50.5,
+        "unit": "Mt",
+        "total_revenue": 3446.0,
+        "total_assets": 3521.0,
+        "market_cap": "N/A"
+    },
+    {
+        "name": "PT Adaro Andalan Indonesia Tbk",
+        "idx_ticker": "AADI.JK",
+        "production_volume": 48.11,
+        "unit": "Mt",
+        "total_revenue": 5320.0,
+        "total_assets": 5993.0,
+        "market_cap": "N/A"
+    },
+    {
+        "name": "PT Adaro Indonesia",
+        "idx_ticker": null,
+        "production_volume": 48.11,
+        "unit": "Mt",
+        "total_revenue": null,
+        "total_assets": null,
+        "market_cap": "N/A"
+    },
+    {
+        "name": "PT Borneo Indobara",
+        "idx_ticker": null,
+        "production_volume": 46.8,
+        "unit": "Mt",
+        "total_revenue": null,
+        "total_assets": null,
+        "market_cap": "N/A"
+    },
+    {
+        "name": "PT Bukit Asam Tbk",
+        "idx_ticker": "PTBA.JK",
+        "production_volume": 43.28,
+        "unit": "Mt",
+        "total_revenue": null,
+        "total_assets": null,
+        "market_cap": "N/A"
+    },
+    {
+        "name": "PT Berau Coal Energy Tbk",
+        "idx_ticker": null,
+        "production_volume": 35.9,
+        "unit": "Mt",
+        "total_revenue": null,
+        "total_assets": null,
+        "market_cap": "N/A"
+    }
+]
