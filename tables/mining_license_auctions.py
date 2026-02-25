@@ -223,7 +223,7 @@ def format_data(
             "email": p["perusahaanUserEmail"],
             "qualification_result": (
                 QualificationResult.LOLOS.value
-                if p["hasilAkhirPra"] == "Lolos"
+                if p["hasilAkhirPra"] == "LOLOS"
                 else QualificationResult.TIDAK_LOLOS.value
             ),
         }
