@@ -220,7 +220,7 @@ def format_data(
         {
             "NIB": p["perusahaanNib"],
             "company_name": str(p["perusahaanNama"]).title(),
-            "email": p["perusahaanUserEmail"],
+            "email": p["perusahaanUserEmail"] if p["perusahaanUserEmail"] != "" else None,
             "qualification_result": (
                 QualificationResult.LOLOS.value
                 if p["hasilAkhirPra"] == "LOLOS"

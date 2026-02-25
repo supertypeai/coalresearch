@@ -39,6 +39,7 @@ def fill_mining_license(
         if not matches.empty:
             # Drop "company_name" column to finalize the payload
             matches = matches.drop(columns=['company_name', 'name_cleaned', 'name_cleaned_no_space'], errors='ignore')
+            matches = matches.fillna("").replace("", None)
             records = matches.to_dict(orient="records")
         else:
             # empty list when no matches
@@ -86,13 +87,16 @@ def fillMiningContract(df: pd.DataFrame, sheet_id: int) -> pd.DataFrame:
             agreement_types = (
                 [item.strip() for item in agreement_type_str.split(",")]
                 if agreement_type_str
-                else []
+                else None
             )
 
+            def clean_val(v):
+                return None if pd.isna(v) or v == "" else v
+
             new_contract = {
-                "company_name": row.get("*mine_owner_name"),
-                "company_id": row.get("mine_owner_id"),
-                "contract_period_end": row.get("contract_period_end"),
+                "company_name": clean_val(row.get("*mine_owner_name")),
+                "company_id": clean_val(row.get("mine_owner_id")),
+                "contract_period_end": clean_val(row.get("contract_period_end")),
                 "agreement_type": agreement_types,
             }
             contract_list.append(new_contract)
