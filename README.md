@@ -832,3 +832,63 @@ interface FinancialBreakdown {
 
 
 ---
+
+## Turso Database Synchronization
+
+The script `turso/sync_v2.py` manages the synchronization between the local **SQLite database** (`db.sqlite`) and the remote **Turso cloud database**. This ensures that the production environment reflects the latest updates from the various scrapers and manual entries.
+
+### Logic and Strategy
+
+To ensure efficiency and data integrity, the script employs a **Smart Update** strategy:
+
+1.  **Two-Phase Sync (FK Safety)**:
+    - **PHASE 1 (Upsert)**: Performs `INSERT` and `UPDATE` operations in **Parent -> Child** order. This ensures that parent records exist before children refer to them.
+    - **PHASE 2 (Prune)**: Performs `DELETE` operations in **Child -> Parent** order. This ensures that child records are removed before their parent records are deleted, preventing foreign key violations.
+2.  **Change Detection (Hashing)**:
+    The script generates an **MD5 hash** for every row. It compares local hashes with remote hashes to identify exactly which rows were modified, inserted, or deleted. Only the differences are transmitted.
+3.  **Partial Sync Optimization**:
+    For large tables (e.g., `commodity_price`, `mining_license`), the script is configured to only sync data within a specific "recent" window (e.g., 60 days) to keep synchronization fast.
+4.  **Batch Processing**:
+    Data is transmitted in batches (default: 500 rows) to optimize network performance and Turso's request limits.
+
+### Data Flow
+
+```mermaid
+graph LR
+    A[(Local SQLite: db.sqlite)] -->|sync_v2.py| B[(Remote Turso: Cloud DB)]
+```
+
+### How to Use
+
+#### Prerequisites
+Ensure your `.env` file in the `turso/` directory contains:
+```env
+TURSO_DATABASE_URL=your_database_url
+TURSO_AUTH_TOKEN=your_auth_token
+```
+
+#### Commands
+
+- **Incremental Update (Recommended)**:
+  Sync only changed, new, or deleted rows.
+  ```bash
+  python turso/sync_v2.py --update
+  ```
+
+- **Dry Run**:
+  Preview what would be changed without actually modifying the Turso database.
+  ```bash
+  python turso/sync_v2.py --update --dry-run
+  ```
+
+- **Full Replace**:
+  Drop all remote tables and recreate them from the local database. Use this for schema changes.
+  ```bash
+  python turso/sync_v2.py --replace
+  ```
+
+- **Targeted Sync**:
+  Sync only a specific table.
+  ```bash
+  python turso/sync_v2.py --update --specific <table_name>
+  ```
