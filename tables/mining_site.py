@@ -19,4 +19,4 @@ def miningSitePreprocess(df: pd.DataFrame, field_types: dict, sheet):
     return df, field_types, sheet
 
 def sync_mining_site():
-    sync_model("mining_site", MiningSite, "A1:CD157", miningSitePreprocess)
+    sync_model("mining_site", MiningSite, "A1:CE157", miningSitePreprocess)

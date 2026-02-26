@@ -132,12 +132,12 @@ def create_and_connect_db(table_name=None):
         name TEXT,
         slug TEXT,
         year INTEGER,
-        assets REAL,
-        revenue REAL,
+        assets_usd REAL,
+        revenue_usd REAL,
         revenue_breakdown TEXT CHECK (json_valid(revenue_breakdown)),
-        cost_of_revenue REAL,
+        cost_of_revenue_usd REAL,
         cost_of_revenue_breakdown TEXT CHECK (json_valid(cost_of_revenue_breakdown)),
-        net_profit REAL,
+        net_profit_usd REAL,
         PRIMARY KEY (idx_ticker, year),
         FOREIGN KEY (company_id) REFERENCES company(id)
     );
@@ -204,13 +204,15 @@ def parse_company_row(headers, sub_headers, values):
             }
 
         value = values[col_idx] if col_idx < len(values) else ""
+        float_value = to_float(value)
+        usd_value = float_value * 1_000_000 if float_value is not None else None
 
         if current_metric_key in ["assets", "net_profit"]:
-            yearly_data[year_str][current_metric_key] = to_float(value)
+            yearly_data[year_str][current_metric_key] = usd_value
             col_idx += 1
 
         elif current_metric_key in ["revenue", "cost_of_revenue"]:
-            yearly_data[year_str][current_metric_key] = to_float(value)
+            yearly_data[year_str][current_metric_key] = usd_value
 
             # Check for a breakdown in the next column
             if (
@@ -221,9 +223,21 @@ def parse_company_row(headers, sub_headers, values):
                     values[col_idx + 1] if col_idx + 1 < len(values) else ""
                 )
                 breakdown_dict = parse_breakdown_string(breakdown_value)
+                # Convert breakdown values to USD if they are not percentages
+                usd_breakdown = {}
+                for k, v in breakdown_dict.items():
+                    if v is not None:
+                        # Only convert to USD if it's not a percentage key (e.g., ends with _pct)
+                        if not k.endswith("_pct"):
+                            usd_breakdown[k] = v * 1_000_000
+                        else:
+                            usd_breakdown[k] = v
+                    else:
+                        usd_breakdown[k] = None
+
                 yearly_data[year_str][
                     f"{current_metric_key}_breakdown"
-                ] = breakdown_dict
+                ] = usd_breakdown
                 col_idx += 2  # Skip value and breakdown columns
             else:
                 col_idx += 1
@@ -322,8 +336,8 @@ def sync_company_financials():
 
                 insert_query = f"""
                 INSERT OR REPLACE INTO {TABLE_NAME} (
-                    company_id, idx_ticker, name, slug, year, assets, revenue, revenue_breakdown, 
-                    cost_of_revenue, cost_of_revenue_breakdown, net_profit
+                    company_id, idx_ticker, name, slug, year, assets_usd, revenue_usd, revenue_breakdown, 
+                    cost_of_revenue_usd, cost_of_revenue_breakdown, net_profit_usd
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
                 """
 

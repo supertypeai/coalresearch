@@ -248,9 +248,9 @@ def upsert_lbma_data(conn, data: dict):
 
         cur.executemany(
             """
-            INSERT INTO commodity_price (name, date, price)
+            INSERT INTO commodity_price (name, date, price_usd_per_ton)
             VALUES (?, ?, ?)
-            ON CONFLICT(name, date) DO UPDATE SET price=excluded.price
+            ON CONFLICT(name, date) DO UPDATE SET price_usd_per_ton=excluded.price_usd_per_ton
             """,
             rows_to_insert,
         )

@@ -46,7 +46,7 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
         "tgl_berlaku", # license_effective_date
         "tgl_akhir",  # license_expiry_date
         "kegiatan",  # activity
-        "luas_sk",  # licensed_area
+        "luas_sk",  # licensed_area_ha
         "lokasi",  # location
         "komoditas_mapped",  # commodity_type
         "nama_usaha",  # company_name
@@ -119,7 +119,7 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
 #         license_effective_date TEXT,
 #         license_expiry_date TEXT,
 #         activity TEXT,
-#         licensed_area INTEGER,
+#         licensed_area_ha INTEGER,
 #         location TEXT,
 #         commodity_type TEXT,
 #         company_name TEXT,
@@ -146,7 +146,7 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
             "nama_prov": "province",
             "nama_kab": "city",
             "kegiatan": "activity",
-            "luas_sk": "licensed_area",
+            "luas_sk": "licensed_area_ha",
             "cnc": "cnc",
             "generasi": "generation",
             "lokasi": "location",
@@ -174,12 +174,12 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
     INSERT INTO mining_license (
       id, license_type, license_number, wiup_code, province, city,
       license_effective_date, license_expiry_date, activity,
-      licensed_area, location, commodity_type, company_name, company_id,
+      licensed_area_ha, location, commodity_type, company_name, company_id,
       cnc, generation, geometry
     ) VALUES (
       :id, :license_type, :license_number, :wiup_code, :province, :city,
       :license_effective_date, :license_expiry_date, :activity,
-      :licensed_area, :location, :commodity_type, :company_name, :company_id,
+      :licensed_area_ha, :location, :commodity_type, :company_name, :company_id,
       :cnc, :generation, :geometry
     )
     ON CONFLICT(id) DO UPDATE SET
@@ -191,7 +191,7 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
       license_effective_date= excluded.license_effective_date,
       license_expiry_date   = excluded.license_expiry_date,
       activity              = excluded.activity,
-      licensed_area         = excluded.licensed_area,
+      licensed_area_ha      = excluded.licensed_area_ha,
       location              = excluded.location,
       commodity_type        = excluded.commodity_type,
       company_name          = excluded.company_name,
@@ -213,7 +213,7 @@ def upsert_records(conn: sqlite3.Connection, df: pd.DataFrame):
         "license_effective_date",
         "license_expiry_date",
         "activity",
-        "licensed_area",
+        "licensed_area_ha",
         "cnc",
         "generation",
         "location",

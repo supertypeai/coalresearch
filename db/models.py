@@ -201,9 +201,10 @@ class ExportDestination(Model):
     country = TextField()
     year = IntegerField()
     commodity_type = TextField(constraints=[Check(f"commodity_type IN {commodity_type_constraints}")])
-    export_USD = FloatField(null=True)
-    export_volume_BPS = FloatField(null=True)
-    export_volume_ESDM = FloatField(null=True)
+    export_usd = FloatField(null=True)
+    export_volume_bps = FloatField(null=True)
+    export_volume_esdm = FloatField(null=True)
+    volume_unit = TextField(null=True)
 
     class Meta:
         database = db
@@ -234,7 +235,7 @@ class TotalCommoditiesProduction(Model):
 
 class CommodityPrice(Model):
     name = TextField()
-    price = FloatField()
+    price_usd_per_ton = FloatField()
     date = DateField()
 
     class Meta:
@@ -276,7 +277,7 @@ class MiningLicense(Model):
     license_effective_date = DateField()
     license_expiry_date = DateField()
     activity = TextField()
-    licensed_area = FloatField()
+    licensed_area_ha = FloatField()
     cnc = TextField(null=True)
     generation = TextField(null=True)
     location = TextField()
@@ -324,10 +325,12 @@ class SalesDestination(Model):
     country = TextField()
     idx_ticker = TextField()
     year = IntegerField()
-    revenue = FloatField(null=True)
+    revenue_usd = FloatField(null=True)
     percentage_of_total_revenue = FloatField(null=True)
     volume = FloatField(null=True)
     percentage_of_sales_volume = FloatField(null=True)
+    commodity_type = TextField()
+    unit = TextField()
 
     class Meta:
         database = db
@@ -345,19 +348,18 @@ class CompanyFinancials(Model):
     idx_ticker = TextField()
     name = TextField()
     year = IntegerField()
-    assets = FloatField()
-    revenue = FloatField()
+    assets_usd = FloatField()
+    revenue_usd = FloatField()
     revenue_breakdown = TextField(constraints=[Check("json_valid(revenue_breakdown)")])
-    cost_of_revenue = FloatField()
+    cost_of_revenue_usd = FloatField()
     cost_of_revenue_breakdown = TextField(constraints=[Check("json_valid(cost_of_revenue_breakdown)")])
-    net_profit = FloatField()
+    net_profit_usd = FloatField()
     slug = TextField()
 
     class Meta:
         database = db
         table_name = "company_financials"
         primary_key = CompositeKey("idx_ticker", "year")
-
 
 class MiningSite(Model):
     name = TextField()
@@ -373,6 +375,7 @@ class MiningSite(Model):
         on_update="NO ACTION",
         column_name="company_id"
     )
+    unit = TextField()
     production_volume = FloatField(null=True)
     overburden_removal_volume = FloatField(null=True)
     strip_ratio = FloatField(null=True)
@@ -392,7 +395,7 @@ class MiningLicenseAuction(Model):
     province = TextField()
     company_name = TextField()
     winner_date = TextField()
-    licensed_area  = FloatField()
+    licensed_area_ha = FloatField()
     license_number = TextField(unique=True)
     area_type = TextField()
     kdi = TextField()

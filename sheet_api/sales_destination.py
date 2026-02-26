@@ -5,42 +5,28 @@ import os
 
 from .google_sheets.auth import createClient
 
+from db.models import SalesDestination, db
+
 # --- Configuration ---
 WORKSHEET_NAME = "sales_destination"
-# Construct the absolute path to the database file to ensure it's in the project root.
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DB_NAME = os.path.join(PROJECT_ROOT, "db.sqlite")
-TABLE_NAME = "sales_destination"  # This table will now be structured differently
 
-
-def setup_database(db_name, table_name):
-    print(f"Connecting to database at '{db_name}'...")
-    conn = sqlite3.connect(db_name)
+def setup_database():
+    print(f"Connecting to database...")
+    db.connect()
+    
+    # Ensure the table exists and has the correct schema
+    # We will migrate by dropping and recreating to ensure schema matches models.py
+    # Since this is a sync script, this is usually acceptable.
+    if db.table_exists('sales_destination'):
+        print("Dropping existing sales_destination table...")
+        db.drop_tables([SalesDestination])
+    
+    print("Creating sales_destination table...")
+    db.create_tables([SalesDestination])
+    
+    # Return the raw connection and cursor for the rest of the script
+    conn = db.connection()
     cursor = conn.cursor()
-
-    # Drop the old table to ensure a clean slate and apply the correct schema
-    # cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
-    # print(f"Dropped existing table '{table_name}' to apply new schema.")
-
-    # # Create the table with company_id and a foreign key link
-    # create_table_query = f"""
-    # CREATE TABLE IF NOT EXISTS {table_name} (
-    #     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    #     company_id INTEGER,
-    #     country TEXT NOT NULL,
-    #     idx_ticker TEXT NOT NULL,
-    #     year INTEGER NOT NULL,
-    #     revenue REAL,
-    #     percentage_of_total_revenue REAL,
-    #     volume REAL,
-    #     percentage_of_sales_volume REAL,
-    #     UNIQUE(country, idx_ticker, year),
-    #     FOREIGN KEY (company_id) REFERENCES company(id)
-    # );
-    # """
-    # cursor.execute(create_table_query)
-    # print(f"Table '{table_name}' created successfully with company_id.")
-    conn.commit()
     return conn, cursor
 
 
@@ -63,6 +49,8 @@ def process_and_insert_data(sheet, conn, cursor):
     Parses the sheet using a block-based approach for countries and a column-based
     approach for companies and years, then inserts the data into the database.
     """
+    table_name = SalesDestination._meta.table_name
+    print(f"Using table: {table_name}")
     print("Reading all data from the worksheet...")
     all_data = sheet.get_all_values()
 
@@ -73,7 +61,7 @@ def process_and_insert_data(sheet, conn, cursor):
 
     # Map metric names from the sheet to our database column names
     metric_mapping = {
-        "Revenue (in million USD)": "revenue",
+        "Revenue (in million USD)": "revenue_usd",
         "% in total revenue": "percentage_of_total_revenue",
         "Volume (Mt)": "volume",
         "% in total sales volume": "percentage_of_sales_volume",
@@ -127,20 +115,32 @@ def process_and_insert_data(sheet, conn, cursor):
             except (ValueError, TypeError):
                 continue
 
+            # Default values for new columns
+            commodity_type = "Coal"  # Assuming Coal as this is a coal research project
+            unit = "Mt"  # Based on "Volume (Mt)" column header
+
             data_to_insert = {
                 "country": country_name,
                 "idx_ticker": active_ticker,
                 "year": year,
-                "revenue": None,
+                "revenue_usd": None,
                 "percentage_of_total_revenue": None,
                 "volume": None,
                 "percentage_of_sales_volume": None,
+                "commodity_type": commodity_type,
+                "unit": unit
             }
 
             for metric_label, row_idx_in_block in block_metric_rows.items():
                 db_column_name = metric_mapping[metric_label]
                 raw_value = all_data[row_idx_in_block][col_idx]
-                data_to_insert[db_column_name] = parse_numeric_value(raw_value)
+                parsed_value = parse_numeric_value(raw_value)
+                
+                # Transform revenue to base USD
+                if db_column_name == "revenue_usd" and parsed_value is not None:
+                     parsed_value = round(parsed_value * 1_000_000, 2)
+
+                data_to_insert[db_column_name] = parsed_value
 
             # --- NEW LOGIC: Check if all metric values are None ---
             # Create a list of the values for the metric keys
@@ -166,25 +166,32 @@ def process_and_insert_data(sheet, conn, cursor):
                     print(
                         f"    -> WARNING: Ticker '{active_ticker}' not found in 'company' table. company_id will be NULL."
                     )
+            
+            # Check for existing record to handle update vs insert if needed, 
+            # though the current script is just doing inserts and catching duplicates.
+            # We will stick to the existing pattern of INSERT.
 
             try:
                 # Update the INSERT query and the tuple of values
                 cursor.execute(
                     f"""
-                    INSERT INTO {TABLE_NAME} (
-                        company_id, country, idx_ticker, year, revenue,
-                        percentage_of_total_revenue, volume, percentage_of_sales_volume
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO {table_name} (
+                        company_id, country, idx_ticker, year, revenue_usd,
+                        percentage_of_total_revenue, volume, percentage_of_sales_volume,
+                        commodity_type, unit
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         company_id,
                         data_to_insert["country"],
                         data_to_insert["idx_ticker"],
                         data_to_insert["year"],
-                        data_to_insert["revenue"],
+                        data_to_insert["revenue_usd"],
                         data_to_insert["percentage_of_total_revenue"],
                         data_to_insert["volume"],
                         data_to_insert["percentage_of_sales_volume"],
+                        data_to_insert["commodity_type"],
+                        data_to_insert["unit"],
                     ),
                 )
                 print(f"    -> Inserted data for Year: {year}")
@@ -207,10 +214,12 @@ def main():
     """
     print("Starting script to process sales destination data...")
 
+    TABLE_NAME = SalesDestination._meta.table_name
+
     conn = None
     try:
         # 1. Setup Database
-        conn, cursor = setup_database(DB_NAME, TABLE_NAME)
+        conn, cursor = setup_database()
 
         # 2. Connect to Google Sheets
         print("Connecting to Google Sheets...")

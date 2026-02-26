@@ -238,7 +238,7 @@ def format_data(
             "province": data.get("namaProv"),
             "company_name": participant.get("perusahaanNama"),
             "winner_date": winner_date,
-            "licensed_area": data.get("luasSk"),  # Renamed from luas_sk
+            "licensed_area_ha": data.get("luasSk"),  # Renamed from luas_sk
             "license_number": data.get("nomor"),  # Renamed from nomor
             "area_type": data.get("jenisIzin"),  # Renamed from jenis_izin
             "kdi": data.get("kdi"),
@@ -402,7 +402,7 @@ def create_table(path):
     #         province TEXT,
     #         company_name TEXT,
     #         winner_date TEXT,
-    #         licensed_area REAL,
+    #         licensed_area_ha REAL,
     #         license_number TEXT UNIQUE,  --  unique identifier
     #         area_type TEXT,
     #         kdi TEXT,
@@ -497,7 +497,7 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
             row["province"],
             row["company_name"],
             row["winner_date"],
-            row["licensed_area"],
+            row["licensed_area_ha"],
             row["license_number"],
             row["area_type"],
             row["kdi"],
@@ -518,7 +518,7 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
     upsert_query = """
         INSERT INTO mining_license_auctions (
             id, commodity_type, city, province, company_name, winner_date, 
-            licensed_area, license_number, area_type, kdi, wiup_code, 
+            licensed_area_ha, license_number, area_type, kdi, wiup_code, 
             auction_status, created_at, last_modified, participant_count,
             phases, participants, winner, company_id
         )
@@ -529,7 +529,7 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
             province = excluded.province,
             company_name = excluded.company_name,
             winner_date = excluded.winner_date,
-            licensed_area = excluded.licensed_area,
+            licensed_area_ha = excluded.licensed_area_ha,
             area_type = excluded.area_type,
             kdi = excluded.kdi,
             wiup_code = excluded.wiup_code,
