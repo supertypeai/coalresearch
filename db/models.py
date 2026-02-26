@@ -175,7 +175,7 @@ class CompanyOwnership(Model):
     class Meta:
         database = db
         table_name = "company_ownership"
-        primary_key = CompositeKey("parent_company", "company")
+        primary_key = CompositeKey("parent_company_id", "company_id")
 
 
 class CompanyPerformance(Model):

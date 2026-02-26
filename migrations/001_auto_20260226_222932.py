@@ -1,4 +1,4 @@
-"""Peewee migrations -- 001_auto_20260219_150029.py.
+"""Peewee migrations -- 001_auto_20260226_222932.py.
 
 Some examples (model - class or model name)::
 
@@ -28,7 +28,7 @@ from contextlib import suppress
 
 import peewee as pw
 from peewee_migrate import Migrator
-from decimal import ROUND_HALF_EVEN
+
 
 with suppress(ImportError):
     import playhouse.postgres_ext as pw_pext
@@ -40,8 +40,8 @@ def migrate(migrator: Migrator, database: pw.Database, *, fake=False):
     @migrator.create_model
     class CommodityPrice(pw.Model):
         name = pw.TextField()
-        price = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, rounding=ROUND_HALF_EVEN)
-        date = pw.TextField()
+        price_usd_per_ton = pw.FloatField()
+        date = pw.DateField()
 
         class Meta:
             table_name = "commodity_price"
@@ -60,27 +60,27 @@ def migrate(migrator: Migrator, database: pw.Database, *, fake=False):
         key_operation = pw.TextField()
         activities = pw.TextField(null=True)
         website = pw.TextField(null=True)
-        phone_number = pw.IntegerField(null=True)
+        phone_number = pw.TextField(null=True)
         email = pw.TextField(null=True)
         mining_license = pw.TextField(null=True)
         mining_contract = pw.TextField(null=True)
-        commodity = pw.TextField(null=True)
+        commodity_type = pw.TextField(null=True)
 
         class Meta:
             table_name = "company"
 
     @migrator.create_model
     class CompanyFinancials(pw.Model):
-        company = pw.ForeignKeyField(column_name='company_id', field='id', model=migrator.orm['company'], on_delete='NO ACTION', on_update='NO ACTION')
+        company_id = pw.ForeignKeyField(column_name='company_id', field='id', model=migrator.orm['company'], on_delete='NO ACTION', on_update='NO ACTION')
         idx_ticker = pw.TextField()
         name = pw.TextField()
         year = pw.IntegerField()
-        assets = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, rounding=ROUND_HALF_EVEN)
-        revenue = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, rounding=ROUND_HALF_EVEN)
+        assets_usd = pw.FloatField()
+        revenue_usd = pw.FloatField()
         revenue_breakdown = pw.TextField()
-        cost_of_revenue = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, rounding=ROUND_HALF_EVEN)
+        cost_of_revenue_usd = pw.FloatField()
         cost_of_revenue_breakdown = pw.TextField()
-        net_profit = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, rounding=ROUND_HALF_EVEN)
+        net_profit_usd = pw.FloatField()
         slug = pw.TextField()
 
         class Meta:
@@ -89,18 +89,18 @@ def migrate(migrator: Migrator, database: pw.Database, *, fake=False):
 
     @migrator.create_model
     class CompanyOwnership(pw.Model):
-        parent_company = pw.ForeignKeyField(column_name='parent_company_id', field='id', model=migrator.orm['company'], on_delete='NO ACTION', on_update='NO ACTION')
-        company = pw.ForeignKeyField(column_name='company_id', field='id', model=migrator.orm['company'], on_delete='NO ACTION', on_update='NO ACTION')
-        percentage_ownership = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, rounding=ROUND_HALF_EVEN)
+        parent_company_id = pw.ForeignKeyField(column_name='parent_company_id', field='id', model=migrator.orm['company'], on_delete='NO ACTION', on_update='NO ACTION')
+        company_id = pw.ForeignKeyField(column_name='company_id', field='id', model=migrator.orm['company'], on_delete='NO ACTION', on_update='NO ACTION')
+        percentage_ownership = pw.FloatField()
 
         class Meta:
             table_name = "company_ownership"
-            primary_key = pw.CompositeKey('parent_company', 'company')
+            primary_key = pw.CompositeKey('parent_company_id', 'company_id')
 
     @migrator.create_model
     class CompanyPerformance(pw.Model):
         id = pw.AutoField()
-        company = pw.ForeignKeyField(column_name='company_id', field='id', model=migrator.orm['company'], on_delete='NO ACTION', on_update='NO ACTION')
+        company_id = pw.ForeignKeyField(column_name='company_id', field='id', model=migrator.orm['company'], on_delete='NO ACTION', on_update='NO ACTION')
         year = pw.IntegerField()
         commodity_type = pw.TextField()
         commodity_sub_type = pw.TextField(null=True)
@@ -116,9 +116,10 @@ def migrate(migrator: Migrator, database: pw.Database, *, fake=False):
         country = pw.TextField()
         year = pw.IntegerField()
         commodity_type = pw.TextField()
-        export_USD = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, null=True, rounding=ROUND_HALF_EVEN)
-        export_volume_BPS = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, null=True, rounding=ROUND_HALF_EVEN)
-        export_volume_ESDM = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, null=True, rounding=ROUND_HALF_EVEN)
+        export_usd = pw.FloatField(null=True)
+        export_volume_bps = pw.FloatField(null=True)
+        export_volume_esdm = pw.FloatField(null=True)
+        volume_unit = pw.TextField(null=True)
 
         class Meta:
             table_name = "export_destination"
@@ -128,9 +129,11 @@ def migrate(migrator: Migrator, database: pw.Database, *, fake=False):
         id = pw.AutoField()
         country = pw.TextField()
         resources_reserves = pw.TextField(null=True)
+        resources_reserves_unit = pw.TextField(null=True)
         resources_reserves_share = pw.TextField(null=True)
-        export_import = pw.TextField(null=True)
+        export_import_usd = pw.TextField(null=True)
         production_volume = pw.TextField(null=True)
+        production_volume_unit = pw.TextField(null=True)
         production_share = pw.TextField(null=True)
         commodity_type = pw.TextField()
 
@@ -139,13 +142,13 @@ def migrate(migrator: Migrator, database: pw.Database, *, fake=False):
 
     @migrator.create_model
     class MiningContract(pw.Model):
-        mine_owner = pw.ForeignKeyField(column_name='mine_owner_id', field='id', model=migrator.orm['company'], on_delete='NO ACTION', on_update='NO ACTION')
-        contractor = pw.ForeignKeyField(column_name='contractor_id', field='id', model=migrator.orm['company'], on_delete='NO ACTION', on_update='NO ACTION')
+        id = pw.AutoField()
+        mine_owner_id = pw.ForeignKeyField(column_name='mine_owner_id', field='id', model=migrator.orm['company'], on_delete='NO ACTION', on_update='NO ACTION')
+        contractor_id = pw.ForeignKeyField(column_name='contractor_id', field='id', model=migrator.orm['company'], on_delete='NO ACTION', on_update='NO ACTION')
         contract_period_end = pw.DateField(null=True)
 
         class Meta:
             table_name = "mining_contract"
-            primary_key = pw.CompositeKey('mine_owner', 'contractor')
 
     @migrator.create_model
     class MiningLicense(pw.Model):
@@ -158,11 +161,14 @@ def migrate(migrator: Migrator, database: pw.Database, *, fake=False):
         license_effective_date = pw.DateField()
         license_expiry_date = pw.DateField()
         activity = pw.TextField()
-        licensed_area = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, rounding=ROUND_HALF_EVEN)
+        licensed_area_ha = pw.FloatField()
+        cnc = pw.TextField(null=True)
+        generation = pw.TextField(null=True)
         location = pw.TextField()
         commodity_type = pw.TextField()
         company_name = pw.TextField()
-        company = pw.ForeignKeyField(column_name='company_id', field='id', model=migrator.orm['company'], null=True, on_delete='NO ACTION', on_update='NO ACTION')
+        company_id = pw.ForeignKeyField(column_name='company_id', field='id', model=migrator.orm['company'], null=True, on_delete='NO ACTION', on_update='NO ACTION')
+        geometry = pw.TextField(null=True)
 
         class Meta:
             table_name = "mining_license"
@@ -170,24 +176,24 @@ def migrate(migrator: Migrator, database: pw.Database, *, fake=False):
     @migrator.create_model
     class MiningLicenseAuction(pw.Model):
         id = pw.AutoField()
-        commodity = pw.TextField()
-        city = pw.TextField(null=True)
-        province = pw.TextField(null=True)
-        company_name = pw.TextField(null=True)
-        date_winner = pw.TextField(null=True)
-        permit_area = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, null=True, rounding=ROUND_HALF_EVEN)
-        license_number = pw.TextField(null=True)
-        permit_type = pw.TextField(null=True)
-        kdi = pw.TextField(null=True)
-        code_wiup = pw.TextField(null=True)
-        auction_status = pw.TextField(null=True)
-        created_at = pw.DateTimeField(null=True)
-        last_modified = pw.DateTimeField(null=True)
-        participant_count = pw.IntegerField(null=True)
-        phases = pw.TextField(null=True)
-        participants = pw.TextField(null=True)
-        winner = pw.TextField(null=True)
-        company = pw.ForeignKeyField(column_name='company_id', field='id', model=migrator.orm['company'], null=True, on_delete='NO ACTION', on_update='NO ACTION')
+        commodity_type = pw.TextField()
+        city = pw.TextField()
+        province = pw.TextField()
+        company_name = pw.TextField()
+        winner_date = pw.TextField()
+        licensed_area_ha = pw.FloatField()
+        license_number = pw.TextField(unique=True)
+        area_type = pw.TextField()
+        kdi = pw.TextField()
+        wiup_code = pw.TextField()
+        auction_status = pw.TextField()
+        created_at = pw.TextField()
+        last_modified = pw.TextField()
+        participant_count = pw.IntegerField()
+        phases = pw.TextField()
+        participants = pw.TextField()
+        winner = pw.TextField()
+        company_id = pw.ForeignKeyField(column_name='company_id', field='id', model=migrator.orm['company'], null=True, on_delete='NO ACTION', on_update='NO ACTION')
 
         class Meta:
             table_name = "mining_license_auctions"
@@ -211,13 +217,14 @@ def migrate(migrator: Migrator, database: pw.Database, *, fake=False):
         name = pw.TextField()
         project_name = pw.TextField(null=True)
         year = pw.IntegerField()
-        mineral_type = pw.TextField()
-        company = pw.ForeignKeyField(column_name='company_id', field='id', model=migrator.orm['company'], on_delete='NO ACTION', on_update='NO ACTION')
-        production_volume = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, null=True, rounding=ROUND_HALF_EVEN)
-        overburden_removal_volume = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, null=True, rounding=ROUND_HALF_EVEN)
-        strip_ratio = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, null=True, rounding=ROUND_HALF_EVEN)
-        resources_reserves = pw.TextField(null=True)
-        location = pw.TextField(null=True)
+        commodity_type = pw.TextField()
+        company_id = pw.ForeignKeyField(column_name='company_id', field='id', model=migrator.orm['company'], on_delete='NO ACTION', on_update='NO ACTION')
+        unit = pw.TextField()
+        production_volume = pw.FloatField(null=True)
+        overburden_removal_volume = pw.FloatField(null=True)
+        strip_ratio = pw.FloatField(null=True)
+        resources_reserves = pw.TextField()
+        location = pw.TextField()
 
         class Meta:
             table_name = "mining_site"
@@ -236,14 +243,16 @@ def migrate(migrator: Migrator, database: pw.Database, *, fake=False):
     @migrator.create_model
     class SalesDestination(pw.Model):
         id = pw.AutoField()
-        company = pw.ForeignKeyField(column_name='company_id', field='id', model=migrator.orm['company'], null=True, on_delete='NO ACTION', on_update='NO ACTION')
+        company_id = pw.ForeignKeyField(column_name='company_id', field='id', model=migrator.orm['company'], null=True, on_delete='NO ACTION', on_update='NO ACTION')
         country = pw.TextField()
         idx_ticker = pw.TextField()
         year = pw.IntegerField()
-        revenue = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, null=True, rounding=ROUND_HALF_EVEN)
-        percentage_of_total_revenue = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, null=True, rounding=ROUND_HALF_EVEN)
-        volume = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, null=True, rounding=ROUND_HALF_EVEN)
-        percentage_of_sales_volume = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, null=True, rounding=ROUND_HALF_EVEN)
+        revenue_usd = pw.FloatField(null=True)
+        percentage_of_total_revenue = pw.FloatField(null=True)
+        volume = pw.FloatField(null=True)
+        percentage_of_sales_volume = pw.FloatField(null=True)
+        commodity_type = pw.TextField()
+        unit = pw.TextField()
 
         class Meta:
             table_name = "sales_destination"
@@ -252,7 +261,7 @@ def migrate(migrator: Migrator, database: pw.Database, *, fake=False):
     class TotalCommoditiesProduction(pw.Model):
         id = pw.AutoField()
         commodity_type = pw.TextField()
-        production_volume = pw.DecimalField(auto_round=False, decimal_places=5, max_digits=10, rounding=ROUND_HALF_EVEN)
+        production_volume = pw.FloatField()
         unit = pw.TextField()
         year = pw.IntegerField()
 
