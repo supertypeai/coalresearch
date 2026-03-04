@@ -127,7 +127,7 @@ def batch_execute(client, sql_template, data_batch, columns):
 # -----------------------------------------------------------------------------
 # MODE: FULL REPLACE
 # -----------------------------------------------------------------------------
-def sync_table_replace(conn, client, table_name, dry_run=False):
+def sync_table_replace(conn, client, table_name, dry_run=False, skip_drop=False):
     print(f"\n[{table_name}] MODE: FULL REPLACE")
 
     schema_stmts = get_full_schema_sql(conn, table_name)
@@ -143,12 +143,16 @@ def sync_table_replace(conn, client, table_name, dry_run=False):
         print(f"   [DRY RUN] Would replace table and insert {len(rows)} rows.")
         return
 
-    print(f"   -> Recreating Table & {len(schema_stmts)-1} Indexes...")
+    if not skip_drop:
+        print(f"   -> Recreating Table & {len(schema_stmts)-1} Indexes...")
+    else:
+        print(f"   -> Creating Table & {len(schema_stmts)-1} Indexes...")
+
     try:
-        setup_stmts = [
-            Statement("PRAGMA foreign_keys = OFF"),
-            Statement(f'DROP TABLE IF EXISTS "{table_name}"'),
-        ]
+        setup_stmts = [Statement("PRAGMA foreign_keys = OFF")]
+        if not skip_drop:
+            setup_stmts.append(Statement(f'DROP TABLE IF EXISTS "{table_name}"'))
+
         for sql in schema_stmts:
             setup_stmts.append(Statement(sql))
         client.batch(setup_stmts)
@@ -360,9 +364,27 @@ def main():
 
     try:
         if args.replace:
-            # Replace is always top-down
+            if not args.specific:
+                # 1. DROP ALL TABLES (Bottom-Up: Child -> Parent)
+                print("\n>>> PHASE 1: DROPPING ALL TABLES (Child -> Parent) <<<")
+                drop_stmts = [Statement("PRAGMA foreign_keys = OFF")]
+                for t in reversed(target_tables):
+                    drop_stmts.append(Statement(f'DROP TABLE IF EXISTS "{t}"'))
+
+                if args.dry_run:
+                    print(f"   -> [DRY RUN] Would drop {len(target_tables)} tables.")
+                else:
+                    client.batch(drop_stmts)
+                    print(f"   -> Dropped {len(target_tables)} tables.")
+
+            # 2. RECREATE & INSERT (Top-Down: Parent -> Child)
+            if not args.specific:
+                print("\n>>> PHASE 2: RECREATING TABLES (Parent -> Child) <<<")
+
             for t in target_tables:
-                sync_table_replace(conn, client, t, args.dry_run)
+                sync_table_replace(
+                    conn, client, t, args.dry_run, skip_drop=not args.specific
+                )
 
         elif args.update:
             if args.specific:
