@@ -1,45 +1,5 @@
 [
     {
-        "source": "https://nikel.co.id/2026/01/26/esg-tak-lagi-jadi-risiko-utama-berubah-jadi-strategi-inti-bisnis-tambang/",
-        "timestamp": "2026-01-26 15:05:58"
-    },
-    {
-        "source": "https://nikel.co.id/2025/12/11/pelanggaran-serius-ditemukan-klh-segel-lokasi-tambang-bermasalah-di-sumbar/",
-        "timestamp": "2025-12-11 14:40:44"
-    },
-    {
-        "source": "https://nikel.co.id/2025/12/10/harga-turun-ekspor-lemah-dpr-minta-pengusaha-tambang-tetap-patuhi-esg/",
-        "timestamp": "2025-12-10 17:11:00"
-    },
-    {
-        "source": "https://nikel.co.id/2025/12/09/wamen-esdm-ada-365-iup-nikel-di-enam-provinsi/",
-        "timestamp": "2025-12-09 16:45:40"
-    },
-    {
-        "source": "https://nikel.co.id/2025/12/09/liugong-university-pusat-pembelajaran-global-dengan-lebih-dari-210-000-peserta/",
-        "timestamp": "2025-12-09 16:24:55"
-    },
-    {
-        "source": "https://nikel.co.id/2025/12/09/dukung-industri-alat-berat-liugong-bangun-pusat-pelatihan-dan-transfer-teknologi-di-indonesia/",
-        "timestamp": "2025-12-09 16:11:16"
-    },
-    {
-        "source": "https://nikel.co.id/2025/12/09/berkat-terobosan-pengolahan-shp-harita-nickel-raih-penghargaan-internasional/",
-        "timestamp": "2025-12-09 09:34:57"
-    },
-    {
-        "source": "https://nikel.co.id/2025/12/09/didukung-apni-aspindo-pertamina-lubricants-gelar-seminar-teknis-nasional-di-kendari/",
-        "timestamp": "2025-12-09 00:59:46"
-    },
-    {
-        "source": "https://nikel.co.id/2025/12/08/pengawasan-tata-niaga-mineral-jalur-darat-lemah-dpr-desak-evaluasi-surveyor/",
-        "timestamp": "2025-12-08 20:48:00"
-    },
-    {
-        "source": "https://nikel.co.id/2025/12/08/muchtazar-beberkan-strategi-hadapi-eu-battery-passport/",
-        "timestamp": "2025-12-08 19:45:00"
-    },
-    {
         "source": "https://ima-api.org/rkab-disetujui-bukit-asam-ptba-kantongi-kuota-produksi-532-juta-ton-di-2026/",
         "timestamp": "2026-03-17 00:00:00"
     },
@@ -152,12 +112,16 @@
         "timestamp": "2026-02-09 00:00:00"
     },
     {
+        "source": "https://www.ruangenergi.com/hari-air-sedunia-ini-sederet-kisah-pertamina-dari-ujung-papua-hingga-wilayah-bencana/",
+        "timestamp": "2026-03-24 00:00:00"
+    },
+    {
         "source": "https://www.ruangenergi.com/pulang-kampung-lebih-tenang-ikut-mudik-gratis-pln-simak-pengalaman-pemudik/",
         "timestamp": "2026-03-23 00:00:00"
     },
     {
-        "source": "https://www.ruangenergi.com/hutan-lestari-pertamina-menenun-harmoni-alam-menuai-kesejahteraan-masyarakat/",
-        "timestamp": "2026-03-22 00:00:00"
+        "source": "https://www.ruangenergi.com/mind-id-perkuat-hilirisasi-tiga-tahun-transformasi-menuju-pemain-global/",
+        "timestamp": "2026-03-24 00:00:00"
     },
     {
         "source": "https://www.ruangenergi.com/perhapi-iagi-dan-perminas-sepakat-garap-data-logam-tanah-jarang-nasional/",
@@ -172,12 +136,12 @@
         "timestamp": "2025-12-22 00:00:00"
     },
     {
-        "source": "https://www.ruangenergi.com/sumur-baru-di-karangan-mengalir-harapan-lifting-nasional-kembali-menguat/",
-        "timestamp": "2026-03-24 00:00:00"
+        "source": "https://www.ruangenergi.com/emp-temukan-cadangan-minyak-baru-di-riau-hidupkan-kembali-sumur-gas-bentu/",
+        "timestamp": "2026-03-25 00:00:00"
     },
     {
-        "source": "https://www.ruangenergi.com/sumur-baru-pasir-catang-mengalir-tambahan-produksi-energi-optimisme-baru/",
-        "timestamp": "2026-03-23 00:00:00"
+        "source": "https://www.ruangenergi.com/catat-ya-pemerintah-perkuat-ketahanan-energi-di-tengah-geopolitik-global-yang-bergejolak/",
+        "timestamp": "2026-03-25 00:00:00"
     },
     {
         "source": "https://www.ruangenergi.com/catatan-redaksi-energi-sebagai-nadi-bangsa-dan-urgensi-menjaga-keseimbangannya/",
@@ -214,9 +178,5 @@
     {
         "source": "https://www.ruangenergi.com/mantap-mind-id-perkuat-hilirisasi-mineral-terintegrasi-dari-hulu-hingga-hilir/",
         "timestamp": "2026-03-10 00:00:00"
-    },
-    {
-        "source": "https://www.ruangenergi.com/hujan-ekstrem-picu-banjir-garoga-perhapi-infrastruktur-tambang-justru-tahan-limpasan-air/",
-        "timestamp": "2026-03-09 00:00:00"
     }
 ]
