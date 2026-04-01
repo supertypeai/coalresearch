@@ -283,29 +283,26 @@ Source:
 - Source of the data in this table is from trusted source, specifically from:
 	1. [BPS Copper Ore](https://www.bps.go.id/en/statistics-table/1/MTAzMiMx/exports-of-copper-ore-by-major-countries-of-destination--2012-2023.html) 
 	2. [BPS Coal](https://www.bps.go.id/en/statistics-table/1/MTAzNCMx/exports-of-coal-by-major-countries-of-destination--2012-2023.html) 
-	3. Gold
+	3. [Gold in Indonesia](https://oec.world/en/profile/bilateral-product/gold/reporter/idn)
 
 And then moved to [Insider Sheets: export_destination](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=847935271#gid=847935271) at `export_destination` tab. Then, [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from [Insider Sheets: export_destination](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=847935271#gid=847935271) into the `db.sqlite`.
 
 Notes: 
 - Currently running semi-manually to sync to `db.sqlite` every time there is changes on the [Insider Sheets: export_destination](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=847935271#gid=847935271)
-- Export volume units:
-	- export destination: export volume BPS `Coal`: x 1000 ton
-	- export destination: export volume BPS `Copper`: x 1 ton
-- The Copper Ore one, is translated to `commodity = Copper` on the db. Probably need to verify this
 
 Data Flow:
 ```mermaid
 graph TD
   A1(BPS: Copper Ore) -->|manual entry| B
   A2(BPS: Coal) -->|manual entry| B
-  A3(Gold) -->|manual entry| B
+  A3(Gold in Indonesia) -->|manual entry| B
   B[Insider Sheet: export_destination] -->|synchronizer| C(db.sqlite: export_destination)
 
   %% Add clickable links to each node
   click A1 "https://www.bps.go.id/en/statistics-table/1/MTAzMiMx/exports-of-copper-ore-by-major-countries-of-destination--2012-2023.html" _blank
   click A2 "https://www.bps.go.id/en/statistics-table/1/MTAzNCMx/exports-of-coal-by-major-countries-of-destination--2012-2023.html" _blank
   click B "https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=847935271#gid=847935271" _blank
+  click A3 "https://oec.world/en/profile/bilateral-product/gold/reporter/idn" _blank
 ```
 
 | **Column**           | **Type** | **PK** | **Description**                             |
