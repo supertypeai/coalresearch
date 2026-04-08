@@ -567,25 +567,19 @@ Provincial-level resource/reserve statistics.
 
 Source: 
 - Source of the data in this table is from company annual reports or trusted websites. 
-	- Coal:  
-  https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2019.pdf
-  https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2020.pdf
-  https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2021.pdf
-  https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2022.pdf
-
+- Coal:  
   - [ESDM: Coal Handbook 2019](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2019.pdf)
   - [ESDM: Coal Handbook 2020](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2020.pdf)
   - [ESDM: Coal Handbook 2021](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2021.pdf)
   - [ESDM: Coal Handbook 2022](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2022.pdf)
   - [ESDM: Coal Handbook 2023](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2023.pdf)
   - [ESDM: Coal Handbook 2024](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2024.pdf)
-	- Metal Minerals:
-		1. [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2025](https://geologi.esdm.go.id/publikasi/laporan-dan-buku/neraca-sumber-daya-dan-cadangan-mineral-batubara-dan-panas-bumi-indonesia-tahun-2025)
-  - Metal Minerals:
-    - [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2025](https://geologi.esdm.go.id/publikasi/laporan-dan-buku/neraca-sumber-daya-dan-cadangan-mineral-batubara-dan-panas-bumi-indonesia-tahun-2025)
-    - [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2023](https://geologi.esdm.go.id/publikasi/laporan-dan-buku/neraca-sumber-daya-dan-cadangan-mineral-batubara-dan-panas-bumi-indonesia-tahun-2023)
-    - [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2022](https://geologi.esdm.go.id/publikasi/laporan-dan-buku/neraca-sumber-daya-mineral-batubara-dan-panas-bumi-indonesia-tahun-2022)
-    - [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2021](https://geologi.esdm.go.id/publikasi/laporan-dan-buku/neraca-sumber-daya-dan-cadangan-mineral-batubara-dan-panas-bumi-indonesia-tahun-2021)
+
+- Metal Minerals:
+  - [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2025](https://geologi.esdm.go.id/publikasi/laporan-dan-buku/neraca-sumber-daya-dan-cadangan-mineral-batubara-dan-panas-bumi-indonesia-tahun-2025)
+  - [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2023](https://geologi.esdm.go.id/publikasi/laporan-dan-buku/neraca-sumber-daya-dan-cadangan-mineral-batubara-dan-panas-bumi-indonesia-tahun-2023)
+  - [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2022](https://geologi.esdm.go.id/publikasi/laporan-dan-buku/neraca-sumber-daya-mineral-batubara-dan-panas-bumi-indonesia-tahun-2022)
+  - [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2021](https://geologi.esdm.go.id/publikasi/laporan-dan-buku/neraca-sumber-daya-dan-cadangan-mineral-batubara-dan-panas-bumi-indonesia-tahun-2021)
 
 
 
