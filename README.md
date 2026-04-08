@@ -568,10 +568,26 @@ Provincial-level resource/reserve statistics.
 Source: 
 - Source of the data in this table is from company annual reports or trusted websites. 
 	- Coal:  
-		1. [ESDM: Coal Handbook 2023](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2023.pdf)
-		2. [ESDM: Coal Handbook 2024](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2024.pdf)
+  https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2019.pdf
+  https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2020.pdf
+  https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2021.pdf
+  https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2022.pdf
+
+  - [ESDM: Coal Handbook 2019](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2019.pdf)
+  - [ESDM: Coal Handbook 2020](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2020.pdf)
+  - [ESDM: Coal Handbook 2021](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2021.pdf)
+  - [ESDM: Coal Handbook 2022](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2022.pdf)
+  - [ESDM: Coal Handbook 2023](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2023.pdf)
+  - [ESDM: Coal Handbook 2024](https://www.esdm.go.id/assets/media/content/content-handbook-of-energy-and-economic-statistics-of-indonesia-2024.pdf)
 	- Metal Minerals:
 		1. [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2025](https://geologi.esdm.go.id/publikasi/laporan-dan-buku/neraca-sumber-daya-dan-cadangan-mineral-batubara-dan-panas-bumi-indonesia-tahun-2025)
+  - Metal Minerals:
+    - [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2025](https://geologi.esdm.go.id/publikasi/laporan-dan-buku/neraca-sumber-daya-dan-cadangan-mineral-batubara-dan-panas-bumi-indonesia-tahun-2025)
+    - [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2023](https://geologi.esdm.go.id/publikasi/laporan-dan-buku/neraca-sumber-daya-dan-cadangan-mineral-batubara-dan-panas-bumi-indonesia-tahun-2023)
+    - [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2022](https://geologi.esdm.go.id/publikasi/laporan-dan-buku/neraca-sumber-daya-mineral-batubara-dan-panas-bumi-indonesia-tahun-2022)
+    - [ESDM: Sumber Daya dan Cadangan Mineral dan Batubara Indonesia Tahun 2021](https://geologi.esdm.go.id/publikasi/laporan-dan-buku/neraca-sumber-daya-dan-cadangan-mineral-batubara-dan-panas-bumi-indonesia-tahun-2021)
+
+
 
 They then moved to [Insider Sheets: resources_and_reserves](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2049719033#gid=2049719033) at `resources_and_reserves` tab. Then, [synchronizer.py](https://github.com/supertypeai/coalresearch/blob/main/synchronizer.py) script transfer this data from [Insider Sheets: resources_and_reserves](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2049719033#gid=2049719033) into the `db.sqlite`.
 
@@ -604,8 +620,8 @@ graph TD
 **`Coal`**
 ```typescript
 interface CoalProvincialResources {
-  exploration_target        : number;
-  total_inventory           : number;
+  exploration_target_Mt     : number;
+  total_inventory_Mt        : number;
   inferred_resources_Mt     : number;
   indicated_resources_Mt    : number;
   measured_resources_Mt     : number;
@@ -619,20 +635,20 @@ interface CoalProvincialResources {
 **`Minerals (Nickel, Copper, Gold, Silver, Tin, Cobalt)`**
 ```typescript
 interface MineralProvincialResources {
-  ore_inferred_resources_Mt : number;
-  inferred_resources_Mt     : number;
-  ore_indicated_resources_Mt: number;
-  indicated_resources_Mt    : number;
-  ore_measured_resources_Mt : number;
-  measured_resources_Mt     : number;
-  ore_total_resources_Mt    : number;
-  total_resources_Mt        : number;
-  ore_probable_reserves_Mt  : number;
-  probable_reserves_Mt      : number;
-  ore_proven_reserves_Mt    : number;
-  proven_reserves_Mt        : number;
-  ore_total_reserves_Mt     : number;
-  total_reserves_Mt         : number;
+  ore_inferred_resources_kt : number;
+  inferred_resources_kt     : number;
+  ore_indicated_resources_kt: number;
+  indicated_resources_kt    : number;
+  ore_measured_resources_kt : number;
+  measured_resources_kt     : number;
+  ore_total_resources_kt    : number;
+  total_resources_kt        : number;
+  ore_probable_reserves_kt  : number;
+  probable_reserves_kt      : number;
+  ore_proven_reserves_kt    : number;
+  proven_reserves_kt        : number;
+  ore_total_reserves_kt     : number;
+  total_reserves_kt         : number;
 }
 ```
 

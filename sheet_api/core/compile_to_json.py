@@ -89,31 +89,31 @@ LIMONITE_MINE = [
 
 # Resources and Reserves
 RESERVES_RESOURCES_COAL = [
-    ("exploration_target", float),
-    ("total_inventory", float),
-    ("inferred_resources_Mt", float),
-    ("indicated_resources_Mt", float),
-    ("measured_resources_Mt", float),
-    ("total_resources_Mt", float),
-    ("total_resources_verify_Mt", float),
-    ("total_reserves_Mt", float),
-    ("total_reserves_verify_Mt", float)
+    ("exploration_target_t", float),
+    ("total_inventory_t", float),
+    ("inferred_resources_t", float),
+    ("indicated_resources_t", float),
+    ("measured_resources_t", float),
+    ("total_resources_t", float),
+    ("total_resources_verify_t", float),
+    ("total_reserves_t", float),
+    ("total_reserves_verify_t", float)
 ]
 RESERVES_RESOURCES_METAL = [
-    ("ore_inferred_resources_Mt", float),
-    ("inferred_resources_Mt", float),
-    ("ore_indicated_resources_Mt", float),
-    ("indicated_resources_Mt", float),
-    ("ore_measured_resources_Mt", float),
-    ("measured_resources_Mt", float),
-    ("ore_total_resources_Mt", float),
-    ("total_resources_Mt", float),
-    ("ore_probable_reserves_Mt", float),
-    ("probable_reserves_Mt", float),
-    ("ore_proven_reserves_Mt", float),
-    ("proven_reserves_Mt", float),
-    ("ore_total_reserves_Mt", float),
-    ("total_reserves_Mt", float)
+    ("ore_inferred_resources_t", float),
+    ("inferred_resources_t", float),
+    ("ore_indicated_resources_t", float),
+    ("indicated_resources_t", float),
+    ("ore_measured_resources_t", float),
+    ("measured_resources_t", float),
+    ("ore_total_resources_t", float),
+    ("total_resources_t", float),
+    ("ore_probable_reserves_t", float),
+    ("probable_reserves_t", float),
+    ("ore_proven_reserves_t", float),
+    ("proven_reserves_t", float),
+    ("ore_total_reserves_t", float),
+    ("total_reserves_t", float)
 ]		
 
 def compileToJsonBatch(df, included_columns, target_col, sheet_id, starts_from=0):
@@ -355,21 +355,3 @@ def batchUpdateSheet(rows: list, sheet_id: int, starts_from: int, length: int, c
 
     return response
 
-def renderCoalResourcesReserves(row):
-    return renderDict(row, RESERVES_RESOURCES_COAL)
-    
-def renderMetalResourcesReserves(row):
-    return renderDict(row, RESERVES_RESOURCES_METAL)
-
-def jsonifyProvincesResourcesReserves(df: pd.DataFrame) -> pd.DataFrame:
-    renderMap = {
-        'Coal': renderCoalResourcesReserves,
-    }
-
-    for rowid, row in df.iterrows():
-        commodity = row['commodity_type']
-        renderFunction = renderMap.get(commodity, renderMetalResourcesReserves)
-        df.at[rowid, 'resources_reserves'] = json.dumps(renderFunction(row))
-
-    return df
-# %%
