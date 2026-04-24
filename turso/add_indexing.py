@@ -25,7 +25,7 @@ INDEX_STATEMENTS = [
     # --- Highest Impact ---
     "CREATE INDEX IF NOT EXISTS idx_company_performance_company_id ON company_performance (company_id);",
     "CREATE INDEX IF NOT EXISTS idx_mining_site_company_id ON mining_site (company_id);",
-    "CREATE INDEX IF NOT EXISTS idx_company_idx_ticker ON company (idx_ticker);",
+    "CREATE INDEX IF NOT EXISTS idx_company_symbol ON company (symbol);",
     "CREATE INDEX IF NOT EXISTS idx_mining_license_company_id ON mining_license (company_id);",
     # --- High Impact ---
     "CREATE INDEX IF NOT EXISTS idx_company_ownership_parent_id ON company_ownership (parent_company_id);",

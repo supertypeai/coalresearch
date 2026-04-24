@@ -121,7 +121,7 @@ def process_and_insert_data(sheet, conn, cursor):
 
             data_to_insert = {
                 "country": country_name,
-                "idx_ticker": active_ticker,
+                "symbol": active_ticker,
                 "year": year,
                 "revenue_usd": None,
                 "percentage_of_total_revenue": None,
@@ -157,7 +157,7 @@ def process_and_insert_data(sheet, conn, cursor):
             company_id = None
             if active_ticker:
                 cursor.execute(
-                    "SELECT id FROM company WHERE idx_ticker = ?", (active_ticker,)
+                    "SELECT id FROM company WHERE symbol = ?", (active_ticker,)
                 )
                 result = cursor.fetchone()
                 if result:
@@ -176,7 +176,7 @@ def process_and_insert_data(sheet, conn, cursor):
                 cursor.execute(
                     f"""
                     INSERT INTO {table_name} (
-                        company_id, country, idx_ticker, year, revenue_usd,
+                        company_id, country, symbol, year, revenue_usd,
                         percentage_of_total_revenue, volume, percentage_of_sales_volume,
                         commodity_type, unit
                     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -184,7 +184,7 @@ def process_and_insert_data(sheet, conn, cursor):
                     (
                         company_id,
                         data_to_insert["country"],
-                        data_to_insert["idx_ticker"],
+                        data_to_insert["symbol"],
                         data_to_insert["year"],
                         data_to_insert["revenue_usd"],
                         data_to_insert["percentage_of_total_revenue"],

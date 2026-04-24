@@ -66,11 +66,11 @@ CONFLICT_TARGET = {
     # "mining_license_auctions_v2": ["number"],
     "mining_news": ["source"],
     "sales_destination": ["id"],
-    "company_financials": ["idx_ticker", "year"],
+    "company_financials": ["symbol", "year"],
     # V2 tables - uncomment when ready to sync to Turso
     "company_v2": ["id"],
     "company_performance_v2": ["id"],
-    "company_financials_v2": ["idx_ticker", "year"],
+    "company_financials_v2": ["symbol", "year"],
 }
 
 

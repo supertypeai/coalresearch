@@ -11,7 +11,7 @@ TABLE_STATEMENTS = [
     CREATE TABLE IF NOT EXISTS company (
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         name TEXT NOT NULL,
-        idx_ticker TEXT,
+        symbol TEXT,
         operation_province TEXT,
         operation_kabkot TEXT,
         representative_address TEXT,
@@ -233,7 +233,7 @@ TABLE_STATEMENTS = [
         id INTEGER PRIMARY KEY, -- Changed: Simplified from AUTOINCREMENT
         company_id INTEGER,
         country TEXT NOT NULL,
-        idx_ticker TEXT NOT NULL,
+        symbol TEXT NOT NULL,
         year INTEGER NOT NULL,
         revenue REAL,
         percentage_of_total_revenue REAL,
@@ -245,7 +245,7 @@ TABLE_STATEMENTS = [
     """
     CREATE TABLE IF NOT EXISTS company_financials (
         company_id INTEGER,
-        idx_ticker TEXT,
+        symbol TEXT,
         name TEXT,
         year INTEGER,
         assets REAL,
@@ -254,7 +254,7 @@ TABLE_STATEMENTS = [
         cost_of_revenue REAL,
         cost_of_revenue_breakdown TEXT, -- Changed: Removed JSON validity check
         net_profit REAL,
-        PRIMARY KEY (idx_ticker, year), -- Changed: Added comma before FOREIGN KEY
+        PRIMARY KEY (symbol, year), -- Changed: Added comma before FOREIGN KEY
         FOREIGN KEY (company_id) REFERENCES company(id)
     );
     """,
@@ -263,7 +263,7 @@ TABLE_STATEMENTS = [
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         name TEXT NOT NULL,
         slug TEXT NOT NULL UNIQUE,
-        idx_ticker TEXT,
+        symbol TEXT,
         operation_province TEXT,
         operation_kabkot TEXT,
         representative_address TEXT,
@@ -296,7 +296,7 @@ TABLE_STATEMENTS = [
     """
     CREATE TABLE IF NOT EXISTS company_financials_v2 (
         company_id INTEGER,
-        idx_ticker TEXT,
+        symbol TEXT,
         name TEXT,
         slug TEXT,
         year INTEGER,
@@ -306,7 +306,7 @@ TABLE_STATEMENTS = [
         cost_of_revenue REAL,
         cost_of_revenue_breakdown TEXT,
         net_profit REAL,
-        PRIMARY KEY (idx_ticker, year),
+        PRIMARY KEY (symbol, year),
         FOREIGN KEY (company_id) REFERENCES company_v2(id)
     );
     """,
@@ -325,7 +325,7 @@ TABLE_STATEMENTS = [
     #     CREATE TABLE IF NOT EXISTS mineral_company_report (
     #     id INTEGER PRIMARY KEY,
     #     name TEXT NOT NULL,
-    #     idx_ticker TEXT,
+    #     symbol TEXT,
     #     operation_province TEXT,
     #     operation_kabkot TEXT,
     #     representative_address TEXT,

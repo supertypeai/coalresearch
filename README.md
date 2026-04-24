@@ -78,7 +78,7 @@ graph TD
 | `id`                     | INTEGER           | Yes    | Company identifier.                                                                  |
 | `name`                   | TEXT              | No     | Official company name.                                                               |
 | `slug`                   | TEXT              | Unique | URL-friendly slug (e.g., "pt-adaro-andalan-indonesia-tbk"). Auto-generated from name. |
-| `idx_ticker`             | TEXT              | No     | IDX stock ticker (if listed).                                                        |
+| `symbol`             | TEXT              | No     | IDX stock ticker (if listed).                                                        |
 | `operation_province`     | TEXT              | No     | Province of main operations.                                                         |
 | `operation_district`     | TEXT              | No     | Regency/City of operations.                                                          |
 | `representative_address` | TEXT              | No     | Registered corporate address.                                                        |
@@ -665,7 +665,7 @@ Records the sales breakdown by destination country for each company, including r
 | `id`                          | INTEGER  | Yes    | Unique row identifier.                                                         |
 | `company_id`                  | INTEGER  | No     | Foreign key referencing the company (↔︎ `company.id`).                          |
 | `country`                     | TEXT     | No     | The destination country for the sales.                                         |
-| `idx_ticker`                  | TEXT     | No     | The IDX stock ticker of the company, if applicable.                            |
+| `symbol`                  | TEXT     | No     | The IDX stock ticker of the company, if applicable.                            |
 | `year`                        | INTEGER  | No     | The reporting year for the sales data.                                         |
 | `revenue`                     | REAL     | No     | Revenue generated from sales to this specific country (e.g., in millions USD). |
 | `percentage_of_total_revenue` | REAL     | No     | The portion of the company's total revenue attributed to this country (%).     |
@@ -810,7 +810,7 @@ Financial data (assets, revenue, profit) by company and year, with slug support.
 **Source:**
 - Financial data is manually collected from company annual reports and entered into [Insider Sheets](https://docs.google.com/spreadsheets/d/19wfJ2fc9qKeR22dMIO2rEQLkit8E4bGsHA1u0USqTQk/edit?gid=2112285298#gid=2112285298) in the `company_financials` tab
 - The [tables/company_financials.py](https://github.com/supertypeai/coalresearch/blob/main/tables/company_financials.py) script reads this data from Google Sheets and processes it into yearly records
-- Slug is automatically populated from company table based on `idx_ticker`
+- Slug is automatically populated from company table based on `symbol`
 
 **Notes:**
 - Currently requires manual execution of the sync script when data changes in the Insider Sheets
@@ -819,7 +819,7 @@ Financial data (assets, revenue, profit) by company and year, with slug support.
 | **Column**                  | **Type**    | **PK**  | **Description**                                                                                    |
 | --------------------------- | ----------- | ------- | -------------------------------------------------------------------------------------------------- |
 | `company_id`                | INTEGER     | No      | Foreign key referencing the company (↔︎ `company.id`).                                             |
-| `idx_ticker`                | TEXT        | Yes (1) | The IDX stock ticker for the company.                                                              |
+| `symbol`                | TEXT        | Yes (1) | The IDX stock ticker for the company.                                                              |
 | `name`                      | TEXT        | No      | The name of the company.                                                                           |
 | `slug`                      | TEXT        | No      | URL-friendly company slug from `company` table (e.g., "pt-adaro-andalan-indonesia-tbk").           |
 | `year`                      | INTEGER     | Yes (2) | The reporting year for the financial data.                                                         |

@@ -6,9 +6,9 @@ import synchronizer
 
 def main():
     c_sheet, c_df = getSheetAll('company')
-    c_df.loc[c_df['idx_ticker'] == '', 'idx_ticker'] = None
+    c_df.loc[c_df['symbol'] == '', 'symbol'] = None
 
-    c_df.sort_values(by='idx_ticker', ascending=True, inplace=True)
+    c_df.sort_values(by='symbol', ascending=True, inplace=True)
     c_df.reset_index(drop=True, inplace=True)
     c_df['id'] = c_df.index + 1
 

@@ -128,7 +128,7 @@ def create_and_connect_db(table_name=None):
     create_table_query = f"""
     CREATE TABLE IF NOT EXISTS {table} (
         company_id INTEGER,
-        idx_ticker TEXT,
+        symbol TEXT,
         name TEXT,
         slug TEXT,
         year INTEGER,
@@ -138,7 +138,7 @@ def create_and_connect_db(table_name=None):
         cost_of_revenue_usd REAL,
         cost_of_revenue_breakdown TEXT CHECK (json_valid(cost_of_revenue_breakdown)),
         net_profit_usd REAL,
-        PRIMARY KEY (idx_ticker, year),
+        PRIMARY KEY (symbol, year),
         FOREIGN KEY (company_id) REFERENCES company(id)
     );
     """
@@ -165,7 +165,7 @@ def parse_company_row(headers, sub_headers, values):
     if not values or not values[0] or not values[0].strip():
         return None
 
-    company_base_info = {"idx_ticker": values[0], "name": values[1]}
+    company_base_info = {"symbol": values[0], "name": values[1]}
     yearly_data = {}  # Using a dict with year as key to aggregate data
 
     header_map = {
@@ -252,7 +252,7 @@ def parse_company_row(headers, sub_headers, values):
         final_records.append(full_record)
 
     print(
-        f"Successfully parsed {len(final_records)} yearly records for ticker: {company_base_info['idx_ticker']}"
+        f"Successfully parsed {len(final_records)} yearly records for ticker: {company_base_info['symbol']}"
     )
     return final_records
 
@@ -302,12 +302,12 @@ def sync_company_financials():
             for record in yearly_records:
                 company_id = None
                 slug = None
-                ticker = record.get("idx_ticker")
+                ticker = record.get("symbol")
 
                 if ticker:
                     # Look up company_id and slug from the company table
                     cursor.execute(
-                        "SELECT id, slug FROM company WHERE idx_ticker = ?",
+                        "SELECT id, slug FROM company WHERE symbol = ?",
                         (ticker,),
                     )
                     result = cursor.fetchone()
@@ -322,7 +322,7 @@ def sync_company_financials():
                 # Build insert query
                 db_tuple = (
                     company_id,
-                    record["idx_ticker"],
+                    record["symbol"],
                     record["name"],
                     slug,
                     record["year"],
@@ -336,7 +336,7 @@ def sync_company_financials():
 
                 insert_query = f"""
                 INSERT OR REPLACE INTO {TABLE_NAME} (
-                    company_id, idx_ticker, name, slug, year, assets_usd, revenue_usd, revenue_breakdown, 
+                    company_id, symbol, name, slug, year, assets_usd, revenue_usd, revenue_breakdown, 
                     cost_of_revenue_usd, cost_of_revenue_breakdown, net_profit_usd
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
                 """
@@ -344,7 +344,7 @@ def sync_company_financials():
                 cursor.execute(insert_query, db_tuple)
                 processed_count += 1
                 print(
-                    f"  > Saved data for {record['idx_ticker']} for year {record['year']}."
+                    f"  > Saved data for {record['symbol']} for year {record['year']}."
                 )
 
         if processed_count > 0:

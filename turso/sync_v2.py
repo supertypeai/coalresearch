@@ -117,7 +117,8 @@ def get_primary_keys(conn, table_name):
 
 
 def batch_execute(client, sql_template, data_batch, columns):
-    stmts = [Statement("PRAGMA foreign_keys = OFF")]
+    client.execute("PRAGMA foreign_keys = OFF")
+    stmts = []
     for row in data_batch:
         values = [serialize_value(row[col]) for col in columns]
         stmts.append(Statement(sql_template, args=values))
@@ -149,7 +150,11 @@ def sync_table_replace(conn, client, table_name, dry_run=False, skip_drop=False)
         print(f"   -> Creating Table & {len(schema_stmts)-1} Indexes...")
 
     try:
-        setup_stmts = [Statement("PRAGMA foreign_keys = OFF")]
+        # PRAGMA must be executed separately — it is a session-level statement
+        # and is silently ignored when sent inside a batch() on Turso/libSQL.
+        client.execute("PRAGMA foreign_keys = OFF")
+
+        setup_stmts = []
         if not skip_drop:
             setup_stmts.append(Statement(f'DROP TABLE IF EXISTS "{table_name}"'))
 
@@ -301,9 +306,10 @@ def sync_table_update(
         sql = f'UPDATE "{table_name}" SET {assigns} WHERE {where_pk}'
 
         print(f"   -> Updating {len(to_update)} rows...")
+        client.execute("PRAGMA foreign_keys = OFF")
         for i in range(0, len(to_update), BATCH_SIZE):
             batch = to_update[i : i + BATCH_SIZE]
-            stmts = [Statement("PRAGMA foreign_keys = OFF")]
+            stmts = []
             for row in batch:
                 vals = [serialize_value(row[c]) for c in columns if c not in pks]
                 pk_vals = [serialize_value(row[pk]) for pk in pks]
@@ -316,9 +322,10 @@ def sync_table_update(
         sql = f'DELETE FROM "{table_name}" WHERE {where_pk}'
 
         print(f"   -> Deleting {len(to_delete)} rows...")
+        client.execute("PRAGMA foreign_keys = OFF")
         for i in range(0, len(to_delete), BATCH_SIZE):
             batch = to_delete[i : i + BATCH_SIZE]
-            stmts = [Statement("PRAGMA foreign_keys = OFF")]
+            stmts = []
             for key_tuple in batch:
                 stmts.append(Statement(sql, args=list(key_tuple)))
             client.batch(stmts)

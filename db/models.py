@@ -103,7 +103,7 @@ class Company(Model):
     id = IntegerField(primary_key=True)
     name = TextField()  # NOT NULL by default
     slug = TextField(unique=True)
-    idx_ticker = TextField(null=True)
+    symbol = TextField(null=True)
     operation_province = TextField(
         null=True,
         constraints=[Check(f"operation_province IN {province_constraints}")],
@@ -325,7 +325,7 @@ class SalesDestination(Model):
         on_update="NO ACTION",
     )
     country = TextField()
-    idx_ticker = TextField()
+    symbol = TextField()
     year = IntegerField()
     revenue_usd = FloatField(null=True)
     percentage_of_total_revenue = FloatField(null=True)
@@ -347,7 +347,7 @@ class CompanyFinancials(Model):
         on_delete="NO ACTION",
         on_update="NO ACTION",
     )
-    idx_ticker = TextField()
+    symbol = TextField()
     name = TextField()
     year = IntegerField()
     assets_usd = FloatField()
@@ -361,7 +361,7 @@ class CompanyFinancials(Model):
     class Meta:
         database = db
         table_name = "company_financials"
-        primary_key = CompositeKey("idx_ticker", "year")
+        primary_key = CompositeKey("symbol", "year")
 
 class MiningSite(Model):
     name = TextField()
