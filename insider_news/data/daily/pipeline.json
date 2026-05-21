@@ -1,45 +1,5 @@
 [
     {
-        "source": "https://www.mining.com/web/nickel-price-spikes-as-risks-to-supply-grow-in-top-producer-indonesia/",
-        "timestamp": "2026-05-19 00:00:00"
-    },
-    {
-        "source": "https://www.mining.com/web/tsingshan-asks-some-indonesian-nickel-producers-to-cut-output-to-free-power-for-aluminum/",
-        "timestamp": "2026-05-18 00:00:00"
-    },
-    {
-        "source": "https://www.mining.com/web/sulfur-squeeze-piles-more-pressure-on-indonesian-nickel-sector/",
-        "timestamp": "2026-05-15 00:00:00"
-    },
-    {
-        "source": "https://www.mining.com/web/chinese-firms-warn-indonesias-nickel-quotas-tax-hikes-threaten-investment/",
-        "timestamp": "2026-05-13 00:00:00"
-    },
-    {
-        "source": "https://www.mining.com/web/indonesia-delays-plan-to-impose-higher-royalties-export-duties-on-minerals/",
-        "timestamp": "2026-05-11 00:00:00"
-    },
-    {
-        "source": "https://www.mining.com/web/nickel-associations-of-indonesia-philippines-sign-agreement-on-cooperation/",
-        "timestamp": "2026-05-08 00:00:00"
-    },
-    {
-        "source": "https://www.mining.com/web/tsingshan-seeks-lme-listing-for-indonesian-aluminum/",
-        "timestamp": "2026-05-07 00:00:00"
-    },
-    {
-        "source": "https://www.mining.com/web/indonesia-philippines-to-discuss-nickel-cooperation/",
-        "timestamp": "2026-05-06 00:00:00"
-    },
-    {
-        "source": "https://www.mining.com/web/huayou-cuts-output-at-indonesian-nickel-plant-as-sulphur-costs-surge/",
-        "timestamp": "2026-04-28 00:00:00"
-    },
-    {
-        "source": "https://www.mining.com/web/nickel-price-rises-to-two-year-high-as-supplies-from-indonesia-tighten/",
-        "timestamp": "2026-04-27 00:00:00"
-    },
-    {
         "source": "https://nikel.co.id/2026/01/26/esg-tak-lagi-jadi-risiko-utama-berubah-jadi-strategi-inti-bisnis-tambang/",
         "timestamp": "2026-01-26 15:05:58"
     },
@@ -80,40 +40,44 @@
         "timestamp": "2025-12-08 19:45:00"
     },
     {
-        "source": "https://ima-api.org/soal-kabar-pembentukan-badan-ekspor-ini-kata-rosan-dan-bahlil/",
-        "timestamp": "2026-05-20 00:00:00"
+        "source": "https://ima-api.org/prabowo-bentuk-danantara-sumberdaya-indonesia-ekspor-sda-jadi-satu-pintu/",
+        "timestamp": "2026-05-21 00:00:00"
     },
     {
-        "source": "https://ima-api.org/pemerintah-temui-pengusaha-tambang-china-bahas-kendala-bisnis/",
-        "timestamp": "2026-05-20 00:00:00"
+        "source": "https://ima-api.org/ini-alasan-danantara-bentuk-pt-dsi-bumn-baru-pengelola-ekspor-komoditas-ri/",
+        "timestamp": "2026-05-21 00:00:00"
     },
     {
-        "source": "https://ima-api.org/penerimaan-negara-sektor-minerba-naik-jadi-rp489-triliun-per-april-2026/",
-        "timestamp": "2026-05-20 00:00:00"
+        "source": "https://ima-api.org/negara-mitra-ri-dapat-kelonggaran-aturan-dhe-sda/",
+        "timestamp": "2026-05-21 00:00:00"
     },
     {
-        "source": "https://ima-api.org/diprotes-pengusaha-china-esdm-buka-opsi-evaluasi-aturan-tambang-dan-hilirisasi/",
-        "timestamp": "2026-05-20 00:00:00"
+        "source": "https://ima-api.org/ekspor-batu-bara-lewat-danantara-pengusaha-waswas-kontrak-jangka-panjang/",
+        "timestamp": "2026-05-21 00:00:00"
     },
     {
-        "source": "https://ima-api.org/esdm-denda-perusahaan-bauksit-rp17709-miliar-gegara-tak-bangun-smelter/",
-        "timestamp": "2026-05-20 00:00:00"
+        "source": "https://ima-api.org/weda-bay-nickel-pangkas-65-tenaga-kerja-imbas-kuota-produksi-turun/",
+        "timestamp": "2026-05-21 00:00:00"
     },
     {
-        "source": "https://ima-api.org/merdeka-resources-guyur-tambang-emas-pani-rp-3-triliun/",
-        "timestamp": "2026-05-20 00:00:00"
+        "source": "https://ima-api.org/saham-ptba-diserok-harga-bisa-bisa-ke-sini/",
+        "timestamp": "2026-05-21 00:00:00"
     },
     {
-        "source": "https://ima-api.org/buma-internasional-grup-doid-berencana-buyback-saham-us-6-juta/",
-        "timestamp": "2026-05-20 00:00:00"
+        "source": "https://ima-api.org/regulasi-kerap-berubah-nasib-emiten-sektor-minerba-tak-menentu/",
+        "timestamp": "2026-05-21 00:00:00"
     },
     {
-        "source": "https://ima-api.org/dirjen-minerba-produksi-batubara-tembus-229-juta-ton-per-april-2026/",
-        "timestamp": "2026-05-20 00:00:00"
+        "source": "https://ima-api.org/danantara-kantongi-calon-bos-dsi-skema-ekspor-sda-masuk-fase-baru-september-2026/",
+        "timestamp": "2026-05-21 00:00:00"
     },
     {
-        "source": "https://ima-api.org/harga-batu-bara-melonjak-3-hari-terbakar-mega-proyek-india/",
-        "timestamp": "2026-05-20 00:00:00"
+        "source": "https://ima-api.org/harga-batu-bara-ambruk-kebijakan-indonesia-jadi-sorotan-dunia/",
+        "timestamp": "2026-05-21 00:00:00"
+    },
+    {
+        "source": "https://ima-api.org/europe-must-break-chinas-grip-on-rare-earths-pricing-to-spur-investment-sector-body-says/",
+        "timestamp": "2026-05-21 00:00:00"
     },
     {
         "source": "https://ima-api.org/chinese-firms-warn-indonesias-nickel-quotas-tax-hikes-threaten-investment/",
@@ -146,10 +110,6 @@
     {
         "source": "https://ima-api.org/projected-copper-shortfall-opens-up-investment-opportunities/",
         "timestamp": "2026-01-12 00:00:00"
-    },
-    {
-        "source": "https://ima-api.org/ghana-mineral-exploration-tax-reform-aims-to-boost-sector-investment/",
-        "timestamp": "2025-11-18 00:00:00"
     },
     {
         "source": "https://www.ruangenergi.com/dukung-transisi-eneri-pertambangan-ppsdm-kebtke-dan-pt-saptaindra-sejati-gelar-pelatihan-basic-safety-kelistrikan-hev/",
@@ -216,12 +176,12 @@
         "timestamp": "2025-12-22 00:00:00"
     },
     {
-        "source": "https://www.ruangenergi.com/iwan-prajogi-bongkar-strategi-medco-gas-tetap-raja-ai-jadi-masa-depan/",
-        "timestamp": "2026-05-20 00:00:00"
+        "source": "https://www.ruangenergi.com/medcoenergi-perkuat-pasokan-gas-domestik-melalui-kesepakatan-komersialisasi-gas-sakakemang-dan-corridor/",
+        "timestamp": "2026-05-21 00:00:00"
     },
     {
-        "source": "https://www.ruangenergi.com/dulu-rawan-kriminal-sekarang-bawa-berkah-cerita-warga-di-balik-sumur-minyak-batanghari/",
-        "timestamp": "2026-05-20 00:00:00"
+        "source": "https://www.ruangenergi.com/di-hadapan-mahasiswa-pertamina-bagikan-strategi-jaga-ketahanan-energi/",
+        "timestamp": "2026-05-21 00:00:00"
     },
     {
         "source": "https://www.ruangenergi.com/catatan-redaksi-dari-kompor-minyak-ke-lpg-dme-listrik-jargas-hingga-cng-ke-mana-arah-energi-dapur-indonesia/",
