@@ -13,7 +13,8 @@ MODEL_SYNC_MAP = {
     "global_commodity_data"         : ("tables.global_commodity"            , "sync_global_commodity_data"),
     "mining_site"                   : ("tables.mining_site"                 , "sync_mining_site"),
     "resources_and_reserves"        : ("tables.reserves_resources"          , "sync_resources_and_reserves"),
-    "total_commodities_production"  : ("tables.total_commodities_production", "sync_total_commodities_production")
+    "total_commodities_production"  : ("tables.total_commodities_production", "sync_total_commodities_production"),
+    "peers"                          : ("scripts.compute_peers"             , "compute_all_peers"),
 }
 
 
