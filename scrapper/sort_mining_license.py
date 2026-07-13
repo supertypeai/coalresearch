@@ -3,7 +3,7 @@ import sqlite3
 import re
 
 from scripts.fuzzy_matcher import match_company_by_name
-from lib.formatter import normalize_admin, normalize_location
+from lib.formatter import normalize_admin, normalize_location, validate_and_filter_province
 
 def clean_company_name(name):
     """Removes common corporate prefixes/suffixes and converts to lowercase."""
@@ -78,7 +78,7 @@ def prepare_all(df: pd.DataFrame) -> pd.DataFrame:
 
     df_sorted = df_sorted[df_sorted.apply(valid_row, axis=1)]
 
-    df_sorted["nama_prov"] = df_sorted["nama_prov"].apply(normalize_admin)
+    df_sorted = validate_and_filter_province(df_sorted, province_col="nama_prov", id_col="kode_wiup")
     df_sorted["nama_kab"] = df_sorted["nama_kab"].apply(normalize_admin)
     df_sorted["kegiatan"] = df_sorted["kegiatan"].apply(normalize_admin)
 

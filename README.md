@@ -91,6 +91,8 @@ graph TD
 | `mining_license`         | TEXT (JSON Array) | No     | List of linked license IDs.                                                          |
 | `mining_contract`        | TEXT (JSON Array) | No     | List of contractor IDs.                                                              |
 | `commodity_type`         | TEXT (JSON Array) | No     | List of commodities produced (e.g. `["Coal"]`).                                      |
+| `peers`                  | TEXT (JSON)       | No     | Peer-performance insight, grouped by commodity type. Computed by `scripts/compute_peers.py`. |
+| `financial`              | TEXT (JSON)       | No     | Wrapper holding `{ annual, narrative, generated_at }` — full multi-year financial history plus the LLM-generated narrative. Computed by `scripts/compute_financials.py`. Nullable. See `financial-restructure-plan.md` §2.1 for the stored shape. |
 
 
 

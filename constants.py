@@ -35,6 +35,34 @@ PROVINCE_ID_MAP = {
     "92": "Papua Barat"
 }
 
+# Official 38 Indonesian provinces. Uses the short-form names matching the
+# frontend's PROVINSI enum (mining/src/db/schema.ts) rather than the full
+# government names (e.g. "Aceh" not "Nanggroe Aceh Darussalam"), since the
+# frontend's slug maps and geojson filenames are keyed on these short forms.
+OFFICIAL_PROVINCES = {
+    "Aceh", "Sumatera Utara", "Sumatera Selatan", "Sumatera Barat",
+    "Bengkulu", "Riau", "Kepulauan Riau", "Jambi", "Lampung", "Kepulauan Bangka Belitung",
+    "Kalimantan Barat", "Kalimantan Timur", "Kalimantan Selatan", "Kalimantan Tengah",
+    "Kalimantan Utara", "Banten", "Jakarta", "Jawa Barat", "Jawa Tengah",
+    "Yogyakarta", "Jawa Timur", "Bali", "Nusa Tenggara Timur",
+    "Nusa Tenggara Barat", "Gorontalo", "Sulawesi Barat", "Sulawesi Tengah",
+    "Sulawesi Utara", "Sulawesi Tenggara", "Sulawesi Selatan", "Maluku Utara", "Maluku",
+    "Papua Barat", "Papua", "Papua Tengah", "Papua Pegunungan", "Papua Selatan",
+    "Papua Barat Daya",
+}
+
+# Maps scraped/variant province names (as produced by normalize_admin's
+# title-case pass) to the canonical short-form name in OFFICIAL_PROVINCES.
+PROVINCE_ALIASES = {
+    "Nanggroe Aceh Darussalam": "Aceh",
+    "Di Yogyakarta": "Yogyakarta",
+    "Daerah Istimewa Yogyakarta": "Yogyakarta",
+    "Bangka Belitung": "Kepulauan Bangka Belitung",
+    "Sumatra Barat": "Sumatera Barat",
+    "Sumatra Selatan": "Sumatera Selatan",
+    "Sumatra Utara": "Sumatera Utara",
+}
+
 COMMODITY_MAP = {
     "TIMAH": "Tin",
     "BATUBARA": "Coal",
@@ -136,6 +164,6 @@ COMMODITY_MAP = {
     "PERLIT": "Non-Metallic Mineral",
     "MANGAAN": "Non-Metallic Mineral",
     "NIKEL": "Nickel",
-    "Bauxite": "Bauxite", 
+    "Bauxite": "Bauxite",
     "BATU BARA": "Coal"
 }

@@ -1,5 +1,52 @@
+import os
 import re
 import pandas as pd
+
+from constants import PROVINCE_ALIASES, OFFICIAL_PROVINCES
+
+def normalize_province(name: str) -> str:
+    formatted = normalize_admin(name)
+    if not formatted:
+        return formatted
+    parts = [PROVINCE_ALIASES.get(p, p) for p in formatted.split(", ")]
+    return ", ".join(parts)
+
+
+def province_is_valid(province: str) -> bool:
+    if not province:
+        return False
+    return all(p in OFFICIAL_PROVINCES for p in province.split(", "))
+
+
+def validate_and_filter_province(df: pd.DataFrame, province_col: str = "province", id_col=None) -> pd.DataFrame:
+    """
+    Normalize df[province_col] via normalize_province, then drop (with a
+    warning) any row whose result still isn't one of the 38 official names.
+    Rows are dropped in-app (not by a DB constraint) so bad data never syncs.
+    Reused by both the mining_license CSV pipeline and the resources_and_reserves
+    sheet sync.
+    """
+    df[province_col] = df[province_col].apply(normalize_province)
+    valid_mask = df[province_col].apply(province_is_valid)
+    if not valid_mask.all():
+        cols = [id_col, province_col] if id_col and id_col in df.columns else [province_col]
+        bad_rows = df.loc[~valid_mask, cols]
+        msg = (
+            f"dropping {len(bad_rows)} row(s) with non-standard {province_col}, "
+            f"not inserted: {bad_rows[province_col].tolist()}"
+        )
+        # GitHub Actions annotation: shows up as a highlighted warning on the run and PR.
+        # Plain print outside CI. See constants.OFFICIAL_PROVINCES for the allowed list.
+        prefix = "::warning title=Non-standard province::" if os.getenv("GITHUB_ACTIONS") else "WARNING: "
+        print(f"{prefix}{msg}")
+        print(bad_rows.to_string(index=False))
+    return df[valid_mask]
+
+
+def _title_case_word(w: str) -> str:
+    """Title-case a single word, except the Indonesian conjunction 'dan'."""
+    return w.lower() if w.lower() == "dan" else w.capitalize()
+
 
 def normalize_admin(name: str) -> str:
     """
@@ -30,10 +77,7 @@ def normalize_admin(name: str) -> str:
         s = re.sub(r"\s{2,}", " ", s).strip()
 
         # 4) title-case words (except 'dan')
-        def _tc(w):
-            return w.lower() if w.lower() == "dan" else w.capitalize()
-
-        s = " ".join(_tc(w) for w in s.split())
+        s = " ".join(_title_case_word(w) for w in s.split())
         cleaned.append(s)
     # 5) re-join with comma+space
     return ", ".join(cleaned)
@@ -92,9 +136,6 @@ def normalize_location(row):
     loc = re.sub(r"\s*,\s*", ", ", loc).strip(" ,")
 
     # 8) Title-case words except 'dan'
-    def tc(w):
-        return w.lower() if w.lower() == "dan" else w.capitalize()
-
     parts = [p.strip() for p in loc.split(",") if p.strip()]
-    cleaned = [" ".join(tc(w) for w in part.split()) for part in parts]
+    cleaned = [" ".join(_title_case_word(w) for w in part.split()) for part in parts]
     return ", ".join(cleaned)
