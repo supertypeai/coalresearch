@@ -6,7 +6,7 @@ from tables.company_performance.commodity import update_commodity_performance
 
 def companyPerformancePreprocess(df: pd.DataFrame, field_types: dict, sheet):
     """Preprocess for company_performance to add placeholder slug and sequential IDs."""
-    
+
     # 1. Generate sequential IDs (replacing empty string IDs from update_commodity_performance)
     df["id"] = range(1, len(df) + 1)
 
@@ -17,7 +17,7 @@ def companyPerformancePreprocess(df: pd.DataFrame, field_types: dict, sheet):
     # Create mapping for lookup: get id, name, and slug from company table
     cursor.execute("SELECT id, name, slug FROM company")
     company_rows = cursor.fetchall()
-    
+
     # Create the requested lookup table (dict)
     # We use name to map to ID, and ID to map to slug
     company_name_to_id = {row[1]: row[0] for row in company_rows}
@@ -88,7 +88,7 @@ def sync_company_performance():
         """
         UPDATE company_performance
         SET slug = (
-            SELECT slug FROM company 
+            SELECT slug FROM company
             WHERE company.id = company_performance.company_id
         )
     """

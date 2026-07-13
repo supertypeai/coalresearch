@@ -10,12 +10,12 @@ from sheet_api.minerba_merge import prepareMinerbaDf
 
 
 def fill_mining_license(
-    df: pd.DataFrame, 
-    sheet_id: int, 
+    df: pd.DataFrame,
+    sheet_id: int,
     is_debug: bool = False,
-    starts_from: int = 0, 
+    starts_from: int = 0,
 ) -> pd.DataFrame:
-    
+
     minerba_df = prepareMinerbaDf()
     df_company = clean_company_df(df, 'name') # This function add two columns: ['name_cleaned', 'name_cleaned_no_space']
     df_minerba = clean_company_df(minerba_df,'company_name') # Same goes here
@@ -29,9 +29,9 @@ def fill_mining_license(
         assert isinstance(row_id, int)
         if (row_id + 2) < starts_from:
             continue
-        
+
         key = row['name_cleaned']
-        key_no_space = row['name_cleaned_no_space'] 
+        key_no_space = row['name_cleaned_no_space']
 
         # Exact matching
         matches = fuzzy_match_company_name(df_minerba, company_name_cleaned_lookup, key, key_no_space, is_debug)
@@ -43,9 +43,9 @@ def fill_mining_license(
             records = matches.to_dict(orient="records")
         else:
             # empty list when no matches
-            records = []  
+            records = []
 
-        
+
         license_json = json.dumps(records, ensure_ascii=False)
         df_company.at[row_id, 'mining_license'] = license_json
 
@@ -53,13 +53,13 @@ def fill_mining_license(
 
         rows.append(
             {
-                'values': 
+                'values':
                     [
                         {'userEnteredValue': to_use_value}
                     ]
             }
         )
-    
+
     batch_update(rows, sheet_id, starts_from, len(df), col_id)
     return df_company
 
@@ -115,7 +115,7 @@ def fillMiningContract(df: pd.DataFrame, sheet_id: int) -> pd.DataFrame:
     return c_df
 
 def companyPreprocess(df: pd.DataFrame, field_types: dict, sheet):
-    
+
     field_types["phone_number"] = "string"
 
     print("Filling out company's mining_license...")
@@ -137,4 +137,4 @@ def companyPreprocess(df: pd.DataFrame, field_types: dict, sheet):
     return df, field_types, sheet
 
 def sync_company():
-    sync_model("company", Company, preprocess=companyPreprocess)
+    sync_model("company", Company, preprocess=companyPreprocess, excluded_cols=["peers"])

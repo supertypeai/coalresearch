@@ -217,7 +217,7 @@ def calculate_average_grade(commodity_type, stats):
         Coal    \u2192 products[0].calorific_value_kcal  \u2192 avg(min, max) \u2192 value, unit="Kcal/kg"
         Nickel  \u2192 products[0].Ni_pct                \u2192 avg(min, max) \u2192 value, unit="% Ni"
         Gold    \u2192 products[0].Au_g_per_ton          \u2192 use max       \u2192 value, unit="g/t Au"
-        Silver  \u2192 products[0].Au_g_per_ton          \u2192 use max       \u2192 value, unit="g/t Ag"
+        Silver  → products[0].Ag_g_per_ton          → use max       → value, unit="g/t Ag"
         Copper  \u2192 products[0].Cu_pct                \u2192 avg(min, max) \u2192 value, unit="% Cu"
     """
     products = stats.get("products")
@@ -249,7 +249,7 @@ def calculate_average_grade(commodity_type, stats):
                 return {"value": round(hi, 1), "unit": "g/t Au"}
 
     elif ctype == "silver":
-        au = product.get("Au_g_per_ton")
+        au = product.get("Ag_g_per_ton")
         if isinstance(au, dict):
             hi = au.get("max")
             if hi is not None:
@@ -265,30 +265,55 @@ def calculate_average_grade(commodity_type, stats):
     return None
 
 
-def calculate_implied_lom(stats):
+def calculate_implied_lom(commodity_type, stats):
     """
-    Life of Mine = total_reserves / annual_production  (both > 0).
+    Life of Mine = total_reserves / annual_production (both > 0).
 
-    Reserve fallback: total_reserves_Mt || total_reserves_wmt || None
+    Commodity-aware dispatch using the correct reserve field and unit
+    conversion so that reserves and production are dimensionally matched:
+
+      Coal    total_reserves_Mt (Mt)       / production_volume (Mt)
+      Gold    Au_reserves_koz (koz)        / production_volume (koz)
+      Silver  Ag_reserves_koz (koz) → kg  / production_volume (kg)
+      Copper  Cu_reserves_Mt (Mt) → kton / production_volume (kton)
+      Nickel  total_reserves_wmt (WMT)     / production_volume (wmt)
     """
     reserves = stats.get("resources_reserves")
     if not isinstance(reserves, dict):
         return None
 
-    total_reserves = (
-        reserves.get("total_reserves_Mt")
-        or reserves.get("total_reserves_wmt")
-        or None
-    )
     annual_production = stats.get("production_volume")
+    if annual_production is None or annual_production <= 0:
+        return None
 
-    if (
-        total_reserves is not None
-        and annual_production is not None
-        and total_reserves > 0
-        and annual_production > 0
-    ):
-        return round(total_reserves / annual_production, 2)
+    ctype = commodity_type.lower() if commodity_type else ""
+
+    if ctype == "coal":
+        total = reserves.get("total_reserves_Mt")
+        if total and total > 0:
+            return round(total / annual_production, 2)
+
+    elif ctype == "gold":
+        total = reserves.get("Au_reserves_koz")
+        if total and total > 0:
+            return round(total / annual_production, 2)
+
+    elif ctype == "silver":
+        total_koz = reserves.get("Ag_reserves_koz")
+        if total_koz and total_koz > 0:
+            total_kg = total_koz * 31.1035
+            return round(total_kg / annual_production, 2)
+
+    elif ctype == "copper":
+        total = reserves.get("Cu_reserves_Mt")
+        if total and total > 0:
+            total_kton = total * 1_000
+            return round(total_kton / annual_production, 2)
+
+    elif ctype == "nickel":
+        total = reserves.get("total_reserves_wmt")
+        if total and total > 0:
+            return round(total / annual_production, 2)
 
     return None
 
@@ -330,7 +355,7 @@ def calculate_peer_insight(record, financials):
     production_volume_unit = stats.get("unit")
 
     # --- Life of Mine ---
-    life_of_mine = calculate_implied_lom(stats)
+    life_of_mine = calculate_implied_lom(record["commodity_type"], stats)
 
     # --- Strip ratio ---
     strip_ratio = stats.get("strip_ratio") or None
@@ -340,15 +365,27 @@ def calculate_peer_insight(record, financials):
     avg_grade = grade["value"] if grade else None
     avg_grade_unit = grade["unit"] if grade else None
 
-    # --- Total reserves ---
+    # --- Total reserves (commodity-aware) ---
     reserves = stats.get("resources_reserves")
     total_reserves_mt = None
+    total_reserves_unit = None
     if isinstance(reserves, dict):
-        total_reserves_mt = (
-            reserves.get("total_reserves_Mt")
-            or reserves.get("total_reserves_wmt")
-            or None
-        )
+        ctype = record["commodity_type"].lower() if record["commodity_type"] else ""
+        if ctype == "coal":
+            total_reserves_mt = reserves.get("total_reserves_Mt")
+            total_reserves_unit = "Mt"
+        elif ctype == "gold":
+            total_reserves_mt = reserves.get("Au_reserves_koz")
+            total_reserves_unit = "koz"
+        elif ctype == "silver":
+            total_reserves_mt = reserves.get("Ag_reserves_koz")
+            total_reserves_unit = "koz"
+        elif ctype == "copper":
+            total_reserves_mt = reserves.get("Cu_reserves_Mt")
+            total_reserves_unit = "Mt"
+        elif ctype == "nickel":
+            total_reserves_mt = reserves.get("total_reserves_wmt")
+            total_reserves_unit = "WMT"
 
     # --- Financial metrics ---
     rev = fin.get("revenue")
@@ -407,6 +444,7 @@ def calculate_peer_insight(record, financials):
         "earnings_per_unit": earnings_per_unit,
         "ebitda_per_unit": ebitda_per_unit,
         "total_reserves_mt": total_reserves_mt,
+        "total_reserves_unit": total_reserves_unit,
         "commodity_sub_type": record.get("commodity_sub_type"),
     }
 
@@ -463,6 +501,9 @@ def compute_all_peers():
     for rec in records:
         cid = rec["company_id"]
         ctype = rec["commodity_type"]
+
+        if ctype == "Silver":
+            continue
 
         for peer_insight in commodity_peers_map[ctype]:
             company_peers_map_final[cid][ctype].append(peer_insight)

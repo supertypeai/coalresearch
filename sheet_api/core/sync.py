@@ -1,7 +1,7 @@
 from tabulate import tabulate
 import pandas as pd
 import peewee as pw
-from typing import Callable, Optional, Dict, Tuple
+from typing import Callable, Optional, Dict, Tuple, List
 from decimal import Decimal
 from gspread import Worksheet
 
@@ -51,6 +51,7 @@ def compareDBSheet(model, df, execute=False) -> bool:
                 db_val = db_val.id
             sheet_val = row.get(field)
             sheet_val = None if pd.isna(sheet_val) else sheet_val
+            sheet_val = None if sheet_val == "" else sheet_val
 
             if type(db_val) == Decimal:
                 sheet_val = Decimal(sheet_val) if sheet_val is not None else None
@@ -62,6 +63,7 @@ def compareDBSheet(model, df, execute=False) -> bool:
             diff_exist = True
             if execute:
                 for field_name, old_val, new_val in diff:
+                    print(field_name, old_val, new_val)
                     setattr(model_row, field_name, new_val)
                 model_row.save()
                 print(
@@ -113,13 +115,15 @@ def sync_model(
     model: pw.ModelBase,
     range: Optional[str] = None,
     preprocess: Optional[Callable] = None,
+    excluded_cols: Optional[List[str]] = [],
 ) -> None:
     if range:
         sheet, df = getSheet(sheet_name, range)
     else:
         sheet, df = getSheetAll(sheet_name)
 
-    pw_field_types = {fn.name: type(fn).__name__ for fn in model._meta.sorted_fields}
+    included_cols = [col for col in model._meta.sorted_fields if col not in excluded_cols]
+    pw_field_types = {fn.name: type(fn).__name__ for fn in included_cols}
     field_types = mapPeeweeToPandasFields(pw_field_types)
 
     if preprocess is not None:
