@@ -129,6 +129,7 @@ class Company(Model):
     commodity_type = TextField(null=True, constraints=[Check("json_valid(commodity_type)")])
     peers = TextField(null=True, constraints=[Check("json_valid(peers)")])
     financial = TextField(null=True, constraints=[Check("json_valid(financial)")])
+    narrative_stats = TextField(null=True, constraints=[Check("json_valid(narrative_stats)")])
 
     class Meta:
         database = db
