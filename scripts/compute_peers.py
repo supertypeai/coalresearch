@@ -206,19 +206,30 @@ def query_financials_from_supabase(symbols):
 # Step 3 — Calculation helpers
 # ---------------------------------------------------------------------------
 
+# Grade unit is a fixed property of the commodity type, not of any individual
+# company's data — every Coal peer reports grade in Kcal/kg, always. Defined
+# once here instead of being recomputed/re-stored per company row.
+COMMODITY_GRADE_UNIT = {
+    "coal": "Kcal/kg",
+    "nickel": "% Ni",
+    "gold": "g/t Au",
+    "silver": "g/t Ag",
+    "copper": "% Cu",
+}
+
 def calculate_average_grade(commodity_type, stats):
     """
-    Derive the average grade value and unit from the first product entry.
+    Derive the average grade value from the first product entry.
 
-    Returns:
-        dict with "value" (number) and "unit" (str), or None if unavailable.
+    Returns the numeric value, or None if unavailable. Unit is not returned
+    here — see COMMODITY_GRADE_UNIT, which is fixed per commodity type.
 
     Rules (per PEERS_DATA_PIPELINE.md):
-        Coal    \u2192 products[0].calorific_value_kcal  \u2192 avg(min, max) \u2192 value, unit="Kcal/kg"
-        Nickel  \u2192 products[0].Ni_pct                \u2192 avg(min, max) \u2192 value, unit="% Ni"
-        Gold    \u2192 products[0].Au_g_per_ton          \u2192 use max       \u2192 value, unit="g/t Au"
-        Silver  → products[0].Ag_g_per_ton          → use max       → value, unit="g/t Ag"
-        Copper  \u2192 products[0].Cu_pct                \u2192 avg(min, max) \u2192 value, unit="% Cu"
+        Coal    \u2192 products[0].calorific_value_kcal  \u2192 avg(min, max)
+        Nickel  \u2192 products[0].Ni_pct                \u2192 avg(min, max)
+        Gold    \u2192 products[0].Au_g_per_ton          \u2192 use max
+        Silver  → products[0].Ag_g_per_ton          → use max
+        Copper  \u2192 products[0].Cu_pct                \u2192 avg(min, max)
     """
     products = stats.get("products")
     if not products or not isinstance(products, list) or len(products) == 0:
@@ -232,35 +243,35 @@ def calculate_average_grade(commodity_type, stats):
         if isinstance(cv, dict):
             lo, hi = cv.get("min"), cv.get("max")
             if lo is not None and hi is not None:
-                return {"value": round((lo + hi) / 2), "unit": "Kcal/kg"}
+                return round((lo + hi) / 2)
 
     elif ctype == "nickel":
         ni = product.get("Ni_pct")
         if isinstance(ni, dict):
             lo, hi = ni.get("min"), ni.get("max")
             if lo is not None and hi is not None:
-                return {"value": round((lo + hi) / 2, 2), "unit": "% Ni"}
+                return round((lo + hi) / 2, 2)
 
     elif ctype == "gold":
         au = product.get("Au_g_per_ton")
         if isinstance(au, dict):
             hi = au.get("max")
             if hi is not None:
-                return {"value": round(hi, 1), "unit": "g/t Au"}
+                return round(hi, 1)
 
     elif ctype == "silver":
         au = product.get("Ag_g_per_ton")
         if isinstance(au, dict):
             hi = au.get("max")
             if hi is not None:
-                return {"value": round(hi, 1), "unit": "g/t Ag"}
+                return round(hi, 1)
 
     elif ctype == "copper":
         cu = product.get("Cu_pct")
         if isinstance(cu, dict):
             lo, hi = cu.get("min"), cu.get("max")
             if lo is not None and hi is not None:
-                return {"value": round((lo + hi) / 2, 2), "unit": "% Cu"}
+                return round((lo + hi) / 2, 2)
 
     return None
 
@@ -351,9 +362,6 @@ def calculate_peer_insight(record, financials):
     # --- Production volume ---
     production_volume = stats.get("production_volume") or None
 
-    # --- Production volume unit ---
-    production_volume_unit = stats.get("unit")
-
     # --- Life of Mine ---
     life_of_mine = calculate_implied_lom(record["commodity_type"], stats)
 
@@ -361,9 +369,7 @@ def calculate_peer_insight(record, financials):
     strip_ratio = stats.get("strip_ratio") or None
 
     # --- Average grade ---
-    grade = calculate_average_grade(record["commodity_type"], stats)
-    avg_grade = grade["value"] if grade else None
-    avg_grade_unit = grade["unit"] if grade else None
+    avg_grade = calculate_average_grade(record["commodity_type"], stats)
 
     # --- Total reserves (commodity-aware) ---
     reserves = stats.get("resources_reserves")
@@ -426,11 +432,9 @@ def calculate_peer_insight(record, financials):
         "symbol": record["symbol"],
         "slug": record["slug"],
         "production_volume": production_volume,
-        "production_volume_unit": production_volume_unit,
         "life_of_mine": life_of_mine,
         "strip_ratio": strip_ratio,
         "avg_grade": avg_grade,
-        "avg_grade_unit": avg_grade_unit,
         "revenue": rev,
         "cogs": cogs,
         "earnings": earn,
@@ -484,11 +488,18 @@ def compute_all_peers():
     commodity_peers_map = defaultdict(list)
     # company_id -> set of commodity types the company has
     company_commodity_types = defaultdict(set)
+    # commodity_type -> production_volume_unit (first non-null value reported for that commodity)
+    commodity_volume_unit = {}
 
     for rec in records:
         insight = calculate_peer_insight(rec, financials)
-        commodity_peers_map[rec["commodity_type"]].append(insight)
-        company_commodity_types[rec["company_id"]].add(rec["commodity_type"])
+        ctype = rec["commodity_type"]
+        commodity_peers_map[ctype].append(insight)
+        company_commodity_types[rec["company_id"]].add(ctype)
+        if ctype not in commodity_volume_unit:
+            unit = rec["commodity_stats"].get("unit")
+            if unit:
+                commodity_volume_unit[ctype] = unit
 
     # Compute and attach peer averages per commodity group
     for ctype, insights in commodity_peers_map.items():
@@ -514,8 +525,16 @@ def compute_all_peers():
     updated_count = 0
 
     for company_id, peers_by_type in company_peers_map_final.items():
-        # Only include commodity types that actually have peer entries
-        filtered = {ct: peers for ct, peers in peers_by_type.items() if peers}
+        # Only include commodity types that actually have peer entries.
+        # Units are group-level facts (fixed per commodity type), not per-row data.
+        filtered = {
+            ct: {
+                "avg_grade_unit": COMMODITY_GRADE_UNIT.get(ct.lower()),
+                "production_volume_unit": commodity_volume_unit.get(ct),
+                "rows": peers,
+            }
+            for ct, peers in peers_by_type.items() if peers
+        }
         peers_json = json.dumps(filtered, ensure_ascii=False) if filtered else None
 
         update_cursor.execute(
