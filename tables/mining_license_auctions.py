@@ -1,4 +1,4 @@
-from seleniumwire import webdriver
+from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -7,6 +7,7 @@ from scripts.fuzzy_matcher import match_company_by_name
 from datetime import datetime, timedelta, timezone
 
 import logging
+import time
 import requests
 import json
 import pandas as pd
@@ -30,21 +31,66 @@ API_URL = "https://minerba.esdm.go.id/lelang/api/pub/lelang_done?page=1"
 DB_PATH = "db.sqlite"
 TIME_OFFSET = timezone(timedelta(hours=7))
 
-
 class QualificationResult(str, Enum):
     LOLOS = "Lolos"
     TIDAK_LOLOS = "Tidak Lolos"
 
+JWT_HOLDER: dict[str, str] = {}
+
+# JavaScript that runs on every new document in the page. It wraps fetch
+# and XMLHttpRequest to capture the Authorization header off the
+# lelang_done request and stash it on window.__CAPTURED_AUTH__.
+_AUTH_CAPTURE_SCRIPT = r"""
+(function () {
+  if (window.__CAPTURED_AUTH__) return;
+  window.__CAPTURED_AUTH__ = null;
+  const TARGET = 'lelang/api/pub/lelang_done';
+  const store = (h) => { if (h) window.__CAPTURED_AUTH__ = h; };
+  const origFetch = window.fetch;
+  if (origFetch) {
+    window.fetch = function (input, init) {
+      try {
+        const url = typeof input === 'string' ? input : (input && input.url) || '';
+        if (url.indexOf(TARGET) !== -1) {
+          const h = (init && init.headers) || {};
+          const auth = (h['Authorization'] || h['authorization']);
+          if (auth) store(auth);
+        }
+      } catch (e) {}
+      return origFetch.apply(this, arguments);
+    };
+  }
+  const origOpen = XMLHttpRequest.prototype.open;
+  const origSetHeader = XMLHttpRequest.prototype.setRequestHeader;
+  XMLHttpRequest.prototype.open = function (method, url) {
+    this.__url = url;
+    return origOpen.apply(this, arguments);
+  };
+  XMLHttpRequest.prototype.setRequestHeader = function (name, value) {
+    try {
+      if ((this.__url || '').indexOf(TARGET) !== -1 && String(name).toLowerCase() === 'authorization') {
+        store(value);
+      }
+    } catch (e) {}
+    return origSetHeader.apply(this, arguments);
+  };
+})();
+"""
+
 
 def get_wire_driver(is_headless: bool = True) -> webdriver.Chrome:
     """
-    Initializes a selenium-wire WebDriver.
+    Initializes a plain Chrome WebDriver. The lelang page runs an
+    auto-injected script that captures the Authorization header off the
+    lelang_done request — no MITM proxy, no selenium-wire. selenium-wire
+    5.1.0 bundles an old mitmproxy that breaks against modern
+    `cryptography` (`X509.get_extension` was removed).
 
     Args:
         is_headless (bool): If True, runs the browser in headless mode. Default is True.
 
     Returns:
-        webdriver.Chrome: An instance of the Chrome WebDriver configured with selenium-wire.
+        webdriver.Chrome: An instance of the Chrome WebDriver.
     """
     options = webdriver.ChromeOptions()
     if is_headless:
@@ -54,13 +100,21 @@ def get_wire_driver(is_headless: bool = True) -> webdriver.Chrome:
 
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
+
+    # Run the capture script before any page script, on every new document.
+    driver.execute_cdp_cmd("Page.enable", {})
+    driver.execute_cdp_cmd(
+        "Page.addScriptToEvaluateOnNewDocument",
+        {"source": _AUTH_CAPTURE_SCRIPT},
+    )
     return driver
 
 
 def get_jwt_auth() -> dict[str]:
     """
-    Get the JWT Authorization header from the ESDM Minerba API.
-    This function uses Selenium Wire to capture the Authorization header from the API call.
+    Get the JWT Authorization header from the ESDM Minerba API. Loads the
+    lelang page in headless Chrome; an injected script captures the
+    Authorization header used on the lelang_done XHR/fetch call.
 
     Returns:
         dict: A dictionary containing the Authorization header for the API request.
@@ -73,24 +127,33 @@ def get_jwt_auth() -> dict[str]:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
     }
 
-    # Initialize the selenium-wire driver
+    JWT_HOLDER.clear()
     driver = get_wire_driver()
 
     try:
         print("Navigating to page to trigger API calls...")
+        driver.set_page_load_timeout(30)
         driver.get("https://minerba.esdm.go.id/lelang/")
 
-        print("Waiting up to 30 seconds for the browser to make the API call...")
-        # Use selenium-wire's function to wait for the request
-        request = driver.wait_for_request("lelang/api/pub/lelang_done", timeout=30)
+        # Poll for the captured header. The XHR/fetch wrapper writes it
+        # to window.__CAPTURED_AUTH__ before our main script reads it.
+        deadline = time.monotonic() + 30
+        auth_value = None
+        while time.monotonic() < deadline and not auth_value:
+            try:
+                auth_value = driver.execute_script(
+                    "return window.__CAPTURED_AUTH__ || null;"
+                )
+            except Exception:
+                auth_value = None
+            if not auth_value:
+                time.sleep(0.25)
 
-        # Grab the Authorization header from the captured request.
-        jwt_header = request.headers.get("Authorization")
-        if not jwt_header:
-            print("No Authorization header found.")
+        if not auth_value:
+            print("\nFAILED. The browser never made the API call. Likely blocked by bot detection.")
             return None
 
-        headers["Authorization"] = jwt_header
+        headers["Authorization"] = auth_value
         return headers
 
     except Exception as error:
@@ -98,12 +161,12 @@ def get_jwt_auth() -> dict[str]:
             f"\nFAILED. The browser never made the API call. Likely blocked by bot detection."
         )
         print(f"Error: {error}")
+        return None
 
     finally:
         if driver:
             print("\nClosing the driver.")
             driver.quit()
-
 
 def get_data_lelang_json() -> list[dict]:
     """
@@ -114,6 +177,9 @@ def get_data_lelang_json() -> list[dict]:
         LOGGER.info(f"Sending request to: {API_URL}")
         # Make the request to the API, now including the headers
         headers = get_jwt_auth()
+        if not headers or not headers.get("Authorization"):
+            LOGGER.error("No Authorization header available; aborting API call.")
+            return []
         response = requests.get(API_URL, headers=headers)
 
         # Check the status code from the server's response
@@ -127,7 +193,7 @@ def get_data_lelang_json() -> list[dict]:
             if data:
                 # inspect one data
                 LOGGER.info(json.dumps(data.get("data")[1], indent=2))
-                return data.get("data", None)
+                return data.get("data") or []
 
         else:
             LOGGER.info("Request failed. Server response:")
@@ -136,6 +202,7 @@ def get_data_lelang_json() -> list[dict]:
     except requests.exceptions.RequestException as e:
         LOGGER.info(f"An error occurred with the request: {e}")
 
+    return []
 
 def drop_data_dict(datas: list[dict], columns_to_filter: list[str]) -> list[dict]:
     """
@@ -165,7 +232,7 @@ def drop_data_dict(datas: list[dict], columns_to_filter: list[str]) -> list[dict
 
 def parse_timestamp(timestamp: int) -> str:
     date = datetime.fromtimestamp(timestamp / 1_000_000, tz=TIME_OFFSET)
-    return date.strftime("%Y-%m-%d")    
+    return date.strftime("%Y-%m-%d")
 
 def format_data(
     result_data: list, data: dict, participant: dict, winner_date: str
@@ -257,7 +324,6 @@ def format_data(
 
     return result_data
 
-
 def clean_data(result_data: list[dict]) -> pd.DataFrame:
     """
     Clean and standardize the data in result_data.
@@ -306,7 +372,6 @@ def clean_data(result_data: list[dict]) -> pd.DataFrame:
     df_auction["commodity_type"] = df_auction["commodity_type"].map(COMMODITY_MAP)
     return df_auction
 
-
 def get_specific_data(data_json: list[dict]) -> pd.DataFrame:
     """
     Extract specific data from the JSON response.
@@ -319,6 +384,10 @@ def get_specific_data(data_json: list[dict]) -> pd.DataFrame:
     Returns:
         pd.DataFrame: A DataFrame containing the cleaned and formatted auction data.
     """
+    if not data_json:
+        LOGGER.error("No data to process.")
+        return pd.DataFrame()
+
     # Loop data json
     result_data = []
     for data in data_json:
@@ -351,8 +420,8 @@ def get_specific_data(data_json: list[dict]) -> pd.DataFrame:
                     if status_step.lower().strip() == "penetapanpemenanglelang":
                         # winner_date = step.get("tahapanTanggalMulai")
                         winner_date = step.get("tahapanMulaiTimestamp")
-                        
-                        if winner_date:   
+
+                        if winner_date:
                             assert isinstance(winner_date, int)
                             winner_date_value = parse_timestamp(winner_date)
 
@@ -368,7 +437,6 @@ def get_specific_data(data_json: list[dict]) -> pd.DataFrame:
     LOGGER.info(f"Total auctions processed: {len(df_cleaned)}")
     return df_cleaned
 
-
 def sync_company_id(df: pd.DataFrame, target_col: str = "company_name") -> pd.DataFrame:
     df = match_company_by_name(df, target_col, fallback_column=target_col)
 
@@ -383,7 +451,6 @@ def sync_company_id(df: pd.DataFrame, target_col: str = "company_name") -> pd.Da
     )
 
     return df
-
 
 # **************** LOCAL DATABASE SETUP AND PUSH ****************
 def create_table(path):
@@ -422,7 +489,6 @@ def create_table(path):
     # connection.commit()
     return connection
 
-
 def safe_json_dumps(value: any) -> str:
     """
     Safely convert a value to a JSON string, handling None and empty values.
@@ -447,7 +513,6 @@ def safe_json_dumps(value: any) -> str:
         return json.dumps(value)
     return json.dumps(value)
 
-
 def prepare_id(conn: sqlite3.Connection, df: pd.DataFrame) -> pd.DataFrame:
     """
     Assign sequential integer IDs to a DataFrame based on the current maximum `id` in the database.
@@ -468,7 +533,6 @@ def prepare_id(conn: sqlite3.Connection, df: pd.DataFrame) -> pd.DataFrame:
     df.insert(0, "id", range(max_id + 1, max_id + 1 + len(df)))
     return df
 
-
 def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
     """
     Insert or update data in the lelang_minerba table.
@@ -479,6 +543,10 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
         conn (sqlite3.Connection): The SQLite connection object.
         df (pd.DataFrame): The DataFrame containing the auction data to be inserted or updated.
     """
+    if df is None or df.empty:
+        LOGGER.warning("Nothing to upsert: empty DataFrame.")
+        return
+
     cursor = conn.cursor()
     df = prepare_id(conn, df)
 
@@ -517,8 +585,8 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
     # The id field will auto-increment for new records
     upsert_query = """
         INSERT INTO mining_license_auctions (
-            id, commodity_type, city, province, company_name, winner_date, 
-            licensed_area_ha, license_number, area_type, kdi, wiup_code, 
+            id, commodity_type, city, province, company_name, winner_date,
+            licensed_area_ha, license_number, area_type, kdi, wiup_code,
             auction_status, created_at, last_modified, participant_count,
             phases, participants, winner, company_id
         )
@@ -558,7 +626,6 @@ def check_upsert_local(conn: sqlite3.Connection, df: pd.DataFrame):
 
     finally:
         cursor.close()
-
 
 if __name__ == "__main__":
     data = get_data_lelang_json()
