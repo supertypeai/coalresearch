@@ -55,8 +55,24 @@ def jsonifyProvincesResourcesReserves(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+def check_unique_province_year_commodity(df: pd.DataFrame) -> None:
+    """The API keys each province's data by year then commodity, so a duplicate
+    silently replaces the other row (Sumatera Selatan's 2019-2022 coal rows were
+    once filed under Sumatera Utara this way). Refuse to sync until it's fixed."""
+    key = ["province", "year", "commodity_type"]
+    dupes = df[df.duplicated(key, keep=False)]
+    if not dupes.empty:
+        cols = ["id", *key] + [c for c in ["*province_english"] if c in df.columns]
+        raise ValueError(
+            "resources_and_reserves has more than one row per province/year/commodity; "
+            "fix the province on these rows in the sheet:\n"
+            + dupes[cols].sort_values(key).to_string(index=False)
+        )
+
+
 def resourcesAndReservesPreprocess(df: pd.DataFrame, field_types: dict, sheet: Worksheet):
     df = validate_and_filter_province(df, id_col="id")
+    check_unique_province_year_commodity(df)
     df = jsonifyProvincesResourcesReserves(df)
     return df, field_types, sheet
 

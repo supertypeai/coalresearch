@@ -132,17 +132,34 @@ def get_dataframe_from_range(sheet, range_name):
         return pd.DataFrame()
 
 
+# Coal reserve columns in the sheet (L3:N3), mapped to their JSON keys. These
+# are the Statistical Review's two categories: anthracite is grouped with
+# bituminous, and sub-bituminous with lignite.
+COAL_RESERVE_COLUMNS = {
+    "Anthracite & Bituminous": "anthracite_and_bituminous",
+    "Sub-bituminous & Lignite": "sub_bituminous_and_lignite",
+}
+
+
+def require_coal_reserve_columns(df):
+    """Stop the sync if the reserve headers don't match. Carrying on would
+    write the table without reserves and wipe them from the database."""
+    required_cols = ["Country", *COAL_RESERVE_COLUMNS]
+    missing = [c for c in required_cols if c not in df.columns]
+    if missing:
+        raise ValueError(
+            f"Coal reserves table (L3:N3) is missing columns {missing}; "
+            f"found {list(df.columns)}"
+        )
+
+
 def process_resources_reserves(df, country_list):
     print("Processing 'Global Coal Resource and Reserves 2020' data...")
-    
+
     if df.empty:
         return pd.DataFrame(columns=["country", "resources_reserves"])
-    
-    required_cols = ["Country", "Anthracite", "Sub-bituminous & Bituminous & Lignite"]
-    if not all(col in df.columns for col in required_cols):
-        missing = [c for c in required_cols if c not in df.columns]
-        print(f"Error: Missing columns {missing}")
-        return pd.DataFrame(columns=["country", "resources_reserves"])
+
+    require_coal_reserve_columns(df)
 
     processed_data = []
     country_set = {c.strip() for c in country_list}
@@ -155,20 +172,19 @@ def process_resources_reserves(df, country_list):
             print(f"{country} is not registered in country_list, skipping this.")
             continue
 
-        anthracite_val = pd.to_numeric(row["Anthracite"], errors="coerce")
-        sub_bit_val = pd.to_numeric(row["Sub-bituminous & Bituminous & Lignite"], errors="coerce")
+        values = {
+            key: pd.to_numeric(row[col], errors="coerce")
+            for col, key in COAL_RESERVE_COLUMNS.items()
+        }
 
-        if pd.isna(anthracite_val) or pd.isna(sub_bit_val):
+        if any(pd.isna(v) for v in values.values()):
             print(f"Skipping row for '{country}' due to NaN values")
             continue
 
         processed_data.append({
-            "country": country, 
+            "country": country,
             "resources_reserves": json.dumps({
-                "2020": {
-                    "anthracite": anthracite_val.item(),
-                    "sub_bituminous_bituminous_lignite": sub_bit_val.item()
-                }
+                "2020": {key: v.item() for key, v in values.items()}
             })
         })
 
@@ -180,16 +196,11 @@ def process_resources_reserves_shares(df, country_list):
     if df.empty:
         return pd.DataFrame(columns=["country", "resources_reserves_share"])
     
-    required_cols = ["Country", "Anthracite", "Sub-bituminous & Bituminous & Lignite"]
-    if not all(col in df.columns for col in required_cols):
-        missing = [c for c in required_cols if c not in df.columns]
-        print(f"Error: Missing columns {missing}")
-        return pd.DataFrame(columns=["country", "resources_reserves_share"])
+    require_coal_reserve_columns(df)
 
     work_df = df.copy()
-    cols_to_share = ["Anthracite", "Sub-bituminous & Bituminous & Lignite"]
-    
-    for col in cols_to_share:
+
+    for col in COAL_RESERVE_COLUMNS:
         work_df[col] = pd.to_numeric(work_df[col], errors="coerce").fillna(0)
         col_sum = work_df[col].sum()
         # Vectorized share calculation: (Series / total) * 100
@@ -209,8 +220,8 @@ def process_resources_reserves_shares(df, country_list):
             "country": row["Country"], 
             "resources_reserves_share": json.dumps({
                 "2020": {
-                    "anthracite": row["Anthracite_share"],
-                    "sub_bituminous_bituminous_lignite": row["Sub-bituminous & Bituminous & Lignite_share"]
+                    key: row[f"{col}_share"]
+                    for col, key in COAL_RESERVE_COLUMNS.items()
                 }
             })
         })

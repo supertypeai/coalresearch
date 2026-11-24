@@ -334,7 +334,7 @@ Notes:
 | -------------------- | ----------- | ------ | ------------------------------------------------------------------------------------------------- |
 | `id`                       | INTEGER     | Yes    | Unique record ID.                                                                                 |
 | `country`                  | TEXT        | No     | Country name.                                                                                     |
-| `resources_reserves`       | TEXT (JSON) | No     | JSON: mapping years → list of `{type: value}` objects (e.g. `{"2020":[{"Anthracite":73719},…]}`). |
+| `resources_reserves`       | TEXT (JSON) | No     | JSON: mapping years → reserves by category in Mt (e.g. `{"2020": {"anthracite_and_bituminous": 73719, "sub_bituminous_and_lignite": 76508}}`). |
 | `resources_reserves_share` | TEXT (JSON) | No     | JSON: global share percentage of reserves.                                                        |
 | `export_import`            | TEXT (JSON) | No     | JSON: mapping years → `[{"Export":…},{"Import":…}]`.                                              |
 | `production_volume`        | TEXT (JSON) | No     | JSON: mapping years → numeric volumes (e.g. `{"2013":428.9,…,"2023":455.8}`).                     |
@@ -343,9 +343,10 @@ Notes:
 
 **Data Model**
 ```typescript
+// The Statistical Review's two coal reserve categories (Mt, end-2020)
 interface CoalCategoryMetrics {
-  anthracite: number;
-  sub_bituminous_bituminous_lignite: number;
+  anthracite_and_bituminous: number;
+  sub_bituminous_and_lignite: number;
 }
 interface ResourcesReserves {
   [year: string]: CoalCategoryMetrics;
