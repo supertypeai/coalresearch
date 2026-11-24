@@ -49,7 +49,15 @@ PRICE_UNIT_MAP = {
     "troyoz": "troy_oz",
     "ozt": "troy_oz",
 }
-# Placeholder unit for rows whose real unit was never scraped.
+# Placeholder unit for rows whose real unit was never scraped. Minerba quotes
+# these ores per dry metric tonne unit (iron 1.50 USD/dmtu ≈ 93 USD/t at 62% Fe);
+# everything else falls back to tonnes.
+FALLBACK_PRICE_UNITS = {
+    "Iron": "dmtu",
+    "Manganese": "dmtu",
+    "Chromium": "dmtu",
+    "Titanium": "dmtu",
+}
 FALLBACK_PRICE_UNIT = "t"
 
 # ─── DYNAMIC DATE RANGE (FOR MINERBA) ───────────────────────────────────────────
@@ -409,16 +417,14 @@ def backfill_missing_units(conn):
     missing = conn.execute(
         "SELECT DISTINCT name FROM commodity_price WHERE price_unit IS NULL"
     ).fetchall()
-    if missing:
+    for (name,) in missing:
+        unit = FALLBACK_PRICE_UNITS.get(name, FALLBACK_PRICE_UNIT)
         conn.execute(
             "UPDATE commodity_price SET price_unit = ?, currency = COALESCE(currency, 'USD') "
-            "WHERE price_unit IS NULL",
-            (FALLBACK_PRICE_UNIT,),
+            "WHERE price_unit IS NULL AND name = ?",
+            (unit, name),
         )
-        print(
-            f"[!] No scraped unit for {', '.join(n for (n,) in missing)}; "
-            f"set placeholder price_unit '{FALLBACK_PRICE_UNIT}'."
-        )
+        print(f"[!] No scraped unit for {name}; set placeholder price_unit '{unit}'.")
     conn.commit()
 
 
