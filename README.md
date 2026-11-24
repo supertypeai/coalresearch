@@ -19,22 +19,20 @@ Source:
 	- This script [commodity_price.py](https://github.com/supertypeai/coalresearch/blob/main/tables/commodity_price.py) scrapes from [ESDM Minerba](https://www.minerba.esdm.go.id/harga_acuan)
 	- Running on weekly basis and will automatically sync to `db.sqlite`
 - gold & silver: 
-	- This script [commodity_price.py](https://github.com/supertypeai/coalresearch/blob/main/tables/commodity_price.py)  also scrapes from [Gold](https://prices.lbma.org.uk/json/gold_am.json) and [Silver](https://prices.lbma.org.uk/json/silver.json)
+	- This script [commodity_price.py](https://github.com/supertypeai/coalresearch/blob/main/tables/commodity_price.py) also downloads monthly Gold and Silver averages from the [World Bank Pink Sheet](https://www.worldbank.org/en/research/commodity-markets) (until October 2026 these came from LBMA, whose data now needs a paid IBA licence)
 	- Running on weekly basis and will automatically sync to `db.sqlite`
 
 Data Flow:
 ```mermaid
 graph TD
   A1(ESDM Minerba) --> |weekly scrapper| B1 
-  A2(Gold) --> |weekly scrapper| B2
-  A3(Silver) -->|weekly scrapper| B2
+  A2(World Bank: Gold, Silver) --> |weekly scrapper| B2
   B1(minerba_commodities_scrapper) --> C(SQLite Database: db.sqlite)
   B2(commodity_gold_silver) --> C(SQLite Database: db.sqlite)
 
   %% Add clickable links to each node
   click A1 "https://www.minerba.esdm.go.id/harga_acuan" _blank
-  click A2 "https://prices.lbma.org.uk/json/gold_am.json" _blank
-  click A3 "https://prices.lbma.org.uk/json/silver.json" _blank
+  click A2 "https://www.worldbank.org/en/research/commodity-markets" _blank
   click B1 "https://github.com/supertypeai/coalresearch/blob/main/tables/commodity_price.py" _blank
   click B2 "https://github.com/supertypeai/coalresearch/blob/main/tables/commodity_price.py" _blank
 ```

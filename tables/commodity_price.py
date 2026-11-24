@@ -4,7 +4,7 @@ import pandas as pd
 import sqlite3
 import re
 import json
-from io import StringIO
+from io import BytesIO, StringIO
 from datetime import date
 from dotenv import load_dotenv
 
@@ -14,12 +14,43 @@ load_dotenv()
 
 # Minerba (ESDM) Configuration
 HOME_URL = "https://www.minerba.esdm.go.id/harga_acuan"
+# Title of the page the whole Minerba site serves while it is down.
+MINERBA_MAINTENANCE_MARKER = "Sistem Sedang Dalam Perbaikan"
 
-# LBMA Configuration
-LBMA_URLS = {
-    "Emas": "https://prices.lbma.org.uk/json/gold_am.json",
-    "Perak": "https://prices.lbma.org.uk/json/silver.json",
+# Seconds to wait on any request, so a hung server can't stall the CI job.
+REQUEST_TIMEOUT = 60
+
+# World Bank Configuration (gold and silver)
+# LBMA's price JSON has refused automated requests since October 2026; LBMA
+# data now needs a paid IBA licence. Gold and silver come instead from the
+# World Bank's monthly "Pink Sheet", whose download URL changes with every
+# release, so it is looked up on this page.
+WORLD_BANK_PAGE_URL = "https://www.worldbank.org/en/research/commodity-markets"
+WORLD_BANK_FILE_RE = re.compile(r"https?://[^\"'\s]*CMO-Historical-Data-Monthly\.xlsx")
+# Pink Sheet column -> stored commodity name.
+WORLD_BANK_SERIES = {"Gold": "Gold", "Silver": "Silver"}
+# Both series are quoted in USD per troy ounce; the scrape fails if that changes.
+WORLD_BANK_UNIT_LABEL = "($/troy oz)"
+WORLD_BANK_CURRENCY, WORLD_BANK_PRICE_UNIT = "USD", "troy_oz"
+WORLD_BANK_SOURCE = "World Bank"
+
+# Minerba label units ("USD/ton", "USD/dmt", ...) mapped to stored codes.
+# Matching is case- and space-insensitive. A unit not listed here makes the
+# scrape skip that commodity and fail, so add it here once it is checked.
+CURRENCY_MAP = {"usd": "USD"}
+PRICE_UNIT_MAP = {
+    "ton": "t",
+    "tonne": "t",
+    "mt": "t",
+    "dmt": "dmt",
+    "wmt": "wmt",
+    "dmtu": "dmtu",
+    "oz": "troy_oz",
+    "troyoz": "troy_oz",
+    "ozt": "troy_oz",
 }
+# Placeholder unit for rows whose real unit was never scraped.
+FALLBACK_PRICE_UNIT = "t"
 
 # ─── DYNAMIC DATE RANGE (FOR MINERBA) ───────────────────────────────────────────
 today = date.today()
@@ -103,9 +134,13 @@ def init_db(path):
     c.execute(
         """
         CREATE TABLE IF NOT EXISTS commodity_price (
-            name  TEXT    NOT NULL,
-            date  TEXT    NOT NULL,
-            price TEXT,
+            name              TEXT NOT NULL,
+            price_usd_per_ton REAL NOT NULL,
+            date              DATE NOT NULL,
+            price             REAL,
+            currency          TEXT,
+            price_unit        TEXT,
+            source            TEXT,
             PRIMARY KEY (name, date)
         );
         """
@@ -122,8 +157,13 @@ def get_db_conn(path):
 
 def get_csrf_token(session, url):
     """Fetches the CSRF token from the website."""
-    resp = session.get(url)
+    resp = session.get(url, timeout=REQUEST_TIMEOUT)
     resp.raise_for_status()
+    if MINERBA_MAINTENANCE_MARKER in resp.text:
+        raise RuntimeError(
+            f"{url} is showing its maintenance page "
+            f"({MINERBA_MAINTENANCE_MARKER!r}); try again once the site is back."
+        )
     token = session.cookies.get("csrf_cookie_name")
     if not token:
         raise RuntimeError("CSRF cookie not found!")
@@ -137,6 +177,7 @@ def fetch_minerba_html(session, url, csrf, start, end):
         url,
         data=data,
         headers={"Content-Type": "application/x-www-form-urlencoded", "Referer": url},
+        timeout=REQUEST_TIMEOUT,
     )
     resp.raise_for_status()
     return resp.text
@@ -149,17 +190,56 @@ def parse_minerba_table(html):
     return df
 
 
+def parse_minerba_unit(raw: str):
+    """Maps a Minerba label unit such as "USD/ton" to (currency, price_unit).
+    Returns None for a unit we don't know, so it is never stored unchecked."""
+    norm = raw.lower().replace(" ", "").replace("us$", "usd")
+    if "/" not in norm:
+        return None
+    cur, per = norm.split("/", 1)
+    currency = CURRENCY_MAP.get(cur)
+    price_unit = PRICE_UNIT_MAP.get(per)
+    if not currency or not price_unit:
+        return None
+    return currency, price_unit
+
+
+def upsert_prices(conn, rows):
+    """rows: (name, date, price, currency, price_unit, source).
+    Writes the price to both `price` and the deprecated `price_usd_per_ton`."""
+    conn.executemany(
+        """
+        INSERT INTO commodity_price
+            (name, date, price_usd_per_ton, price, currency, price_unit, source)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(name, date) DO UPDATE
+          SET price_usd_per_ton = excluded.price_usd_per_ton,
+              price = excluded.price,
+              currency = excluded.currency,
+              price_unit = excluded.price_unit,
+              source = excluded.source
+        """,
+        [(n, d, p, p, c, u, s) for n, d, p, c, u, s in rows],
+    )
+
+
 def upsert_minerba_data(conn, df):
-    """Upserts Minerba commodity data into the local database (commodity_price)."""
-    c = conn.cursor()
+    """Upserts Minerba commodity data into the local database (commodity_price).
+    Returns the labels whose unit wasn't recognised (those rows are skipped)."""
     count = 0
+    unknown = []
     for _, row in df.iterrows():
         full = row["Komoditas"]
         m = re.match(r"^(.*?)\s*\(([^)]+)\)$", full)
         if not m:
             continue
-        name, unit = m.groups()
+        name, raw_unit = m.groups()
         english_name = COMMODITY_NAME_MAP.get(name.strip(), name.strip())
+        parsed = parse_minerba_unit(raw_unit)
+        if parsed is None:
+            unknown.append(full)
+            continue
+        currency, price_unit = parsed
 
         # Collect rows to insert
         rows_to_insert = []
@@ -169,95 +249,86 @@ def upsert_minerba_data(conn, df):
                 continue
             dt = parse_header_to_date(str(hdr))
             # Insert each price point as a row
-            rows_to_insert.append((english_name, dt.isoformat(), str(val)))
+            rows_to_insert.append(
+                (english_name, dt.isoformat(), float(val), currency, price_unit, "Minerba")
+            )
 
         if not rows_to_insert:
             continue
 
-        c.executemany(
-            """
-            INSERT INTO commodity_price (name, date, price)
-            VALUES (?, ?, ?)
-            ON CONFLICT(name, date) DO UPDATE
-              SET price = excluded.price
-            """,
-            rows_to_insert,
-        )
+        upsert_prices(conn, rows_to_insert)
         count += len(rows_to_insert)
 
     conn.commit()
     print(f"Upserted {count} rows of Minerba data into commodity_price.")
+    if unknown:
+        print(f"[!] Skipped labels with an unknown unit: {unknown}")
+    return unknown
 
 
-# ─── LBMA SCRAPING FUNCTIONS ────────────────────────────────────────────────────
+# ─── WORLD BANK (GOLD, SILVER) FUNCTIONS ────────────────────────────────────────
 
 
-def fetch_lbma_price_data(url: str) -> pd.DataFrame:
-    """Fetches daily price JSON from LBMA and returns a DataFrame."""
-    response = requests.get(url)
-    response.raise_for_status()
-    data = response.json()
-
-    df = pd.json_normalize(data)
-    df["high"] = df["v"].apply(lambda x: x[0])
-    df.drop(columns=["v", "is_cms_locked"], inplace=True)
-    df["date"] = pd.to_datetime(df["d"], format="%Y-%m-%d")
-    df.drop(columns=["d"], inplace=True)
-    df = df[df["high"] > 0]
-
-    return df
+def find_world_bank_file_url() -> str:
+    """Finds the current monthly Pink Sheet .xlsx link on the World Bank page."""
+    resp = requests.get(WORLD_BANK_PAGE_URL, timeout=REQUEST_TIMEOUT)
+    resp.raise_for_status()
+    m = WORLD_BANK_FILE_RE.search(resp.text)
+    if not m:
+        raise RuntimeError(f"No monthly Pink Sheet link found on {WORLD_BANK_PAGE_URL}")
+    return m.group(0)
 
 
-def compute_lbma_monthly_avg(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Computes the Average (Mean) daily high for each month
-    and sets the date to the 1st of the month to match Minerba format.
-    """
-    # 1. Convert the exact date to the 'First of the Month'
-    #    e.g., 2024-01-23 becomes 2024-01-01
-    df["month_start"] = df["date"].values.astype("datetime64[M]")
+def parse_world_bank_monthly(content: bytes) -> pd.DataFrame:
+    """Reads the Pink Sheet's "Monthly Prices" sheet into (name, date, price)
+    rows for WORLD_BANK_SERIES. Each price is that month's average, dated the
+    1st of the month like the Minerba rows. Months are labelled "2026M10"."""
+    raw = pd.read_excel(BytesIO(content), sheet_name="Monthly Prices", header=None)
+    cells = raw.astype(str).apply(lambda col: col.str.strip())
 
-    # 2. Group by this new monthly date and calculate the Mean (Average)
-    #    (If you strictly want the 'Max' price, change .mean() to .max())
-    monthly = df.groupby("month_start")["high"].mean().reset_index()
-
-    # 3. Rename columns for consistency
-    monthly.rename(
-        columns={"month_start": "date", "high": "monthly_price"}, inplace=True
+    header = next(
+        (i for i in range(min(10, len(cells))) if (cells.iloc[i] == "Gold").any()),
+        None,
     )
+    if header is None:
+        raise RuntimeError("Pink Sheet layout changed: no 'Gold' column header")
 
-    return monthly
+    months = cells[0].str.extract(r"^(\d{4})M(\d{2})$")
+    is_month = months[0].notna()
+    dates = pd.to_datetime(months[0][is_month] + "-" + months[1][is_month] + "-01")
+
+    frames = []
+    for col, name in WORLD_BANK_SERIES.items():
+        matches = cells.columns[cells.iloc[header] == col]
+        if len(matches) != 1:
+            raise RuntimeError(f"Pink Sheet has {len(matches)} '{col}' columns, expected 1")
+        j = matches[0]
+        unit = cells.iat[header + 1, j]
+        if unit != WORLD_BANK_UNIT_LABEL:
+            raise RuntimeError(
+                f"Pink Sheet quotes {col} in {unit!r}, expected {WORLD_BANK_UNIT_LABEL!r}"
+            )
+        prices = pd.to_numeric(raw.loc[is_month, j], errors="coerce")
+        frames.append(pd.DataFrame({"name": name, "date": dates, "price": prices}))
+
+    return pd.concat(frames, ignore_index=True).dropna(subset=["price"])
 
 
-def upsert_lbma_data(conn, data: dict):
-    cur = conn.cursor()
-    total_rows = 0
-    for name, df in data.items():
-        rows_to_insert = []
-        for _, row in df.iterrows():
-            # Date is already the 1st of the month from the compute function
-            date_str = row["date"].strftime("%Y-%m-%d")
-
-            # Rounding to 2 decimal places looks cleaner for averages
-            price_str = "{:.2f}".format(row["monthly_price"])
-
-            rows_to_insert.append((name, date_str, price_str))
-
-        if not rows_to_insert:
-            continue
-
-        cur.executemany(
-            """
-            INSERT INTO commodity_price (name, date, price_usd_per_ton)
-            VALUES (?, ?, ?)
-            ON CONFLICT(name, date) DO UPDATE SET price_usd_per_ton=excluded.price_usd_per_ton
-            """,
-            rows_to_insert,
+def upsert_world_bank_data(conn, df: pd.DataFrame):
+    rows = [
+        (
+            name,
+            dt.strftime("%Y-%m-%d"),
+            round(float(price), 2),
+            WORLD_BANK_CURRENCY,
+            WORLD_BANK_PRICE_UNIT,
+            WORLD_BANK_SOURCE,
         )
-        total_rows += len(rows_to_insert)
-
+        for name, dt, price in zip(df["name"], df["date"], df["price"])
+    ]
+    upsert_prices(conn, rows)
     conn.commit()
-    print(f"Upserted {total_rows} rows of LBMA data into commodity_price.")
+    print(f"Upserted {len(rows)} rows of World Bank data into commodity_price.")
 
 
 # ─── MAIN EXECUTION ─────────────────────────────────────────────────────────────
@@ -274,50 +345,97 @@ def run_minerba_scraper(conn):
         html = fetch_minerba_html(sess, HOME_URL, csrf, START_RANGE, END_RANGE)
         df = parse_minerba_table(html)
         print(f"Fetched Minerba data: {df.shape[0]} rows")
-        upsert_minerba_data(conn, df)
+        if upsert_minerba_data(conn, df):
+            return False  # some labels had an unknown unit; see above
     except requests.RequestException as e:
         print(f"Error during Minerba scraping: {e}")
+        return False
     except Exception as e:
         print(f"An unexpected error occurred during Minerba processing: {e}")
+        return False
     print("--- Minerba Scraper Finished ---")
+    return True
 
 
-def run_lbma_scraper(conn):
-    """Main function to scrape and store LBMA data."""
-    print("\n--- Starting LBMA Scraper ---")
-    all_data = {}
-    for name, url in LBMA_URLS.items():
-        english_name = COMMODITY_NAME_MAP.get(name, name)
-        try:
-            print(f"Fetching LBMA data for {name}...")
-            df = fetch_lbma_price_data(url)
+def run_world_bank_scraper(conn):
+    """Main function to scrape and store World Bank gold and silver prices."""
+    print("\n--- Starting World Bank Scraper (Gold, Silver) ---")
+    try:
+        url = find_world_bank_file_url()
+        print(f"Fetching {url}")
+        resp = requests.get(url, timeout=REQUEST_TIMEOUT)
+        resp.raise_for_status()
+        df = parse_world_bank_monthly(resp.content)
+        print(f"Fetched World Bank data: {len(df)} rows, up to {df['date'].max():%Y-%m}")
+        upsert_world_bank_data(conn, df)
+    except requests.RequestException as e:
+        print(f"Error fetching World Bank data: {e}")
+        return False
+    except Exception as e:
+        print(f"An unexpected error occurred during World Bank processing: {e}")
+        return False
+    print("--- World Bank Scraper Finished ---")
+    return True
 
-            # --- CHANGED HERE: Use the new Average/First-of-Month logic ---
-            monthly_data = compute_lbma_monthly_avg(df)
 
-            all_data[english_name] = monthly_data
-            print(f"Successfully processed monthly data for {name}.")
-        except requests.RequestException as e:
-            print(f"Error fetching LBMA data for {name}: {e}")
-        except Exception as e:
-            print(
-                f"An unexpected error occurred during LBMA processing for {name}: {e}"
-            )
+def backfill_missing_units(conn):
+    """Rows older than the scrape window are never re-scraped. Give them the
+    currency and unit of the same commodity's newest row, since each series
+    is quoted in one unit."""
+    newest = """
+        SELECT p.{col} FROM commodity_price p
+        WHERE p.name = commodity_price.name AND p.price_unit IS NOT NULL
+        ORDER BY p.date DESC LIMIT 1
+    """
+    cur = conn.execute(
+        f"""
+        UPDATE commodity_price
+        SET price_unit = ({newest.format(col="price_unit")}),
+            currency   = ({newest.format(col="currency")})
+        WHERE price_unit IS NULL
+          AND EXISTS (
+            SELECT 1 FROM commodity_price p
+            WHERE p.name = commodity_price.name AND p.price_unit IS NOT NULL
+          )
+        """
+    )
+    conn.execute(
+        "UPDATE commodity_price SET price = price_usd_per_ton WHERE price IS NULL"
+    )
+    print(f"Backfilled price_unit on {cur.rowcount} rows.")
 
-    if all_data:
-        upsert_lbma_data(conn, all_data)
-    print("--- LBMA Scraper Finished ---")
+    # Placeholder for series whose real unit was never scraped (e.g. Minerba
+    # unreachable). The next successful scrape overwrites it with the real unit.
+    missing = conn.execute(
+        "SELECT DISTINCT name FROM commodity_price WHERE price_unit IS NULL"
+    ).fetchall()
+    if missing:
+        conn.execute(
+            "UPDATE commodity_price SET price_unit = ?, currency = COALESCE(currency, 'USD') "
+            "WHERE price_unit IS NULL",
+            (FALLBACK_PRICE_UNIT,),
+        )
+        print(
+            f"[!] No scraped unit for {', '.join(n for (n,) in missing)}; "
+            f"set placeholder price_unit '{FALLBACK_PRICE_UNIT}'."
+        )
+    conn.commit()
 
 
 def sync_commodity_price():
     db_conn = get_db_conn(DB_PATH)
 
-    run_minerba_scraper(db_conn)
-    run_lbma_scraper(db_conn)
+    minerba_ok = run_minerba_scraper(db_conn)
+    world_bank_ok = run_world_bank_scraper(db_conn)
+    backfill_missing_units(db_conn)
 
     db_conn.close()
 
     print(f"\nProcess complete. Local database updated: {DB_PATH}")
+
+    # Fail the job instead of silently keeping stale prices.
+    if not (minerba_ok and world_bank_ok):
+        raise RuntimeError("Commodity price scrape failed; see errors above.")
 
 if __name__ == "__main__":
     sync_commodity_price()

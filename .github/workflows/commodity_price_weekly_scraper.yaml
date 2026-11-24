@@ -21,13 +21,21 @@ jobs:
           enable-cache: true
 
       - name: Execute synchronizer.py
+        id: scrape
         run: |
           uv run synchronizer.py sync commodity_price
 
+      # The steps below run even when the scrape failed (e.g. Minerba is down),
+      # so whatever the working sources fetched still gets committed. The job
+      # still ends red, because the scrape step failed.
       - name: Pull remote changes
+        id: pull
+        if: ${{ !cancelled() && steps.scrape.outcome != 'skipped' }}
         run: git pull origin main
 
       - name: Commit updated database
+        id: commit
+        if: ${{ !cancelled() && steps.pull.outcome == 'success' }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -36,6 +44,7 @@ jobs:
             || git commit -m "chore: weekly commodity price update of db.sqlite" --allow-empty
 
       - name: Push changes
+        if: ${{ !cancelled() && steps.commit.outcome == 'success' }}
         uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

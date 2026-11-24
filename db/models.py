@@ -238,8 +238,13 @@ class TotalCommoditiesProduction(Model):
 
 class CommodityPrice(Model):
     name = TextField()
+    # Deprecated: misnamed, kept for compatibility. Same value as `price`.
     price_usd_per_ton = FloatField()
     date = DateField()
+    price = FloatField(null=True)
+    currency = TextField(null=True)    # e.g. "USD"
+    price_unit = TextField(null=True)  # what one price is per: t, dmt, dmtu, troy_oz
+    source = TextField(null=True)      # "Minerba" or "World Bank" (formerly "LBMA")
 
     class Meta:
         database = db

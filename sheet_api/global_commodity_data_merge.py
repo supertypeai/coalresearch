@@ -364,7 +364,7 @@ def main():
     
     units = {
         "Coal": "Mt",
-        "Nickel": "Mt",
+        "Nickel": "kt",
         "Copper": "kt",
         "Bauxite": "Mt",
         "Gold": "t"
