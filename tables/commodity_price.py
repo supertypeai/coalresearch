@@ -94,7 +94,7 @@ COMMODITY_NAME_MAP = {
     "Kobalt": "Cobalt",
     "Timbal": "Lead",
     "Seng": "Zinc",
-    "Aluminium": "Aluminum",
+    "Aluminium": "Aluminium",  # same spelling as company and mining_site data
     "Tembaga": "Copper",
     "Emas sebagai mineral ikutan": "Gold as a co-product",
     "Perak sebagai mineral ikutan": "Silver as a co-product",
